@@ -11,6 +11,21 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Scrub Einstein/demo content; rebuild placeholders from CV
+
+#### Removed
+- Einstein/al-folio demo content: `assets/json/resume.json`, `assets/html/relativity.html`, `assets/plotly/demo.html`, `_data/citations.yml` (4,180-line Einstein Scholar dump), and the two demo course pages in `_teachings/` ("Prof. Example"). Cleared demo data from `_data/coauthors.yml`, `_data/venues.yml`, `_data/repositories.yml`.
+- `_config.yml`: removed the JSON-resume pipeline (`jekyll_get_json` + `jsonresume`), now that the CV renders from `_data/cv.yml` (RenderCV).
+
+#### Changed
+- Research projects (`_projects/`) rewritten from Madison's real publications, with corrected categories (the miniaturization/dissertation work was wrongly marked "past"): problem-solving/insight in spiders (current), miniaturization and cognition (current), avian early-life physiology (past).
+- `_pages/teaching.md`: real courses, mentoring record, and a draft teaching philosophy.
+- `_pages/outreach.md`: real outreach/service activities.
+- `_pages/gallery.md`: cleaner "coming soon" placeholder.
+
+#### Notes
+- Interpretive prose (research narratives, teaching philosophy) is marked DRAFT in-file for Madison to confirm; factual lists are from her CV. Still placeholder: bio, social links (ORCID/Scholar), gallery photos.
+
 ### 2026-06-22 - CV upgraded to native structured page
 
 #### Changed

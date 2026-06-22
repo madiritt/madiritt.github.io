@@ -1,9 +1,6 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
-
-"PhysRev":
-  url: https://journals.aps.org/
-
-"Vision":
-  color: "#009f36"
+# Journal/venue styling for the publications page (optional).
+# Add an entry to color or link a venue abbreviation used in papers.bib:
+#   "AbbrevUsedInBib":
+#     url: https://journal-homepage.example
+#     color: "#1e2a18"
+# Left empty intentionally; the demo data was removed.

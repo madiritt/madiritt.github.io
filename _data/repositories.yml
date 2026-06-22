@@ -1,14 +1,8 @@
+# GitHub users/repos for an optional repositories page (not in the current nav).
+# Demo entries removed. Add repos here only if a repositories page is added later.
 github_users:
-  - torvalds
-  - alshedivat
+  - madiritt
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons

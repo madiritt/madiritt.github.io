@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Widen sitewide content column
+
+#### Changed
+- `_config.yml`: `max_width` 930px -> 1200px. Feedback from Madison: content sat in a narrow center column with large empty margins on wider screens. The whole site reads this single value (`assets/css/main.scss` line 17 -> `$max-content-width`), so every page widens uniformly. Easy to tune later.
+
 ### 2026-06-22 - Scrub Einstein/demo content; rebuild placeholders from CV
 
 #### Removed

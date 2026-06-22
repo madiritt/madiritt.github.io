@@ -91,7 +91,9 @@ posts_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 930px
+# Sitewide content column width. al-folio default is 930px; widened so content
+# uses more horizontal space on larger screens (was creating large empty margins).
+max_width: 1200px
 
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org

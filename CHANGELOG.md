@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Remove leftover demo PDF
+
+#### Removed
+- `assets/pdf/example_pdf.pdf`: al-folio demo file, unreferenced anywhere. The real CV PDF (`Rittinger_2026_CV.pdf`) was already present and wired in `_pages/cv.md`; confirmed Madison's Downloads copy is byte-identical, so no PDF update needed.
+
 ### 2026-06-22 - Add Google Scholar and ResearchGate social links
 
 #### Added

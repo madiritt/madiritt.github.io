@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - CV upgraded to native structured page
+
+#### Changed
+- `/cv/` is now a fully structured, on-theme CV instead of an embedded PDF. Replaced the demo `_data/cv.yml` (Albert Einstein) with Madison's complete CV in RenderCV format: Education, Peer-Reviewed Publications, Manuscripts in Review, Manuscripts in Preparation, Research Experience, Presentations, Teaching Experience, Professional Development, Mentorship, Grants and Fellowships, Awards and Honors, Service.
+- `_pages/cv.md`: back to `layout: cv` with `cv_format: rendercv`; keeps the PDF download icon (`cv_pdf`). Dropped the iframe embed.
+- `_sass/_mossy.scss`: styled the CV cards and retinted the date badges (default red "danger" color) to citrine.
+
+#### Notes
+- Transcribed from `assets/pdf/Rittinger_2026_CV.pdf`; phone number intentionally omitted from the web version (still in the downloadable PDF), email kept. No em-dashes (verified on the rendered page).
+- Demo `assets/json/resume.json` (Einstein, jsonresume) is now doubly unused; safe to delete later.
+
 ### 2026-06-22 - First real content: publications + CV
 
 #### Added

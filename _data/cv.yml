@@ -1,189 +1,118 @@
+# Madison Rittinger - structured CV (RenderCV format for al-folio).
+# Rendered natively at /cv/ (see _pages/cv.md, cv_format: rendercv), with the
+# PDF available for download. Source of truth: assets/pdf/Rittinger_2026_CV.pdf.
+# Update this file (and the PDF) to keep the CV current. No em-dashes (project rule).
 cv:
-  name: Albert Einstein
-  label: Scientist
-  email: einstein@example.com
-  location: Princeton, NJ
-  image: ""
-  summary: A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time
-
-  social_networks:
-    - network: X
-      username: AlbertEinstein
-    - network: GitHub
-      username: example
-    - network: LinkedIn
-      username: example
-
-  address:
-    street: 2712 Broadway St
-    city: San Francisco
-    region: California
-    postalCode: CA 94115
-    countryCode: US
+  name: Madison Rittinger
+  label: "Ph.D. Candidate, Arthropod Behavior Lab, Department of Biological Sciences, University of Wisconsin-Milwaukee"
+  email: ritting2@uwm.edu
+  summary: "Behavioral ecologist and Ph.D. candidate studying the behavioral and cognitive processes of animals, with a focus on decision-making and problem-solving in spiders. Experienced in experimental design, quantitative analysis in R, microCT imaging, and undergraduate teaching and mentorship."
 
   sections:
     Education:
-      - institution: University of Zurich
-        location: Zurich, Switzerland
-        url: https://www.uzh.ch/
-        area: Physics
-        studyType: PhD
-        start_date: 1900
-        end_date: 1905
-        score: ""
-        courses: "Theory of Relativity"
+      - studyType: "Ph.D., Biology"
+        institution: "University of Wisconsin-Milwaukee"
+        start_date: "2021"
+        location: "Milwaukee, WI"
         highlights:
-          - Description 1.
-          - Description 2.
-
-      - institution: Eidgenössische Technische Hochschule
-        location: Zurich, Switzerland
-        area: Physics
-        studyType: Federal teaching diploma
-        start_date: 1896
-        end_date: 1900
+          - "Dissertation: *The effects of miniaturization on the behavioral and cognitive processes of spiders.*"
+          - "Adviser: Dr. Rafael Rodríguez-Sevilla"
+      - studyType: "M.S., Biology"
+        institution: "Illinois State University"
+        start_date: "2018"
+        end_date: "2021"
+        location: "Normal, IL"
         highlights:
-          - Description 1.
-          - Description 2.
-
-    Experience:
-      - company: Institute for Advanced Study, Princeton University
-        position: Professor of Theoretical Physics
-        location: Princeton University, NJ
-        start_date: 1933
-        end_date: 1955
-        summary: Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.
+          - "Thesis: *Sex-specific effects of hatching order on nestling baseline corticosterone in a wild songbird.*"
+          - "Advisers: Dr. Charles F. Thompson and Dr. Scott K. Sakaluk"
+      - studyType: "B.S., Biopsychology"
+        institution: "Ohio Dominican University"
+        start_date: "2013"
+        end_date: "2017"
+        location: "Columbus, OH"
         highlights:
-          - Relativity
-          - Description 2.
+          - "Summa cum laude, with honors"
+          - "Honors thesis: *The effects of domestication on aggression in fish.* Adviser: Dr. Blake Mathys"
 
-      - company: California Institute of Technology
-        position: Visiting Professor
-        location: Pasadena, California, US
-        start_date: 1933
-        end_date: 1933
-        highlights:
-          - Description 1.
-          - Description 2.
+    "Peer-Reviewed Publications":
+      - bullet: "Feagles, O.S., A.A. Sweet, K.D. Stratman, **Rittinger, M.A.**, A.M.E. Mish, L. Nicol, and G. Höbel (2026). Where did she go? Changes in social context alter calling strategies of Eastern Gray Treefrogs. *Behavioral Ecology and Sociobiology*, 80, 1-12."
+      - bullet: "**Rittinger, M.A.** and R.L. Rodríguez (2025). Parsing insight from instinct: a variation-based framework to test hypotheses about how animals solve problems. *Biology Letters*, 21, 1-7."
+      - bullet: "**Rittinger, M.A.**, I. Escalante, and R.L. Rodríguez (2024). Heuristic test reveals little effect of learning and maturation on early prey capture experiences in a web-building spider. *Scientific Reports*, 14, 1-8."
+      - bullet: "**Rittinger, M.A.**, R.M. Bowden, L.A. Sauers, R.T. Paitz, C.J. Poppe, C.F. Thompson, and S.K. Sakaluk (2022). Sex-specific effects of hatching order on nestling baseline corticosterone in a wild songbird. *General and Comparative Endocrinology*, 319, 1-9."
 
-      - company: Kaiser Wilhelm Institute for Physics
-        position: Director
-        location: Berlin, Germany
-        start_date: 1917
-        end_date: 1933
+    "Manuscripts in Review":
+      - bullet: "**Rittinger, M.A.**, A. Mueller, and R.L. Rodríguez (in review). Insightful spiders? Spiders solve a prey capture problem differently across repeated trials. *Behavioral Ecology and Sociobiology*."
 
-      - company: Karl-Ferdinand University
-        position: Professor of Theoretical Physics
-        location: Prague, Czechoslovakia
-        start_date: 1911
-        end_date: 1917
+    "Manuscripts in Preparation":
+      - bullet: "Sakaluk, S., R.A. DiSciullo, P.A. Duncan, C.J. Poppe, **Rittinger, M.A.**, E.K. Bowers, C.F. Thompson, and R.M. Bowden (in prep). Sex-specific transgenerational effects of experimentally increased maternal corticosterone on stress reactivity of nestling house wrens."
+      - bullet: "**Rittinger, M.A.**, M. Dasek, L. Goodrum, A. Mish, and R.L. Rodríguez (in prep). The role of memory in web navigation of *Frontinella communis* (Araneae: Linyphiidae)."
+      - bullet: "**Rittinger, M.A.**, R. Khandge, S.A. DeLong, E. Wheeler, H.A. Owen, and R.L. Rodríguez (in prep). The association between prey capture efficiency and relative brain size in *Pholcus phalangioides* spiders (Araneae: Pholcidae)."
 
-      - company: University of Zurich
-        position: Associate Professor of Theoretical Physics
-        location: Zurich, Switzerland
-        start_date: 1909
-        end_date: 1911
+    "Research Experience":
+      - bullet: "**Research Assistant**, Arthropod Behavior Lab, University of Wisconsin-Milwaukee (2021-Present). Designed and executed behavioral experiments with spiders; analyzed data in R; processed images in ImageJ; operated a microCT scanner and performed 3D image analysis in Dragonfly; aided in the husbandry of treehoppers and their host plant."
+      - bullet: "**Research Assistant**, Wren Lab, Illinois State University (2018-2021). Executed field and lab experiments; banded and captured birds; collected blood samples and morphometric measures. Gained experience in DNA extraction, PCR, and statistical analysis in SAS."
+      - bullet: "**Research Volunteer**, Southwestern Research Station (Summer 2017). Assisted researchers in handling and collecting live animals including kangaroo rats, lizards, hummingbirds, and tiger moths."
 
-    Volunteer:
-      - company: People's Climate March
-        position: Lead Organizer
-        location: Zurich, Switzerland
-        start_date: 2014-04-01
-        end_date: 2015-07-01
-        summary: Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.
-        highlights:
-          - "Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march."
-          - "Men of the year 2014 by Time magazine"
+    Presentations:
+      - bullet: "Talks marked *(Award)* received a presentation award; see Awards and Honors."
+      - bullet: "**2026** (oral): Rittinger, M.A. and R.L. Rodríguez. “The ontogeny of predatory behaviors in a web-building spider.” Graduate Organization for the Biological Sciences Research Symposium, UWM. *(Award)*"
+      - bullet: "**2025** (oral): Rittinger, M.A. and R.L. Rodríguez. “The association between prey capture efficiency and relative brain size in *Pholcus phalangioides* (Araneae: Pholcidae).” Riveredge Nature Center Student Research Symposium."
+      - bullet: "**2025** (oral): Rittinger, M.A., A. Mueller, and R.L. Rodríguez. “Insightful spiders? Spiders solve a prey capture problem differently across repeated trials.” Animal Behavior Society Conference."
+      - bullet: "**2024** (oral): Rittinger, M.A. and R.L. Rodríguez. “How *Pholcus phalangioides* cellar spiders solve prey capture problems.” Graduate Organization for the Biological Sciences Research Symposium, UWM. *(Award)*"
+      - bullet: "**2023** (oral): Rittinger, M.A. and R.L. Rodríguez. “How *Pholcus phalangioides* cellar spiders solve prey capture problems.” Society for Integrative and Comparative Biology; Riveredge Nature Center Student Research Symposium. *(Award)*"
+      - bullet: "**2021** (oral): Rittinger, M.A., C.F. Thompson, and S.K. Sakaluk. “Sex-specific effects of hatching order on nestling baseline corticosterone in house wrens.” Animal Behavior Conference of Indiana University; Phi-Sigma Beta Lambda Chapter Research Symposium."
+      - bullet: "**2020** (oral): Rittinger, M.A., C.F. Thompson, and S.K. Sakaluk. “Sex-specific effects of hatching order on nestling baseline corticosterone in house wrens.” Animal Behavior Society Conference (virtual)."
+      - bullet: "**2019** (poster): Rittinger, M.A., C.F. Thompson, and S.K. Sakaluk. “Sex-specific effects of hatching order on nestling baseline corticosterone in house wrens.” Illinois State University Symposium; Phi-Sigma Beta Lambda Chapter Research Symposium; Animal Behavior Conference of Indiana University."
 
-    Awards:
-      - title: Nobel Prize in Physics
-        authors:
-          - "Royal Swedish Academy of Sciences"
-        date: 1921-11-01
-        awarder: Royal Swedish Academy of Sciences
-        url: https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/
-        summary: The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'
+    "Teaching Experience":
+      - bullet: "Courses marked *(instructor of record)* were taught as the lead instructor."
+      - bullet: "**Animal Behavior** *(instructor of record)*. Department of Natural Sciences, Milwaukee Institute of Art and Design (MIAD), Summer 2026. Builds a solid understanding of animal behavior and applies those principles in an independent research project."
+      - bullet: "**Patterns in Nature** *(instructor of record)*. Department of Natural Sciences, MIAD, Fall 2025-Present. Hands-on experience with the scientific method, problem solving, and critical thinking."
+      - bullet: "**General Ecology Lab**. Department of Biological Sciences, UWM, Spring 2022-Present. Teaching assistant and head TA (Fall 2023-Present); co-authored new lab exercises on human survivorship and stream ecology."
+      - bullet: "**Guest Lecturer**. Department of Biological Sciences, UWM. Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023). Topics: ecological succession, evolution, and the role of hormones in behavior."
+      - bullet: "**Human Anatomy and Physiology Lab**. Department of Biological Sciences, UWM, Fall 2021. Created original lab materials and practicals."
+      - bullet: "**Invertebrate Zoology Lab**. School of Biological Sciences, ISU, Spring 2020 and 2021. Head TA; instructed students on invertebrate diversity using preserved specimens."
+      - bullet: "**General Ecology Lab**. School of Biological Sciences, ISU, Spring and Fall 2019."
+      - bullet: "**Biostatistics Lab**. School of Biological Sciences, ISU, Fall 2020. Head TA; helped graduate students troubleshoot statistical analysis in SAS."
+      - bullet: "**Introduction to Biology Lab**. School of Biological Sciences, ISU, Fall 2018. General principles of biology for non-majors."
+      - bullet: "**Statistics Tutor**. Ohio Dominican University, 2014. Wrote a TI-84 manual and tutored students in statistics, algebra, and geometry."
 
-      - title: Max Planck Medal
-        authors:
-          - "German Physical Society"
-        date: 2029
-        awarder: German Physical Society
-        summary: Awarded for outstanding scientific achievement
+    "Professional Development":
+      - bullet: "**Teaching Fellow Award**, Center for Excellence in Teaching and Learning (CETL), UWM, 2024. Designed and delivered a workshop on learner-centered teaching at the university's New TA Orientation."
+      - bullet: "**Certificate in Course Design**, CETL, UWM, 2023-2024. Semester-long course on active-learning course design; created a new Ecology curriculum with lab exercises."
+      - bullet: "**Seminar on Teaching Undergraduates**, UWM, 2022. Presented on ungrading; produced a course syllabus and teaching philosophy statement."
+      - bullet: "**Certificate in Online and Blended Teaching**, CETL, UWM, 2022."
+      - bullet: "**Active Learning Workshop**, CETL, UWM, 2022."
+      - bullet: "**Future Professors Circle**, ISU, 2020."
 
-    Publications:
-      - title: Zur Elektrodynamik bewegter Körper
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-06-30
-        url: https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies
-        summary: It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source.
+    Mentorship:
+      - bullet: "**Undergraduate Research Mentor**, Arthropod Behavior Lab, UWM, 2021-Present. Mentored eight undergraduate researchers in animal husbandry, experimental design, and data collection; further mentored two in data analysis and science communication."
+      - bullet: "**Undergraduate Research Award**, Arthropod Behavior Lab, UWM, 2025. Mentored researcher won Best Oral Presentation for “Role of Memory in Web Navigation and Prey Capture in *Frontinella communis* (Araneae: Linyphiidae)” at the Milwaukee Area Undergraduate Research Conference (MUBRC)."
+      - bullet: "**High School Research Mentor**, Mentor Matching Engine (virtual), 2019-Present. Mentored ten students across seven independent research projects through the full scientific process."
+      - bullet: "**Undergraduate Research Mentor**, Wren Lab, ISU, 2019-2021. Mentored twelve undergraduate researchers in the care and handling of wild animals and bird-banding protocols."
 
-      - title: Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-03-18
-        url: https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt
-        summary: In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921.
+    "Grants and Fellowships":
+      - bullet: "**2026**: Animal Behavior Society Graduate Student Travel Award ($700); UWM Distinguished Dissertator Fellowship ($15,500)."
+      - bullet: "**2025**: Animal Behavior Society Graduate Student Travel Award ($550); UWM James and Dorothea Levenson Fellowship ($5,000); UWM Distinguished Graduate Student Fellowship ($15,500)."
+      - bullet: "**2024**: UWM Diane M. Cutaia Teaching Assistant Fellowship ($15,000); UWM Graduate Student Excellence Fellowship ($2,500)."
+      - bullet: "**2023**: American Arachnological Society Research Grant ($1,000)."
+      - bullet: "**2020**: ISU Robert D. Weigel Fund ($966.81); American Ornithological Society Hesse Award ($1,240.06); Animal Behavior Society Student Research Grant ($1,240.05); Society for Integrative and Comparative Biology Grant-in-Aid of Research ($897)."
+      - bullet: "**2019**: Sigma Xi Grant-in-Aid of Research ($925); ISU Robert D. Weigel Fund ($200); ISU Rilett Travel Scholarship ($80)."
 
-      - title: Die Grundlage der allgemeinen Relativitätstheorie
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1916-03-20
-        url: https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativitätstheorie
-        summary: The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914).
+    "Awards and Honors":
+      - bullet: "**Best Oral Presentation**. Graduate Organization for the Biological Sciences Research Symposium, UWM (2024, 2026); Riveredge Nature Center Student Research Symposium (2023)."
+      - bullet: "**Graduate Student Mentorship Award**, UWM, 2025. Recognizes outstanding mentorship of undergraduate researchers; nominated by mentees."
+      - bullet: "**Teaching Fellow Award**, UWM, 2024. For exceptional teaching assistants university-wide."
+      - bullet: "**Ruth I. Walker Memorial Award**, Department of Biological Sciences, UWM, 2022-2026. For academic and scholarly achievement in the biological sciences."
+      - bullet: "**Outstanding M.S. Student Award**, ISU, 2021. Based on coursework, scholarship, and service to the department."
+      - bullet: "**Robert H. Gray Biology/Ecology Scholarship**, ISU, 2020."
+      - bullet: "**Scholar Athlete Award**, ODU, 2013-2017."
+      - bullet: "**Dean's List**, ODU, 2013-2017."
 
-    Skills:
-      - name: Physics
-        level: Master
-        icon: fa-solid fa-hashtag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
-
-    Languages:
-      - name: German
-        summary: "Native speaker"
-
-      - name: English
-        summary: "Fluent"
-
-    Interests:
-      - name: Physics
-        icon: fa-solid fa-tag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
-
-    Certificates:
-      - name: Machine Learning
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-location-dot
-
-      - name: Quantum Computing
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-tag
-
-      - name: Quantum Information
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-envelope
-
-    Projects:
-      - name: Quantum Computing
-        summary: Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.
-        highlights:
-          - Quantum Teleportation
-          - Quantum Cryptography
-        start_date: 2018-01-01
-        end_date: 2018-01-01
-
-    References:
-      - name: Professor John Doe
-        icon: fa-solid fa-laptop
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
-
-      - name: Professor Jane Smith
-        icon: fa-solid fa-thumbtack
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+    Service:
+      - bullet: "**Curatorial Assistant**, Department of Biological Sciences, UWM, Fall 2025-Present. Cataloged and cleaned avian mounts and skins."
+      - bullet: "**Journal Club Organizer**, Department of Biological Sciences, UWM, Fall 2024-Present. Scheduled, organized, and moderated the Ecology, Evolution, and Behavior journal club."
+      - bullet: "**Mentor Matching Engine** (virtual), 2019-Present. Mentored eight independent high-school research projects; participated in a workshop on mentoring practices."
+      - bullet: "**Science Outreach**. Science expert at Darwin Day, Science Bag events, the ROSE (Resources and Opportunities in Science Education) project, and the Millennium Girls Event."
+      - bullet: "**Assistant Junior Varsity Basketball Coach**, Shorewood and Nicolet Union High Schools, Milwaukee, WI, 2021-2025."
+      - bullet: "**Secretary**, GOBS (UWM), SACNAS (ISU), and Phi-Sigma (ISU), 2019-2024. Recorded minutes, helped organize annual research symposia, and coordinated networking events for graduate students."

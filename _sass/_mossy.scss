@@ -294,18 +294,50 @@ table.table td.date,
 }
 
 /*******************************************************************************
- * CV page (PDF embed + download)
+ * CV page (native structured CV, rendercv)
  ******************************************************************************/
-.cv-pdf__download {
-  display: inline-block;
-  margin-bottom: 1.25rem;
+// The PDF-download icon in the page title
+.cv .post-title a,
+.post-title .fa-file-pdf {
+  color: var(--global-theme-color);
+  font-size: 1.4rem;
 }
-.cv-pdf__embed {
-  display: block;
-  width: 100%;
-  height: 85vh;
-  min-height: 600px;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 6px;
+
+// Section cards
+.cv .card {
   background: var(--global-card-bg-color);
+}
+.cv .card-title {
+  color: var(--global-text-color);
+  border-bottom: 1px solid var(--global-divider-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+// Date badges default to a red "danger" color; retint to citrine.
+.cv .badge,
+.cv .badge.danger-color-dark {
+  background: var(--global-theme-color) !important;
+  color: var(--global-hover-text-color) !important;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 500;
+}
+
+// Entry titles (degree, role, award)
+.cv .title,
+.cv .title a {
+  color: var(--global-text-color);
+}
+.cv .location {
+  color: var(--global-text-color-light);
+  font-size: 0.8rem;
+}
+
+// Bullet/list entries
+.cv .list-group-item {
+  background: transparent;
+  color: var(--global-text-color);
+}
+.cv .list-group-item a {
+  color: var(--global-theme-color);
 }

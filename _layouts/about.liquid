@@ -1,0 +1,98 @@
+---
+layout: default
+---
+{% comment %}
+  LOCAL OVERRIDE of al_folio_core's _layouts/about.liquid.
+  Top of the page is the Mossy Modernist hero (2-column split). The rest
+  (news, selected publications, social) is preserved from the gem layout so
+  homepage behavior is unchanged. Styling lives in _sass/_mossy.scss.
+{% endcomment %}
+<div class="post">
+  <header class="mossy-hero">
+    <div class="mossy-hero__left">
+      {% if page.subtitle %}
+        <p class="mossy-eyebrow">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <h1 class="mossy-hero__name">
+        {% if site.title == 'blank' %}
+          {{ site.first_name }} {{ site.last_name }}
+        {% else %}
+          {{ site.title }}
+        {% endif %}
+      </h1>
+
+      <div class="mossy-hero__bio">{{ content }}</div>
+
+      {% if page.current %}
+        <div class="mossy-current">
+          <span class="mossy-current__dot" aria-hidden="true"></span>
+          <div>
+            <span class="mossy-current__label">Currently</span>
+            <p class="mossy-current__text">{{ page.current }}</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if page.profile %}
+      <div class="mossy-hero__right">
+        <div class="mossy-hero__panel">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% capture sizes %}(min-width: 768px) 280px, 80vw{% endcapture %}
+            {%
+              include figure.liquid loading="eager" path=profile_image_path class="mossy-portrait"
+              sizes=sizes alt=page.profile.image cache_bust=true
+            %}
+          {% endif %}
+          {% if page.profile.more_info %}
+            <div class="mossy-hero__meta">{{ page.profile.more_info }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </header>
+
+  <article>
+    <!-- News -->
+    {% if page.announcements and page.announcements.enabled %}
+      <h2>
+        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+      </h2>
+      {% include news.liquid limit=true %}
+    {% endif %}
+
+    <!-- Latest posts -->
+    {% if page.latest_posts and page.latest_posts.enabled %}
+      <h2>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+      </h2>
+      {% include latest_posts.liquid %}
+    {% endif %}
+
+    <!-- Selected papers -->
+    {% if page.selected_papers %}
+      <h2>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+      </h2>
+      {% include selected_papers.liquid %}
+    {% endif %}
+
+    <!-- Social -->
+    {% if page.social %}
+      <div class="social">
+        <div class="contact-icons">{% social_links %}</div>
+        <div class="contact-note">{{ site.contact_note }}</div>
+      </div>
+    {% endif %}
+
+    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+      {% if site.plugins contains 'al_newsletter' %}
+        {% include plugins/al_newsletter_form_center_margin.liquid %}
+      {% else %}
+        {% include newsletter.liquid center=true %}
+      {% endif %}
+    {% endif %}
+  </article>
+</div>

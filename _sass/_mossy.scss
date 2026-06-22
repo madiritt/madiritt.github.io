@@ -1,0 +1,294 @@
+/*******************************************************************************
+ * MOSSY MODERNIST - palette, typography, atmosphere, hero
+ * Local override partial, loaded LAST via assets/css/main.scss (@use "mossy")
+ * so it wins the cascade.
+ *
+ * The whole al-folio palette (its own components AND the Tailwind utilities)
+ * resolves from the --global-* custom properties. We define two cohesive Mossy
+ * variants and wire them to the theme toggle:
+ *   :root                     -> LIGHT  (warm parchment, deep-moss text)
+ *   html[data-theme="dark"]   -> DARK   (deep moss, cream text)
+ * Both keep the citrine + pastel-orange identity and pass WCAG AA.
+ *
+ * Palette source of truth: CLAUDE.md "Mossy Modernist - full design spec".
+ ******************************************************************************/
+
+// ---- Brand constants (mode-independent) ------------------------------------
+$orange: #feac74; // pastel orange - hero panel + Currently dot, same in both modes
+$orange-deep: #e08e56;
+$moss-shadow: #1e2a18; // portrait offset shadow, constant on the orange panel
+
+// ---- DARK (deep moss) ------------------------------------------------------
+$d-bg: #1e2a18;
+$d-darker: #14180e;
+$d-card: #2a3624;
+$d-text: #f4f0d8;
+$d-muted: #b8b5a3;
+$d-citrine: #d4c878;
+$d-citrine-bright: #efe6a0;
+$d-divider: rgba(212, 200, 120, 0.18);
+
+// ---- LIGHT (warm parchment) ------------------------------------------------
+$l-bg: #f1ecdd;
+$l-darker: #e7e0cc;
+$l-card: #fbf8ee;
+$l-text: #212a17;
+$l-muted: #5e6147;
+$l-citrine: #7c6f1d; // deep citrine, readable on parchment
+$l-citrine-bright: #5f550f;
+$l-divider: rgba(33, 42, 23, 0.14);
+$l-highlight: #c4612b;
+
+:root {
+  color-scheme: light;
+  --global-bg-color: #{$l-bg};
+  --global-code-bg-color: #{$l-darker};
+  --global-text-color: #{$l-text};
+  --global-text-color-light: #{$l-muted};
+  --global-theme-color: #{$l-citrine};
+  --global-hover-color: #{$l-citrine-bright};
+  --global-hover-text-color: #{$l-bg};
+  --global-footer-bg-color: #{$d-darker}; // dark footer anchors both modes
+  --global-footer-text-color: #{$d-muted};
+  --global-footer-link-color: #{$d-citrine};
+  --global-distill-app-color: #{$l-muted};
+  --global-divider-color: #{$l-divider};
+  --global-card-bg-color: #{$l-card};
+  --global-highlight-color: #{$l-highlight};
+  --global-back-to-top-bg-color: #{$l-citrine};
+  --global-back-to-top-text-color: #{$l-bg};
+  --global-newsletter-bg-color: #{$l-card};
+  --global-newsletter-text-color: #{$l-text};
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --global-bg-color: #{$d-bg};
+  --global-code-bg-color: #{$d-darker};
+  --global-text-color: #{$d-text};
+  --global-text-color-light: #{$d-muted};
+  --global-theme-color: #{$d-citrine};
+  --global-hover-color: #{$d-citrine-bright};
+  --global-hover-text-color: #{$d-bg};
+  --global-footer-bg-color: #{$d-darker};
+  --global-footer-text-color: #{$d-muted};
+  --global-footer-link-color: #{$d-citrine};
+  --global-distill-app-color: #{$d-muted};
+  --global-divider-color: #{$d-divider};
+  --global-card-bg-color: #{$d-card};
+  --global-highlight-color: #{$orange};
+  --global-back-to-top-bg-color: rgba(212, 200, 120, 0.85);
+  --global-back-to-top-text-color: #{$d-bg};
+  --global-newsletter-bg-color: #{$d-card};
+  --global-newsletter-text-color: #{$d-text};
+}
+
+// ---- Atmospheric layered background -----------------------------------------
+// Soft radial pools, fixed so they stay put while the page scrolls.
+body {
+  background-color: var(--global-bg-color);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  // LIGHT: gentle warm + sage pools on parchment
+  background-image:
+    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(120, 140, 85, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(196, 156, 96, 0.14) 0%, transparent 55%);
+}
+
+html[data-theme="dark"] body {
+  // DARK: green light pool upper-left, shadow pool lower-right
+  background-image:
+    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(82, 116, 64, 0.32) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(14, 22, 12, 0.55) 0%, transparent 55%);
+}
+
+/*******************************************************************************
+ * Typography
+ ******************************************************************************/
+body {
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.post-title, .card-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-style: normal; // titles are never italic (deliberate)
+}
+
+// Navbar brand = Madison's name in Fraunces citrine
+.navbar-brand,
+.navbar .navbar-brand a {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  color: var(--global-theme-color);
+}
+
+/*******************************************************************************
+ * Hero (rendered by local _layouts/about.liquid)
+ ******************************************************************************/
+.mossy-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  margin: 0.5rem 0 3.5rem;
+}
+
+.mossy-hero__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mossy-eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--global-theme-color);
+  margin: 0 0 0.9rem;
+}
+
+.mossy-hero__name {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--global-text-color);
+  margin: 0 0 1.1rem;
+}
+
+.mossy-hero__bio {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--global-text-color);
+  opacity: 0.92;
+  max-width: 30rem;
+  margin: 0;
+
+  // Body inline links: scholarly italic (titles stay roman)
+  a {
+    color: var(--global-theme-color);
+    font-style: italic;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+  }
+  a:hover { color: var(--global-hover-color); }
+}
+
+// "Currently" status element
+.mossy-current {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1.9rem;
+}
+.mossy-current__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: $orange;
+  box-shadow:
+    0 0 0 4px rgba(254, 172, 116, 0.18),
+    0 0 14px 2px rgba(254, 172, 116, 0.55);
+  flex: none;
+}
+.mossy-current__label {
+  display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--global-theme-color);
+  margin-bottom: 2px;
+}
+.mossy-current__text {
+  font-size: 0.9rem;
+  color: var(--global-text-color);
+  margin: 0;
+}
+
+// Right: pastel-orange panel holding the portrait (same in both modes)
+.mossy-hero__right { display: flex; }
+.mossy-hero__panel {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 6px;
+  overflow: hidden;
+  min-height: 320px;
+  background: linear-gradient(150deg, rgba(254, 172, 116, 0.92) 0%, rgba(224, 142, 86, 0.78) 100%);
+}
+.mossy-hero__panel::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -30%;
+  width: 160%;
+  height: 90%;
+  background: radial-gradient(ellipse, rgba(244, 240, 216, 0.30) 0%, transparent 60%);
+  pointer-events: none;
+}
+.mossy-hero__panel figure { margin: 0; }
+.mossy-hero__panel img,
+.mossy-hero__panel .mossy-portrait {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  max-width: 270px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 8px 8px 0 $moss-shadow;
+}
+.mossy-hero__meta {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.1rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: #3a2a18;
+  text-align: center;
+  p { margin: 0; }
+}
+
+@media (max-width: 768px) {
+  .mossy-hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .mossy-hero__panel { min-height: 0; padding: 2.5rem 1.5rem; }
+}
+
+/*******************************************************************************
+ * Cards + news (sitewide, so /research etc. match the look)
+ ******************************************************************************/
+.card {
+  border: 1px solid var(--global-divider-color);
+  box-shadow: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--global-theme-color);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+// News / announcement dates -> mono citrine
+.news .date,
+table.table td.date,
+.post .date {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: var(--global-theme-color);
+}

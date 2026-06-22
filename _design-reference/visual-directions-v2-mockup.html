@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual directions v2 for madisonrittinger.org</title>
+
+<!--
+  Visual directions preview v2 for Madi's academic website.
+  Bolder, more distinctive iterations. Earthy nature theme retained.
+  Each section is a mock homepage in that design language.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Serif+Display&family=Lexend:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     Document chrome (shared across all directions)
+     ============================================================ */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    background: #ecebe5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #1a1a1a;
+  }
+
+  .doc-intro {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 2rem;
+  }
+  .doc-intro .v-tag {
+    display: inline-block;
+    background: #1a1a1a;
+    color: #fcfaf3;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .doc-intro h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .doc-intro p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: #444;
+    margin: 0 0 0.85rem;
+    max-width: 600px;
+  }
+
+  .doc-nav {
+    position: sticky; top: 0;
+    background: rgba(236, 235, 229, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #d4d2c8;
+    padding: 0.85rem 1.5rem;
+    z-index: 100;
+    text-align: center;
+    font-size: 13px;
+  }
+  .doc-nav a {
+    color: #1a1a1a;
+    text-decoration: none;
+    margin: 0 0.7rem;
+    padding: 5px 10px;
+    border-radius: 100px;
+    transition: background 0.15s;
+  }
+  .doc-nav a:hover { background: #1a1a1a; color: #ecebe5; }
+
+  /* Direction wrapper */
+  .direction {
+    margin: 2.5rem auto 0;
+    max-width: 1180px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .direction-label {
+    background: #1a1a1a;
+    color: #fcfaf3;
+    padding: 1.1rem 1.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .direction-label .num {
+    color: #b8b8a8;
+    font-weight: 500;
+  }
+  .direction-label .name {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    color: #fcfaf3;
+    letter-spacing: 0;
+  }
+  .direction-label .desc {
+    color: #b8b8a8;
+    font-size: 12px;
+  }
+
+  /* ============================================================
+     DIRECTION 1: HERBARIUM
+     Aged paper. Instrument Serif display + Newsreader body.
+     Deep botanical green, rust accent, scattered botanical glyphs.
+     Editorial asymmetry, oversized name.
+     ============================================================ */
+  .d1 {
+    background: #f4ede0;
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(76, 99, 55, 0.04) 0%, transparent 35%),
+      radial-gradient(circle at 85% 60%, rgba(176, 84, 38, 0.05) 0%, transparent 40%);
+    color: #2a221a;
+    font-family: 'Newsreader', Georgia, serif;
+    position: relative;
+  }
+
+  .d1 .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem 1rem;
+    border-bottom: 1px solid #c9bfa3;
+  }
+  .d1 .brand {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 19px;
+    font-style: italic;
+    color: #2c4a28;
+  }
+  .d1 .nav-links {
+    display: flex;
+    gap: 1.6rem;
+    font-size: 13px;
+    color: #5a4f3e;
+    letter-spacing: 0.02em;
+  }
+  .d1 .nav-links span:hover { color: #b0541c; cursor: pointer; }
+
+  .d1 .hero {
+    padding: 4rem 2rem 3rem;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    position: relative;
+  }
+  .d1 .hero::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    right: 2rem;
+    width: 80px;
+    height: 1px;
+    background: #b0541c;
+  }
+  .d1 .hero-name {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 92px;
+    line-height: 0.95;
+    color: #2c4a28;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  .d1 .hero-name em {
+    font-style: italic;
+    color: #b0541c;
+    font-weight: 400;
+  }
+  .d1 .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #5a4f3e;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.5rem;
+  }
+  .d1 .bio {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3a2f24;
+    margin-top: 1rem;
+  }
+  .d1 .bio a {
+    color: #b0541c;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .d1 .headshot {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #c4b896, #a89e7f);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5a4f3e;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+  }
+  .d1 .headshot::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid #b0541c;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  .d1 .section-marker {
+    padding: 2rem 2rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 26px;
+    color: #2c4a28;
+    font-style: italic;
+  }
+  .d1 .section-marker::before {
+    content: '';
+    width: 36px; height: 1px;
+    background: #2c4a28;
+  }
+
+  .d1 .research-grid {
+    padding: 1rem 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .d1 .r-card {
+    padding: 0;
+    border-top: 1px solid #2c4a28;
+    padding-top: 1.25rem;
+  }
+  .d1 .r-card .img-stub {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #b8a585, #9a8770);
+    margin-bottom: 1rem;
+    border-radius: 2px;
+  }
+  .d1 .r-card .r-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #b0541c;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.4rem;
+  }
+  .d1 .r-card h3 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    line-height: 1.15;
+    color: #2c4a28;
+    margin: 0 0 0.5rem;
+    font-weight: 400;
+  }
+  .d1 .r-card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #5a4f3e;
+    margin: 0;
+  }
+
+  .d1 .news {
+    padding: 2rem 2rem 2.5rem;
+  }
+  .d1 .news ul { list-style: none; padding: 0; margin: 1rem 0 0; }
+  .d1 .news li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px dotted #c9bfa3;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .d1 .news .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #b0541c;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 3px;
+  }
+
+  .d1 .footer {
+    padding: 1.5rem 2rem;
+    background: #2c4a28;
+    color: #d4cfa8;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================
+     DIRECTION 2: WILDFLOWER
+     Cream base with bold color-blocked hero. Bricolage Grotesque display.
+     Sage + saffron + clay. Energetic, vivid, modern.
+     ============================================================ */
+  .d2 {
+    background: #faf6e8;
+    color: #1f1a14;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  }
+
+  .d2 .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+  }
+  .d2 .brand {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .d2 .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .d2 .nav-links span {
+    padding: 6px 12px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .d2 .nav-links span:hover { background: #1f1a14; color: #faf6e8; }
+
+  .d2 .hero {
+    background: linear-gradient(135deg, #5a7a3e 0%, #4a6932 100%);
+    color: #fbf3d8;
+    padding: 4rem 2rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .d2 .hero::after {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: -120px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #e8a233 0%, transparent 65%);
+    opacity: 0.55;
+  }
+  .d2 .hero-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 200px;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .d2 .hero-name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 64px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 0 0 1rem;
+  }
+  .d2 .subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f5d287;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.01em;
+  }
+  .d2 .bio {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #f5ebd0;
+    max-width: 520px;
+  }
+  .d2 .bio a {
+    color: #f5d287;
+    text-decoration: none;
+    border-bottom: 2px solid #e8a233;
+  }
+  .d2 .headshot {
+    aspect-ratio: 4/5;
+    background: #c44a1c;
+    background-image:
+      radial-gradient(circle at 30% 30%, #d8682a, transparent),
+      radial-gradient(circle at 70% 70%, #a83a14, transparent);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fbf3d8;
+    font-size: 12px;
+    transform: rotate(2deg);
+  }
+
+  .d2 .section-header {
+    padding: 3rem 2rem 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .d2 .section-header h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+  .d2 .section-header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #6b5e3e;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .d2 .research-grid {
+    padding: 1.25rem 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .d2 .r-card {
+    background: #1f1a14;
+    color: #faf6e8;
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1.5rem;
+    transition: transform 0.2s;
+  }
+  .d2 .r-card:nth-child(2) { background: #c44a1c; }
+  .d2 .r-card:nth-child(3) { background: #e8a233; color: #1f1a14; }
+  .d2 .r-card .img-stub {
+    aspect-ratio: 4/3;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  .d2 .r-card:nth-child(3) .img-stub { background: rgba(31,26,20,0.12); }
+  .d2 .r-card h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 18px;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .d2 .r-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .d2 .news {
+    padding: 2rem 2rem 2.5rem;
+  }
+  .d2 .news ul { list-style: none; padding: 0; margin: 1rem 0 0; }
+  .d2 .news li {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e0d8c0;
+    font-size: 14px;
+  }
+  .d2 .news .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #c44a1c;
+    font-weight: 500;
+  }
+
+  .d2 .footer {
+    padding: 1.75rem 2rem;
+    background: #1f1a14;
+    color: #faf6e8;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .d2 .footer .socials span { margin-left: 1rem; opacity: 0.7; }
+
+  /* ============================================================
+     DIRECTION 3: APOTHECARY
+     Vintage-scientific. DM Serif Display + Crimson Pro.
+     Warm beige, deep burgundy, sage, ochre. Editorial mix.
+     Generous margins, decorative rules.
+     ============================================================ */
+  .d3 {
+    background: #ede4d0;
+    color: #2a1d18;
+    font-family: 'Crimson Pro', Georgia, serif;
+  }
+
+  .d3 .topbar {
+    background: #5e2a26;
+    color: #ede4d0;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .d3 .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid #5e2a26;
+  }
+  .d3 .brand {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 22px;
+    color: #5e2a26;
+    letter-spacing: -0.005em;
+  }
+  .d3 .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 15px;
+    color: #2a1d18;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .d3 .nav-links span:hover { color: #5e2a26; cursor: pointer; }
+
+  .d3 .hero {
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+  .d3 .hero .ornament {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 22px;
+    color: #b08a3a;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.4em;
+  }
+  .d3 .hero-name {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 76px;
+    line-height: 1;
+    color: #5e2a26;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.005em;
+  }
+  .d3 .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: #5e2a26;
+    margin: 1.25rem auto;
+  }
+  .d3 .subtitle {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 15px;
+    color: #4a3325;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .d3 .hero-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    max-width: 850px;
+    margin: 2rem auto 0;
+    text-align: left;
+    align-items: start;
+  }
+  .d3 .headshot {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #a89372 0%, #8a7458 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ede4d0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    border: 1px solid #5e2a26;
+    padding: 4px;
+  }
+  .d3 .bio {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #2a1d18;
+    column-count: 1;
+  }
+  .d3 .bio::first-letter {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 56px;
+    float: left;
+    line-height: 0.85;
+    margin: 6px 8px 0 0;
+    color: #5e2a26;
+  }
+  .d3 .bio a {
+    color: #5e2a26;
+    text-decoration: underline;
+    font-style: italic;
+  }
+
+  .d3 .section-header {
+    padding: 3rem 2rem 0;
+    text-align: center;
+    position: relative;
+  }
+  .d3 .section-header h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 36px;
+    color: #5e2a26;
+    margin: 0;
+    display: inline-block;
+    padding: 0 1.5rem;
+    background: #ede4d0;
+    position: relative;
+    z-index: 1;
+  }
+  .d3 .section-header::after {
+    content: '';
+    position: absolute;
+    left: 2rem; right: 2rem;
+    top: 50%;
+    height: 1px;
+    background: #5e2a26;
+    z-index: 0;
+  }
+
+  .d3 .research-grid {
+    padding: 1.5rem 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .d3 .r-card {
+    padding: 1.25rem;
+    background: #f4ecdb;
+    border: 1px solid #c4b594;
+    border-top: 3px solid #5e2a26;
+  }
+  .d3 .r-card .img-stub {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #6b7a4f, #4a5c38);
+    margin-bottom: 1rem;
+  }
+  .d3 .r-card .r-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #b08a3a;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.5rem;
+  }
+  .d3 .r-card h3 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.2;
+    color: #5e2a26;
+    margin: 0 0 0.5rem;
+  }
+  .d3 .r-card p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #4a3325;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .d3 .news {
+    padding: 2.5rem 2rem;
+  }
+  .d3 .news ul { list-style: none; padding: 0; margin: 1.5rem 0 0; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .d3 .news li {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #c4b594;
+    font-size: 16px;
+    align-items: baseline;
+  }
+  .d3 .news .date {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 14px;
+    color: #5e2a26;
+    font-style: italic;
+  }
+  .d3 .news .text { font-family: 'Crimson Pro', serif; }
+
+  .d3 .footer {
+    padding: 1.75rem 2rem;
+    background: #5e2a26;
+    color: #ede4d0;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* ============================================================
+     DIRECTION 4: MOSSY MODERNIST
+     Bauhaus-inspired earth tones. Fraunces display + Lexend body.
+     Deep moss base with geometric color blocks. Big type, sharp grid.
+     Contemporary editorial.
+     ============================================================ */
+  .d4 {
+    background: #1e2a18;
+    color: #e8e4d0;
+    font-family: 'Lexend', -apple-system, sans-serif;
+  }
+
+  .d4 .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(232, 228, 208, 0.15);
+  }
+  .d4 .brand {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #d4c878;
+  }
+  .d4 .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 12.5px;
+    color: #b8b5a3;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .d4 .nav-links span:hover { color: #d4c878; cursor: pointer; }
+
+  .d4 .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 380px;
+  }
+  .d4 .hero-left {
+    background: #1e2a18;
+    padding: 4rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .d4 .hero-left::before {
+    content: '';
+    position: absolute;
+    left: 2rem; top: 4rem;
+    width: 24px; height: 24px;
+    background: #d4c878;
+    border-radius: 50%;
+  }
+  .d4 .hero-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #d4c878;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+  .d4 .hero-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 76px;
+    line-height: 0.92;
+    color: #f4f0d8;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+  }
+  .d4 .hero-name em {
+    font-style: italic;
+    color: #d4c878;
+    font-weight: 400;
+  }
+  .d4 .bio {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #c4c0a8;
+    max-width: 460px;
+  }
+  .d4 .bio a {
+    color: #d4c878;
+    text-decoration: none;
+    border-bottom: 1px solid #8a8568;
+  }
+  .d4 .hero-right {
+    background: #c4612b;
+    background-image:
+      linear-gradient(135deg, #c4612b 0%, #a84d1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .d4 .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 30%; left: -40%;
+    width: 180%; height: 80%;
+    background: radial-gradient(ellipse, rgba(212, 200, 120, 0.25) 0%, transparent 60%);
+  }
+  .d4 .headshot {
+    width: 75%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(170deg, #f4ecc8, #d4c878);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5a4f1a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    box-shadow: 8px 8px 0 #1e2a18;
+    position: relative;
+    z-index: 1;
+  }
+
+  .d4 .section-header {
+    padding: 3.5rem 2rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: baseline;
+  }
+  .d4 .section-header h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 42px;
+    margin: 0;
+    color: #f4f0d8;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+  .d4 .section-header h2 em {
+    font-style: italic;
+    color: #d4c878;
+    font-weight: 400;
+  }
+  .d4 .section-header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #8a8568;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  .d4 .research-grid {
+    padding: 1.5rem 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .d4 .r-card {
+    background: #2a3624;
+    border: 1px solid rgba(212, 200, 120, 0.18);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .d4 .r-card:hover { border-color: #d4c878; }
+  .d4 .r-card .img-stub {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #c4612b, #8a4218);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  .d4 .r-card:nth-child(2) .img-stub { background: linear-gradient(135deg, #d4c878, #a89e3a); }
+  .d4 .r-card:nth-child(3) .img-stub { background: linear-gradient(135deg, #5a7a3e, #3e5a28); }
+  .d4 .r-card .r-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #d4c878;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.5rem;
+  }
+  .d4 .r-card h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.2;
+    color: #f4f0d8;
+    margin: 0 0 0.5rem;
+    font-weight: 500;
+  }
+  .d4 .r-card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #b8b5a3;
+    margin: 0;
+  }
+
+  .d4 .news {
+    padding: 2.5rem 2rem;
+  }
+  .d4 .news ul { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+  .d4 .news li {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(232, 228, 208, 0.1);
+    font-size: 14.5px;
+    align-items: baseline;
+  }
+  .d4 .news .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #d4c878;
+    letter-spacing: 0.08em;
+  }
+  .d4 .news .text { color: #e8e4d0; }
+  .d4 .news .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #c4612b;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .d4 .footer {
+    padding: 1.75rem 2rem;
+    background: #14180e;
+    color: #8a8568;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+  }
+  .d4 .footer span { color: #d4c878; }
+
+  /* Bottom notes */
+  .notes {
+    max-width: 720px;
+    margin: 5rem auto 4rem;
+    padding: 0 1.5rem;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444;
+  }
+  .notes h2 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 26px;
+    margin: 0 0 1rem;
+    color: #1a1a1a;
+    font-weight: 400;
+  }
+  .notes ul { padding-left: 1.25rem; }
+  .notes li { margin-bottom: 0.5rem; }
+</style>
+</head>
+
+<body>
+
+<div class="doc-intro">
+  <span class="v-tag">v2 · bolder iterations</span>
+  <h1>Visual directions for your site, take two</h1>
+  <p>Heard you on the previous round being a bit too tame. These four push harder on personality while keeping the earthy nature theme. Same mock content as before so you can compare cleanly.</p>
+  <p>Scroll through, react however feels honest. We can pick one, mix elements, or scrap and try a third round.</p>
+</div>
+
+<div class="doc-nav">
+  <a href="#d-herbarium">1. Herbarium</a>
+  <a href="#d-wildflower">2. Wildflower</a>
+  <a href="#d-apothecary">3. Apothecary</a>
+  <a href="#d-mossy">4. Mossy Modernist</a>
+</div>
+
+
+<!-- ===== 1. HERBARIUM ===== -->
+<section class="direction d1" id="d-herbarium">
+  <div class="direction-label">
+    <span class="num">01</span>
+    <span class="name">Herbarium</span>
+    <span class="desc">Instrument Serif + Newsreader · Deep botanical green &amp; rust on aged cream · Editorial asymmetry, oversized name, paper warmth</span>
+  </div>
+
+  <div class="nav">
+    <div class="brand">madisonrittinger.org</div>
+    <div class="nav-links"><span>research</span><span>publications</span><span>cv</span><span>teaching</span><span>gallery</span><span>outreach</span><span>news</span></div>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="subtitle">PhD candidate · UW Milwaukee</div>
+      <h1 class="hero-name">Madi<br><em>Rittinger</em></h1>
+      <div class="bio">I'm a behavioral ecologist interested in how and why animals behave the way they do, through a behavioral and cognitive lens. My current work focuses on decision-making in <a href="#">jumping spiders</a>, building on earlier research in avian behavioral ecology. I teach at <a href="#">UW Milwaukee</a> and <a href="#">MIAD</a>.</div>
+    </div>
+    <div class="headshot">portrait</div>
+  </div>
+
+  <div class="section-marker">Selected research</div>
+  <div class="research-grid">
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">01 / DECISION-MAKING</div>
+      <h3>How do animals make decisions under uncertainty?</h3>
+      <p>Behavioral choices in jumping spiders across foraging and predator-avoidance contexts.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">02 / PERSONALITY</div>
+      <h3>What shapes individual personality in wild populations?</h3>
+      <p>Repeatable behavioral differences in songbirds and their fitness consequences.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">03 / COGNITION</div>
+      <h3>How does cognition vary across closely related species?</h3>
+      <p>Comparative learning paradigms in arachnids using custom maze experiments.</p>
+    </div>
+  </div>
+
+  <div class="section-marker" style="margin-top:1.5rem;">Recent news</div>
+  <div class="news">
+    <ul>
+      <li><span class="date">May 2026</span><span class="text">Site launched.</span></li>
+      <li><span class="date">Apr 2026</span><span class="text">Talk accepted at the Animal Behavior Society meeting.</span></li>
+      <li><span class="date">Mar 2026</span><span class="text">New preprint posted on bioRxiv.</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 Madi Rittinger</span>
+    <span>Email · Scholar · ORCID · LinkedIn</span>
+  </div>
+</section>
+
+
+<!-- ===== 2. WILDFLOWER ===== -->
+<section class="direction d2" id="d-wildflower">
+  <div class="direction-label">
+    <span class="num">02</span>
+    <span class="name">Wildflower</span>
+    <span class="desc">Bricolage Grotesque + Plus Jakarta Sans · Sage hero with saffron sun + clay cards · Vivid color blocking, modern energy</span>
+  </div>
+
+  <div class="nav">
+    <div class="brand">Madi Rittinger</div>
+    <div class="nav-links"><span>research</span><span>publications</span><span>cv</span><span>teaching</span><span>gallery</span><span>outreach</span><span>news</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="subtitle">PhD candidate · UW Milwaukee · Behavioral ecology &amp; animal cognition</div>
+        <h1 class="hero-name">Madi Rittinger</h1>
+        <div class="bio">I'm a behavioral ecologist interested in how and why animals behave the way they do, through a behavioral and cognitive lens. My current work focuses on decision-making in <a href="#">jumping spiders</a>, building on earlier research in avian behavioral ecology. I teach at <a href="#">UW Milwaukee</a> and <a href="#">MIAD</a>.</div>
+      </div>
+      <div class="headshot">portrait</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Selected research</h2>
+    <span class="meta">3 areas · ongoing</span>
+  </div>
+  <div class="research-grid">
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <h3>How do animals make decisions under uncertainty?</h3>
+      <p>Behavioral choices in jumping spiders across foraging and predator-avoidance contexts.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <h3>What shapes individual personality in wild populations?</h3>
+      <p>Repeatable behavioral differences in songbirds and their fitness consequences.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <h3>How does cognition vary across closely related species?</h3>
+      <p>Comparative learning paradigms in arachnids using custom maze experiments.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Recent news</h2>
+    <span class="meta">updates</span>
+  </div>
+  <div class="news">
+    <ul>
+      <li><span class="date">2026-05-12</span><span>Site launched.</span></li>
+      <li><span class="date">2026-04-18</span><span>Talk accepted at the Animal Behavior Society meeting.</span></li>
+      <li><span class="date">2026-03-02</span><span>New preprint posted on bioRxiv.</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 Madi Rittinger</span>
+    <div class="socials"><span>Email</span><span>Scholar</span><span>ORCID</span><span>LinkedIn</span></div>
+  </div>
+</section>
+
+
+<!-- ===== 3. APOTHECARY ===== -->
+<section class="direction d3" id="d-apothecary">
+  <div class="direction-label">
+    <span class="num">03</span>
+    <span class="name">Apothecary</span>
+    <span class="desc">DM Serif Display + Crimson Pro · Burgundy &amp; ochre on warm beige · Vintage-scientific, centered, ornamented</span>
+  </div>
+
+  <div class="topbar">University of Wisconsin · Milwaukee · est. 2026</div>
+
+  <div class="nav">
+    <div class="brand">Rittinger, M.</div>
+    <div class="nav-links"><span>research</span><span>publications</span><span>cv</span><span>teaching</span><span>gallery</span><span>outreach</span><span>news</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="ornament">· · ·</div>
+    <h1 class="hero-name">Madi Rittinger</h1>
+    <div class="hero-divider"></div>
+    <div class="subtitle">behavioral ecologist · animal cognition · field &amp; lab</div>
+
+    <div class="hero-grid">
+      <div class="headshot">portrait</div>
+      <div class="bio">I'm a behavioral ecologist interested in how and why animals behave the way they do, through a behavioral and cognitive lens. My current work focuses on decision-making in <a href="#">jumping spiders</a>, building on earlier research in avian behavioral ecology. I teach at <a href="#">UW Milwaukee</a> and <a href="#">MIAD</a>.</div>
+    </div>
+  </div>
+
+  <div class="section-header"><h2>Selected research</h2></div>
+  <div class="research-grid">
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">I. DECISION-MAKING</div>
+      <h3>How do animals make decisions under uncertainty?</h3>
+      <p>Behavioral choices in jumping spiders across foraging and predator-avoidance contexts.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">II. PERSONALITY</div>
+      <h3>What shapes individual personality in wild populations?</h3>
+      <p>Repeatable behavioral differences in songbirds and their fitness consequences.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">III. COGNITION</div>
+      <h3>How does cognition vary across closely related species?</h3>
+      <p>Comparative learning paradigms in arachnids using custom maze experiments.</p>
+    </div>
+  </div>
+
+  <div class="section-header"><h2>Recent news</h2></div>
+  <div class="news">
+    <ul>
+      <li><span class="date">May 12, 2026</span><span class="text">Site launched.</span></li>
+      <li><span class="date">Apr 18, 2026</span><span class="text">Talk accepted at the Animal Behavior Society meeting.</span></li>
+      <li><span class="date">Mar 02, 2026</span><span class="text">New preprint posted on bioRxiv.</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">Rittinger Laboratory · Milwaukee, Wisconsin · 2026</div>
+</section>
+
+
+<!-- ===== 4. MOSSY MODERNIST ===== -->
+<section class="direction d4" id="d-mossy">
+  <div class="direction-label">
+    <span class="num">04</span>
+    <span class="name">Mossy Modernist</span>
+    <span class="desc">Fraunces + Lexend · Deep moss base, citrine + clay accents, geometric color blocks · Contemporary editorial, dark earth tone</span>
+  </div>
+
+  <div class="nav">
+    <div class="brand">Madi Rittinger</div>
+    <div class="nav-links"><span>research</span><span>publications</span><span>cv</span><span>teaching</span><span>gallery</span><span>outreach</span><span>news</span></div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-subtitle">PhD Candidate · UWM &amp; MIAD</div>
+      <h1 class="hero-name">Behavioral<br>ecology of<br><em>animal minds</em></h1>
+      <div class="bio">I'm a behavioral ecologist studying how and why animals behave the way they do, through a behavioral and cognitive lens. Currently working on decision-making in <a href="#">jumping spiders</a>; earlier work on avian behavioral ecology. Teaching at <a href="#">UW Milwaukee</a> and <a href="#">MIAD</a>.</div>
+    </div>
+    <div class="hero-right">
+      <div class="headshot">portrait</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2><em>Selected</em> research</h2>
+    <span class="meta">three questions · ongoing work</span>
+  </div>
+  <div class="research-grid">
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">01 / DECISION-MAKING</div>
+      <h3>How do animals make decisions under uncertainty?</h3>
+      <p>Behavioral choices in jumping spiders across foraging and predator-avoidance contexts.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">02 / PERSONALITY</div>
+      <h3>What shapes individual personality in wild populations?</h3>
+      <p>Repeatable behavioral differences in songbirds and their fitness consequences.</p>
+    </div>
+    <div class="r-card">
+      <div class="img-stub"></div>
+      <div class="r-num">03 / COGNITION</div>
+      <h3>How does cognition vary across closely related species?</h3>
+      <p>Comparative learning paradigms in arachnids using custom maze experiments.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2><em>Recent</em> news</h2>
+    <span class="meta">running log</span>
+  </div>
+  <div class="news">
+    <ul>
+      <li><span class="date">2026 / 05 / 12</span><span class="text">Site launched.</span><span class="tag">milestone</span></li>
+      <li><span class="date">2026 / 04 / 18</span><span class="text">Talk accepted at the Animal Behavior Society meeting.</span><span class="tag">talk</span></li>
+      <li><span class="date">2026 / 03 / 02</span><span class="text">New preprint posted on bioRxiv.</span><span class="tag">preprint</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span>MADI RITTINGER · 2026</span>
+    <span>MADIRITTINGER.ORG</span>
+  </div>
+</section>
+
+
+<div class="notes">
+  <h2>Notes</h2>
+  <ul>
+    <li>Each direction has a real point of view. Personalities here: Herbarium (editorial naturalist), Wildflower (vivid energetic modern), Apothecary (vintage scientific), Mossy Modernist (contemporary dark earth tone).</li>
+    <li>The Mossy Modernist hero is on a deep moss-green background by default. Al-folio's dark mode toggle still lets visitors switch the rest of the site, but the hero stays distinctive in either mode.</li>
+    <li>Mock content is identical across all four. Real content will replace it.</li>
+    <li>Mix and match is fine. "Wildflower's hero with Herbarium's research cards" is a legit combo.</li>
+    <li>If these are still off, tell us the direction (more colorful, more minimal, more illustrated, etc.) and we'll iterate.</li>
+  </ul>
+</div>
+
+</body>
+</html>

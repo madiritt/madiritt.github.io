@@ -50,6 +50,22 @@ Push source to `main` -> deploy.yml runs Jekyll build (with imagemagick for resp
 ### deploy.yml dependencies (do NOT delete these files)
 `package.json`, `package-lock.json` (npm ci), `Gemfile`, `Gemfile.lock` (Jekyll), `requirements.txt` (pip), `purgecss.config.js` (CSS purge step), and the `giscus` key block in `_config.yml`. A prior cleanup pass deleted `purgecss.config.js` by mistake and broke the build; it has been restored. Audit deploy.yml before removing any root-level config file.
 
+### Local development (preview server)
+A working local build exists (set up 2026-06-22). Toolchain installed via winget: **Ruby 3.3.11 + DevKit** (`C:\Ruby33-x64`), **Node 26** (`C:\Program Files\nodejs`). Python and imagemagick are intentionally NOT installed locally.
+
+Run the dev server:
+```
+bundle exec jekyll serve --config _config.yml,_config.dev.yml --livereload
+```
+Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
+
+- `_config.dev.yml` (gitignored, local-only) disables imagemagick so no binary is needed; originals render in place of responsive WebP. It does NOT affect the live GitHub Actions build, which still runs the full production pipeline.
+- The al_folio_core gem runs the Tailwind build inside `jekyll build`; no separate `npm` step is needed for local serve (`npm ci` is only for the gem's own tests).
+- WINDOWS/HARNESS GOTCHA: the automation shell does not auto-pick-up PATH after winget installs. Prefix shell calls with:
+  `$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")`
+  A normal user terminal (opened fresh) sees Ruby/Node on PATH without this.
+- The demo notebook `assets/jupyter/blog.ipynb` was removed: `jekyll-jupyter-notebook` hard-crashes the build when `jupyter` is not on PATH, and nothing referenced it (no `_posts`). Restore from git history if notebook content is ever needed (live CI has nbconvert and can convert it).
+
 ---
 
 ## Current status (as of 2026-06-12)
@@ -68,7 +84,7 @@ Commit chain on `main`:
 | 1 | Accounts + domains | COMPLETE (both domains owned, GitHub account + 2FA done) |
 | 2 | Configure al-folio | COMPLETE (2026-06-12, builds green) |
 | 3 | Content fill | IN PROGRESS (Trevor processing resources Madison shared) |
-| 4 | Visual design port | NEXT (Mossy Modernist mockup locked; needs porting to SCSS) |
+| 4 | Visual design port | NEXT (Mossy Modernist mockup locked; needs porting to Tailwind v4) |
 | 5 | Domain + DNS + security | Not started (15-min job at the end) |
 | 6 | Documentation (runbooks) | Runbooks 00-05 drafted |
 | 7 | Launch | Pending 3-5 |
@@ -77,7 +93,7 @@ Commit chain on `main`:
 
 ## THE NEXT BIG TASK: Mossy Modernist design port
 
-The visual design is locked as a standalone HTML mockup but has NOT been ported into al-folio's SCSS yet. This is the next major work item. The mockup lives outside the repo (in Trevor's Claude outputs as `visual_directions_for_madi.html`); the full spec is below so it can be reproduced.
+The visual design is locked as a standalone HTML mockup but has NOT been ported into the site's Tailwind v4 styling yet. This is the next major work item. The mockup lives outside the repo (in Trevor's Claude outputs as `visual_directions_for_madi.html`); the full spec is below so it can be reproduced.
 
 ### Mossy Modernist - full design spec
 
@@ -118,8 +134,22 @@ The visual design is locked as a standalone HTML mockup but has NOT been ported 
 
 **Accessibility:** the palette passes WCAG AA at all text sizes (verified; most pairs clear AAA). The high-contrast dark base helps here.
 
-### How to port
-al-folio's styling lives in SCSS. The override approach: add custom SCSS that redefines al-folio's CSS variables and adds the custom hero/Currently/card treatments, rather than forking the theme. al-folio supports custom styles; check `_sass/` and the theme's variable definitions. This is unscoped work; expect it to be the largest remaining chunk. Recommended first step: a small spike porting just the homepage hero + palette to confirm the override approach before doing the whole site.
+### How to port (verified against al_folio_core 1.0.11 gem source)
+The styling is **gem-based**: `al_folio_core` ships the theme (`_layouts/`, `_includes/`, `_sass/`, `assets/`). The site repo has NO local `_sass/` or stylesheets; you customize by placing local files at the same relative path as gem files (standard Jekyll theme override) or by redefining the theme's CSS variables.
+
+How styling actually loads (from the gem's `_includes/head.liquid`):
+- `style_engine: tailwind` (`_config.yml`). `head.liquid` links BOTH `/assets/css/tailwind.css` (Tailwind v4 build) AND `/assets/css/main.css` (compiled from the gem's `_sass` SCSS pipeline) - main.css loads LAST.
+- The whole palette is driven by **CSS custom properties** defined in the gem's `_sass/_themes.scss`: `--global-bg-color`, `--global-text-color`, `--global-theme-color`, `--global-hover-color`, `--global-card-bg-color`, `--global-divider-color`, footer vars, etc. Light values live in `:root`; dark values in `html[data-theme="dark"]`. Defaults: theme color `$purple-color` (light) / `$cyan-color` (dark).
+
+The port is two concrete moves:
+1. **Recolor (whole site):** redefine the `--global-*` custom properties to the Mossy palette (moss `#1e2a18` bg, citrine `#d4c878` theme/hover, cream `#f4f0d8` text, card `#2a3624`, etc.) via a local stylesheet that loads after the theme, or by overriding the relevant theme partial. Because al-folio consumes these vars everywhere, this recolors the entire site cleanly without fighting Tailwind internals.
+2. **Custom hero + Currently + research cards:** the homepage hero is the gem's `_layouts/about.liquid` (name `<h1>` in `.post-header`, a floated `.profile` image div, then `about.md` content). Override it with a local `_layouts/about.liquid` carrying the 2-column split markup, then add custom CSS for the atmospheric gradient, the rgba pastel-orange panel, the offset portrait shadow (`box-shadow: 8px 8px 0 #1e2a18`), the Currently element, and the research-card grid/hover.
+
+NOTE: dark-mode toggle is enabled (`enable_darkmode: true`). Decide whether Mossy is the single look (force it in both `:root` and the dark block) or only the dark theme. The mockup notes say the hero stays moss in either mode.
+
+This is unscoped work; expect it to be the largest remaining chunk. **Recommended first step: a small spike doing the palette recolor + homepage hero only**, previewed locally, before touching the rest of the site. The exact "loads-last custom CSS" hook should be confirmed live with `jekyll serve` (see Local dev below).
+
+**Reference mockup:** `_design-reference/visual-directions-v2-mockup.html` (the `.d4` section is Mossy Modernist). WARNING: that mockup is the PRE-refinement state and contradicts this spec on six points (solid orange instead of transparent pastel, a yellow corner circle that was removed, no Currently element, flat background instead of the atmospheric gradient, italic titles, and "Madi" instead of "Madison"). See `_design-reference/README.md`. Use the mockup only for structural CSS (grid proportions, card layout/hover, news rows, typography wiring); for all colors and the six points, THIS spec is the source of truth.
 
 ---
 

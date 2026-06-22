@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Remove redundant Teaching page subtitle
+
+#### Removed
+- `_pages/teaching.md`: dropped the page `description` ("Courses, mentoring, and teaching philosophy.") that rendered as a subtitle directly above the three section headers (Teaching philosophy / Courses / Mentoring) listing the same words. Same cleanup as the Research page.
+
 ### 2026-06-22 - Google Photos-style gallery grid + GLightbox slider
 
 #### Changed

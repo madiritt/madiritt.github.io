@@ -2,7 +2,6 @@
 layout: page
 permalink: /teaching/
 title: teaching / mentoring
-description: Courses, mentoring, and teaching philosophy.
 nav: true
 nav_order: 4
 ---

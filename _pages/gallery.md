@@ -7,19 +7,18 @@ nav: true
 nav_order: 5
 ---
 
-<p class="text-center" style="color: var(--global-text-color-light)">
-  Photo gallery coming soon: spiders, fieldwork, and macro photography.
-</p>
-
-<!-- To add photos: drop images into assets/img/ and add a row of figures here.
-     See runbook 04. Example (uncomment and point at real files):
+<!-- To add more photos: drop images into assets/img/ and add another column
+     following the pattern below. Captions go in the title="" attribute.
+     See runbook 04. -->
 
 <div class="row">
-  <div class="col-sm-6 mt-3">
-    {% include figure.liquid path="assets/img/EXAMPLE-1.jpg" title="caption" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-4 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid rounded z-depth-1" %}
   </div>
-  <div class="col-sm-6 mt-3">
-    {% include figure.liquid path="assets/img/EXAMPLE-2.jpg" title="caption" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-4 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm-4 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/gallery-spider-squad-2023.jpg" title="" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
--->

@@ -11,6 +11,15 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Add first gallery photos
+
+#### Added
+- `assets/img/gallery-paige-fieldwork.jpg`, `gallery-spider-hunting-2022.jpg`, `gallery-spider-squad-2023.jpg`: Madison's first three field photos (originals; the live build generates responsive WebP via imagemagick).
+- `_pages/gallery.md`: replaced the "coming soon" placeholder with a responsive 3-across grid (stacks on mobile) of the three photos.
+
+#### Notes
+- Captions are intentionally blank (`title=""`) for now; Madison to supply them later.
+
 ### 2026-06-22 - Remove Research page subtitle
 
 #### Removed

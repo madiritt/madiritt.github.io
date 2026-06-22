@@ -8,10 +8,8 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: false
-  more_info: >
-    <p>Department of Biological Sciences</p>
-    <p>University of Wisconsin-Milwaukee</p>
-    <p>mrittinger44@gmail.com</p>
+  # more_info (caption under the photo) removed: the affiliation duplicated the
+  # eyebrow subtitle above, and email lives in the contact/social section below.
 
 selected_papers: true
 social: true

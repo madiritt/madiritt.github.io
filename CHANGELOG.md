@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Remove redundant hero photo caption
+
+#### Removed
+- `_pages/about.md`: the `profile.more_info` caption under the portrait. It repeated the department + university already shown in the eyebrow subtitle, and the email is already in the contact/social section. Photo panel now holds just the portrait.
+
 ### 2026-06-22 - Enlarge homepage portrait
 
 #### Changed

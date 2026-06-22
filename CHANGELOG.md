@@ -11,6 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - First real content: publications + CV
+
+#### Added
+- `_bibliography/papers.bib`: replaced the placeholder with Madison's 4 real publications (2022 GCE, 2024 Sci Reports, 2025 Biology Letters, 2026 Behav Ecol Sociobiol). The two recent first-author papers are flagged `selected={true}` so they feature on the homepage.
+- `assets/pdf/Rittinger_2026_CV.pdf`: real CV.
+
+#### Changed
+- `_pages/cv.md`: switched from the structured `cv_format: rendercv` (which had no data and would otherwise fall back to the Einstein demo `resume.json`) to a PDF-first page (`layout: page`) that embeds the CV inline and offers a download button. Single source of truth = the PDF; updating the CV = replacing one file.
+- `_sass/_mossy.scss`: styling for the CV PDF embed/download.
+
+#### Notes
+- Demo `assets/json/resume.json` (Einstein) is now unused but left in place; can be removed later.
+- Remaining placeholders: bio, social links, teaching, outreach, gallery.
+
 ### 2026-06-22 - Mossy Modernist design ported (homepage hero + sitewide palette)
 
 #### Added

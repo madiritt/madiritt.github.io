@@ -292,3 +292,20 @@ table.table td.date,
   letter-spacing: 0.04em;
   color: var(--global-theme-color);
 }
+
+/*******************************************************************************
+ * CV page (PDF embed + download)
+ ******************************************************************************/
+.cv-pdf__download {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+.cv-pdf__embed {
+  display: block;
+  width: 100%;
+  height: 85vh;
+  min-height: 600px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 6px;
+  background: var(--global-card-bg-color);
+}

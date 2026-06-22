@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Add ORCID social link
+
+#### Added
+- `_data/socials.yml`: enabled `orcid_id` (0000-0001-6326-1572). Contact row order: email, ORCID, LinkedIn. Scholar/ResearchGate still placeholder.
+
 ### 2026-06-22 - Add LinkedIn social link
 
 #### Added

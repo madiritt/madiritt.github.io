@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Add DOIs to publications and fix CV title mismatch
+
+#### Added
+- `_bibliography/papers.bib`: added verified `doi` fields to all four publications, so the Publications page now links to each paper. DOIs: Biology Letters 2025 (10.1098/rsbl.2025.0293), Scientific Reports 2024 (10.1038/s41598-024-61252-7), Behavioral Ecology and Sociobiology 2026 (10.1007/s00265-025-03672-7), General and Comparative Endocrinology 2022 (10.1016/j.ygcen.2021.113964).
+
+#### Fixed
+- `_data/cv.yml`: corrected the 2025 Biology Letters paper title from "Parsing insight from instinct" to the actual published title "Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems" (verified against royalsocietypublishing.org). The CV and papers.bib now match.
+
+#### Notes
+- `papers.bib` was already fully populated with all four real publications in an earlier session (the CLAUDE.md "placeholder" note is stale). Two are flagged `selected={true}` and drive the homepage "selected publications" block. Manuscripts in review/prep from cv.yml are intentionally not in papers.bib (published work only).
+
 ### 2026-06-22 - Remove leftover demo PDF
 
 #### Removed

@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Use academic email for homepage contact icon
+
+#### Changed
+- `_data/socials.yml`: switched the email social link from `mrittinger44@gmail.com` to her UWM academic address `ritting2@uwm.edu` (the same one already in `_data/cv.yml`). Interim choice until Madison says otherwise. RSS icon remains off; other social links still placeholder.
+
 ### 2026-06-22 - Real teaching philosophy
 
 #### Changed

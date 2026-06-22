@@ -4,7 +4,7 @@
 
 email: ritting2@uwm.edu
 orcid_id: 0000-0001-6326-1572
-# scholar_userid: # PLACEHOLDER - Google Scholar ID (the part after user= in the profile URL)
-# research_gate: # PLACEHOLDER - ResearchGate profile slug
+scholar_userid: FAzQaf4AAAAJ
+research_gate_profile: Madison-Rittinger  # NOTE: plugin key is research_gate_profile, NOT research_gate
 linkedin_username: madison-rittinger-5a12711b8
 # rss_icon: false  # GOTCHA: the jekyll-socials plugin renders this icon whenever the KEY is present (value is ignored, even `false`). Keep it commented to hide. Uncomment only when a real /feed.xml exists (see CHANGELOG note on wiring the _news collection).

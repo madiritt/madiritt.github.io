@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Add Google Scholar and ResearchGate social links
+
+#### Added
+- `_data/socials.yml`: enabled `scholar_userid` (FAzQaf4AAAAJ) and `research_gate_profile` (Madison-Rittinger). Contact row order is now email, ORCID, Scholar, ResearchGate, LinkedIn. All academic links now live.
+
+#### Fixed
+- Corrected the ResearchGate key: the placeholder used `research_gate`, which the `jekyll-socials` plugin does not recognize (it expects `research_gate_profile`). The wrong key would have rendered no icon or broken the build.
+
 ### 2026-06-22 - Add ORCID social link
 
 #### Added

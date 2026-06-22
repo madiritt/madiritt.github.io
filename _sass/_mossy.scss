@@ -90,6 +90,7 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-height: 100vh;
+  min-height: 100dvh; // iOS Safari: account for the dynamic address bar
   // LIGHT: gentle warm + sage pools on parchment
   background-image:
     radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(120, 140, 85, 0.14) 0%, transparent 60%),
@@ -331,6 +332,97 @@ table.table td.date,
 .cv .location {
   color: var(--global-text-color-light);
   font-size: 0.8rem;
+}
+
+/*******************************************************************************
+ * Cross-device + mobile hardening (added 2026-06-22)
+ * Targets iOS, Android, tablets, and foldables: Z Fold cover (~280px),
+ * Z Flip, and Fold-open (~768-900px, handled by the existing 768px hero rule).
+ * All additive; the desktop layout above is unchanged. Real-device check still
+ * recommended (hinge behavior + iOS safe areas cannot be verified in a build).
+ ******************************************************************************/
+
+// 1. Text + overflow safety nets ----------------------------------------------
+html {
+  -webkit-text-size-adjust: 100%; // iOS: don't reflow-inflate text on rotate
+  text-size-adjust: 100%;
+}
+html,
+body {
+  // `clip` (not `hidden`) so we don't turn the root into a scroll container,
+  // which would break the CV page's position: sticky TOC sidebar.
+  overflow-x: clip;
+  max-width: 100%;
+}
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+// Long unbreakable tokens (DOIs, URLs, emails) must wrap on a ~280px Fold cover.
+.post a,
+.post p,
+.cv a,
+.bibliography,
+.contact-icons a,
+code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+// 2. iOS safe-area insets for the fixed navbar + footer -----------------------
+// Keep the fixed bars clear of the notch / Dynamic Island / home indicator.
+@supports (padding: max(0px)) {
+  .navbar.fixed-top,
+  nav.fixed-top {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  footer.fixed-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+// 3. Wide tables scroll instead of breaking the layout ------------------------
+// Wrapper-based (Bootstrap pattern); leaves bare <table> display untouched.
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// 4. Touch targets: comfortable tap area for the small social icons -----------
+@media (hover: none) and (pointer: coarse) {
+  .contact-icons a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// 5. Small phones + foldables closed (Z Flip cover, Z Fold ~280-400px) --------
+@media (max-width: 400px) {
+  .mossy-hero {
+    gap: 1.25rem;
+    margin-bottom: 2.25rem;
+  }
+  .mossy-hero__name {
+    font-size: clamp(2rem, 9vw, 2.6rem); // calmer than the 2.6-4rem desktop range
+  }
+  .mossy-hero__panel {
+    padding: 1.75rem 1rem;
+  }
+  .photo-grid {
+    grid-template-columns: 1fr; // one clean full-width column on tiny screens
+  }
+  .container,
+  .post {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 // Bullet/list entries

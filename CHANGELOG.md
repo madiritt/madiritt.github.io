@@ -11,6 +11,21 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Cross-device + mobile hardening
+
+#### Added
+- `_sass/_mossy.scss`: a new "Cross-device + mobile hardening" block (additive; desktop layout unchanged) covering iOS, Android, tablets, and foldables (Z Fold cover ~280px, Z Flip, Fold-open):
+  - Text/overflow safety nets: `-webkit-text-size-adjust: 100%`, `overflow-x: clip` on root (clip not hidden, so the CV sticky TOC sidebar still works), media `max-width: 100%`, and `overflow-wrap: anywhere` on long tokens (DOIs/URLs/emails) so they wrap on a 280px Fold cover screen.
+  - iOS safe-area insets (`env(safe-area-inset-*)`) on the fixed navbar and footer so they clear the notch / Dynamic Island / home indicator.
+  - `.table-responsive` horizontal scroll (wrapper-based; bare tables untouched).
+  - 44x44px touch targets for the social contact icons on coarse-pointer devices.
+  - `<=400px` breakpoint: calmer hero name scale, tighter hero/panel padding, single-column gallery, and consistent edge padding for small phones and folded foldables.
+- `_sass/_mossy.scss` (body): `min-height: 100dvh` alongside `100vh` so the atmospheric background fills iOS Safari correctly with its dynamic address bar.
+
+#### Notes
+- Baseline was already responsive (viewport meta present, hero collapses at 768px, gallery grid fluid); this hardens the edges rather than fixing a broken state.
+- Verified with a local jekyll build (all rules present in compiled main.css). Hinge behavior on real foldables and iOS safe areas cannot be verified in a build; check on actual devices.
+
 ### 2026-06-22 - Swap heading font Fraunces -> Lora
 
 #### Changed

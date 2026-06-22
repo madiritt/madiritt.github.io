@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Real teaching philosophy
+
+#### Changed
+- `_pages/teaching.md`: replaced the DRAFT teaching philosophy with Madison's final text (provided verbatim).
+
 ### 2026-06-22 - Real bio paragraph
 
 #### Changed

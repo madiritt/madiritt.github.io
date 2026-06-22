@@ -9,15 +9,16 @@ nav_order: 4
 
 ## Teaching philosophy
 
-<!-- DRAFT, written from Madison's teaching record (Teaching Fellow Award,
-     Certificate in Course Design, active-learning focus). Replace with her words. -->
-
-I teach toward active, learner-centered classrooms where students *do* science
-rather than just hear about it. My aim is for students to leave with the
-confidence to ask a testable question, work through it carefully, and make sense
-of what they find. Across courses I lean on hands-on inquiry, problem solving,
-and clear feedback, and I am always refining how a course is designed so that
-its structure reinforces real learning.
+In life, we are often faced with new knowledge and must decipher what knowledge
+to trust. This skill is applicable to many areas of life such as keeping up with
+current events, making medical decisions, and navigating politics. It is
+therefore my goal to give students the necessary tools to recreate this process:
+thinking independently and using that thought process to decipher what knowledge
+to trust. The task of learning these processes, however, falls primarily on the
+students as I utilize an active learning approach in my teaching. To give the
+students the tools to decipher what knowledge to trust, I emphasize critical and
+independent thinking in my courses and create a learner-centered classroom to
+encourage students to apply those skills in real time.
 
 ## Courses
 

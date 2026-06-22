@@ -2,7 +2,6 @@
 layout: page
 title: research
 permalink: /research/
-description: Organized by question rather than by organism.
 nav: true
 nav_order: 1
 display_categories: [current, past]

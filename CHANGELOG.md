@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Remove Research page subtitle
+
+#### Removed
+- `_pages/research.md`: dropped the page `description` ("Organized by question rather than by organism.") that rendered as a subtitle under the title. The question-based organization is still documented in the page's internal HTML comment for maintenance.
+
 ### 2026-06-22 - Remove RSS icon from homepage contact row
 
 #### Removed

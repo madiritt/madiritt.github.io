@@ -7,31 +7,64 @@ nav: true
 nav_order: 5
 ---
 
-<!-- To add more photos: drop images into assets/img/ and add another column
-     following the pattern below. Each photo is wrapped in a GLightbox anchor
-     (class="glightbox", same data-gallery group) so clicking opens a full-screen
-     slider with prev/next. Set the lightbox caption with data-title, and the
-     thumbnail caption in the figure's title="". See runbook 04. -->
+<!-- Google Photos-style library: a responsive grid of equal, cropped tiles.
+     Clicking any tile opens a full-screen GLightbox slider (prev/next, swipe,
+     keyboard) showing the full uncropped image.
 
-<div class="row">
-  <div class="col-sm-4 mt-3 mt-md-0">
-    <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox" data-gallery="field-gallery" data-title="">
-      {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid rounded z-depth-1" %}
-    </a>
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox" data-gallery="field-gallery" data-title="">
-      {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid rounded z-depth-1" %}
-    </a>
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    <a href="{{ '/assets/img/gallery-spider-squad-2023.jpg' | relative_url }}" class="glightbox" data-gallery="field-gallery" data-title="">
-      {% include figure.liquid path="assets/img/gallery-spider-squad-2023.jpg" title="" class="img-fluid rounded z-depth-1" %}
-    </a>
-  </div>
+     To add a photo: drop the image in assets/img/ and copy one .photo-tile
+     block below. Lightbox caption = anchor data-title. The grid grows and
+     re-flows automatically. See runbook 04. -->
+
+<style>
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .photo-grid a.photo-tile {
+    display: block;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  /* Make the al-folio figure/picture fill the square tile. */
+  .photo-grid a.photo-tile figure,
+  .photo-grid a.photo-tile picture {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .photo-grid a.photo-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .photo-grid a.photo-tile:hover img {
+    transform: scale(1.06);
+  }
+  .photo-grid a.photo-tile figcaption {
+    display: none; /* captions live in the lightbox, not on the tiles */
+  }
+</style>
+
+<div class="photo-grid">
+  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
+    {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
+    {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-spider-squad-2023.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
+    {% include figure.liquid path="assets/img/gallery-spider-squad-2023.jpg" title="" class="img-fluid" %}
+  </a>
 </div>
 
-<!-- GLightbox: full-screen lightbox gallery with prev/next navigation (click an image). -->
+<!-- GLightbox: full-screen lightbox gallery with prev/next navigation (click a tile). -->
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css"

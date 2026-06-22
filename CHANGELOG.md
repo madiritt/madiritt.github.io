@@ -11,11 +11,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
-### 2026-06-22 - Gallery lightbox (GLightbox) replacing medium-zoom
+### 2026-06-22 - Google Photos-style gallery grid + GLightbox slider
 
 #### Changed
-- `_pages/gallery.md`: replaced al-folio's medium-zoom (`zoomable=true`, in-place magnify) with a full-screen GLightbox gallery. Each photo is wrapped in an anchor (shared `data-gallery` group) so clicking opens a full-screen overlay with prev/next arrows, keyboard nav, and mobile swipe (the Gmail/Outlook experience Trevor wanted).
-- Loaded GLightbox 3.3.1 from jsdelivr with SRI integrity hashes (matches the theme's CDN convention; permitted by the theme's permissive CSP). Lightbox captions go in each anchor's `data-title` (blank for now, pending Madison's captions).
+- `_pages/gallery.md`: rebuilt the gallery as a Google Photos-style library. A responsive CSS grid of equal square tiles (`object-fit: cover`, so mixed portrait/landscape photos all crop tidily and the row is never uneven), with a subtle hover zoom. Tiles re-flow automatically as photos are added.
+- Clicking any tile opens a full-screen GLightbox slider (prev/next arrows, keyboard nav, mobile swipe, full uncropped image), the Gmail/Outlook/Google-Photos experience Trevor wanted. Replaced al-folio's medium-zoom (in-place magnify).
+- GLightbox 3.3.1 loaded from jsdelivr with SRI integrity hashes (matches the theme's CDN convention; permitted by the theme's permissive CSP). Grid CSS is page-scoped inline `<style>` to stay self-contained. Lightbox captions go in each tile anchor's `data-title` (blank for now, pending Madison's captions).
+- Validated with a local jekyll build.
 
 ### 2026-06-22 - Fix broken gallery image and add click-to-zoom
 

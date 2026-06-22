@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Fix broken gallery image and add click-to-zoom
+
+#### Fixed
+- `assets/img/gallery-spider-hunting-2022.jpg`: the original `Spiderhunting_2022.JPG` was actually a HEIC file (iPhone) with a `.jpg` extension, so browsers could not render it (only 2 of 3 gallery images showed). Re-encoded it to a genuine JPEG (3024x4032) via WIC.
+
+#### Added
+- `_pages/gallery.md`: added `zoomable=true` to all three figures. al-folio's medium-zoom gives a click-to-enlarge lightbox overlay (like Gmail/Drive).
+
+#### Notes
+- Watch for HEIC-as-JPG on future phone photos; convert before committing or the build's responsive step / the browser will choke.
+
 ### 2026-06-22 - Add DOIs to publications and fix CV title mismatch
 
 #### Added

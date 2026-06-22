@@ -29,7 +29,4 @@ latest_posts:
   limit: 3
 ---
 
-<!-- PLACEHOLDER - Madison's bio paragraph goes here. 3-6 sentences, first person.
-     Draft starting point below; replace with her real text. -->
-
-I'm a behavioral ecologist interested in how and why animals behave the way they do, through a behavioral and cognitive lens. My current work focuses on decision-making in jumping spiders, building on earlier research in avian behavioral ecology. I teach at UW Milwaukee and the Milwaukee Institute of Art & Design (MIAD).
+I am a behavioral ecologist who is broadly interested in understanding how and why animals behave the way they do using a cognitive perspective. To investigate these questions, I use a variety of field and lab-based techniques ranging from field experiments to microCT imaging. Outside of research I am passionate about teaching in higher education and mentoring undergraduate researchers. One of my career goals is to give undergraduates research experiences I did not have access to when I was in their position. Outside of work I thoroughly enjoy being outside, playing board games, playing/watching basketball, and antagonizing my cat — Ollie.

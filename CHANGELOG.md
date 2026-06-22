@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Real bio paragraph
+
+#### Changed
+- `_pages/about.md`: replaced the placeholder bio with Madison's final text (provided verbatim). Note: contains one em-dash ("my cat — Ollie") kept at Madison's/Trevor's explicit request, a deliberate exception to the repo no-em-dash rule for author-provided content.
+
 ### 2026-06-22 - Remove redundant hero photo caption
 
 #### Removed

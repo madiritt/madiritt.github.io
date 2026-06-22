@@ -11,6 +11,16 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Swap heading font Fraunces -> Lora
+
+#### Changed
+- `_sass/_mossy.scss`, `_config.yml`: replaced Fraunces with Lora as the sitewide heading/display font (h1-h6, `.post-title`, `.card-title`, navbar brand). Fraunces' curly lowercase "f" read as too wavy (noticed on the CV "Professional Summary" heading). Lora keeps the warm serif character with conventional letterforms. Body (Lexend) and mono (JetBrains Mono) unchanged.
+- `CLAUDE.md`: updated the Mossy typography spec and title-bar rule to reflect Lora.
+
+#### Notes
+- Affects every heading sitewide, not just the CV (the f only happened to be visible there). Reversible: swap "Lora" back to "Fraunces" in those two files. Easy to try a different serif (Source Serif, Newsreader) the same way.
+- Validated with a local jekyll build: Lora present in the font URL and compiled main.css; Fraunces absent from both.
+
 ### 2026-06-22 - Remove redundant Teaching page subtitle
 
 #### Removed

@@ -112,12 +112,12 @@ The visual design is locked as a standalone HTML mockup but has NOT been ported 
 - Card border: `rgba(212, 200, 120, 0.18)`, brightening to full citrine `#d4c878` on hover
 
 **Typography:**
-- Display/headings: Fraunces (serif), weight 500, NO italic on titles
+- Display/headings: Lora (serif), weight 500, NO italic on titles. (Originally Fraunces; swapped 2026-06-22 because Fraunces' curly lowercase "f" read as too wavy on headings like "Professional Summary". Lora keeps the warm serif feel with conventional letterforms.)
 - Body: Lexend (sans-serif)
 - Small-caps labels/dates: JetBrains Mono
 - All Google Fonts
 
-**Title bar rule:** ALL titles (h1/h2/h3) are uniform: Fraunces, cream `#f4f0d8`, weight 500, no italic, no color splits. Italics were deliberately removed from all titles. Body inline links ARE italicized (scholarly reference style); titles are not.
+**Title bar rule:** ALL titles (h1/h2/h3) are uniform: Lora, cream `#f4f0d8`, weight 500, no italic, no color splits. Italics were deliberately removed from all titles. Body inline links ARE italicized (scholarly reference style); titles are not.
 
 **Layout signatures:**
 - Hero is a 2-column split: left = text (eyebrow, big name/headline, bio, Currently element) on moss; right = pastel orange panel (with transparency) holding the portrait

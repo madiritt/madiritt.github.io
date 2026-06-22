@@ -112,15 +112,15 @@ body {
 
 h1, h2, h3, h4, h5, h6,
 .post-title, .card-title {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   font-weight: 500;
   font-style: normal; // titles are never italic (deliberate)
 }
 
-// Navbar brand = Madison's name in Fraunces citrine
+// Navbar brand = Madison's name in Lora citrine
 .navbar-brand,
 .navbar .navbar-brand a {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   font-weight: 500;
   color: var(--global-theme-color);
 }
@@ -152,7 +152,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .mossy-hero__name {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   font-weight: 500;
   font-style: normal;
   font-size: clamp(2.6rem, 6vw, 4rem);

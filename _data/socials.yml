@@ -7,4 +7,4 @@ email: ritting2@uwm.edu
 # scholar_userid: # PLACEHOLDER - Google Scholar ID (the part after user= in the profile URL)
 # research_gate: # PLACEHOLDER - ResearchGate profile slug
 # linkedin_username: # PLACEHOLDER - LinkedIn username
-rss_icon: false
+# rss_icon: false  # GOTCHA: the jekyll-socials plugin renders this icon whenever the KEY is present (value is ignored, even `false`). Keep it commented to hide. Uncomment only when a real /feed.xml exists (see CHANGELOG note on wiring the _news collection).

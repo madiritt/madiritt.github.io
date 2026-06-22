@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Remove RSS icon from homepage contact row
+
+#### Removed
+- `_data/socials.yml`: commented out the `rss_icon` line so the RSS icon no longer renders. There is no blog/feed worth subscribing to (no `_posts`; the one `_news` item is in a collection the default `jekyll-feed` does not include, so `/feed.xml` is effectively empty).
+
+#### Fixed
+- Corrected a false assumption: `rss_icon: false` did NOT hide the icon. The `jekyll-socials` plugin renders the RSS icon whenever the `rss_icon` key is PRESENT in `_data/socials.yml`, ignoring its value entirely (plugin source: `jekyll-socials-0.0.7/lib/jekyll-socials.rb`, lines 206-212). The icon had been live on the site. Hiding it requires removing/commenting the key, not setting it false.
+
+#### Notes
+- To bring RSS back as a real feature later: configure a `feed.collections.news` block in `_config.yml` so `jekyll-feed` publishes the `_news` collection, then uncomment the `rss_icon` line. Only worth doing once news updates are frequent.
+
 ### 2026-06-22 - Use academic email for homepage contact icon
 
 #### Changed

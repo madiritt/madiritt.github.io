@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Enlarge homepage portrait
+
+#### Changed
+- Hero portrait felt small against the now-wider page. `_sass/_mossy.scss`: portrait `max-width` 270px -> 360px and `width` 78% -> 88%; hero panel `min-height` 320px -> 400px to stay proportional. `_layouts/about.liquid`: responsive-image `sizes` hint 280px/80vw -> 360px/85vw so a sharp enough source loads.
+
 ### 2026-06-22 - Widen sitewide content column
 
 #### Changed

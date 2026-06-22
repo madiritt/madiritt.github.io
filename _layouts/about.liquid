@@ -40,7 +40,7 @@ layout: default
         <div class="mossy-hero__panel">
           {% if page.profile.image %}
             {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-            {% capture sizes %}(min-width: 768px) 280px, 80vw{% endcapture %}
+            {% capture sizes %}(min-width: 768px) 360px, 85vw{% endcapture %}
             {%
               include figure.liquid loading="eager" path=profile_image_path class="mossy-portrait"
               sizes=sizes alt=page.profile.image cache_bust=true

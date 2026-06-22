@@ -224,7 +224,7 @@ h1, h2, h3, h4, h5, h6,
   padding: 2rem;
   border-radius: 6px;
   overflow: hidden;
-  min-height: 320px;
+  min-height: 400px;
   background: linear-gradient(150deg, rgba(254, 172, 116, 0.92) 0%, rgba(224, 142, 86, 0.78) 100%);
 }
 .mossy-hero__panel::before {
@@ -242,8 +242,8 @@ h1, h2, h3, h4, h5, h6,
 .mossy-hero__panel .mossy-portrait {
   position: relative;
   z-index: 1;
-  width: 78%;
-  max-width: 270px;
+  width: 88%;
+  max-width: 360px;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 2px;

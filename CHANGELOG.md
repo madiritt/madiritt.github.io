@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Add LinkedIn social link
+
+#### Added
+- `_data/socials.yml`: enabled `linkedin_username` (madison-rittinger-5a12711b8). Contact row now shows email then LinkedIn. ORCID/Scholar/ResearchGate still placeholder.
+
 ### 2026-06-22 - Add first gallery photos
 
 #### Added

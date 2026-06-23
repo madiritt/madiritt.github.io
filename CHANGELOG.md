@@ -11,6 +11,19 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-23 - Seamless spiderweb background field
+
+#### Added
+- `_sass/_mossy.scss`: one faint orb-web texture tiled across the whole page as a cohesive backdrop, on a single `body::before` layer (`position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.09`).
+  - Seamless tile: a web node at the tile center with spokes running out to the tile edges and corners, so adjacent tiles' strands meet exactly and read as one continuous net (no visible seams). Geometry: 200x200 viewBox, 8 spokes + 3 sagging orb rings; rendered on screen at a 300px tile.
+  - Painted with `mask-image` + `background-color: var(--global-theme-color)`, so each theme inherits its own citrine (deep citrine on parchment, soft citrine on moss) automatically; no per-theme duplication.
+  - Fixed full-viewport layer above the body gradient and behind all content, so it stays put while the page scrolls and shows through wherever the moss/parchment shows (cards etc. sit on top).
+  - `<=600px`: smaller 220px tile, opacity eased to 0.07.
+
+#### Notes
+- Replaces the same-day corner-accent first pass (two `body::before`/`::after` corner webs); the all-over field reads as more intentional and carries across every page.
+- Verified with a local jekyll build (data URI compiled intact into main.css). PurgeCSS keeps `body::before` since the `body` base selector is always present.
+
 ### 2026-06-22 - Fix awkward wrapping of the homepage hero eyebrow
 
 #### Changed

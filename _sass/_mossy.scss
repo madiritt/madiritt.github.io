@@ -104,6 +104,39 @@ html[data-theme="dark"] body {
     radial-gradient(ellipse 900px 600px at 88% 110%, rgba(14, 22, 12, 0.55) 0%, transparent 55%);
 }
 
+// ---- Seamless spiderweb field (added 2026-06-23) ---------------------------
+// One faint orb-web texture tiled across the whole page as a cohesive backdrop.
+// The tile carries a web node at its center with spokes running out to the tile
+// edges/corners, so adjacent tiles' strands meet exactly and read as one
+// continuous net (no visible seams). Painted via mask + var(--global-theme-color)
+// so each theme inherits its own citrine automatically. A single fixed,
+// full-viewport, pointer-events:none layer at z-index -1 sits above the body
+// gradient and behind every bit of content, so it stays put while the page
+// scrolls. Tile geometry: viewBox 0 0 200 200, node at (100,100).
+$mossy-web: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round'%3E%3Cpath d='M100 100L200 100M100 100L200 0M100 100L100 0M100 100L0 0M100 100L0 100M100 100L0 200M100 100L100 200M100 100L200 200' stroke-width='0.7'/%3E%3Cpath d='M128.0 100.0Q122.2 109.2 119.8 119.8Q109.2 122.2 100.0 128.0Q90.8 122.2 80.2 119.8Q77.8 109.2 72.0 100.0Q77.8 90.8 80.2 80.2Q90.8 77.8 100.0 72.0Q109.2 77.8 119.8 80.2Q122.2 90.8 128.0 100.0M154.0 100.0Q142.9 117.8 138.2 138.2Q117.8 142.9 100.0 154.0Q82.2 142.9 61.8 138.2Q57.1 117.8 46.0 100.0Q57.1 82.2 61.8 61.8Q82.2 57.1 100.0 46.0Q117.8 57.1 138.2 61.8Q142.9 82.2 154.0 100.0M180.0 100.0Q163.6 126.3 156.6 156.6Q126.3 163.6 100.0 180.0Q73.7 163.6 43.4 156.6Q36.4 126.3 20.0 100.0Q36.4 73.7 43.4 43.4Q73.7 36.4 100.0 20.0Q126.3 36.4 156.6 43.4Q163.6 73.7 180.0 100.0' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E";
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0; // full viewport
+  z-index: -1; // above body's gradient background, behind all content
+  pointer-events: none;
+  opacity: 0.09; // same weight as the previous corner accent
+  background-color: var(--global-theme-color);
+  -webkit-mask: url("#{$mossy-web}") repeat;
+  mask: url("#{$mossy-web}") repeat;
+  -webkit-mask-size: 300px 300px; // tile size on screen
+  mask-size: 300px 300px;
+}
+// Slightly smaller tile + a touch lighter on phones so it doesn't crowd text
+@media (max-width: 600px) {
+  body::before {
+    opacity: 0.07;
+    -webkit-mask-size: 220px 220px;
+    mask-size: 220px 220px;
+  }
+}
+
 /*******************************************************************************
  * Typography
  ******************************************************************************/

@@ -11,6 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-23 - Publication thumbnails + Mossy preview styling
+
+#### Added
+- `_bibliography/papers.bib`: a `preview={...}` field on all four entries, wiring each paper to a left-column thumbnail (al-folio's built-in feature; `enable_publication_thumbnails` was already `true` and `preview` already in `filtered_bibtex_keywords`).
+- `assets/img/publication_preview/`: four Mossy-colored square PLACEHOLDER PNGs (600x600), one per paper: `instinct-insight.png`, `web-spider.png`, `treefrog.png`, `songbird-nestling.png`. Madison replaces each in place (same filename) with a real paper figure or field photo; square sources >=600px work best.
+- `_sass/_mossy.scss`: publication-preview styling so the thumbnails match the design language (citrine hairline border, offset moss shadow echoing the hero portrait, border brightens to full citrine on row hover). Also a citrine retint for journal `abbr` venue badges, in case those are added later.
+
+#### Removed
+- `assets/img/publication_preview/brownian-motion.gif`, `wave-mechanics.gif`: leftover al-folio demo thumbnails, unreferenced.
+
+#### Notes
+- Publication badges (altmetric, dimensions, google_scholar, inspirehep) were already enabled in `_config.yml`; no change needed. Altmetric/Dimensions donuts populate automatically from each entry's DOI.
+- Verified with a local jekyll build (green in ~10s): all four previews render into `_site/publications/index.html` and the preview CSS compiles into `main.css` (survives PurgeCSS).
+
 ### 2026-06-23 - Seamless spiderweb background field
 
 #### Added

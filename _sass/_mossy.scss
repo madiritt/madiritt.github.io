@@ -326,6 +326,25 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
+// Publication thumbnails: tie al-folio's left-column preview into the Mossy
+// language (citrine hairline + offset moss shadow, echoing the hero portrait).
+.publications .preview,
+.publications img.preview {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 2px;
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--global-text-color) 14%, transparent);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.publications .row:hover .preview {
+  border-color: var(--global-theme-color);
+}
+// Citrine venue/journal abbr badge in the left column (if abbr tags are added)
+.publications .abbr abbr.badge {
+  background-color: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
 // News / announcement dates -> mono citrine
 .news .date,
 table.table td.date,

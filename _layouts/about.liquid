@@ -11,7 +11,17 @@ layout: default
   <header class="mossy-hero">
     <div class="mossy-hero__left">
       {% if page.subtitle %}
-        <p class="mossy-eyebrow">{{ page.subtitle }}</p>
+        {%- comment -%}
+          Split the subtitle on the dot so each segment (role / department /
+          university) stays intact and can only wrap at a separator, never
+          mid-affiliation. Small-screen wrapping is relaxed in _mossy.scss.
+        {%- endcomment -%}
+        <p class="mossy-eyebrow">
+          {%- assign eyebrow_parts = page.subtitle | split: "·" -%}
+          {%- for part in eyebrow_parts -%}
+            <span class="mossy-eyebrow__part">{{ part | strip }}</span>{%- unless forloop.last %} <span class="mossy-eyebrow__sep" aria-hidden="true">·</span> {% endunless -%}
+          {%- endfor -%}
+        </p>
       {% endif %}
 
       <h1 class="mossy-hero__name">

@@ -150,6 +150,14 @@ h1, h2, h3, h4, h5, h6,
   text-transform: uppercase;
   color: var(--global-theme-color);
   margin: 0 0 0.9rem;
+  line-height: 1.7; // breathing room when it wraps to two lines
+}
+// Each segment stays whole; wrapping only happens at the dot separators.
+.mossy-eyebrow__part {
+  white-space: nowrap;
+}
+.mossy-eyebrow__sep {
+  opacity: 0.6;
 }
 
 .mossy-hero__name {
@@ -411,6 +419,14 @@ code {
   }
   .mossy-hero__name {
     font-size: clamp(2rem, 9vw, 2.6rem); // calmer than the 2.6-4rem desktop range
+  }
+  // Tiny screens (e.g. Z Fold cover): tighten tracking and let segments wrap,
+  // since the longest segment cannot fit on one line at ~280px anyway.
+  .mossy-eyebrow {
+    letter-spacing: 0.1em;
+  }
+  .mossy-eyebrow__part {
+    white-space: normal;
   }
   .mossy-hero__panel {
     padding: 1.75rem 1rem;

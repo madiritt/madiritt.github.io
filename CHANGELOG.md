@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-22 - Fix awkward wrapping of the homepage hero eyebrow
+
+#### Changed
+- `_layouts/about.liquid`: the hero eyebrow subtitle now splits on the dot separator into per-segment spans (role / department / university). Each segment is kept whole so the line can only wrap at a separator, never mid-affiliation (previously "University of" and "Wisconsin-Milwaukee" could split across lines).
+- `_sass/_mossy.scss`: `.mossy-eyebrow__part { white-space: nowrap }` plus a two-line `line-height`; separators dimmed slightly. On `<=400px` (e.g. Z Fold cover) tracking tightens and segments are allowed to wrap, since the longest segment cannot fit one line at ~280px regardless.
+
 ### 2026-06-22 - Cross-device + mobile hardening
 
 #### Added

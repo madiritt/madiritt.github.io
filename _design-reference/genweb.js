@@ -30,10 +30,11 @@ const spokes = [
 ];
 
 // --- Concentric concave catch-rings around each hub ------------------------
-// Vertices point along the 6 spoke directions (0,60,...,300). Two radii read
-// as two turns of the capture spiral; the outer is ~ s/2 so neighbor rings
-// nearly meet and the field stays continuous.
-const radii = [13, 24];
+// Vertices point along the 6 spoke directions (0,60,...,300). Four radii read
+// as four turns of the capture spiral; the outer (34) is > s/2 (30) so each
+// hub's outermost ring OVERLAPS its neighbors and fills the triangle voids,
+// so the field reads as one continuous dense web with no blank gaps.
+const radii = [10, 18, 26, 34];
 const sag = 0.84; // how far the catch thread bows in toward the hub (0..1)
 const hex = (cx, cy, rad) => {
   const v = [];
@@ -63,8 +64,8 @@ for (const [cx, cy] of hubs) for (const rad of radii) rings.push(hex(cx, cy, rad
 const svg =
   `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}'>` +
   `<g fill='none' stroke='#fff' stroke-linecap='round'>` +
-  `<path d='${spokes.join('')}' stroke-width='0.6'/>` +
-  `<path d='${rings.join('')}' stroke-width='0.5'/>` +
+  `<path d='${spokes.join('')}' stroke-width='0.5'/>` +
+  `<path d='${rings.join('')}' stroke-width='0.45'/>` +
   `</g></svg>`;
 
 // URL-encode the way SCSS url() wants it.

@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-23 - Densify the orb-weaver web (kill the blank space)
+
+#### Changed
+- `_sass/_mossy.scss` + `_design-reference/genweb.js`: the web field still read as separate hubs with large empty gaps between them. Filled it in two ways:
+  - Catch-rings per node: 2 -> 4 (`radii` now `[10, 18, 26, 34]`). The outer ring (34) is larger than half the node spacing (30), so each hub's outermost ring OVERLAPS its neighbors and closes the triangle voids. The field now reads as one continuous dense web instead of loosely linked little webs.
+  - Tighter density: `mask-size` `80px 139px` -> `72px 125px` desktop, `64px 111px` -> `58px 100px` mobile (hubs sit closer together).
+  - Thread weight eased (spoke `0.6` -> `0.5`, ring `0.5` -> `0.45`) so the denser net stays subtle rather than muddy. Opacity unchanged (0.09 / 0.08 mobile).
+
+#### Notes
+- Picked density via headless renders (Edge) of four variants, then confirmed the chosen one at the live 0.09 opacity over the moss gradient with a sample card: background is filled, text stays fully legible. Verified the dense tile + `mask-size:72px 125px` compile into `main.css`.
+
 ### 2026-06-23 - Rebuild background as an even orb-weaver web field
 
 #### Changed

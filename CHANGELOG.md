@@ -11,6 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-23 - Rebuild background as an even orb-weaver web field
+
+#### Changed
+- `_sass/_mossy.scss` (`$mossy-web` + `body::before`): replaced the single-target web tile with an even, all-over orb-weaver net. New geometry is a triangular SPOKE lattice (frame / radial threads) with two concentric CONCAVE catch-rings at every node (the capture spiral, sagging inward between spokes like real silk). Every node is identical and rings nearly meet their neighbors, so the field reads as one continuous geometric web rather than a grid of separate, cartoonish webs.
+  - New tile viewBox `0 0 60 103.923` (one rhombus of the triangular grid, ratio 1:1.732). `mask-size` is now proportional: `80px 139px` desktop, `64px 111px` on `<=600px` (square sizing would distort the hexagons). Hubs sit ~80px apart, so the texture fills the field densely instead of leaving the old large empty gaps.
+  - Opacity unchanged at `0.09` desktop; mobile eased to `0.08`. Still painted via `mask-image` + `background-color: var(--global-theme-color)`, so each theme inherits its own citrine automatically.
+
+#### Added
+- `_design-reference/genweb.js`: committed generator for the tile (triangular tiling math + concave Q-curve catch-threads). Edit its knobs (`radii`, `sag`, `s`, stroke widths) and rerun `node _design-reference/genweb.js` to regenerate the `$mossy-web` data URI.
+
+#### Notes
+- Motivation: the prior tile read as a repeating cartoon "target" with large dead radial space around each hub. This keeps the orb-weaver identity but makes it an even, subtle, classy field that covers the whole background.
+- Verified locally: jekyll build green (~5s); compiled `main.css` carries the new `viewBox='0 0 60 103...'` tile and `mask-size:80px 139px`, and no longer contains the old `200 200` tile. Also rendered the tiled field headless (Edge) at the live 0.09 opacity to confirm subtlety + text legibility before wiring it in.
+
 ### 2026-06-23 - Publication thumbnails + Mossy preview styling
 
 #### Added

@@ -11,6 +11,19 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-24 - Reframe the hero portrait (fix the off-center look)
+
+#### Changed
+- `_sass/_mossy.scss` (`.mossy-hero__panel img` / `.mossy-portrait`): the portrait read as a full-body shot squeezed into a portrait slot. Source photo is 1200x1500 (4:5), but the panel forced `aspect-ratio: 3 / 4` (0.75). Because the photo is slightly wider than 3:4, `object-fit: cover` showed the FULL height (only ~6% trimmed off the sides), leaving heavy headroom above and a block of torso below, so her face floated high-center.
+  - `aspect-ratio` `3 / 4` -> `5 / 6` and added `object-position: 50% 12%`. Together these crop a little headroom and lower torso and pull her face onto the upper third. Portrait orientation (the Mossy panel design) is preserved.
+
+#### Notes
+- Chose the framing by rendering the candidate crops (3:4 current, 5:6, 9:10, 1:1) with System.Drawing, reproducing exactly what `object-fit: cover` + `object-position` would paint, and comparing them. 5:6 was the smallest change that fixed the float while keeping the portrait shape. Image file is untouched; this is CSS-only, so it is trivially reversible/swappable to a tighter crop (9:10 or 1:1) if Madison prefers.
+
+#### Decided
+- The homepage bio in `_pages/about.md` is now Madison's FINAL bio (no longer a placeholder). CLAUDE.md content tracker updated to match.
+- Sanctioned a single exception to the no-em-dash project rule: the bio's "...my cat — Ollie" keeps its em-dash at Madison's request. The rule still holds everywhere else. Documented in CLAUDE.md hard rules.
+
 ### 2026-06-23 - Densify the orb-weaver web (kill the blank space)
 
 #### Changed

@@ -298,8 +298,11 @@ h1, h2, h3, h4, h5, h6,
   z-index: 1;
   width: 88%;
   max-width: 360px;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 5 / 6;
   object-fit: cover;
+  // Source photo (1200x1500, 4:5) has heavy headroom + torso; bias the cover
+  // crop upward so her face lands on the upper third instead of floating center.
+  object-position: 50% 12%;
   border-radius: 2px;
   box-shadow: 8px 8px 0 $moss-shadow;
 }

@@ -24,6 +24,7 @@ Her displayed/published name everywhere on the site, in mockups, runbooks, and a
 ## Hard rules for working in this repo
 
 - **NEVER use em-dashes** in any file, commit message, or output. Use a hyphen with spaces, a colon, or restructure. This is a strict, non-negotiable preference.
+  - **One sanctioned exception:** the bio paragraph in `_pages/about.md` ("...antagonizing my cat — Ollie") keeps its em-dash. Madison wrote it that way and asked for it untouched. Leave that one em-dash alone; the rule still applies everywhere else.
 - **Always update `CHANGELOG.md`** (repo root) when making changes. Use the existing format: dated entries under `[Unreleased]`, categorized (Added/Changed/Fixed/Removed/Decided/Notes).
 - **Error logging / changelog discipline** applies to scripts and config work.
 - Lowercase `dci` is a convention from Trevor's other work; not relevant here but if it ever comes up, honor it.
@@ -175,13 +176,15 @@ About (homepage `/`) - Research (1) - Publications (2) - CV (3) - Teaching / Men
 - `assets/img/prof_pic.jpg` - Madison's headshot (REQUIRED by about layout)
 
 ### Content placeholders awaiting Madison's real content
-Search the repo for `PLACEHOLDER` to find them: bio paragraph, 3 research-question descriptions, teaching philosophy + courses + mentoring, outreach activities, gallery photos, the .bib entries, and the commented social links in `_data/socials.yml`.
+Search the repo for `PLACEHOLDER` to find them: 3 research-question descriptions, teaching philosophy + courses + mentoring, outreach activities, gallery photos, the .bib entries, and the commented social links in `_data/socials.yml`.
+
+The **bio paragraph in `_pages/about.md` is FINAL (Madison's real bio, as of 2026-06-24)** - no longer a placeholder. Keep its em-dash (see Hard rules exception).
 
 ---
 
 ## Still needed from Madison
 - ORCID iD, Google Scholar URL, ResearchGate URL, LinkedIn URL (uncomment + fill in `_data/socials.yml`)
-- Real bio paragraph
+- ~~Real bio paragraph~~ DONE (final bio in `_pages/about.md` as of 2026-06-24)
 - CV PDF (goes in `assets/pdf/`, referenced from `_pages/cv.md`)
 - Research question descriptions + representative images
 - Publication list (as BibTeX in `_bibliography/papers.bib`)

@@ -11,6 +11,36 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-28 - Gallery: per-photo blurbs + integrate Madison's new images
+
+#### Added
+- Five new gallery images imported to `assets/img/` (kebab-renamed from Madison's Drive export): `gallery-abs-2025.jpg`, `gallery-f-communis-2025.jpg`, `gallery-clay-models-2025.jpg`, `gallery-transects-2025.jpg`, `gallery-p-phalangioides-2022.jpg`.
+- Per-photo blurb method on the gallery: each tile now carries `data-title` + `data-description`, shown beneath the full image in the GLightbox lightbox (preserves the clean Google-Photos grid; no visible-caption clutter). Blurb text is currently PLACEHOLDER, awaiting Madison's real captions.
+
+#### Changed
+- `_pages/gallery.md`: rebuilt the tile set. Now 6 photos (Paige fieldwork, transects, P. phalangioides, F. communis, clay models, ABS) plus the existing spider-hunting tile.
+- Header comment updated to document the `data-title`/`data-description` blurb workflow for runbook 04.
+
+#### Removed
+- Dropped the `gallery-spider-squad-2023.jpg` tile from the gallery. It is the same photo as Madison's `mentoring - Ellie Wheeler, Ava Mueller, Sage DeLong, and me 2023`; it belongs on the mentoring page, not the gallery. (File retained in `assets/img/` for reuse on the teaching/mentoring page.)
+
+#### Notes
+- Verified by eye that `gallery-paige-fieldwork.jpg` is identical to Madison's new "Paige Duncan...Mackinaw 2020" export, so the existing file is reused (no duplicate import).
+- `gallery-spider-hunting-2022.jpg` (3 students searching logs) is not in Madison's new set and has no blurb yet; kept in place pending a caption or a decision to retire it.
+
+### 2026-06-28 - Publications: real preview images replace placeholder cards
+
+#### Changed
+- Replaced all four placeholder preview cards in `assets/img/publication_preview/` with Madison's real images, one per paper:
+  - `instinct-insight` <- the paper's 4-panel framework figure (Innate / Previously learned / Learned de novo / Insightful). Source was 3178x3510 / 14 MB; downscaled to 1200px wide JPG q90 (358 KB) to keep the repo lean. CI imagemagick still generates responsive WebP from it.
+  - `web-spider` <- cellar spider (Pholcus phalangioides) macro.
+  - `treefrog` <- eastern gray treefrog.
+  - `songbird-nestling` <- house wren.
+- `_bibliography/papers.bib`: repointed the four `preview=` fields from `.png` to `.jpg`.
+
+#### Removed
+- The four placeholder `.png` preview cards (instinct-insight, web-spider, treefrog, songbird-nestling).
+
 ### 2026-06-24 - Reframe the hero portrait (fix the off-center look)
 
 #### Changed

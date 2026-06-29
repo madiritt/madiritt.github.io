@@ -9,11 +9,12 @@ nav_order: 5
 
 <!-- Google Photos-style library: a responsive grid of equal, cropped tiles.
      Clicking any tile opens a full-screen GLightbox slider (prev/next, swipe,
-     keyboard) showing the full uncropped image.
+     keyboard) showing the full uncropped image with its title + blurb beneath.
 
      To add a photo: drop the image in assets/img/ and copy one .photo-tile
-     block below. Lightbox caption = anchor data-title. The grid grows and
-     re-flows automatically. See runbook 04. -->
+     block below. Set data-title (short title) and data-description (the blurb)
+     on the anchor; both show in the lightbox. The grid grows and re-flows
+     automatically. See runbook 04. -->
 
 <style>
   .photo-grid {
@@ -53,14 +54,26 @@ nav_order: 5
 </style>
 
 <div class="photo-grid">
-  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
+  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Mackinaw Nature Preserve, 2020" data-description="PLACEHOLDER blurb. Paige Duncan, M.S., and me heading out for fieldwork at Mackinaw Nature Preserve, 2020.">
     {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
-    {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
+  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Running transects, May 2025" data-description="PLACEHOLDER blurb. Helping Mish run transects in the field, May 2025.">
+    {% include figure.liquid path="assets/img/gallery-transects-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-spider-squad-2023.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="">
-    {% include figure.liquid path="assets/img/gallery-spider-squad-2023.jpg" title="" class="img-fluid" %}
+  <a href="{{ '/assets/img/gallery-p-phalangioides-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Pholcus phalangioides, 2022" data-description="PLACEHOLDER blurb. A cellar spider (<em>Pholcus phalangioides</em>) with a fruit fly, 2022.">
+    {% include figure.liquid path="assets/img/gallery-p-phalangioides-2022.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-f-communis-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Frontinella communis web, 2025" data-description="PLACEHOLDER blurb. A bowl-and-doily weaver (<em>Frontinella communis</em>) web in a juniper, 2025.">
+    {% include figure.liquid path="assets/img/gallery-f-communis-2025.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Painting clay models, 2025" data-description="PLACEHOLDER blurb. Helping Mish paint clay models for a predation study, 2025.">
+    {% include figure.liquid path="assets/img/gallery-clay-models-2025.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society meeting, 2025" data-description="PLACEHOLDER blurb. With colleagues at the Animal Behavior Society meeting, 2025.">
+    {% include figure.liquid path="assets/img/gallery-abs-2025.jpg" title="" class="img-fluid" %}
+  </a>
+  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Hunting for spiders, 2022" data-description="PLACEHOLDER blurb. Searching downed logs for spiders, 2022.">
+    {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
   </a>
 </div>
 

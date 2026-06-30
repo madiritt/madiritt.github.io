@@ -348,13 +348,21 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
-// Publication thumbnails: tie al-folio's left-column preview into the Mossy
-// language (citrine hairline; offset moss shadow removed per Madison's request).
+// Publication thumbnails (homepage "selected" + /publications): uniform square
+// tiles, cropped with object-fit cover like the gallery, citrine hairline border.
+// pointer-events: none disables al-folio's medium-zoom on these (kills both the
+// click-to-zoom and its zoom-in cursor); the row-hover border still works because
+// the hover falls through to the row.
 .publications .preview,
 .publications img.preview {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border: 1px solid var(--global-divider-color);
   border-radius: 2px;
   transition: border-color 0.2s ease;
+  pointer-events: none;
 }
 .publications .row:hover .preview {
   border-color: var(--global-theme-color);

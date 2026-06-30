@@ -11,6 +11,16 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Uniform publication thumbnails + remove the medium-zoom icon
+
+#### Changed
+- `_sass/_mossy.scss` (`.publications .preview`): publication thumbnails (homepage "selected publications" + the `/publications` list) were rendering at each image's native aspect ratio, so they looked uneven. Now uniform square tiles via `aspect-ratio: 1 / 1` + `object-fit: cover`, same approach as the gallery.
+- Disabled al-folio's medium-zoom on those thumbnails with `pointer-events: none`: kills both the click-to-zoom and the zoom-in (magnifying-glass) cursor in one line. The row-hover citrine border still works because the hover falls through to the row.
+
+#### Notes
+- `enable_medium_zoom` in `_config.yml` is a dead key in al_folio_core 1.0.11 (not referenced anywhere in the gem), so it could not be used to toggle this. The zoom is medium-zoom@1.1.0 (CDN) binding to `[data-zoomable]`, which the gem's `_layouts/bib.liquid` emits via `figure.liquid zoomable=true`. Rather than fork the 396-line `bib.liquid` or a core include, the CSS `pointer-events` approach is fully scoped and zero-maintenance.
+- Verified uniform sizing on both pages via local headless screenshots.
+
 ### 2026-06-30 - Fix off-center hero portrait (full-bleed on the orange panel)
 
 #### Changed

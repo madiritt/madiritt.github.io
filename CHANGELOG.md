@@ -11,6 +11,18 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Remove the hard offset "block" shadows behind images
+
+#### Changed
+- `_sass/_mossy.scss`: removed the flat `Npx Npx 0` offset shadows that dropped a solid colored slab behind images (Madison found them goofy).
+  - Hero portrait (`.mossy-hero__panel img`): dropped `box-shadow: 8px 8px 0 $moss-shadow`.
+  - Publication thumbnails (`.publications .preview`): dropped `box-shadow: 5px 5px 0 ...` and trimmed the now-unused `box-shadow` transition.
+  - Removed the now-unused `$moss-shadow` brand constant.
+- Left untouched: the "Currently" dot's soft glow halo and the subtle card hover-lift (not behind images, not the slab effect).
+
+#### Decided
+- The offset moss shadow is no longer a design signature. CLAUDE.md Mossy spec updated to reflect the removal.
+
 ### 2026-06-28 - Gallery: per-photo blurbs + integrate Madison's new images
 
 #### Added

@@ -16,7 +16,6 @@
 // ---- Brand constants (mode-independent) ------------------------------------
 $orange: #feac74; // pastel orange - hero panel + Currently dot, same in both modes
 $orange-deep: #e08e56;
-$moss-shadow: #1e2a18; // portrait offset shadow, constant on the orange panel
 
 // ---- DARK (deep moss) ------------------------------------------------------
 $d-bg: #1e2a18;
@@ -304,7 +303,6 @@ h1, h2, h3, h4, h5, h6,
   // crop upward so her face lands on the upper third instead of floating center.
   object-position: 50% 12%;
   border-radius: 2px;
-  box-shadow: 8px 8px 0 $moss-shadow;
 }
 .mossy-hero__meta {
   position: relative;
@@ -342,13 +340,12 @@ h1, h2, h3, h4, h5, h6,
 }
 
 // Publication thumbnails: tie al-folio's left-column preview into the Mossy
-// language (citrine hairline + offset moss shadow, echoing the hero portrait).
+// language (citrine hairline; offset moss shadow removed per Madison's request).
 .publications .preview,
 .publications img.preview {
   border: 1px solid var(--global-divider-color);
   border-radius: 2px;
-  box-shadow: 5px 5px 0 color-mix(in srgb, var(--global-text-color) 14%, transparent);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 .publications .row:hover .preview {
   border-color: var(--global-theme-color);

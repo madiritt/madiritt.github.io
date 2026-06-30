@@ -122,7 +122,7 @@ The visual design is locked as a standalone HTML mockup but has NOT been ported 
 
 **Layout signatures:**
 - Hero is a 2-column split: left = text (eyebrow, big name/headline, bio, Currently element) on moss; right = pastel orange panel (with transparency) holding the portrait
-- Portrait sits on the orange panel with an offset moss shadow (`box-shadow: 8px 8px 0 #1e2a18`)
+- Portrait sits on the orange panel (the offset moss shadow `box-shadow: 8px 8px 0 #1e2a18` was REMOVED 2026-06-30 at Madison's request; same hard offset shadow was also removed from the publication thumbnails)
 - "Currently" status element below the bio: pastel orange dot with soft halo glow + citrine `CURRENTLY` mono label + cream text. Placeholder text "Field collections + behavior trials, summer 2026". Madison updates this 3-6x/year; it signals the site is live/maintained.
 - Research cards: 3-column grid, card surface `#2a3624`, citrine top accent, numbered (01/02/03) in mono. Hover: `translateY(-3px)` + border to full citrine + `box-shadow: 0 10px 24px rgba(0,0,0,0.28)`.
 - News/dates in mono small-caps, citrine.

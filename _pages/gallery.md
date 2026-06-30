@@ -28,7 +28,11 @@ nav_order: 5
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 6px;
+    /* Citrine frame matching the hero portrait; border-box keeps tile size + grid
+       spacing unchanged. */
+    border: 2px solid var(--global-theme-color);
+    box-sizing: border-box;
   }
   /* Make the al-folio figure/picture fill the square tile. */
   .photo-grid a.photo-tile figure,

@@ -349,23 +349,20 @@ h1, h2, h3, h4, h5, h6,
 }
 
 // Publication thumbnails (homepage "selected" + /publications): uniform square
-// tiles, cropped with object-fit cover like the gallery, citrine hairline border.
+// tiles, cropped with object-fit cover like the gallery, with the same citrine
+// frame as the gallery tiles and hero portrait (border-box keeps size/spacing).
 // pointer-events: none disables al-folio's medium-zoom on these (kills both the
-// click-to-zoom and its zoom-in cursor); the row-hover border still works because
-// the hover falls through to the row.
+// click-to-zoom and its zoom-in cursor).
 .publications .preview,
 .publications img.preview {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 2px;
-  transition: border-color 0.2s ease;
+  border: 2px solid var(--global-theme-color);
+  border-radius: 6px;
+  box-sizing: border-box;
   pointer-events: none;
-}
-.publications .row:hover .preview {
-  border-color: var(--global-theme-color);
 }
 // Citrine venue/journal abbr badge in the left column (if abbr tags are added)
 .publications .abbr abbr.badge {

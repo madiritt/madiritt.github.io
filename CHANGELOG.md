@@ -11,13 +11,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
-### 2026-06-30 - Unify all thumbnails with a citrine frame
+### 2026-06-30 - Unify all thumbnails with a pastel-orange frame (hero match)
 
 #### Changed
-- Gave every thumbnail (gallery tiles + publication previews) a consistent 2px citrine border with 6px rounded corners, echoing the framed look of the hero portrait. `box-sizing: border-box` keeps the tile size and grid spacing unchanged.
-  - `_pages/gallery.md` (`.photo-tile`): added the citrine border; radius 10px -> 6px.
-  - `_sass/_mossy.scss` (`.publications .preview`): border citrine (was 1px divider); radius 2px -> 6px; dropped the now-redundant row-hover border swap.
-- Note: the hero portrait's own frame is pastel orange (the panel); thumbnails use citrine (the primary accent) for cohesion with labels/links. Easy to switch thumbnails to orange if a literal hero-color match is preferred.
+- Gave every thumbnail (gallery tiles + publication previews) a consistent 2px pastel-orange (`#feac74`) border with 6px rounded corners, matching the hero portrait panel's frame color. `box-sizing: border-box` keeps the tile size and grid spacing unchanged.
+  - `_pages/gallery.md` (`.photo-tile`): added the orange border; radius 10px -> 6px.
+  - `_sass/_mossy.scss` (`.publications .preview`): border now `$orange` (was 1px divider); radius 2px -> 6px; dropped the now-redundant row-hover border swap.
+- (Briefly shipped citrine first; switched to orange to literally match the hero frame.)
 
 ### 2026-06-30 - Gallery: add a "select an image for captions" hint
 

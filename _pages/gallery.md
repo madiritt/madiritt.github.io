@@ -29,9 +29,9 @@ nav_order: 5
     aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 6px;
-    /* Citrine frame matching the hero portrait; border-box keeps tile size + grid
-       spacing unchanged. */
-    border: 2px solid var(--global-theme-color);
+    /* Pastel-orange frame matching the hero portrait panel; border-box keeps tile
+       size + grid spacing unchanged. */
+    border: 2px solid #feac74;
     box-sizing: border-box;
   }
   /* Make the al-folio figure/picture fill the square tile. */

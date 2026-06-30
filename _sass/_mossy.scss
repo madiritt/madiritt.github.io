@@ -349,17 +349,17 @@ h1, h2, h3, h4, h5, h6,
 }
 
 // Publication thumbnails (homepage "selected" + /publications): uniform square
-// tiles, cropped with object-fit cover like the gallery, with the same citrine
-// frame as the gallery tiles and hero portrait (border-box keeps size/spacing).
-// pointer-events: none disables al-folio's medium-zoom on these (kills both the
-// click-to-zoom and its zoom-in cursor).
+// tiles, cropped with object-fit cover like the gallery, with the same pastel-
+// orange frame as the gallery tiles and hero portrait panel (border-box keeps
+// size/spacing). pointer-events: none disables al-folio's medium-zoom on these
+// (kills both the click-to-zoom and its zoom-in cursor).
 .publications .preview,
 .publications img.preview {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border: 2px solid var(--global-theme-color);
+  border: 2px solid $orange;
   border-radius: 6px;
   box-sizing: border-box;
   pointer-events: none;

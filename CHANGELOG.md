@@ -11,6 +11,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Gallery lightbox caption: readable + title-only
+
+#### Changed
+- `_pages/gallery.md`: the lightbox caption was unreadable (soft cream text on GLightbox's default white caption box). Styled `.gslide-description`/`.gslide-title` as cream Lora over a transparent background so it reads against the dark lightbox backdrop, in the Mossy display style.
+- Dropped the placeholder blurbs: each tile now carries only `data-title` (the caption). Species names italicized via `<em>` in `data-title` (GLightbox renders titles with innerHTML, verified against the 3.3.1 source).
+- Header comment + runbook note updated to the title-only workflow.
+
 ### 2026-06-30 - Remove the hard offset "block" shadows behind images
 
 #### Changed

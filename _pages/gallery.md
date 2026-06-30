@@ -9,12 +9,12 @@ nav_order: 5
 
 <!-- Google Photos-style library: a responsive grid of equal, cropped tiles.
      Clicking any tile opens a full-screen GLightbox slider (prev/next, swipe,
-     keyboard) showing the full uncropped image with its title + blurb beneath.
+     keyboard) showing the full uncropped image with its title caption beneath.
 
      To add a photo: drop the image in assets/img/ and copy one .photo-tile
-     block below. Set data-title (short title) and data-description (the blurb)
-     on the anchor; both show in the lightbox. The grid grows and re-flows
-     automatically. See runbook 04. -->
+     block below. Set data-title (the caption) on the anchor; it shows in the
+     lightbox. Italics (e.g. species names) work via <em> in data-title. The
+     grid grows and re-flows automatically. See runbook 04. -->
 
 <style>
   .photo-grid {
@@ -51,28 +51,45 @@ nav_order: 5
   .photo-grid a.photo-tile figcaption {
     display: none; /* captions live in the lightbox, not on the tiles */
   }
+
+  /* Lightbox caption: title only, in the Mossy display style (cream Lora over
+     the dark backdrop) so it reads clearly instead of beige-on-white. */
+  .glightbox-container .gslide-description {
+    background: transparent;
+    padding: 0.7rem 1rem 0;
+    text-align: center;
+  }
+  .glightbox-container .gslide-title {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #f4f0d8;
+    margin: 0;
+  }
+  .glightbox-container .gslide-desc { display: none; }
 </style>
 
 <div class="photo-grid">
-  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Mackinaw Nature Preserve, 2020" data-description="PLACEHOLDER blurb. Paige Duncan, M.S., and me heading out for fieldwork at Mackinaw Nature Preserve, 2020.">
+  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Mackinaw Nature Preserve, 2020">
     {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Running transects, May 2025" data-description="PLACEHOLDER blurb. Helping Mish run transects in the field, May 2025.">
+  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Running transects, May 2025">
     {% include figure.liquid path="assets/img/gallery-transects-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-p-phalangioides-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Pholcus phalangioides, 2022" data-description="PLACEHOLDER blurb. A cellar spider (<em>Pholcus phalangioides</em>) with a fruit fly, 2022.">
+  <a href="{{ '/assets/img/gallery-p-phalangioides-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Pholcus phalangioides</em>, 2022">
     {% include figure.liquid path="assets/img/gallery-p-phalangioides-2022.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-f-communis-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Frontinella communis web, 2025" data-description="PLACEHOLDER blurb. A bowl-and-doily weaver (<em>Frontinella communis</em>) web in a juniper, 2025.">
+  <a href="{{ '/assets/img/gallery-f-communis-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Frontinella communis</em> web, 2025">
     {% include figure.liquid path="assets/img/gallery-f-communis-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Painting clay models, 2025" data-description="PLACEHOLDER blurb. Helping Mish paint clay models for a predation study, 2025.">
+  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Painting clay models, 2025">
     {% include figure.liquid path="assets/img/gallery-clay-models-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society meeting, 2025" data-description="PLACEHOLDER blurb. With colleagues at the Animal Behavior Society meeting, 2025.">
+  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society meeting, 2025">
     {% include figure.liquid path="assets/img/gallery-abs-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Hunting for spiders, 2022" data-description="PLACEHOLDER blurb. Searching downed logs for spiders, 2022.">
+  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Hunting for spiders, 2022">
     {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
   </a>
 </div>

@@ -51,7 +51,18 @@ nav_order: 5
   .photo-grid a.photo-tile figcaption {
     display: none; /* captions live in the lightbox, not on the tiles */
   }
+  /* Small citrine mono label, matching the hero eyebrow voice. */
+  .gallery-hint {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--global-theme-color);
+    margin: 1.1rem 0 0;
+  }
 </style>
+
+<p class="gallery-hint">Select any image to view its caption</p>
 
 <div class="photo-grid">
   <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Mackinaw Nature Preserve, 2020">

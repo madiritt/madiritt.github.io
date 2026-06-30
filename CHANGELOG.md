@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Gallery: add a "select an image for captions" hint
+
+#### Added
+- `_pages/gallery.md`: a small citrine mono label above the grid ("Select any image to view its caption"), styled in the hero-eyebrow voice, so visitors know the captions live in the lightbox.
+
 ### 2026-06-30 - Uniform publication thumbnails + remove the medium-zoom icon
 
 #### Changed

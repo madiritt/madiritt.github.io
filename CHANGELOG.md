@@ -11,6 +11,19 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Single font sitewide: Lexend everywhere
+
+#### Changed
+- Collapsed the three-font system (Lora serif headings + Lexend sans body + JetBrains Mono labels) to a single sitewide font: **Lexend**, at Madison's request. Hierarchy is now carried by weight/size/letter-spacing rather than switching families.
+  - `_sass/_mossy.scss`: flipped every Lora and JetBrains Mono declaration (headings, hero name, navbar brand, eyebrow, "CURRENTLY" label, hero meta, news dates) to the Lexend stack.
+  - `_pages/gallery.md`: the gallery hint label and the lightbox caption flipped to Lexend.
+  - Updated the now-stale "Lora"/"mono" code comments.
+- Code/typogram/bibtex blocks intentionally stay `monospace` (the gem's only other font usage); icon fonts (Font Awesome / academicons) untouched.
+- Verified on the homepage (name + eyebrow + "CURRENTLY" + section headings) and the research page (page + project headings) via local screenshots: all render in Lexend, no al-folio default leaking through.
+
+#### Notes
+- Lora and JetBrains Mono are no longer used in rendered output; their Google Fonts links may still load until a later cleanup pass (harmless). CLAUDE.md typography spec updated, with the old 3-font scheme kept as historical context.
+
 ### 2026-06-30 - Unify all thumbnails with a pastel-orange frame (hero match)
 
 #### Changed

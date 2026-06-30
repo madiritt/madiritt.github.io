@@ -55,9 +55,9 @@ nav_order: 5
   .photo-grid a.photo-tile figcaption {
     display: none; /* captions live in the lightbox, not on the tiles */
   }
-  /* Small citrine mono label, matching the hero eyebrow voice. */
+  /* Small citrine uppercase label, matching the hero eyebrow voice. */
   .gallery-hint {
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -102,7 +102,7 @@ nav_order: 5
 
 <style>
   /* Lightbox caption: gradient-scrim overlay on the bottom of the image, in the
-     Mossy palette (cream Lora over a moss gradient). Loaded AFTER GLightbox's
+     Mossy palette (cream Lexend over a moss gradient). Loaded AFTER GLightbox's
      CSS so it wins on equal specificity; selectors also out-specify the clean
      theme's white description box. GLightbox already overlays on mobile, so we
      mainly add the overlay on desktop and retheme the gradient on both. */
@@ -135,11 +135,11 @@ nav_order: 5
     padding: 3rem 1.2rem 1.4rem;
   }
 
-  /* Caption type: cream Lora (italics included), legible over the photo. */
+  /* Caption type: cream Lexend (italics included), legible over the photo. */
   .glightbox-container .gslide-title,
   .glightbox-container .gslide-title em,
   .glightbox-container .gslide-title i {
-    font-family: "Lora", Georgia, serif;
+    font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-weight: 500;
     font-size: 1.05rem;
     line-height: 1.4;

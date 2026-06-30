@@ -157,15 +157,15 @@ body {
 
 h1, h2, h3, h4, h5, h6,
 .post-title, .card-title {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
   font-style: normal; // titles are never italic (deliberate)
 }
 
-// Navbar brand = Madison's name in Lora citrine
+// Navbar brand = Madison's name in Lexend citrine
 .navbar-brand,
 .navbar .navbar-brand a {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
   color: var(--global-theme-color);
 }
@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .mossy-eyebrow {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -205,7 +205,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .mossy-hero__name {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
   font-style: normal;
   font-size: clamp(2.6rem, 6vw, 4rem);
@@ -252,7 +252,7 @@ h1, h2, h3, h4, h5, h6,
 }
 .mossy-current__label {
   display: block;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -309,7 +309,7 @@ h1, h2, h3, h4, h5, h6,
   position: relative;
   z-index: 1;
   margin-top: 1.1rem;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 10.5px;
   line-height: 1.6;
   letter-spacing: 0.03em;
@@ -368,14 +368,14 @@ h1, h2, h3, h4, h5, h6,
 .publications .abbr abbr.badge {
   background-color: var(--global-theme-color);
   color: var(--global-hover-text-color);
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-// News / announcement dates -> mono citrine
+// News / announcement dates -> citrine, uppercase Lexend
 .news .date,
 table.table td.date,
 .post .date {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0.04em;
   color: var(--global-theme-color);
 }
@@ -406,7 +406,7 @@ table.table td.date,
 .cv .badge.danger-color-dark {
   background: var(--global-theme-color) !important;
   color: var(--global-hover-text-color) !important;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
 }
 

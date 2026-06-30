@@ -11,6 +11,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Fix off-center hero portrait (full-bleed on the orange panel)
+
+#### Changed
+- `_sass/_mossy.scss`: the hero portrait drifted off-center on the orange panel (fat orange margin on one side, sliver on the other). Root cause: the portrait was `width: 88%` and meant to center, but al-folio's `figure.liquid` wraps the `<img>` in an inline `<picture>` inside a shrink-wrapped `<figure>` that is a flex item in the panel's centering column, so the percentage-width image resolved/aligned ambiguously instead of centering.
+- New approach (chosen by Madison): full-bleed portrait. The image now fills the panel (`width/height: 100%`, `object-fit: cover`) and the orange shows only as a slim even 8px frame. Panel keeps equal height with the text column on desktop; on mobile the portrait falls back to its own `4 / 5` aspect ratio so it can't collapse.
+- Verified on desktop (1320px) and mobile (430px) via local headless screenshots before pushing: even frame on all sides, face well-placed (`object-position: 50% 16%`).
+
 ### 2026-06-30 - Gallery lightbox caption: gradient-scrim overlay
 
 #### Changed

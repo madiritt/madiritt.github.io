@@ -11,6 +11,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-06-30 - Gallery lightbox caption: gradient-scrim overlay
+
+#### Changed
+- `_pages/gallery.md`: switched the lightbox caption from a separate block to a gradient-scrim overlay on the bottom of the image (the format the best photo-forward sites use). Caption type stays cream Lora (italics included) with a soft text-shadow for legibility over photos.
+- Moved the caption CSS into a `<style>` that loads AFTER GLightbox's stylesheet, and out-specified the `clean` theme's white `.gslide-description` box, so the moss gradient reliably wins.
+- Desktop: pin `.gslide-description` absolutely over the image bottom (verified against GLightbox 3.3.1 CSS/JS: container shrink-wraps to image width on desktop, and no inline width is set on `desc-bottom`, so the overlay aligns to the image). Mobile already overlays by default; retheme its gradient to moss to match.
+
 ### 2026-06-30 - Gallery lightbox caption: readable + title-only
 
 #### Changed

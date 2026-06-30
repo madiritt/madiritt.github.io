@@ -51,25 +51,6 @@ nav_order: 5
   .photo-grid a.photo-tile figcaption {
     display: none; /* captions live in the lightbox, not on the tiles */
   }
-
-  /* Lightbox caption: title only, in the Mossy display style (cream Lora over
-     the dark backdrop) so it reads clearly instead of beige-on-white. */
-  .glightbox-container .gslide-description {
-    background: transparent;
-    padding: 0.7rem 1rem 0;
-    text-align: center;
-  }
-  .glightbox-container .gslide-title,
-  .glightbox-container .gslide-title em,
-  .glightbox-container .gslide-title i {
-    font-family: "Lora", Georgia, serif;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #f4f0d8;
-    margin: 0;
-  }
-  .glightbox-container .gslide-desc { display: none; }
 </style>
 
 <div class="photo-grid">
@@ -103,6 +84,57 @@ nav_order: 5
   integrity="sha384-GPAzSuZc0kFvdIev6wm9zg8gnafE8tLso7rsAYQfc9hAdWCpOcpcNI5W9lWkYcsd"
   crossorigin="anonymous"
 >
+
+<style>
+  /* Lightbox caption: gradient-scrim overlay on the bottom of the image, in the
+     Mossy palette (cream Lora over a moss gradient). Loaded AFTER GLightbox's
+     CSS so it wins on equal specificity; selectors also out-specify the clean
+     theme's white description box. GLightbox already overlays on mobile, so we
+     mainly add the overlay on desktop and retheme the gradient on both. */
+  .glightbox-clean .gdesc-inner { padding: 0; }
+
+  .glightbox-clean .ginner-container .gslide-description {
+    background: linear-gradient(
+      to top,
+      rgba(20, 24, 14, 0.92) 0%,
+      rgba(20, 24, 14, 0.55) 55%,
+      rgba(20, 24, 14, 0) 100%
+    );
+  }
+
+  /* Desktop: pin the caption over the bottom of the image (mobile already does). */
+  @media (min-width: 769px) {
+    .glightbox-container .ginner-container.desc-bottom { position: relative; }
+    .glightbox-clean .ginner-container.desc-bottom .gslide-description {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 3rem 1.4rem 1.1rem;
+    }
+  }
+
+  /* Mobile: keep GLightbox's built-in absolute bottom, just match the padding. */
+  .glightbox-mobile .glightbox-container .gslide-description {
+    padding: 3rem 1.2rem 1.4rem;
+  }
+
+  /* Caption type: cream Lora (italics included), legible over the photo. */
+  .glightbox-container .gslide-title,
+  .glightbox-container .gslide-title em,
+  .glightbox-container .gslide-title i {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #f4f0d8;
+    margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+  }
+  .glightbox-container .gslide-desc { display: none; }
+</style>
+
 <script
   src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js"
   integrity="sha384-MZZbZ6RXJudK43v1qY1zOWKOU2yfeBPatuFoKyHAaAgHTUZhwblRTc9CphTt4IGQ"

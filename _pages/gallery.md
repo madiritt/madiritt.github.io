@@ -31,7 +31,7 @@ nav_order: 5
     border-radius: 6px;
     /* Pastel-orange frame matching the hero portrait panel; border-box keeps tile
        size + grid spacing unchanged. */
-    border: 2px solid #feac74;
+    border: 3px solid #feac74;
     box-sizing: border-box;
   }
   /* Make the al-folio figure/picture fill the square tile. */

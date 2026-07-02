@@ -1,20 +1,18 @@
 ---
 layout: page
-title: How does early life shape behavior and physiology?
-description: Hatching order, maternal effects, and stress physiology in wild songbirds.
+title: How do hatching patterns impact nestling development?
+description: Hatching asynchrony, house wrens, sex-specific patterns, corticosterone
 img: # add a representative image, e.g. assets/img/house-wren.jpg
 importance: 3
 category: past
 ---
 
-<!-- DRAFT description, written from Madison's earlier (avian) work. Review and edit. -->
+Variation in nestling growth and survival is often influenced by hatching order,
+with first-hatched offspring having an advantage over later-hatched younger
+siblings. This effect of hatching order is especially evident in asynchronously
+hatched broods and can lead to sex-specific differences in the size and
+condition of nestlings. Females appear to allocate the sex of their offspring
+across the laying order to capitalize on these differences.
 
-Before my work on spiders, I studied how the conditions of early life leave a
-lasting mark on wild songbirds. In house wrens, the order in which nestlings
-hatch is tied to their baseline levels of the stress hormone corticosterone, and
-these effects are sex-specific (*General and Comparative Endocrinology*, 2022).
-
-This research connects developmental timing, maternal effects, and stress
-physiology to ask how early environments shape the behavior and resilience of
-animals later in life. It grew out of my time in the Wren Lab and continues in
-collaborative work on the transgenerational effects of maternal hormones.
+I was interested in the mechanism behind these sex-specific differences,
+specifically the role of the primary metabolic hormone in birds, corticosterone.

@@ -11,6 +11,22 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-02 - Load Madison's real content (mentoring + 3 research questions)
+
+#### Changed
+- Replaced the AI-drafted research descriptions and the paraphrased mentoring section with Madison's own verbatim text, supplied in her "Information for the website" doc. Wording copied exactly; only titles, frontmatter descriptions, and markdown wrapping were touched.
+  - `_projects/decision-making-under-uncertainty.md`: title -> "How do spiders make decisions involved in prey capture?"; body swapped to Madison's verbatim description. Removed the fabricated *Biology Letters* (2025) / *Scientific Reports* (2024) citations from the old draft.
+  - `_projects/comparative-cognition.md`: retitled from the miniaturization framing to "How do web spiders navigate?" to match Madison's Q2; body swapped to her verbatim navigation description. (Old title/body were about brain-size/miniaturization; her doc scopes this question to navigation.)
+  - `_projects/individual-personality.md`: title -> "How do hatching patterns impact nestling development?"; body swapped to her verbatim description. Stays `category: past` (she noted this question is no longer active).
+  - Each project's frontmatter `description` set to Madison's keyword line for that question.
+  - `_pages/teaching.md` Mentoring section: replaced the paraphrase (which had different mentee counts) with her verbatim three paragraphs (18 undergraduates, 4 future coauthors, 1 conference presenter, 16 high-school students via the Mentor Matching Engine). Kept the 2025 Graduate Student Mentorship Award sentence appended (accurate, not in her doc).
+
+#### Notes
+- Per-instance exception: em-dashes allowed in Madison's own content for this pass (none appeared in the supplied text). The no-em-dash rule still holds for everything Trevor/Claude authors.
+- Project TITLES now name spiders, overriding the earlier taxon-agnostic-titles design note; Trevor chose Madison's exact question phrasings for coherence with the new bodies.
+- Teaching philosophy (`_pages/teaching.md`) and bio (`_pages/about.md`) already matched the doc verbatim; left unchanged.
+- One typo fix approved by Trevor: "various brains sizes" -> "various brain sizes" in the prey-capture description. "will be coauthor" (singular) is intentional (they will each be coauthor on one paper) and was left as written.
+
 ### 2026-06-30 - Single font sitewide: Lexend everywhere
 
 #### Changed

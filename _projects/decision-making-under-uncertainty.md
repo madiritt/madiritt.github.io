@@ -1,23 +1,27 @@
 ---
 layout: page
-title: How do animals solve novel problems?
-description: Insight, learning, and flexible decision-making in spiders.
+title: How do spiders make decisions involved in prey capture?
+description: Insight, learning, decision making, spiders
 img: # add a representative image, e.g. assets/img/problem-solving.jpg
 importance: 1
 category: current
 ---
 
-<!-- DRAFT description, written from Madison's published work. Review and edit. -->
+Animals large and small are capable of solving problems. In fact, some animals
+can solve some problems better than humans. The types of problems animals may
+encounter vary, ranging from trivial like navigating around obstacles, to
+life-threatening like escaping predation. The types of solutions animals may use
+to solve these problems also vary.
 
-When an animal meets a problem it has never seen before, does it fall back on
-fixed, instinctive routines, or can it find a flexible solution that looks like
-insight? My work uses prey-capture challenges in web-building and cellar spiders
-to pull these possibilities apart. In *Biology Letters* (2025) I proposed a
-variation-based framework for testing hypotheses about how animals solve
-problems, distinguishing genuine insight from instinct and trial-and-error.
+Historically, large vertebrates (with overall large brains) have been the
+exemplary species for problem-solving. Small animals (with small brains) were
+thought to be "mindless" and solve problems only using simple, innate
+mechanisms. However, more recent work has found that small animals can solve
+complex problems and in some cases, may use complex solutions to do so.
+Exploring the problem-solving abilities of animals with various brain sizes is
+therefore key to understanding the cognitive abilities that different neural
+architectures can generate.
 
-Building on that framework, I ask whether spiders change their strategies across
-repeated encounters with the same problem, and how learning and maturation shape
-early prey-capture experiences (*Scientific Reports*, 2024). Together these
-projects treat spiders, often assumed to be rigidly instinctive, as a window
-into the flexibility of animal cognition.
+I am interested in studying how small animals make crucial decisions involved
+with capturing prey. This includes studying which decisions these animals make
+and how they make them.

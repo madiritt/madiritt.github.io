@@ -38,10 +38,24 @@ University. A full list is in the [CV]({{ '/cv/' | relative_url }}).
 
 ## Mentoring
 
-Mentoring is central to how I work. I have mentored eight undergraduate
-researchers in the Arthropod Behavior Lab at UW-Milwaukee (and twelve earlier in
-the Wren Lab at Illinois State), guiding students through animal husbandry,
-experimental design, data collection, analysis, and science communication. I
-also mentor high-school students on independent research projects through the
-Mentor Matching Engine. In 2025 I received UW-Milwaukee's Graduate Student
-Mentorship Award, nominated by my undergraduate researchers.
+During my undergraduate degree, research opportunities were "few and far
+between". This lack of opportunity hindered my progress towards graduate school
+and in the field of animal behavior more generally. One of my career goals is to
+offer opportunities to undergraduate researchers that I never had access to. I do
+this by incorporating undergraduate researchers at all stages of the research
+process starting from brainstorming initial ideas for a project to communicating
+the final results to the public.
+
+As a mentor, I prioritize communication and making myself accessible to my
+mentees. This often comes in the form of weekly check-ins to ensure that my
+mentees are confident in their work and that I can help troubleshoot any
+problems. Between these check-ins my mentees largely work independently which
+helps them gain confidence in their own research abilities.
+
+To date I have mentored 18 undergraduate researchers. Four of these
+undergraduates will be coauthor on future publications and one undergraduate has
+presented our research at several local conferences. I have also mentored 16 high
+school students through the Mentor Matching Engine - a virtual mentor program.
+
+In 2025 I received UW-Milwaukee's Graduate Student Mentorship Award, nominated by
+my undergraduate researchers.

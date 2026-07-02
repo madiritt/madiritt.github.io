@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-02 - Commit the tech-stack reference doc
+
+#### Added
+- `TECH-STACK.md`: a repo tech inventory (versions pulled from the actual config files on 2026-06-24) that pairs with CLAUDE.md. Existed locally but was never committed; now tracked.
+
 ### 2026-07-02 - Load Madison's real content (mentoring + 3 research questions)
 
 #### Changed

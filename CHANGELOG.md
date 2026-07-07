@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-06 - Teaching/Mentoring: drop the mentorship-award sentence
+
+#### Removed
+- `_pages/teaching.md`: the closing Mentoring paragraph "In 2025 I received UW-Milwaukee's Graduate Student Mentorship Award, nominated by my undergraduate researchers." (This was the one sentence Claude had appended to Madison's verbatim mentoring text on 2026-07-02; her page is now 100% her own words.) The award itself still lives in the CV under Awards and Honors (`_data/cv.yml`), untouched.
+
 ### 2026-07-06 - Gallery: drop the page subtitle
 
 #### Removed

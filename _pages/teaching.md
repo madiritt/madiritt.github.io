@@ -56,6 +56,3 @@ To date I have mentored 18 undergraduate researchers. Four of these
 undergraduates will be coauthor on future publications and one undergraduate has
 presented our research at several local conferences. I have also mentored 16 high
 school students through the Mentor Matching Engine - a virtual mentor program.
-
-In 2025 I received UW-Milwaukee's Graduate Student Mentorship Award, nominated by
-my undergraduate researchers.

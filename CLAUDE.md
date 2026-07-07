@@ -171,7 +171,7 @@ About (homepage `/`) - Research (1) - Publications (2) - CV (3) - Teaching / Men
 - `_pages/research.md` - lists `_projects/` entries (organized by research QUESTION, not organism, so it survives taxon switches)
 - `_projects/*.md` - one file per research question (3 placeholders exist)
 - `_pages/publications.md` - driven by `_bibliography/papers.bib`
-- `_pages/cv.md` - layout `cv`, has a PDF download button (cv_pdf path)
+- `_pages/cv.md` - simple CV page (2026-07-06): a download button + embedded PDF preview of `cv_pdf` (assets/pdf/Rittinger_2026_CV.pdf); the structured `layout: cv` / `_data/cv.yml` rendering was retired (data file kept, unrendered)
 - `_pages/teaching.md` - title "teaching / mentoring"
 - `_pages/gallery.md`, `_pages/outreach.md`, `_pages/news.md`
 - `_news/*.md` - news items (1 starter exists)

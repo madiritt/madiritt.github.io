@@ -353,44 +353,10 @@ table.table td.date,
 }
 
 /*******************************************************************************
- * CV page (native structured CV, rendercv)
+ * CV page: simplified 2026-07-06 to a download button + PDF preview, styled
+ * inline in _pages/cv.md. The old structured-CV (.cv) styles were removed;
+ * recover them from git history if the cv.yml rendering ever returns.
  ******************************************************************************/
-// The PDF-download icon in the page title
-.cv .post-title a,
-.post-title .fa-file-pdf {
-  color: var(--global-theme-color);
-  font-size: 1.4rem;
-}
-
-// Section cards
-.cv .card {
-  background: var(--global-card-bg-color);
-}
-.cv .card-title {
-  color: var(--global-text-color);
-  border-bottom: 1px solid var(--global-divider-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-// Date badges default to a red "danger" color; retint to citrine.
-.cv .badge,
-.cv .badge.danger-color-dark {
-  background: var(--global-theme-color) !important;
-  color: var(--global-hover-text-color) !important;
-  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-weight: 500;
-}
-
-// Entry titles (degree, role, award)
-.cv .title,
-.cv .title a {
-  color: var(--global-text-color);
-}
-.cv .location {
-  color: var(--global-text-color-light);
-  font-size: 0.8rem;
-}
 
 /*******************************************************************************
  * Cross-device + mobile hardening (added 2026-06-22)
@@ -489,13 +455,4 @@ code {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-}
-
-// Bullet/list entries
-.cv .list-group-item {
-  background: transparent;
-  color: var(--global-text-color);
-}
-.cv .list-group-item a {
-  color: var(--global-theme-color);
 }

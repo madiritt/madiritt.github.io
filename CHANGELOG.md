@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-06 - CV page condensed to download + PDF preview
+
+#### Changed
+- `_pages/cv.md`: rebuilt from the structured al-folio CV (`layout: cv` rendering `_data/cv.yml`, with TOC sidebar and title PDF icon) to a minimal `layout: page`: one citrine "Download CV (PDF)" button (inline SVG arrow icon, hover lift matching the site's cards) above a full-width PDF preview of `assets/pdf/Rittinger_2026_CV.pdf`, framed in the site's 3px pastel-orange like the image tiles. Preview is an `<object>` with `#toolbar=0&navpanes=0` for a chrome-free viewer and a graceful fallback link where PDFs can't embed (some mobile browsers); 80vh tall, 65vh under 600px. Styles are inline in the page.
+- `_sass/_mossy.scss`: removed the now-dead structured-CV (`.cv`) style blocks; recover from git history if the cv.yml rendering ever returns.
+
+#### Notes
+- `_data/cv.yml` is KEPT (unrendered) as the structured source of the CV data; nothing links to it anymore.
+- Updating the CV = replace the PDF in `assets/pdf/` (and the `cv_pdf` frontmatter path if the filename changes). Runbook 03 flow unchanged.
+- Verified on a local build: button + framed preview render correctly over the silhouette field in the dark theme.
+
 ### 2026-07-06 - Teaching/Mentoring: drop the mentorship-award sentence
 
 #### Removed

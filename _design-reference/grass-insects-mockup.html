@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mossy Modernist + tall-grass silhouette field (mockup v2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   MOCKUP ONLY, v2. Replicates the live Mossy Modernist homepage (from
+   _sass/_mossy.scss + _layouts/about.liquid) and adds the proposed layer:
+   tall grasses, dragonflies, and dangling spiders as faded silhouettes.
+   The orb-web texture layer is REMOVED in this direction.
+
+   HARD RULE honored: no clipped imagery. The field is generated in JS to
+   the exact viewport size: blade tips and seed heads are clamped inside
+   the canvas, insects are complete figures clamped fully inside the
+   viewport. Blades rise from the bottom edge (rooted, natural) and spider
+   draglines run off the top edge (anchored above, natural); nothing is
+   ever sliced mid-figure.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  --bg: #f1ecdd;
+  --text: #212a17;
+  --muted: #5e6147;
+  --theme: #7c6f1d;
+  --hover: #5f550f;
+  --card: #fbf8ee;
+  --divider: rgba(33, 42, 23, 0.14);
+  --sil: #5e7245; /* silhouette tone for this theme */
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1e2a18;
+  --text: #f4f0d8;
+  --muted: #b8b5a3;
+  --theme: #d4c878;
+  --hover: #efe6a0;
+  --card: #2a3624;
+  --divider: rgba(212, 200, 120, 0.18);
+  --sil: #52743f;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: var(--text);
+  /* light: gentle warm + sage pools on parchment */
+  background-image:
+    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(120, 140, 85, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(196, 156, 96, 0.14) 0%, transparent 55%);
+}
+html[data-theme="dark"] body {
+  background-image:
+    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(82, 116, 64, 0.32) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(14, 22, 12, 0.55) 0%, transparent 55%);
+}
+
+/* THE PROPOSED LAYER: fixed full-viewport SVG, behind content */
+#field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ---- page chrome (simplified stand-ins for the al-folio shell) ---- */
+.nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1.4rem 1.5rem 0;
+}
+.nav .brand { font-weight: 500; color: var(--theme); font-size: 1.05rem; }
+.nav ul { list-style: none; display: flex; gap: 1.4rem; margin: 0; padding: 0; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+.nav a.active, .nav a:hover { color: var(--text); }
+
+.wrap { max-width: 62rem; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+/* ---- hero, mirrored from _mossy.scss ---- */
+.mossy-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  margin: 0.5rem 0 3.5rem;
+}
+.mossy-hero__left { display: flex; flex-direction: column; justify-content: center; }
+.mossy-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--theme);
+  margin: 0 0 0.9rem;
+  line-height: 1.7;
+}
+.mossy-hero__name {
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.1rem;
+}
+.mossy-hero__bio { font-size: 1rem; line-height: 1.7; opacity: 0.92; max-width: 30rem; margin: 0; }
+.mossy-current { display: flex; align-items: center; gap: 0.85rem; margin-top: 1.9rem; }
+.mossy-current__dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #feac74;
+  box-shadow: 0 0 0 4px rgba(254, 172, 116, 0.18), 0 0 14px 2px rgba(254, 172, 116, 0.55);
+  flex: none;
+}
+.mossy-current__label {
+  display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--theme); margin-bottom: 2px;
+}
+.mossy-current__text { font-size: 0.9rem; margin: 0; }
+.mossy-hero__right { display: flex; }
+.mossy-hero__panel {
+  position: relative; flex: 1; padding: 8px; border-radius: 6px; overflow: hidden;
+  min-height: 400px;
+  background: linear-gradient(150deg, rgba(254, 172, 116, 0.92) 0%, rgba(224, 142, 86, 0.78) 100%);
+}
+.mossy-hero__panel::before {
+  content: ""; position: absolute; top: -20%; left: -30%; width: 160%; height: 90%;
+  background: radial-gradient(ellipse, rgba(244, 240, 216, 0.30) 0%, transparent 60%);
+  pointer-events: none;
+}
+.mossy-hero__panel img {
+  position: relative; z-index: 1; display: block;
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 16%;
+  border-radius: 2px;
+}
+
+/* ---- stub sections for scroll depth ---- */
+h2.section { font-weight: 500; font-size: 1.35rem; margin: 3rem 0 1rem; }
+.news-row { display: flex; gap: 1.4rem; padding: 0.45rem 0; font-size: 0.92rem; }
+.news-row .date { color: var(--theme); letter-spacing: 0.04em; flex: none; width: 7.5rem; }
+.pub {
+  display: flex; gap: 1.2rem; padding: 1rem; margin: 0.8rem 0;
+  background: var(--card); border: 1px solid var(--divider); border-radius: 6px;
+}
+.pub .thumb {
+  width: 84px; height: 84px; flex: none; border: 3px solid #feac74; border-radius: 6px;
+  background: linear-gradient(150deg, #feac74, #b87038);
+}
+.pub h3 { margin: 0 0 0.3rem; font-size: 1rem; font-weight: 500; }
+.pub p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+
+footer { text-align: center; color: var(--muted); font-size: 0.78rem; padding: 2rem 0 3rem; }
+
+@media (max-width: 768px) {
+  .mossy-hero { grid-template-columns: 1fr; gap: 1.75rem; }
+  .mossy-hero__panel { min-height: 0; }
+  .mossy-hero__panel img { height: auto; aspect-ratio: 4 / 5; }
+  .nav ul { display: none; }
+}
+
+/* ---- assessment control panel (mockup-only chrome) ---- */
+#panel {
+  position: fixed; right: 14px; bottom: 14px; z-index: 10;
+  width: 244px; padding: 12px 14px;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  border: 1px solid var(--divider); border-radius: 8px;
+  font-size: 11.5px; color: var(--text);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  max-height: calc(100vh - 28px); overflow-y: auto;
+}
+#panel h4 {
+  margin: 0 0 4px; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--theme); font-weight: 500;
+}
+#panel h5 {
+  margin: 10px 0 2px; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); font-weight: 500;
+  border-bottom: 1px solid var(--divider); padding-bottom: 3px;
+}
+#panel .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0; }
+#panel input[type="range"] { width: 128px; accent-color: var(--theme); }
+#panel output { min-width: 26px; text-align: right; color: var(--muted); font-size: 10.5px; }
+#panel button {
+  font: inherit; color: var(--text); background: var(--bg);
+  border: 1px solid var(--divider); border-radius: 5px; padding: 3px 7px; cursor: pointer;
+}
+#panel button:hover { border-color: var(--theme); }
+#panel .row.buttons { justify-content: flex-start; gap: 6px; margin-top: 10px; }
+#panel.collapsed .body { display: none; }
+#panel .head { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+#panel .head span { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<svg id="field" aria-hidden="true"></svg>
+
+<nav class="nav">
+  <span class="brand">Madison Rittinger</span>
+  <ul>
+    <li><a class="active" href="#">about</a></li>
+    <li><a href="#">research</a></li>
+    <li><a href="#">publications</a></li>
+    <li><a href="#">cv</a></li>
+    <li><a href="#">teaching / mentoring</a></li>
+    <li><a href="#">gallery</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+  <header class="mossy-hero">
+    <div class="mossy-hero__left">
+      <p class="mossy-eyebrow">PhD Candidate &middot; Department of Biological Sciences &middot; University of Wisconsin-Milwaukee</p>
+      <h1 class="mossy-hero__name">Madison Rittinger</h1>
+      <div class="mossy-hero__bio">
+        <p>I am a behavioral ecologist who is broadly interested in understanding how and why animals behave the way they do using a cognitive perspective. To investigate these questions, I use a variety of field and lab-based techniques ranging from field experiments to microCT imaging. Outside of research I am passionate about teaching in higher education and mentoring undergraduate researchers. One of my career goals is to give undergraduates research experiences I did not have access to when I was in their position. Outside of work I thoroughly enjoy being outside, playing board games, playing/watching basketball, and antagonizing my cat — Ollie.</p>
+      </div>
+      <div class="mossy-current">
+        <span class="mossy-current__dot"></span>
+        <div>
+          <span class="mossy-current__label">Currently</span>
+          <p class="mossy-current__text">Field collections + behavior trials, summer 2026</p>
+        </div>
+      </div>
+    </div>
+    <div class="mossy-hero__right">
+      <div class="mossy-hero__panel">
+        <img src="../assets/img/prof_pic.jpg" alt="Madison Rittinger">
+      </div>
+    </div>
+  </header>
+
+  <h2 class="section">news</h2>
+  <div class="news-row"><span class="date">JUN 12, 2026</span><span>Site launched at madiritt.github.io.</span></div>
+  <div class="news-row"><span class="date">MAY 30, 2026</span><span>Prepping summer field collections and behavior trials.</span></div>
+  <div class="news-row"><span class="date">APR 18, 2026</span><span>Placeholder news item to give the page scroll depth.</span></div>
+
+  <h2 class="section">selected publications</h2>
+  <div class="pub">
+    <div class="thumb"></div>
+    <div>
+      <h3>Placeholder publication title goes here</h3>
+      <p><strong>Rittinger, M.</strong>, and coauthors. Journal of Placeholder Ecology, 2026.</p>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="thumb"></div>
+    <div>
+      <h3>A second placeholder publication for scroll depth</h3>
+      <p><strong>Rittinger, M.</strong>, and coauthors. Behavioral Placeholder Letters, 2025.</p>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 Madison Rittinger. Mockup v2: grasses + dragonflies + spiders, faded silhouettes.</footer>
+</main>
+
+<div id="panel">
+  <div class="head" onclick="document.getElementById('panel').classList.toggle('collapsed')">
+    <h4>Silhouette field</h4><span>&#9662;</span>
+  </div>
+  <div class="body">
+    <h5>Grass</h5>
+    <div class="row"><span>Height</span><input id="gHeight" type="range" min="0.12" max="0.5" step="0.01"><output id="gHeightV"></output></div>
+    <div class="row"><span>Opacity</span><input id="gOpacity" type="range" min="0.04" max="0.6" step="0.01"><output id="gOpacityV"></output></div>
+    <div class="row"><span>Amount</span><input id="gDensity" type="range" min="0.3" max="2" step="0.05"><output id="gDensityV"></output></div>
+
+    <h5>Dragonflies</h5>
+    <div class="row"><span>Count</span><input id="dCount" type="range" min="0" max="6" step="1"><output id="dCountV"></output></div>
+    <div class="row"><span>Size</span><input id="dSize" type="range" min="0.5" max="2" step="0.05"><output id="dSizeV"></output></div>
+    <div class="row"><span>Opacity</span><input id="dOpacity" type="range" min="0.04" max="0.6" step="0.01"><output id="dOpacityV"></output></div>
+
+    <h5>Spiders</h5>
+    <div class="row"><span>Count</span><input id="sCount" type="range" min="0" max="6" step="1"><output id="sCountV"></output></div>
+    <div class="row"><span>Size</span><input id="sSize" type="range" min="0.5" max="2" step="0.05"><output id="sSizeV"></output></div>
+    <div class="row"><span>Opacity</span><input id="sOpacity" type="range" min="0.04" max="0.6" step="0.01"><output id="sOpacityV"></output></div>
+
+    <div class="row buttons">
+      <button id="cRegen">Regenerate</button>
+      <button id="cTheme">Light / dark</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* Procedural grass + dragonfly + spider silhouette field, v2.
+   Regenerated to the exact viewport size so nothing is ever clipped:
+   - grass clumps only where the whole clump fits; blade tips clamped in-canvas
+   - insects/spiders are complete figures clamped fully inside the viewport
+   - spider draglines run to the top edge (anchored above = natural)
+   Each element group (grass / dragonflies / spiders) has its own
+   size, opacity, and count controls. */
+
+const SVG = "http://www.w3.org/2000/svg";
+const field = document.getElementById("field");
+
+const state = {
+  grass:       { height: 0.35, opacity: 0.20, density: 1.0 }, // height = fraction of viewport
+  dragonflies: { count: 2, size: 1.0, opacity: 0.22 },
+  spiders:     { count: 2, size: 1.0, opacity: 0.18 },
+  seed: (Math.random() * 1e9) | 0,
+};
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function el(name, attrs) {
+  const n = document.createElementNS(SVG, name);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  return n;
+}
+
+function silColor() {
+  return getComputedStyle(document.documentElement).getPropertyValue("--sil").trim();
+}
+
+/* ---- grass ---- */
+
+/* One tapered blade: filled path from base to a curved point and back.
+   The tip is clamped to [xmin, xmax] so no blade ever leans out of the canvas. */
+function blade(rand, x, ground, h, xmin, xmax) {
+  let lean = (rand() * 2 - 1) * h * 0.5;
+  lean = Math.min(Math.max(x + lean, xmin), xmax) - x;
+  const w = 1.1 + rand() * 1.5 + h * 0.008;
+  const tipX = x + lean;
+  const tipY = ground - h;
+  const cx = x + lean * 0.22;
+  const cy = ground - h * 0.55;
+  return "M" + (x - w) + " " + ground +
+         " Q" + (cx - w * 0.5) + " " + cy + " " + tipX + " " + tipY +
+         " Q" + (cx + w * 0.5) + " " + cy + " " + (x + w) + " " + ground + " Z";
+}
+
+/* A clump of blades around cx. Occasionally one blade is a seed-head stem
+   (timothy-style: thin stroked stem + elongated head at the tip).
+   maxH already leaves headroom so every tip stays inside the layer. */
+function clump(rand, g, cx, ground, maxH, color, xmin, xmax) {
+  const n = 4 + Math.floor(rand() * 6);
+  let tallestSeedTip = null;
+  for (let i = 0; i < n; i++) {
+    const x = cx + (rand() * 2 - 1) * 16;
+    const isSeed = rand() < 0.16;
+    if (isSeed) {
+      const h = maxH * (0.6 + rand() * 0.35);
+      const headLen = 9 + rand() * 5 + maxH * 0.02;
+      const stemH = h - headLen; // head sits on top of the stem, still under maxH
+      let lean = (rand() * 2 - 1) * stemH * 0.35;
+      lean = Math.min(Math.max(x + lean, xmin + 6), xmax - 6) - x;
+      const tipX = x + lean, tipY = ground - stemH;
+      g.appendChild(el("path", {
+        d: "M" + x + " " + ground + " Q" + (x + lean * 0.25) + " " + (ground - stemH * 0.55) + " " + tipX + " " + tipY,
+        fill: "none", stroke: color, "stroke-width": (1.2 + maxH * 0.002).toFixed(2), "stroke-linecap": "round",
+      }));
+      const ang = Math.atan2(-stemH * 0.45, lean * 0.75) * 180 / Math.PI + 90;
+      g.appendChild(el("ellipse", {
+        cx: tipX, cy: tipY - headLen * 0.45, rx: 2.6 + maxH * 0.004, ry: headLen * 0.55,
+        fill: color, transform: "rotate(" + ang.toFixed(1) + " " + tipX + " " + tipY + ")",
+      }));
+      if (!tallestSeedTip || stemH > tallestSeedTip.h) {
+        tallestSeedTip = { x: tipX, y: tipY - headLen, h: stemH };
+      }
+    } else {
+      const h = maxH * (0.3 + rand() * 0.68);
+      g.appendChild(el("path", { d: blade(rand, x, ground, h, xmin, xmax), fill: color }));
+    }
+  }
+  return tallestSeedTip;
+}
+
+/* ---- silhouette figures (complete, local coords) ---- */
+
+function dragonfly(color, scale, rotate) {
+  // top view: head, thorax, tapered abdomen, four wings
+  const g = el("g", { fill: color });
+  const wings = el("g", { opacity: "0.55" });
+  wings.appendChild(el("ellipse", { cx: -21, cy: -13, rx: 20, ry: 4.2, transform: "rotate(-9 -21 -13)" }));
+  wings.appendChild(el("ellipse", { cx: 21, cy: -13, rx: 20, ry: 4.2, transform: "rotate(9 21 -13)" }));
+  wings.appendChild(el("ellipse", { cx: -18, cy: -4, rx: 18, ry: 5, transform: "rotate(-24 -18 -4)" }));
+  wings.appendChild(el("ellipse", { cx: 18, cy: -4, rx: 18, ry: 5, transform: "rotate(24 18 -4)" }));
+  g.appendChild(wings);
+  g.appendChild(el("circle", { cx: 0, cy: -24, r: 3.6 }));
+  g.appendChild(el("circle", { cx: -3, cy: -25.5, r: 2 }));
+  g.appendChild(el("circle", { cx: 3, cy: -25.5, r: 2 }));
+  g.appendChild(el("ellipse", { cx: 0, cy: -15, rx: 4.6, ry: 6.5 }));
+  g.appendChild(el("path", { d: "M-2.4 -10 L-0.9 30 Q0 33 0.9 30 L2.4 -10 Z" }));
+  g.setAttribute("data-halfsize", 46 * scale);
+  g.setAttribute("data-t", "scale(" + scale + ") rotate(" + rotate + ")");
+  return g;
+}
+
+function damselfly(color, scale) {
+  // perched side view, facing left: abdomen angled up-back, wings folded along it
+  const g = el("g", { fill: color });
+  g.appendChild(el("circle", { cx: -7, cy: -3, r: 2.2 }));
+  g.appendChild(el("ellipse", { cx: -3, cy: -1.5, rx: 3.4, ry: 2.6 }));
+  g.appendChild(el("path", { d: "M-1 -2 L26 -17 L26.8 -15.6 L0.4 -0.2 Z" }));
+  g.appendChild(el("ellipse", { cx: 8, cy: -8, rx: 10.5, ry: 2.1, opacity: "0.55", transform: "rotate(-29 8 -8)" }));
+  const legs = el("g", { stroke: color, "stroke-width": "0.9", fill: "none", "stroke-linecap": "round" });
+  legs.appendChild(el("path", { d: "M-4 1 L-6 6" }));
+  legs.appendChild(el("path", { d: "M-2 1 L0 6" }));
+  g.appendChild(legs);
+  g.setAttribute("data-halfsize", 28 * scale);
+  g.setAttribute("data-t", "scale(" + scale + ")");
+  return g;
+}
+
+function spider(color, scale) {
+  // hanging orb-weaver seen from behind: round abdomen up, cephalothorax below,
+  // four leg pairs curving out; hangs head-down from its dragline
+  const g = el("g", { fill: color });
+  const legs = el("g", { stroke: color, fill: "none", "stroke-linecap": "round", "stroke-width": "1.2" });
+  // right-side legs (mirrored below): two pairs reaching up-out, two down-out
+  legs.appendChild(el("path", { d: "M2.5 -1 Q10 -7 13 -15" }));
+  legs.appendChild(el("path", { d: "M3 0 Q12 -3 16 -8" }));
+  legs.appendChild(el("path", { d: "M3 2 Q12 5 15 11" }));
+  legs.appendChild(el("path", { d: "M2.5 3.5 Q9 10 10 17" }));
+  const legsL = legs.cloneNode(true);
+  legsL.setAttribute("transform", "scale(-1 1)");
+  g.appendChild(legs);
+  g.appendChild(legsL);
+  g.appendChild(el("ellipse", { cx: 0, cy: -6.5, rx: 5.2, ry: 6.8 })); // abdomen (up, toward thread)
+  g.appendChild(el("circle", { cx: 0, cy: 2, r: 3.4 }));               // cephalothorax
+  g.setAttribute("data-halfsize", 20 * scale);
+  g.setAttribute("data-t", "scale(" + scale + ")");
+  return g;
+}
+
+/* clamp a figure fully inside the viewport, then position it; returns {x, y} */
+function placeFigure(g, x, y, W, H) {
+  const half = parseFloat(g.getAttribute("data-halfsize"));
+  const cx = Math.min(Math.max(x, half + 14), W - half - 14);
+  const cy = Math.min(Math.max(y, half + 14), H - half - 14);
+  g.setAttribute("transform", "translate(" + cx + " " + cy + ") " + g.getAttribute("data-t"));
+  return { x: cx, y: cy };
+}
+
+function render() {
+  const W = window.innerWidth, H = window.innerHeight;
+  field.setAttribute("viewBox", "0 0 " + W + " " + H);
+  field.setAttribute("width", W);
+  field.setAttribute("height", H);
+  field.innerHTML = "";
+
+  const rand = mulberry32(state.seed);
+  const color = silColor();
+
+  const grassG = el("g", { opacity: state.grass.opacity });
+  const spiderG = el("g", { opacity: state.spiders.opacity });
+  const dfG = el("g", { opacity: state.dragonflies.opacity });
+  field.appendChild(grassG);
+  field.appendChild(spiderG);
+  field.appendChild(dfG);
+
+  const bandH = Math.round(H * state.grass.height);
+  const ground = H;            // blades are rooted at the viewport bottom edge
+  const maxH = bandH - 16;     // headroom: every tip/seed head stays inside
+
+  // Grass: walk across the width. Blade tips are clamped to [xmin, xmax]
+  // inside blade()/clump(), so even edge clumps stay fully in the canvas.
+  const reach = 40;
+  const xmin = 4, xmax = W - 4;
+  const seedTips = [];
+  let x = reach + rand() * 60;
+  while (x < W - reach) {
+    if (rand() < 0.5) { // back row: shorter, adds depth without crowding
+      const back = el("g", { opacity: "0.5" });
+      grassG.appendChild(back);
+      clump(rand, back, Math.min(Math.max(x + (rand() * 2 - 1) * 40, reach), W - reach), ground, maxH * 0.5, color, xmin, xmax);
+    }
+    const tip = clump(rand, grassG, x, ground, maxH * (0.7 + rand() * 0.3), color, xmin, xmax);
+    if (tip) seedTips.push(tip);
+    x += (95 + rand() * 190) / state.grass.density;
+  }
+
+  // Figure placement with simple overlap avoidance across all figures.
+  const placed = [];
+  function tryPlace(radius, genXY) {
+    for (let attempt = 0; attempt < 30; attempt++) {
+      const p = genXY();
+      const ok = placed.every((q) => {
+        const dx = p.x - q.x, dy = p.y - q.y;
+        return Math.sqrt(dx * dx + dy * dy) > radius + q.r;
+      });
+      if (ok || attempt === 29) { placed.push({ x: p.x, y: p.y, r: radius }); return p; }
+    }
+  }
+
+  // Dragonflies: hover in the open air above the grass band. The first one
+  // present also brings the perched damselfly on the tallest seed head.
+  const dS = state.dragonflies.size;
+  for (let i = 0; i < state.dragonflies.count; i++) {
+    const scale = dS * (0.65 + rand() * 0.45);
+    const df = dragonfly(color, scale, -25 + rand() * 50);
+    if (i > 0 && rand() < 0.5) df.setAttribute("opacity", "0.65"); // some read farther away
+    dfG.appendChild(df);
+    const airTop = 70;
+    const airBottom = Math.max(airTop + 40, H - bandH - 60);
+    tryPlace(60 * scale, () =>
+      placeFigure(df, rand() * W, airTop + rand() * (airBottom - airTop), W, H)
+    );
+  }
+  if (state.dragonflies.count > 0 && seedTips.length) {
+    seedTips.sort((a, b) => b.h - a.h);
+    const t = seedTips[0];
+    const dm = damselfly(color, Math.min(dS, 1.3)); // stays believable on its stem
+    dfG.appendChild(dm);
+    placeFigure(dm, t.x + 4, t.y - 4, W, H);
+  }
+
+  // Spiders: hang head-down from draglines anchored above the viewport.
+  const sS = state.spiders.size;
+  for (let i = 0; i < state.spiders.count; i++) {
+    const scale = sS * (0.7 + rand() * 0.4);
+    const sp = spider(color, scale);
+    spiderG.appendChild(sp);
+    const hangTop = 60 + 20 * scale;
+    const hangBottom = Math.max(hangTop + 40, H * 0.55);
+    const pos = tryPlace(70 * scale, () =>
+      placeFigure(sp, rand() * W, hangTop + rand() * (hangBottom - hangTop), W, H)
+    );
+    // dragline: from the top edge down to the abdomen (drawn behind the body)
+    spiderG.insertBefore(
+      el("line", {
+        x1: pos.x, y1: 0, x2: pos.x, y2: pos.y - 12 * scale,
+        stroke: color, "stroke-width": "0.9", opacity: "0.8",
+      }),
+      sp
+    );
+  }
+}
+
+/* ---- controls ---- */
+const $ = (id) => document.getElementById(id);
+
+// slider id -> [state object, key, decimals for the readout]
+const bindings = {
+  gHeight:  [state.grass, "height", 2],
+  gOpacity: [state.grass, "opacity", 2],
+  gDensity: [state.grass, "density", 2],
+  dCount:   [state.dragonflies, "count", 0],
+  dSize:    [state.dragonflies, "size", 2],
+  dOpacity: [state.dragonflies, "opacity", 2],
+  sCount:   [state.spiders, "count", 0],
+  sSize:    [state.spiders, "size", 2],
+  sOpacity: [state.spiders, "opacity", 2],
+};
+for (const id in bindings) {
+  const [obj, key, dec] = bindings[id];
+  const input = $(id), out = $(id + "V");
+  input.value = obj[key];
+  out.textContent = (+obj[key]).toFixed(dec);
+  input.addEventListener("input", (e) => {
+    obj[key] = +e.target.value;
+    out.textContent = (+e.target.value).toFixed(dec);
+    render();
+  });
+}
+
+$("cRegen").addEventListener("click", () => { state.seed = (Math.random() * 1e9) | 0; render(); });
+$("cTheme").addEventListener("click", () => {
+  const root = document.documentElement;
+  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+  render(); // re-resolve the silhouette color for the new theme
+});
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 150);
+});
+
+render();
+</script>
+</body>
+</html>

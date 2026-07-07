@@ -11,6 +11,40 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-06 - LIVE: silhouette field (grasses, dragonflies, spiders); orb-web layer removed
+
+Trevor approved the v2 mockup direction with these settings (from the mockup sliders): grass height 0.50 / opacity 0.07 / amount 1.30; dragonflies count 6 / size 1.20 / opacity 0.07; spiders count 6 / size 1.00 / opacity 0.07.
+
+#### Added
+- `assets/js/mossy-field.js`: sitewide silhouette background generator with the approved settings baked into its CONFIG block. Generates a fixed, pointer-events:none SVG at z-index -1 to the exact viewport size (regenerates on resize, fresh arrangement each page load): tall grass clumps with timothy seed heads rooted at the bottom edge, up to 6 dragonflies in the open air, a damselfly perched on the tallest seed head, and up to 6 orb-weavers hanging from draglines anchored above the top edge. No-clipping hard rule enforced by construction: blade tips/seed heads clamped inside the canvas, whole clumps only, figures clamped fully inside the viewport. Figure counts scale down on narrow screens. The SVG's positioning styles are inline from the script so PurgeCSS cannot strip them; a MutationObserver re-renders on the light/dark toggle.
+- `_includes/footer.liquid`: LOCAL OVERRIDE of the gem's footer include, identical except it appends the mossy-field script tag (the gem offers no custom-scripts hook; footer renders on every page). Re-diff against the gem on upgrades.
+
+#### Removed
+- Orb-weaver web texture layer: `$mossy-web` data-URI tile and the `body::before` mask layer (plus its mobile media query) deleted from `_sass/_mossy.scss`. `_design-reference/genweb.js` is retired but kept for history.
+
+#### Changed
+- `_sass/_mossy.scss`: added the per-theme silhouette color `--mossy-sil` (light `#5e7245` sage, dark `#52743f` moss green), the only stylesheet hook the field needs.
+
+#### Notes
+- Verified on a local Jekyll build (dev config): field renders on the homepage and /publications/ in the dark theme, web texture gone, content legibility unaffected at 0.07 opacity. Light theme shares the identical code path with its own color (proven in the mockup).
+
+### 2026-07-06 - Mockup: tall grasses + insects silhouette background (proposal)
+
+#### Added
+- `_design-reference/grass-insects-mockup.html`: standalone mockup of a proposed background layer for the live site: tall grass clumps (with timothy-style seed heads) rising from the bottom viewport edge plus complete insect silhouettes, all faded behind the content. Replicates the current Mossy Modernist homepage (both themes) so the layer can be judged in context.
+- The field is generated in JS to the exact viewport size and regenerates on resize; blade tips and seed heads are clamped inside the canvas and only whole clumps are placed, so nothing is ever clipped or cut off (hard rule for this feature). Insects are single complete figures clamped fully inside the viewport.
+
+#### Changed (v2, same day, after Trevor's first review)
+- Orb-web texture layer REMOVED from the mockup entirely (this design direction drops it; the live site keeps its web layer untouched until the port).
+- Grass can now rise to 1/3 - 1/2 of the screen: the height slider is a fraction of viewport height, range 0.12 - 0.50 (default 0.35). Blade width and seed-head size scale up with taller grass.
+- Grasshopper (cricket-adjacent) removed; SPIDERS added instead: orb-weavers hanging head-down from silk draglines anchored above the top viewport edge (reads as anchored, not cut off). On-brand for Madison's web-spider research.
+- Dragonflies kept (they were a hit): now a configurable flock with varied sizes/rotations and simple overlap avoidance; the perched damselfly appears whenever at least one dragonfly is present and rides the dragonfly sliders.
+- Control panel rebuilt into three groups - Grass, Dragonflies, Spiders - each with its own sliders: Grass = height / opacity / amount; Dragonflies and Spiders = count (0-6) / size / opacity, with live value readouts. Tone selector dropped (moss tone fixed); Regenerate and Light/dark kept.
+
+#### Notes
+- Assessment artifact only; nothing on the live site changes until the direction is approved, at which point the same generator approach ports into `_sass/_mossy.scss` + a small script (same pattern as `genweb.js`).
+- Verified via headless-Edge screenshots: defaults, both themes, and a maxed stress test (grass 0.50, six dragonflies + six spiders at 2x size, high opacity) show no clipped blades or partial figures.
+
 ### 2026-07-02 - Commit the tech-stack reference doc
 
 #### Added

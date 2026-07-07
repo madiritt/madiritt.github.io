@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-06 - Gallery: drop the page subtitle
+
+#### Removed
+- `_pages/gallery.md`: the `description` frontmatter ("Field and macro photography from the lab and the field."), which the page layout rendered as a subtitle under the gallery title. Trevor asked for it gone; the page's meta description now falls back to the site default.
+
 ### 2026-07-06 - LIVE: silhouette field (grasses, dragonflies, spiders); orb-web layer removed
 
 Trevor approved the v2 mockup direction with these settings (from the mockup sliders): grass height 0.50 / opacity 0.07 / amount 1.30; dragonflies count 6 / size 1.20 / opacity 0.07; spiders count 6 / size 1.00 / opacity 0.07.

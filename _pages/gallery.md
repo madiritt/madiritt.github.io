@@ -2,7 +2,6 @@
 layout: page
 title: gallery
 permalink: /gallery/
-description: Field and macro photography from the lab and the field.
 nav: true
 nav_order: 5
 ---

@@ -15,8 +15,8 @@ selected_papers: true
 social: true
 
 # "Currently" hero status. Madison updates this 3-6x/year; it signals the site
-# is live and maintained. Keep it short (one line). PLACEHOLDER text for now.
-current: Field collections + behavior trials, summer 2026
+# is live and maintained. Keep it short (one line), no timeline needed.
+current: Analyzing data and writing manuscripts
 
 announcements:
   enabled: true

@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-06 - Currently status + first real news item (from Madison)
+
+#### Changed
+- `_pages/about.md` hero `current:` -> "Analyzing data and writing manuscripts" (Madison's wording; she asked for no timeline on it since it is, well, currently). Replaces the placeholder "Field collections + behavior trials, summer 2026".
+
+#### Added
+- `_news/2026-07-06-abs-2026.md`: "Presenting at ABS July 17th 2026." (her verbatim text). News already works as the running log she asked for: dated `_news/` files, homepage shows the 5 most recent, full history stays at /news/.
+
 ### 2026-07-06 - CV page condensed to download + PDF preview
 
 #### Changed

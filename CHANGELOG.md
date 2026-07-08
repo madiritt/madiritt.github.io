@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-08 - Teaching/Mentoring: strip paraphrased course descriptions (from Madison)
+
+#### Changed
+- `_pages/teaching.md` Courses section: removed the two one-line course summaries under **Animal Behavior** ("A foundation in animal behavior, applied through an independent research project.") and **Patterns in Nature** ("Hands-on experience with the scientific method, problem solving, and critical thinking."). Madison flagged these as not her own words - they were Claude's condensations of her CV goal sentences. Added an italic "See the CV for a full list." pointer at the top of the section (per her suggestion) and dropped the now-redundant "A full list is in the CV" sentence that closed the section. Kept the factual role/topic details on General Ecology Lab and Guest Lecturer (verbatim from her CV, not paraphrased). Course names, institutions, and dates unchanged.
+
 ### 2026-07-06 - Currently status + first real news item (from Madison)
 
 #### Changed

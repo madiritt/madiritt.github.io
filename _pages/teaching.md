@@ -21,11 +21,11 @@ encourage students to apply those skills in real time.
 
 ## Courses
 
+*See the [CV]({{ '/cv/' | relative_url }}) for a full list.*
+
 **Animal Behavior** (instructor of record). Milwaukee Institute of Art and Design (MIAD), Summer 2026.
-A foundation in animal behavior, applied through an independent research project.
 
 **Patterns in Nature** (instructor of record). MIAD, Fall 2025-Present.
-Hands-on experience with the scientific method, problem solving, and critical thinking.
 
 **General Ecology Lab.** UW-Milwaukee, Spring 2022-Present.
 Teaching assistant and head TA (Fall 2023-Present); co-authored new lab exercises on human survivorship and stream ecology.
@@ -34,7 +34,7 @@ Teaching assistant and head TA (Fall 2023-Present); co-authored new lab exercise
 
 Earlier teaching includes Human Anatomy and Physiology, Invertebrate Zoology,
 Biostatistics, and Introductory Biology labs at UW-Milwaukee and Illinois State
-University. A full list is in the [CV]({{ '/cv/' | relative_url }}).
+University.
 
 ## Mentoring
 

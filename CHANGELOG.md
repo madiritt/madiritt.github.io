@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Research question pages: representative photo under each title
+
+#### Added
+- `_projects/comparative-cognition.md` ("How do web spiders navigate?") and `_projects/decision-making-under-uncertainty.md` ("How do spiders make decisions involved in prey capture?"): a single pastel-orange-framed 4:3 photo directly under the title, matching the hero/mentoring frame (3px `#feac74` border, 6px radius, `object-fit: cover`). Left-aligned, `max-width: 32rem`. Images `assets/img/research-navigation.jpg` (navigation page) and `assets/img/research-decisions.jpg` (decisions page), copied from Madison's source JPGs. Routed through `figure.liquid` so the live build produces responsive WebP. Scoped `.research-photo` style block is inline in each page.
+
 ### 2026-07-09 - Homepage section dividers + animated "Currently" dot
 
 #### Added

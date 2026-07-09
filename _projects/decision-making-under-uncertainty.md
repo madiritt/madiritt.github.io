@@ -7,6 +7,37 @@ importance: 1
 category: current
 ---
 
+<!-- Representative photo under the title, orange-framed to match the hero
+     portrait and the mentoring tiles. Responsive WebP comes from figure.liquid
+     on the live build. -->
+<style>
+  .research-photo {
+    max-width: 32rem;
+    margin: 0 0 2rem;
+  }
+  .research-photo .research-frame {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 3px solid #feac74;
+    box-sizing: border-box;
+  }
+  .research-photo .research-frame figure,
+  .research-photo .research-frame picture { margin: 0; width: 100%; height: 100%; display: block; }
+  .research-photo .research-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+
+<div class="research-photo">
+  <div class="research-frame">
+    {% include figure.liquid path="assets/img/research-decisions.jpg" title="" class="img-fluid" %}
+  </div>
+</div>
+
 Animals large and small are capable of solving problems. In fact, some animals
 can solve some problems better than humans. The types of problems animals may
 encounter vary, ranging from trivial like navigating around obstacles, to

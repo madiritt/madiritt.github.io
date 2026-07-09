@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Research question pages: photos moved to the bottom
+
+#### Changed
+- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo moved from a floated inline inset to a block at the BOTTOM of the page, below the text (Madison's preference: research photos sit tastefully after the prose, not wrapped inline). Left-aligned, orange 4:3 frame unchanged, `max-width: 34rem`, `margin-top: 2.75rem` for clean separation from the text. This also fills the previously-empty lower half of these short pages. Convention going forward: any future research-page photo goes at the bottom in this pattern (documented in each page's comment).
+- Text now held to a `max-width: 42rem` reading measure via a `.research-body` wrapper. Removing the float (which had reserved the photo's column) would otherwise have let the prose span the full ~1140px container at ~120 characters/line; 42rem restores a comfortable ~80-char measure. Verified at 1280px, 950px, and true 375px (iframe harness).
+
 ### 2026-07-09 - Research question pages: article-style photo insets
 
 #### Changed

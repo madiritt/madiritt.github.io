@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - News: ABS item dated to the talk itself
+
+#### Changed
+- `_news/2026-07-06-abs-2026.md` -> `_news/2026-07-17-abs-2026.md`: the news row's date now reads Jul 17, 2026 (the date of Madison's ABS talk, per Madison) instead of the date the item was posted, and the text is the plain fact without a redundant date: "Presenting at the Animal Behavior Society (ABS) conference." Convention going forward: date news items by the event they announce, not the posting day.
+
 ### 2026-07-09 - Teaching/Mentoring page: article-style photo insets (Madison-approved)
 
 #### Changed

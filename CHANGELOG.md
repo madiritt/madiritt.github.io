@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Research question pages: article-style photo insets
+
+#### Changed
+- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo (previously a full-width block above the text) now floats right as an article-style inset the prose wraps around, matching the Teaching/Mentoring treatment. Same uniform-column technique: photo is `min(320px, 45%)` wide, every paragraph reserves the photo's column (`margin-right`) so text edges stay aligned at all widths, wrapped in a `.research-body` flow-root. Orange 4:3 frame unchanged. Verified at 1280px, 950px (half-laptop), and true 375px (iframe harness): desktop/tablet wrap in a uniform column; phone stacks photo-on-top full-width with the reserved margin released.
+- `_projects/individual-personality.md` (hatching patterns): NOT changed, it has no representative image, so there is nothing to wrap.
+
 ### 2026-07-09 - News: ABS item dated to the talk itself
 
 #### Changed

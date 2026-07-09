@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Section dividers extended to Teaching and Outreach
+
+#### Added
+- `_pages/teaching.md` + `_pages/outreach.md`: the homepage's centered citrine section divider (`.mossy-section`) now marks all six h2 sections (Teaching philosophy / Courses / Mentoring philosophy; Science communication / Mentoring and K-12 engagement / Department and community service) via kramdown `{: .mossy-section}` attributes. No CSS changes; reuses the existing class.
+
+#### Decided
+- Divider audit of every page (2026-07-09): NOT applied to /publications year headings (al-folio already rules them; two divider styles would stack), /research (question headings sit inside bordered cards that already separate), /cv, /gallery, /news, or the project pages (no h2 sections). /news and /publications already inherit the editorial hairlines below.
+
 ### 2026-07-09 - Editorial hairlines on news + publication lists
 
 #### Added

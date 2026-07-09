@@ -73,6 +73,7 @@ nav_order: 4
 </div>
 
 ## Teaching philosophy
+{: .mossy-section}
 
 In life, we are often faced with new knowledge and must decipher what knowledge
 to trust. This skill is applicable to many areas of life such as keeping up with
@@ -86,6 +87,7 @@ independent thinking in my courses and create a learner-centered classroom to
 encourage students to apply those skills in real time.
 
 ## Courses
+{: .mossy-section}
 
 *See the [CV]({{ '/cv/' | relative_url }}) for a full list.*
 
@@ -103,6 +105,7 @@ Biostatistics, and Introductory Biology labs at UW-Milwaukee and Illinois State
 University.
 
 ## Mentoring philosophy
+{: .mossy-section}
 
 During my undergraduate degree, research opportunities were "few and far
 between". This lack of opportunity hindered my progress towards graduate school

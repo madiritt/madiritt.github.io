@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Homepage divider bars centered and widened
+
+#### Changed
+- `_sass/_mossy.scss`: the citrine section divider bars above "News" and "Selected Publications" (`.mossy-section::before`) are now horizontally centered (`left: 50%` + `translateX(-50%)`) instead of left-hung, and widened 20%: desktop `calc(55% + 0.25rem)` -> `calc(66% + 0.3rem)`, mobile 52px -> 62px. The original left position was tied to the hero's left axis / portrait gutter; that alignment rationale no longer applies and the comment was updated.
+
 ### 2026-07-09 - Research question pages: representative photo under each title
 
 #### Added

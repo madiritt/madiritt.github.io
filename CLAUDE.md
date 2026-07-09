@@ -62,6 +62,7 @@ Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
 
 - `_config.dev.yml` (gitignored, local-only) disables imagemagick so no binary is needed; originals render in place of responsive WebP. It does NOT affect the live GitHub Actions build, which still runs the full production pipeline.
 - The al_folio_core gem runs the Tailwind build inside `jekyll build`; no separate `npm` step is needed for local serve (`npm ci` is only for the gem's own tests).
+- SCREENSHOT GOTCHA: Edge headless on Windows enforces a ~450px minimum window width; `--window-size=375,...` silently renders a wider layout and fake-clips the right edge (looks like site-wide mobile overflow; it is not). For true phone-width screenshots, point headless Edge at a local harness HTML containing a 375px-wide iframe of the localhost page.
 - WINDOWS/HARNESS GOTCHA: the automation shell does not auto-pick-up PATH after winget installs. Prefix shell calls with:
   `$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")`
   A normal user terminal (opened fresh) sees Ruby/Node on PATH without this.
@@ -172,7 +173,7 @@ About (homepage `/`) - Research (1) - Publications (2) - CV (3) - Teaching / Men
 - `_projects/*.md` - one file per research question (3 placeholders exist)
 - `_pages/publications.md` - driven by `_bibliography/papers.bib`
 - `_pages/cv.md` - simple CV page (2026-07-06): a download button + embedded PDF preview of `cv_pdf` (assets/pdf/Rittinger_2026_CV.pdf); the structured `layout: cv` / `_data/cv.yml` rendering was retired (data file kept, unrendered)
-- `_pages/teaching.md` - title "teaching / mentoring"
+- `_pages/teaching.md` - title "Teaching / Mentoring". Article-style layout (2026-07-09, Madison-approved): each of the 3 mentoring photos floats inside its section with text wrapping around it (right/left/right); the Courses photo precedes its h2 so the title sits beside the photo over its own text; every paragraph reserves the photo column (margin = photo width + gutter) so text edges stay uniform at all widths; NO section dividers on this page (Madison removed them here; homepage + /outreach keep theirs). All styles inline in the page.
 - `_pages/gallery.md`, `_pages/outreach.md`, `_pages/news.md`
 - `_news/*.md` - news items (1 starter exists)
 - `_data/socials.yml` - email live; ORCID/Scholar/ResearchGate/LinkedIn are commented PLACEHOLDERs

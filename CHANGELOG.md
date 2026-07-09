@@ -11,6 +11,21 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Teaching/Mentoring page: article-style photo insets (Madison-approved)
+
+#### Changed
+- `_pages/teaching.md`: full editorial redesign of the photo treatment. The 3-tile mentoring photo row under the page title is gone; each photo now lives inside its section as a floated inset the text wraps around, news-article style. Kenzie Dasek -> Teaching philosophy (right), Spider Squad -> Courses (left), Ellie Wheeler -> Mentoring philosophy (right). Orange frames, 4:3 crop, and visible captions unchanged; images still go through figure.liquid for responsive WebP.
+- Courses title placement (Madison): the Spider Squad figure precedes the h2 in source, so "Courses" renders beside the photo directly above "See the CV for a full list.", capping its own text column.
+- Uniform text columns (Trevor, after resize testing): every paragraph reserves the photo's width + 1.75rem gutter on the photo's side (margin-right for sections 1/3, margin-left for Courses p + h2), so all lines in a section share one edge at every viewport width; text never snaps to full width mid-section. Trade-off accepted: text no longer flows under photos, so a text-heavy section shows open background under its photo on narrow windows.
+- Each section sits in a `.mentoring-section` flow-root wrapper (floats can't bleed across sections); first wrapper gets `margin-top: 2.75rem` so the title-to-first-section gap matches the ~5.5rem section rhythm.
+- Mobile (<=640px): photos stack full-width/centered and the reserved column margins release. The Courses section becomes a flex column with `order` so the heading renders before its photo (in source the photo is first; stacked naively it read as the previous section's image).
+
+#### Removed
+- `_pages/teaching.md`: the `.mossy-section` centered dividers, same day they were added (Madison's call after seeing them with the insets). Homepage and /outreach KEEP their dividers; only this page dropped them.
+
+#### Notes
+- Headless-screenshot gotcha discovered during verification: Edge headless on Windows enforces a ~450px minimum window width, so `--window-size=375,...` silently renders a wider layout and fake-clips the right edge. For true phone-width checks, load the page in a 375px iframe from a local harness file and screenshot that (media queries track iframe width). The apparent site-wide mobile clipping this produced was a tool artifact; the real 375px render is clean.
+
 ### 2026-07-09 - Section dividers extended to Teaching and Outreach
 
 #### Added

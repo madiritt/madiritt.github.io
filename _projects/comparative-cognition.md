@@ -16,7 +16,7 @@ category: current
   .research-body { display: flow-root; }
   .research-body .research-photo {
     float: right;
-    width: min(320px, 45%);
+    width: min(380px, 50%);
     margin: 0.35rem 0 1rem 1.75rem;
   }
   .research-body .research-frame {
@@ -37,7 +37,7 @@ category: current
   /* Reserve the photo column for every paragraph so all lines share one edge
      at every width (no full-width snap below the photo mid-page). */
   .research-body p {
-    margin-right: calc(min(320px, 45%) + 1.75rem);
+    margin-right: calc(min(380px, 50%) + 1.75rem);
   }
   @media (max-width: 640px) {
     /* Single column: photo stacks full-width on top (already first in source),

@@ -14,8 +14,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 ### 2026-07-09 - Research question pages: article-style photo insets
 
 #### Changed
-- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo (previously a full-width block above the text) now floats right as an article-style inset the prose wraps around, matching the Teaching/Mentoring treatment. Same uniform-column technique: photo is `min(320px, 45%)` wide, every paragraph reserves the photo's column (`margin-right`) so text edges stay aligned at all widths, wrapped in a `.research-body` flow-root. Orange 4:3 frame unchanged. Verified at 1280px, 950px (half-laptop), and true 375px (iframe harness): desktop/tablet wrap in a uniform column; phone stacks photo-on-top full-width with the reserved margin released.
+- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo (previously a full-width block above the text) now floats right as an article-style inset the prose wraps around, matching the Teaching/Mentoring treatment. Same uniform-column technique: every paragraph reserves the photo's column (`margin-right`) so text edges stay aligned at all widths, wrapped in a `.research-body` flow-root. Orange 4:3 frame unchanged. Verified at 1280px, 950px (half-laptop), and true 375px (iframe harness): desktop/tablet wrap in a uniform column; phone stacks photo-on-top full-width with the reserved margin released.
+- Photo width then widened from `min(320px, 45%)` to `min(380px, 50%)` (2026-07-09, Trevor): the pages read sparse with short text, and a larger photo better balances the content block against the text height. Verified it reaches toward the right edge at full width rather than leaving a gutter.
 - `_projects/individual-personality.md` (hatching patterns): NOT changed, it has no representative image, so there is nothing to wrap.
+
+#### Decided
+- Narrowing the content measure (`max-width` on `.research-body`) to make a tighter editorial column was tried and REJECTED: left-aligning a capped block leaves the entire right third of the page empty (title comes from the layout full-width, so a centered body would misalign with it). The larger photo at full width is the balanced answer. The remaining bottom emptiness is short content on a full-height layout and only real content (fuller descriptions + the pending nestling photo) closes it.
 
 ### 2026-07-09 - News: ABS item dated to the talk itself
 

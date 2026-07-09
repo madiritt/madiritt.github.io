@@ -450,6 +450,31 @@ h1, h2, h3, h4, h5, h6,
   font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0.04em;
 }
+// Editorial hairlines (2026-07-09): thin rules between news rows and between
+// publication entries, like a publication site's headline/article lists. The
+// hero and section layout are untouched; this is list rhythm only.
+.news table.table tr {
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.news table.table tr:last-child {
+  border-bottom: none;
+}
+.news table.table th,
+.news table.table td {
+  border: none;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+// Publications (homepage "selected" + /publications archive share the markup).
+.publications ol.bibliography > li {
+  border-bottom: 1px solid var(--global-divider-color);
+  padding-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+.publications ol.bibliography > li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
 
 /*******************************************************************************
  * CV page: simplified 2026-07-06 to a download button + PDF preview, styled

@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Editorial hairlines on news + publication lists
+
+#### Added
+- `_sass/_mossy.scss`: thin hairline rules (`--global-divider-color`) between news rows and between publication entries, like a publication site's headline/article lists. News: border-bottom per `<tr>` (none on the last), Bootstrap cell borders cleared, 0.6rem vertical padding per row. Publications: border-bottom per `ol.bibliography > li` (none on the last) with 1.6rem spacing. Applies to the homepage sections AND the /news and /publications archives, which share the markup. Layout and hero untouched.
+
+#### Decided
+- A full "article-style" homepage experiment (portrait floated right with text wrap, justified bio, panel sized by aspect ratio) was built, previewed, and REJECTED by Madison the same day; rolled back before commit. The publication-site feel comes from list rhythm only (these hairlines), not from restructuring the hero. Do not reintroduce the float layout.
+
 ### 2026-07-09 - Homepage divider bars centered and widened
 
 #### Changed

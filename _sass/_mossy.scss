@@ -238,15 +238,50 @@ h1, h2, h3, h4, h5, h6,
   margin-top: 1.9rem;
 }
 .mossy-current__dot {
+  position: relative; // anchor the breathing halo
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: $orange;
+  // Radial gradient gives the core orb-like depth (warm highlight upper-left,
+  // deeper orange at the rim) instead of a flat disc. Light source offset to
+  // 38%/32% reads as a soft top-left highlight, echoing the hero orange panel.
+  background: radial-gradient(circle at 38% 32%, #ffcf9c 0%, #feac74 48%, #e08e56 100%);
+  // Static base glow beneath the animated aura.
   box-shadow:
-    0 0 0 4px rgba(254, 172, 116, 0.18),
-    0 0 14px 2px rgba(254, 172, 116, 0.55);
+    0 0 0 3px rgba(254, 172, 116, 0.20),
+    0 0 12px 2px rgba(254, 172, 116, 0.55);
   flex: none;
 }
+// Breathing halo, like an RGB peripheral: a soft-edged aura centered on the dot
+// that smoothly SCALES out and back in unison. Scaling a defined radial gradient
+// (rather than blurring a box-shadow) makes the radius change actually readable,
+// so it breathes instead of looking dead. Sits behind the crisp core.
+.mossy-current__dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px; // start slightly larger than the 12px core
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(254, 172, 116, 0.65) 0%,
+    rgba(254, 172, 116, 0.35) 40%,
+    rgba(254, 172, 116, 0) 70%
+  );
+  pointer-events: none;
+  // linear = constant-speed expand/contract, so it moves continuously instead
+  // of ease-in-out's dwell-at-the-extremes (which read as a quick pulse with
+  // dead time between). Duration is one full out-and-back cycle.
+  animation: mossy-current-breathe 1.9s linear infinite;
+}
+@keyframes mossy-current-breathe {
+  0%, 100% { transform: scale(1.05); opacity: 0.8; }
+  50%      { transform: scale(1.3);  opacity: 1; }
+}
+// Deliberate decision (2026-07-09): NO prefers-reduced-motion guard on this
+// pulse. The motion is a tiny 1.05->1.3 scale on a soft 12px aura, judged subtle
+// enough to keep for all visitors. If it's ever made larger/faster, reinstate a
+// guard: @media (prefers-reduced-motion: reduce) { .mossy-current__dot::after
+// { animation: none; } }.
 .mossy-current__label {
   display: block;
   font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -329,6 +364,37 @@ h1, h2, h3, h4, h5, h6,
     height: auto;
     aspect-ratio: 4 / 5;
   }
+}
+
+// Homepage section lead-in (above "News" and "Selected Publications"): a short
+// left-aligned citrine tick that echoes the research-card top-accent bar and the
+// left-hung hero composition. Acts as a divider by marking each section's start
+// rather than drawing a full-width wall (which would fight the atmospheric moss
+// + the asymmetric left axis). Scoped via the class, so only the homepage h2s
+// get it; other pages' headings are untouched.
+.mossy-section {
+  position: relative;
+  margin-top: 2.9rem;
+  padding-top: 1.6rem;
+}
+.mossy-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  // Stop just short of the hero portrait: the hero is a 1.1fr / 0.9fr grid with
+  // a 2.5rem gap, so the right panel's left edge is at 55% + 1.125rem of the
+  // content width. Pull back ~0.875rem so the rule sits inside the gutter and
+  // doesn't touch the photo frame.
+  width: calc(55% + 0.25rem);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--global-theme-color); // citrine
+}
+// On mobile the hero collapses to one column, so the portrait reference no
+// longer applies; keep the divider a tasteful short accent instead.
+@media (max-width: 768px) {
+  .mossy-section::before { width: 52px; }
 }
 
 /*******************************************************************************

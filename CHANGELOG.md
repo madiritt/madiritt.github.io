@@ -11,6 +11,15 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Homepage section dividers + animated "Currently" dot
+
+#### Added
+- `_layouts/about.liquid` + `_sass/_mossy.scss`: a short citrine "tick" divider above the homepage "News" and "Selected Publications" headings (new `.mossy-section` class on those two `<h2>`s). Left-aligned, echoing the research-card top accent and the hero's left axis; it marks each section's start rather than drawing a full-width rule. Width is `calc(55% + 0.25rem)` so it reaches toward (but stops ~0.875rem short of) the hero portrait's left edge, derived from the hero's 1.1fr/0.9fr grid + 2.5rem gap so it tracks that alignment as the viewport changes. On mobile (<=768px, hero single-column) it falls back to a 52px accent.
+- `_sass/_mossy.scss`: the pastel-orange "Currently" status dot now continuously pulses. A `::after` radial-gradient aura scales between 1.05x and 1.3x (opacity 0.8->1) on a `1.9s linear infinite` loop. `linear` (not ease-in-out) keeps it moving at a constant rate so it reads as continuous breathing, not a quick pulse with dead time. The core also got a radial gradient (`#ffcf9c` highlight -> `#feac74` -> `#e08e56` rim) for orb-like depth instead of a flat disc.
+
+#### Decided
+- No `prefers-reduced-motion` guard on the Currently pulse: the motion is a tiny 1.05->1.3 scale on a soft 12px aura, judged subtle enough to keep for all visitors (Trevor's call). A guard was trialed and removed; the code comment notes to reinstate one if the effect is ever made larger/faster. NOTE for whoever tests this: the pulse will NOT appear if your OS has "reduce motion" enabled in a build that still has the guard; Trevor's Windows "Animation effects" is off, which is why early tuning looked static until the guard was dropped.
+
 ### 2026-07-09 - Content additions + sitewide capitalization and color polish
 
 Continuation of the 2026-07-08 session (after the orange-titles experiment below was rolled back). All previewed on the local dev server (headless-Edge screenshots + pixel sampling) before commit.

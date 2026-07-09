@@ -16,3 +16,5 @@ across the laying order to capitalize on these differences.
 
 I was interested in the mechanism behind these sex-specific differences,
 specifically the role of the primary metabolic hormone in birds, corticosterone.
+This work was done for my Master's thesis in collaboration with the [Avian Ecology
+Lab](https://about.illinoisstate.edu/wrens/research/) at Illinois State University.

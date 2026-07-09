@@ -1,10 +1,76 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching / mentoring
+title: Teaching / Mentoring
 nav: true
 nav_order: 4
 ---
+
+<!-- Mentoring photo row: three equal orange-framed tiles under the page title,
+     matching the gallery/hero pastel-orange frame. Captions are visible under
+     each tile (unlike the gallery, whose captions live in the lightbox).
+     Responsive images come from figure.liquid (WebP on the live build). -->
+<style>
+  .mentoring-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0 2.75rem;
+  }
+  @media (max-width: 640px) {
+    .mentoring-grid { grid-template-columns: 1fr; max-width: 26rem; }
+  }
+  .mentoring-grid .mentoring-frame {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 6px;
+    /* Pastel-orange frame matching the hero portrait and gallery tiles. */
+    border: 3px solid #feac74;
+    box-sizing: border-box;
+  }
+  .mentoring-grid .mentoring-frame figure,
+  .mentoring-grid .mentoring-frame picture {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .mentoring-grid .mentoring-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mentoring-grid figcaption.mentoring-caption {
+    font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--global-text-color-light);
+    margin: 0.55rem 0 0;
+    text-align: center;
+  }
+</style>
+
+<div class="mentoring-grid">
+  <figure>
+    <div class="mentoring-frame">
+      {% include figure.liquid path="assets/img/mentoring-kenzie-dasek-2024.jpg" title="" class="img-fluid" %}
+    </div>
+    <figcaption class="mentoring-caption">Undergraduate researcher Kenzie Dasek, 2024</figcaption>
+  </figure>
+  <figure>
+    <div class="mentoring-frame">
+      {% include figure.liquid path="assets/img/mentoring-spider-squad-2023.jpg" title="" class="img-fluid" %}
+    </div>
+    <figcaption class="mentoring-caption">The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner</figcaption>
+  </figure>
+  <figure>
+    <div class="mentoring-frame">
+      {% include figure.liquid path="assets/img/mentoring-ellie-wheeler-2023.jpg" title="" class="img-fluid" %}
+    </div>
+    <figcaption class="mentoring-caption">Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner</figcaption>
+  </figure>
+</div>
 
 ## Teaching philosophy
 
@@ -36,7 +102,7 @@ Earlier teaching includes Human Anatomy and Physiology, Invertebrate Zoology,
 Biostatistics, and Introductory Biology labs at UW-Milwaukee and Illinois State
 University.
 
-## Mentoring
+## Mentoring philosophy
 
 During my undergraduate degree, research opportunities were "few and far
 between". This lack of opportunity hindered my progress towards graduate school

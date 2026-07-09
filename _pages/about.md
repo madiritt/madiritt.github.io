@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: PhD Candidate · Department of Biological Sciences · University of Wisconsin-Milwaukee
 

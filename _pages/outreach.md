@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /outreach/
-title: outreach
+title: Outreach
 description: Science communication and community engagement.
 nav: false
 ---

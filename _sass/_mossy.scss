@@ -142,6 +142,24 @@ h1, h2, h3, h4, h5, h6,
   color: var(--global-theme-color);
 }
 
+// Search toggle: relabel the gem's default "ctrl k" shortcut hint to a plain
+// "Search" word (clearer for a non-technical audience). The label text is
+// hardcoded in the gem's header.liquid; rather than shadow that whole include
+// for one word, we collapse the "ctrl k " text node (font-size: 0) and supply
+// our own label via ::before, restoring the size on the label and the icon.
+// The button's aria-label="Open search" already names it for screen readers.
+#search-toggle .nav-link {
+  font-size: 0; // hide the "ctrl k " text node
+}
+#search-toggle .nav-link::before {
+  content: "Search";
+  font-size: 1rem; // match the other nav links
+  margin-right: 0.4em;
+}
+#search-toggle .nav-link i {
+  font-size: 1rem; // restore the magnifying-glass icon
+}
+
 /*******************************************************************************
  * Hero (rendered by local _layouts/about.liquid)
  ******************************************************************************/
@@ -167,6 +185,13 @@ h1, h2, h3, h4, h5, h6,
   color: var(--global-theme-color);
   margin: 0 0 0.9rem;
   line-height: 1.7; // breathing room when it wraps to two lines
+}
+// The theme ships `span { color: var(--global-text-color) }`, which matches the
+// eyebrow's child spans DIRECTLY and beats the citrine inherited from the <p>
+// above (a direct match always outranks inheritance). Target the spans so the
+// eyebrow takes the citrine theme color, matching the "CURRENTLY" label.
+.mossy-eyebrow span {
+  color: var(--global-theme-color);
 }
 // Each segment stays whole; wrapping only happens at the dot separators.
 .mossy-eyebrow__part {
@@ -343,13 +368,23 @@ h1, h2, h3, h4, h5, h6,
   font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-// News / announcement dates -> citrine, uppercase Lexend
-.news .date,
-table.table td.date,
+// News list (homepage section + /news/ archive). al-folio renders it as a
+// Bootstrap table.table, whose cells fall back to Bootstrap's near-white
+// emphasis color (#f9fafb) instead of the site palette. Force the cream body
+// color so the dates and items match the "news" heading.
+// NOTE: the previous rule targeted a `.date` class, but the news markup uses
+// `<th scope="row">` with no such class, so it never applied and the cells
+// stayed white. These selectors match the actual cells.
+.news table.table th,
+.news table.table td,
+.post .date {
+  color: var(--global-text-color);
+}
+// Dates keep the Lexend + wider-tracking treatment; the <th> is already bold.
+.news table.table th,
 .post .date {
   font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0.04em;
-  color: var(--global-theme-color);
 }
 
 /*******************************************************************************

@@ -11,6 +11,38 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-09 - Content additions + sitewide capitalization and color polish
+
+Continuation of the 2026-07-08 session (after the orange-titles experiment below was rolled back). All previewed on the local dev server (headless-Edge screenshots + pixel sampling) before commit.
+
+#### Added
+- `_projects/individual-personality.md`: attribution sentence noting the house-wren work was Madison's Master's thesis in collaboration with the Avian Ecology Lab at Illinois State University, and made "Avian Ecology Lab" a hyperlink to https://about.illinoisstate.edu/wrens/research/ (al-folio auto-adds `target="_blank" rel="external nofollow noopener"`; the link inherits the citrine `--global-theme-color`, matching the highlighted nav tab).
+- `_pages/teaching.md`: mentoring photo row at the top of the page (under the title): three equal pastel-orange-framed 4:3 tiles (matching the hero/gallery frame) with visible centered captions beneath. Images `assets/img/mentoring-{kenzie-dasek-2024,spider-squad-2023,ellie-wheeler-2023}.jpg`. Captions: "Undergraduate researcher Kenzie Dasek, 2024"; "The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner"; "Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner". Static (no lightbox); images go through `figure.liquid` so the live build generates responsive WebP. Grid + caption styles are inline in the page.
+
+#### Changed
+- `assets/img/publication_preview/treefrog.jpg` replaced with the Höbel Lab photo for the "Where did she go?" publication (feagles2026did). Swapped the file in place; the `.bib` `preview={treefrog.jpg}` reference is unchanged. New image is landscape (750x500) and fills the same square frame via object-fit.
+- Sitewide Title Case for page titles + nav: `_pages/{about,research,publications,gallery,teaching,news,outreach}.md` `title:` strings capitalized (e.g. "teaching / mentoring" -> "Teaching / Mentoring"). Each `title` feeds both the nav link and the page `<h1>`, so both capitalize together. "CV" left uppercase.
+- `_layouts/about.liquid`: homepage section headings "news" -> "News" and "selected publications" -> "Selected Publications" to match the Title Case theme (still links to /news/ and /publications/).
+- `_pages/teaching.md`: bottom section heading "Mentoring" -> "Mentoring philosophy" (parallels "Teaching philosophy" above it).
+- `_sass/_mossy.scss`: relabeled the al-folio search toggle from the default "ctrl k" shortcut hint to "Search" (clearer for a non-technical audience). Done via CSS (`#search-toggle .nav-link` font-size:0 + `::before { content: "Search" }`) rather than shadowing the gem's 149-line `header.liquid` for one word; the button's `aria-label="Open search"` already names it for screen readers. Ctrl+K still opens it.
+
+#### Fixed
+- `_sass/_mossy.scss` news text was rendering Bootstrap's near-white emphasis color (#f9fafb) instead of the palette: the homepage news section and /news/ archive are a `table.table` whose cells fall back to Bootstrap's default color. Forced the cream `--global-text-color` on `.news table.table th/td` so dates and items match the "news" heading. The previous rule targeted a `.date` class the markup (`<th scope="row">`) never has, so it never applied. Dates keep the Lexend + wider-tracking treatment.
+- `_sass/_mossy.scss` hero eyebrow now renders citrine (matching the "CURRENTLY" label) instead of cream. Root cause was the theme's `span { color: var(--global-text-color) }` overriding the eyebrow's child spans (see the 2026-07-08 entry below); fixed with `.mossy-eyebrow span { color: var(--global-theme-color); }`.
+
+#### Notes
+- Verified: eyebrow and CURRENTLY label both sample #d4c878; news date + item both sample #f4f0d8; nav and headers render Title Case; mentoring row and publication preview render correctly on the local dev server.
+- The `mentoring-kenzie-dasek-2024.jpg` original is ~2 MB; the live build re-encodes to WebP so delivery stays light, but the full-size JPG lives in the repo. Downsize later if repo weight matters.
+
+### 2026-07-08 - Orange-titles experiment trialed locally, then rolled back (never deployed)
+
+#### Decided
+- Trialed replacing citrine with orange across all accents and titles (headings, hero name, nav, links, eyebrow; burnt-orange shades for light mode, pastel/deep for dark). Previewed locally, then rolled back the same day at Trevor's request to match the live site. Nothing was committed or deployed. The full experiment is preserved in a git stash: `stash@{0}` "orange-titles experiment 2026-07-08" (recover with `git stash pop`; stashes are local to Trevor's machine, so it disappears if the clone is deleted).
+
+#### Notes
+- KNOWN BUG discovered during the trial (since FIXED 2026-07-09, see the entry above): the hero eyebrow line ("PhD Candidate · ...") rendered cream instead of the intended citrine `--global-theme-color`. Cause: the al-folio theme ships `span { color: var(--global-text-color) }`, which matches the eyebrow's child `<span class="mossy-eyebrow__part">` elements DIRECTLY and beats any color inherited from the parent `<p>` (a direct match always outranks inheritance, even inherited `!important`). Fixed by adding `.mossy-eyebrow span { color: var(--global-theme-color); }` to `_sass/_mossy.scss`.
+- The same span trap defeated a hot-pink `!important` diagnostic on the eyebrow, which misleadingly suggested the local build pipeline was stale when it was actually fine. Lesson for future tracers: style an element whose text is not wrapped in child spans, or use geometry (border/transform) instead of color.
+
 ### 2026-07-08 - Teaching/Mentoring: strip paraphrased course descriptions (from Madison)
 
 #### Changed

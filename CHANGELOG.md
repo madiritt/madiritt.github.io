@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Publications page: subtitle copy
+
+#### Changed
+- `_pages/publications.md`: the subtitle under the heading now reads "Happy to forward pdf's upon request" (was "Peer-reviewed papers, preprints, and work in progress."). This is the page `description`, so it also serves as the page's meta/social description.
+
 ### 2026-07-10 - Teaching page: copy tweaks
 
 #### Changed

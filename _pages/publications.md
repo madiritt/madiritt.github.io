@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: Publications
-description: Peer-reviewed papers, preprints, and work in progress.
+description: Happy to forward pdf's upon request
 nav: true
 nav_order: 2
 ---

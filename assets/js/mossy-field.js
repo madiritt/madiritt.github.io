@@ -5,9 +5,11 @@
    Approved settings (Trevor + Madison, 2026-07-06, from the interactive
    mockup at _design-reference/grass-insects-mockup.html - reopen that file
    in a browser to retune, then update CONFIG here):
-     grass       height 0.50 of viewport, opacity 0.07, amount 1.30
-     dragonflies count 6, size 1.20, opacity 0.07
-     spiders     count 6, size 1.00, opacity 0.07
+     grass       height 0.50 of viewport, opacity 0.12, amount 1.30
+     dragonflies count 6, size 1.20, opacity 0.12
+     spiders     count 6, size 1.00, opacity 0.12
+   (opacity raised from 0.07 -> 0.12 on 2026-07-10 for a bit more visibility;
+    still readable, cream text keeps high contrast over the green silhouettes)
 
    HARD RULE: no clipped imagery. The field is generated to the exact
    viewport size and regenerated on resize: blade tips and seed heads are
@@ -25,9 +27,9 @@
   "use strict";
 
   var CONFIG = {
-    grass: { height: 0.5, opacity: 0.07, density: 1.3 },
-    dragonflies: { count: 6, size: 1.2, opacity: 0.07 },
-    spiders: { count: 6, size: 1.0, opacity: 0.07 },
+    grass: { height: 0.5, opacity: 0.12, density: 1.3 },
+    dragonflies: { count: 6, size: 1.2, opacity: 0.12 },
+    spiders: { count: 6, size: 1.0, opacity: 0.12 },
   };
 
   var SVG = "http://www.w3.org/2000/svg";

@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Background silhouettes: a touch more visible
+
+#### Changed
+- `assets/js/mossy-field.js`: raised the opacity of the background silhouette field (grass, dragonflies, spiders) from 0.07 to 0.12 for all three, so the detail is clearer and more visible while text stays fully readable (cream text keeps high contrast over the green silhouettes; the constraint at higher opacity is visual busyness, not legibility). Doc comment and CONFIG both updated. Verified on the Research index (lots of open background): grass blades/seed heads read as a soft silhouette, text unaffected. Easy to dial: ~0.10 subtler, ~0.15 bolder.
+
 ### 2026-07-10 - Photo credits now match on the homepage too
 
 #### Changed

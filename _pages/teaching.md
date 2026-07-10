@@ -155,7 +155,7 @@ encourage students to apply those skills in real time.
 
 ## Courses
 
-*See the [CV]({{ '/cv/' | relative_url }}) for a full list.*
+*See my [CV]({{ '/cv/' | relative_url }}) for a full list.*
 
 **Animal Behavior** (instructor of record). Milwaukee Institute of Art and Design (MIAD), Summer 2026.
 

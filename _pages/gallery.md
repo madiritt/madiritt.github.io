@@ -44,15 +44,23 @@ photos:
      into the right place on its own. See runbook 04. -->
 
 <style>
+  /* Centered flex wrap (not a plain grid) so an incomplete last row centers
+     instead of hugging the left. With 7 photos this reads as 4 on top and 3
+     centered below at desktop, rather than a lopsided 5 + 2. The `calc(25% ...)`
+     basis targets 4 per row; min-width drops it to 3, then 2, as the page
+     narrows, and the trailing row always centers. */
   .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.6rem;
     margin-top: 1rem;
   }
   .photo-grid a.photo-tile {
     display: block;
     position: relative;
+    flex: 0 1 calc(25% - 0.45rem);
+    min-width: 200px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 6px;

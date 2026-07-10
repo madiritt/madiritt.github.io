@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Gallery: balanced grid (centered rows)
+
+#### Changed
+- `_pages/gallery.md`: the photo grid was rendering lopsided (5 tiles on top, 2 hugging the bottom-left) because 7 is a prime count that no column number divides evenly. Switched `.photo-grid` from `grid` (auto-fit, left-packed) to a centered flex wrap: tiles target 4 per row (`flex: 0 1 calc(25% - 0.45rem)`, `min-width: 200px`) and any incomplete row centers. Now reads as a balanced 4-on-top / 3-centered-below at desktop, degrading to 3s then 2s as the page narrows with the trailing row always centered. Tiles are slightly larger as a result. Verified at 1280px and 760px.
+- Note: with a prime number of photos the rows can't all be equal; centering makes the layout read as intentional at every width. An even count (6, 8, ...) would fill rows exactly.
+
 ### 2026-07-10 - Gallery: auto-sorts newest-first
 
 #### Changed

@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Homepage: real contact note under the social icons
+
+#### Fixed
+- `_config.yml` `contact_note`: replaced the leftover al-folio placeholder ("You can even add a little note about which of these is the best way to reach you.", which was rendering live under the homepage social icons) with Madison's real note: "The best way to reach me is by email. I welcome inquiries about research and potential collaborations." Renders centered under the email/ORCID/Scholar/ResearchGate/LinkedIn icons via the existing `.contact-note` slot in `_layouts/about.liquid`.
+
 ### 2026-07-10 - Gallery: captions cleaned up from Madison's image titles
 
 #### Changed

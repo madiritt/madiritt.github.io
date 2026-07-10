@@ -14,34 +14,6 @@
     float: left;
     margin: 0.35rem 1.75rem 1rem 0;
   }
-  @media (max-width: 640px) {
-    /* Single column: stack instead of wrap; 45% floats are too narrow to read around. */
-    .mentoring-inset,
-    .mentoring-inset.inset-left {
-      float: none;
-      width: 100%;
-      max-width: 26rem;
-      margin: 1.25rem auto;
-    }
-    /* The Courses figure precedes its h2 in source (desktop title alignment);
-       stacked on mobile that reads as the previous section's photo. Flex
-       reorder puts the heading first: h2 keeps order 0, photo 2, text 3. */
-    .mentoring-section:nth-of-type(2) {
-      display: flex;
-      flex-direction: column;
-    }
-    .mentoring-section:nth-of-type(2) .mentoring-inset { order: 2; }
-    .mentoring-section:nth-of-type(2) p { order: 3; }
-    /* Stacked: no photo column to reserve; release the column margins. */
-    .mentoring-section:nth-of-type(1) p,
-    .mentoring-section:nth-of-type(3) p {
-      margin-right: 0;
-    }
-    .mentoring-section:nth-of-type(2) p,
-    .mentoring-section:nth-of-type(2) h2 {
-      margin-left: 0;
-    }
-  }
   .mentoring-inset .mentoring-frame {
     aspect-ratio: 4 / 3;
     overflow: hidden;
@@ -97,6 +69,40 @@
      (their 2.5rem margin plus the h2's own top margin). */
   .mentoring-section:first-of-type {
     margin-top: 2.75rem;
+  }
+
+  /* MOBILE. Placed LAST on purpose: these rules have the same specificity as the
+     base photo-column margins above, so source order is what makes them win. When
+     this block sat before those base rules, the reserved margin never released on
+     phones and the text was crushed into a thin strip beside the empty photo
+     column. Here we stack each photo full-width and drop the reserved margin so
+     text uses the full page width. */
+  @media (max-width: 640px) {
+    .mentoring-inset,
+    .mentoring-inset.inset-left {
+      float: none;
+      width: 100%;
+      max-width: 26rem;
+      margin: 1.25rem auto;
+    }
+    /* The Courses figure precedes its h2 in source (desktop title alignment);
+       stacked on mobile that reads as the previous section's photo. Flex
+       reorder puts the heading first: h2 keeps order 0, photo 2, text 3. */
+    .mentoring-section:nth-of-type(2) {
+      display: flex;
+      flex-direction: column;
+    }
+    .mentoring-section:nth-of-type(2) .mentoring-inset { order: 2; }
+    .mentoring-section:nth-of-type(2) p { order: 3; }
+    /* Release the reserved photo-column margins (no float to wrap around now). */
+    .mentoring-section:nth-of-type(1) p,
+    .mentoring-section:nth-of-type(3) p {
+      margin-right: 0;
+    }
+    .mentoring-section:nth-of-type(2) p,
+    .mentoring-section:nth-of-type(2) h2 {
+      margin-left: 0;
+    }
   }
 </style> <div class="mentoring-section"> <h2 id="teaching-philosophy">Teaching philosophy</h2> <figure class="mentoring-inset"> <div class="mentoring-frame"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/mentoring-kenzie-dasek-2024-480.webp 480w,/assets/img/mentoring-kenzie-dasek-2024-800.webp 800w,/assets/img/mentoring-kenzie-dasek-2024-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/mentoring-kenzie-dasek-2024.jpg" class="img-fluid" width="100%" height="auto" title="" loading="lazy" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> </div> <figcaption class="mentoring-caption">Undergraduate researcher Kenzie Dasek, 2024</figcaption> </figure> <p>In life, we are often faced with new knowledge and must decipher what knowledge to trust. This skill is applicable to many areas of life such as keeping up with current events, making medical decisions, and navigating politics. It is therefore my goal to give students the necessary tools to recreate this process: thinking independently and using that thought process to decipher what knowledge to trust. The task of learning these processes, however, falls primarily on the students as I utilize an active learning approach in my teaching. To give the students the tools to decipher what knowledge to trust, I emphasize critical and independent thinking in my courses and create a learner-centered classroom to encourage students to apply those skills in real time.</p> </div> <div class="mentoring-section"> <figure class="mentoring-inset inset-left"> <div class="mentoring-frame"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/mentoring-spider-squad-2023-480.webp 480w,/assets/img/mentoring-spider-squad-2023-800.webp 800w,/assets/img/mentoring-spider-squad-2023-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/mentoring-spider-squad-2023.jpg" class="img-fluid" width="100%" height="auto" title="" loading="lazy" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> </div> <figcaption class="mentoring-caption">The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner</figcaption> </figure> <h2 id="courses">Courses</h2> <p><em>See the <a href="/cv/">CV</a> for a full list.</em></p> <p><strong>Animal Behavior</strong> (instructor of record). Milwaukee Institute of Art and Design (MIAD), Summer 2026.</p> <p><strong>Patterns in Nature</strong> (instructor of record). MIAD, Fall 2025-Present.</p> <p><strong>General Ecology Lab.</strong> UW-Milwaukee, Spring 2022-Present. Teaching assistant and head TA (Fall 2023-Present); co-authored new lab exercises on human survivorship and stream ecology.</p> <p><strong>Guest Lecturer.</strong> UW-Milwaukee. Ecology (2024-2025) and Behavioral Ecology (2023); topics including ecological succession, evolution, and hormones and behavior.</p> <p>Earlier teaching includes Human Anatomy and Physiology, Invertebrate Zoology, Biostatistics, and Introductory Biology labs at UW-Milwaukee and Illinois State University.</p> </div> <div class="mentoring-section"> <h2 id="mentoring-philosophy">Mentoring philosophy</h2> <figure class="mentoring-inset"> <div class="mentoring-frame"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/mentoring-ellie-wheeler-2023-480.webp 480w,/assets/img/mentoring-ellie-wheeler-2023-800.webp 800w,/assets/img/mentoring-ellie-wheeler-2023-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/mentoring-ellie-wheeler-2023.jpg" class="img-fluid" width="100%" height="auto" title="" loading="lazy" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> </div> <figcaption class="mentoring-caption">Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner</figcaption> </figure> <p>During my undergraduate degree, research opportunities were “few and far between”. This lack of opportunity hindered my progress towards graduate school and in the field of animal behavior more generally. One of my career goals is to offer opportunities to undergraduate researchers that I never had access to. I do this by incorporating undergraduate researchers at all stages of the research process starting from brainstorming initial ideas for a project to communicating the final results to the public.</p> <p>As a mentor, I prioritize communication and making myself accessible to my mentees. This often comes in the form of weekly check-ins to ensure that my mentees are confident in their work and that I can help troubleshoot any problems. Between these check-ins my mentees largely work independently which helps them gain confidence in their own research abilities.</p> <p>To date I have mentored 18 undergraduate researchers. Four of these undergraduates will be coauthor on future publications and one undergraduate has presented our research at several local conferences. I have also mentored 16 high school students through the Mentor Matching Engine - a virtual mentor program.</p> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Madison Rittinger. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script defer src="/assets/js/mossy-field.js?v=9b73f7054008730edfcf5c677b1e0563"></script> <script>
   window.alFolio = {

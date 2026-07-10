@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - CV page: PDF preview now works on mobile
+
+#### Fixed
+- `_pages/cv.md`: the inline CV preview showed only "A preview isn't available in this browser - download the CV (PDF) instead" on phones. Cause: mobile browsers (iOS Safari, Android Chrome) refuse to render PDFs inline in an `<object>`/`<iframe>`/`<embed>`, so the `<object>` always fell through to its fallback text. Not a markup bug, a platform limitation.
+
+#### Changed
+- Replaced the `<object type="application/pdf">` embed with a PDF.js (canvas) renderer: the PDF at `cv_pdf` is drawn page-by-page into stacked canvases inside the same orange-framed, scrollable preview box. Works on every modern browser, desktop and mobile (PDF.js is the same engine Firefox ships natively). Verified rendering at 1280px and 500px widths.
+- PDF.js pinned to `pdfjs-dist@3.11.174` from jsDelivr with an SRI hash on the main script; the worker loads from the same pinned path. Device pixel ratio capped at 2 and pages rendered sequentially to keep canvas memory sane on phones.
+- Update workflow UNCHANGED: the renderer draws whatever PDF is at `cv_pdf`, so "drop a new PDF in assets/pdf/" (runbook 03) still just works, no image regeneration needed.
+- Graceful degradation preserved: if JS is disabled or the CDN is blocked, the same "download the CV (PDF)" link fallback shows (kept in the container, removed only on successful render, restored on error).
+
 ### 2026-07-10 - Spider research pages: gallery-style photos (applied the standard)
 
 #### Added

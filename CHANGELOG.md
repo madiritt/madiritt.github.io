@@ -11,6 +11,40 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Spider research pages: gallery-style photos (applied the standard)
+
+#### Added
+- `_projects/decision-making-under-uncertainty.md` ("How do spiders make decisions...") and `_projects/comparative-cognition.md` ("How do web spiders navigate?") now use the same gallery-tile + wide-text layout established on the nestlings page: full-width prose, a responsive grid of square `object-fit: cover` tiles with orange frames and hover zoom, a "Select any image to view it full-size" hint, and a GLightbox slider showing the full uncropped image + caption on click. Replaces the older single bottom-photo pattern on both pages.
+- Six new images (Madison's own photos), converted from source JPGs via .NET System.Drawing to 1600px long edge at q85:
+  - Decisions (all *Pholcus phalangioides*, 2023): `research-decisions-adult-can.jpg` (adult on a can rim), `research-decisions-vial.jpg` (in a lab vial), `research-decisions-spiderlings.jpg` (mother with a spiderling brood). All three source files were distinct shots despite similar names.
+  - Navigation: `research-navigation-web.jpg` (*Frontinella communis* web, 2024), `research-navigation-tetragnathid-branch.jpg` and `research-navigation-tetragnathid-twig.jpg` (Tetragnathid sp., Saukville WI, 2026; two distinct shots).
+
+#### Decided (attribution)
+- These six are Madison's OWN photos, so per Madison (2026-07-10) they carry NO photographer line: species + year lightbox caption only (italic binomial, matching the Gallery page's caption voice), and no `Photos: ...` credit line under the grid. The "credit the photographer on all images" standard still holds; it just resolves to no line when the photographer is Madison herself. Contrast the nestlings page, whose photos are Dr. Rachael DiSciullo's and are credited.
+
+#### Removed
+- `assets/img/research-decisions.jpg` and `assets/img/research-navigation.jpg` (the old single representative photos): now orphaned, replaced by the new named files above. Confirmed no remaining page references before deleting.
+
+#### Notes
+- Duplication smell (future refactor, not done): the `.research-photos` tile CSS + the full GLightbox CSS/JS block are now copied inline across three research pages and `_pages/gallery.md`. Faithful to the existing per-page-inline convention, but a shared `_includes/` partial for the GLightbox setup would remove ~4 copies if maintenance ever bites.
+
+### 2026-07-10 - Nestlings research page: gallery-style photos + wide text
+
+#### Added
+- `_projects/individual-personality.md` (hatching patterns / house wrens): three house wren photos by Dr. Rachael DiSciullo added at the bottom of the page, replacing the previous no-photo state. Multi-photo research pages are the new standard going forward (Madison, 2026-07-10): as photos are provided, each page gets its set at the bottom rather than a single representative image.
+- `assets/img/research-nestlings-nestbox.jpg`, `research-nestlings-branch-a.jpg`, `research-nestlings-branch-b.jpg`: converted from Madison's source TIFFs (one was 198 MB) via .NET System.Drawing, resized to 1600px long edge at JPEG q85 (~190 KB each). The two "sits on branch" source files looked like duplicates by dimension (exactly 2x) but are distinct photographs (bird faces left vs right, different perch/background); both kept.
+
+#### Layout (gallery method + wide text)
+- Photos use the GALLERY METHOD (Madison, 2026-07-10: "same size method as the gallery photos"): `.research-photos` is a responsive grid of equal SQUARE tiles (`grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))`, `aspect-ratio: 1/1`, `object-fit: cover`, orange frame, hover zoom) that mirrors `_pages/gallery.md`. Clicking a tile opens the same GLightbox slider (loop, prev/next, Mossy-palette caption) showing the FULL uncropped image with its caption, so the square tile crop never permanently hides the photo. GLightbox CSS/JS + caption styling replicated inline from the Gallery page.
+- Iteration history (same session, none shipped before this): started as a 4:3-cropped row of three, then a full-view natural-ratio mosaic (7fr:9fr portrait + stacked landscapes), then this gallery-tile version per Madison's request to match the gallery sizing.
+- Text now spans the FULL content width (`.research-body { max-width: 100% }`, was 42-44rem), so the short prose reads WIDE rather than as a tall narrow column (Madison, 2026-07-10: "extend the text horizontally rather than vertically"). Title, text, and photo grid all share the same left/right edges.
+
+#### Added (photographer credits)
+- Every image is credited (standard set Madison, 2026-07-10: credit the photographer on ALL images). Credit shows in the GLightbox caption per image (`data-title`), plus a visible `Photos: Dr. Rachael DiSciullo` line under the grid. A `.research-hint` line ("Select any image to view it full-size") signals the tiles are clickable, matching the Gallery page's `.gallery-hint`.
+
+#### Notes
+- Retro-credit / gallery-method TODO: DONE same day. Both `comparative-cognition.md` and `decision-making-under-uncertainty.md` moved to this gallery-tile treatment (see the entry above); their photos are Madison's own, so no photographer line.
+
 ### 2026-07-09 - Research question pages: photos moved to the bottom
 
 #### Changed

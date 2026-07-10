@@ -4,16 +4,44 @@ title: Gallery
 permalink: /gallery/
 nav: true
 nav_order: 5
+
+# Gallery photos. The grid AUTO-SORTS by `year` (newest first), so a new photo
+# slots into the right place on its own: just add an entry here and drop the image
+# in assets/img/. `caption` is the lightbox text (use <em> for species names).
+# Photos from the same year group together; their order within that year is
+# deterministic but not guaranteed to match this list.
+photos:
+  - image: assets/img/gallery-abs-2025.jpg
+    caption: "Animal Behavior Society (ABS), 2025"
+    year: 2025
+  - image: assets/img/gallery-f-communis-2025.jpg
+    caption: "<em>Frontinella communis</em> web, 2025"
+    year: 2025
+  - image: assets/img/gallery-transects-2025.jpg
+    caption: "Helping Mish with transects, 2025"
+    year: 2025
+  - image: assets/img/gallery-clay-models-2025.jpg
+    caption: "Helping Mish paint clay models, 2025"
+    year: 2025
+  - image: assets/img/gallery-p-phalangioides-2022.jpg
+    caption: "<em>Pholcus phalangioides</em>, 2022"
+    year: 2022
+  - image: assets/img/gallery-spider-hunting-2022.jpg
+    caption: "Undergraduate researchers Ben Mueller and Kristen Lindemann, 2022"
+    year: 2022
+  - image: assets/img/gallery-paige-fieldwork.jpg
+    caption: "Paige Duncan, M.S., and I at Mackinaw Nature Preserve, 2020"
+    year: 2020
 ---
 
 <!-- Google Photos-style library: a responsive grid of equal, cropped tiles.
      Clicking any tile opens a full-screen GLightbox slider (prev/next, swipe,
      keyboard) showing the full uncropped image with its title caption beneath.
 
-     To add a photo: drop the image in assets/img/ and copy one .photo-tile
-     block below. Set data-title (the caption) on the anchor; it shows in the
-     lightbox. Italics (e.g. species names) work via <em> in data-title. The
-     grid grows and re-flows automatically. See runbook 04. -->
+     The tiles are generated from the `photos` list in this page's front matter
+     and AUTO-SORT by year, newest first. To add a photo: drop the image in
+     assets/img/ and add one entry to that list (image, caption, year). It slots
+     into the right place on its own. See runbook 04. -->
 
 <style>
   .photo-grid {
@@ -67,28 +95,13 @@ nav_order: 5
 
 <p class="gallery-hint">Select any image to view its caption</p>
 
+{% assign gallery_photos = page.photos | sort: "year" | reverse %}
 <div class="photo-grid">
-  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Paige Duncan, M.S., and I at Mackinaw Nature Preserve, 2020">
-    {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid" %}
+  {% for photo in gallery_photos %}
+  <a href="{{ photo.image | prepend: '/' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="{{ photo.caption }}">
+    {% include figure.liquid path=photo.image title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Helping Mish with transects, 2025">
-    {% include figure.liquid path="assets/img/gallery-transects-2025.jpg" title="" class="img-fluid" %}
-  </a>
-  <a href="{{ '/assets/img/gallery-p-phalangioides-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Pholcus phalangioides</em>, 2022">
-    {% include figure.liquid path="assets/img/gallery-p-phalangioides-2022.jpg" title="" class="img-fluid" %}
-  </a>
-  <a href="{{ '/assets/img/gallery-f-communis-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Frontinella communis</em> web, 2025">
-    {% include figure.liquid path="assets/img/gallery-f-communis-2025.jpg" title="" class="img-fluid" %}
-  </a>
-  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Helping Mish paint clay models, 2025">
-    {% include figure.liquid path="assets/img/gallery-clay-models-2025.jpg" title="" class="img-fluid" %}
-  </a>
-  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society (ABS), 2025">
-    {% include figure.liquid path="assets/img/gallery-abs-2025.jpg" title="" class="img-fluid" %}
-  </a>
-  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Undergraduate researchers Ben Mueller and Kristen Lindemann, 2022">
-    {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
-  </a>
+  {% endfor %}
 </div>
 
 <!-- GLightbox: full-screen lightbox gallery with prev/next navigation (click a tile). -->

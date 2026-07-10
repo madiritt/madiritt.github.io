@@ -11,7 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
-### 2026-07-10 - Homepage: real contact note under the social icons
+### 2026-07-10 - Gallery: auto-sorts newest-first
+
+#### Changed
+- `_pages/gallery.md`: the gallery is now data-driven and self-sorting. The seven photos moved from hardcoded `.photo-tile` anchors into a `photos:` list in the page front matter (image, caption, year); the grid renders them with `{% assign gallery_photos = page.photos | sort: "year" | reverse %}` so they always present newest-first (2025 -> 2022 -> 2020) with no manual reordering. Adding a photo is now just a front-matter entry plus the image file; it slots into the right place by year on its own. GLightbox wiring, captions (including `<em>` species names), and the square-tile styling are unchanged. Verified: 7 tiles, correct newest-first order, identical caption encoding to the previous hardcoded version.
+- Ordering choice: newest-first (Madison), matching the Publications page. Sort key is `year`; photos within the same year group together in a deterministic (if not list-exact) order. Finer within-year control would need a full date field, not added since only the year is shown.
 
 #### Fixed
 - `_config.yml` `contact_note`: replaced the leftover al-folio placeholder ("You can even add a little note about which of these is the best way to reach you.", which was rendering live under the homepage social icons) with Madison's real note: "The best way to reach me is by email. I welcome inquiries about research and potential collaborations." Renders centered under the email/ORCID/Scholar/ResearchGate/LinkedIn icons via the existing `.contact-note` slot in `_layouts/about.liquid`.

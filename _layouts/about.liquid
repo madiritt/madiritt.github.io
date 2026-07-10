@@ -87,6 +87,9 @@ layout: default
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications</a>
       </h2>
       {% include selected_papers.liquid %}
+      <!-- Photo credits on the selected-publication thumbnails, same treatment as
+           the Publications page (shared include so they match exactly). -->
+      {% include publication-credits.html %}
     {% endif %}
 
     <!-- Social -->

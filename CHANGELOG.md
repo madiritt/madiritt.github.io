@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Photo credits now match on the homepage too
+
+#### Changed
+- The photographer-credit overlay on publication thumbnails now also appears on the homepage's Selected Publications, so the "Photo: Mark Yokoyama" spider thumbnail (Heuristic-test paper) matches its Publications-page version exactly (it previously had no credit on the homepage). The composite instinct-to-insight figure still gets no credit in either place.
+- Refactor to guarantee the match: extracted the credit overlay CSS + JS into a shared `_includes/publication-credits.html`. `_pages/publications.md` now includes it instead of holding its own inline copy, and `_layouts/about.liquid` includes it right after the Selected Publications block. One source of truth, no duplicated copy to drift; added a guard so it never double-decorates a thumbnail. Verified both pages render the overlays identically.
+
 ### 2026-07-10 - Gallery: balanced grid (centered rows)
 
 #### Changed

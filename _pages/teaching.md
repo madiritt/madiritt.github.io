@@ -158,17 +158,17 @@ encourage students to apply those skills in real time.
 *See my [CV]({{ '/cv/' | relative_url }}) for a full list.*
 
 **Animal Behavior** (instructor of record). Milwaukee Institute of Art and Design (MIAD), Summer 2026.
+The goal of this course is to give students a solid understanding of topics in animal behavior and have them apply those principles in an independent research project.
 
 **Patterns in Nature** (instructor of record). MIAD, Fall 2025-Present.
+The goal of this course is to give students hands-on experience with the scientific method, problem solving, and critical thinking.
 
 **General Ecology Lab.** UW-Milwaukee, Spring 2022-Present.
-Teaching assistant and head TA (Fall 2023-Present); co-authored new lab exercises on human survivorship and stream ecology.
+Teaching assistant and head TA (Fall 2023-Present); co-authored new laboratory exercises on survivorship in humans and stream ecology.
 
-**Guest Lecturer.** UW-Milwaukee. Ecology (2024-2025) and Behavioral Ecology (2023); topics including ecological succession, evolution, and hormones and behavior.
+**Guest Lecturer.** UW-Milwaukee. Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023); topics covered ecological succession, evolution, and the role of hormones in behavior.
 
-Earlier teaching includes Human Anatomy and Physiology, Invertebrate Zoology,
-Biostatistics, and Introductory Biology labs at UW-Milwaukee and Illinois State
-University.
+Earlier teaching: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University).
 
 </div>
 

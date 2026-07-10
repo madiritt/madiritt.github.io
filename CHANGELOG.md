@@ -11,6 +11,16 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Teaching page: Courses section reconciled with the CV
+
+#### Fixed
+- `_pages/teaching.md`: made the Courses list match Madison's CV (`Rittinger_2026_CV.pdf`) instead of paraphrased/invented content. Changes:
+  - Guest Lecturer dates now match the CV exactly: "Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023)" (was the vague "Ecology (2024-2025) and Behavioral Ecology (2023)").
+  - Replaced the invented "Earlier teaching includes ... at UW-Milwaukee and Illinois State University" summary (which mis-lumped institutions and omitted the ISU General Ecology Lab) with an accurate line: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University).
+  - Added the CV's course descriptions for the two MIAD instructor-of-record courses (Animal Behavior, Patterns in Nature), which the site had omitted.
+  - Guest Lecturer / General Ecology Lab wording brought in line with the CV ("the role of hormones in behavior"; "survivorship in humans"; "new laboratory exercises").
+  - Kept "See my CV for a full list" (the ODU Statistics Tutor and per-term dates for earlier labs remain CV-only). Verified rendering at 1280px.
+
 ### 2026-07-10 - Publications page: credits moved onto the photo
 
 #### Changed

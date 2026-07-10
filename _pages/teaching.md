@@ -200,6 +200,6 @@ helps them gain confidence in their own research abilities.
 To date I have mentored 18 undergraduate researchers. Four of these
 undergraduates will be coauthor on future publications and one undergraduate has
 presented our research at several local conferences. I have also mentored 16 high
-school students through the Mentor Matching Engine - a virtual mentor program.
+school students through the [Mentor Matching Engine](https://help.mentormatchingengine.org/about) - a virtual mentor program.
 
 </div>

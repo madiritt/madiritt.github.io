@@ -53,7 +53,7 @@ nav_order: 2
     font-size: 0.64rem;
     line-height: 1.3;
     letter-spacing: 0.02em;
-    text-align: center;
+    text-align: left;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
     pointer-events: none;
   }

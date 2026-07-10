@@ -15,6 +15,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 #### Changed
 - `_pages/publications.md`: the photographer credit now sits ON each thumbnail (bottom) as a soft gradient-scrim overlay (cream Lexend over a moss-dark fade, inset inside the 3px orange frame with matching rounded bottom corners), instead of a plain caption beneath the tile (Madison's request for a classier, professional look). Same matching/degradation as before: the script wraps each credited `img.preview` in a `.pub-thumb` and lays a `.pub-credit-overlay` on it; no JS -> no overlay, thumbnails unaffected. The composite manuscript figure still gets no credit. Verified at 1280px and narrow width.
+- Follow-up: credit text left-aligned to sit in the bottom-LEFT corner (Madison's preference), the standard editorial photo-credit placement, rather than centered on the scrim.
 
 ### 2026-07-10 - Publications page: updated thumbnails + photographer credits
 

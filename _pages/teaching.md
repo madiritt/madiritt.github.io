@@ -28,34 +28,6 @@ nav_order: 4
     float: left;
     margin: 0.35rem 1.75rem 1rem 0;
   }
-  @media (max-width: 640px) {
-    /* Single column: stack instead of wrap; 45% floats are too narrow to read around. */
-    .mentoring-inset,
-    .mentoring-inset.inset-left {
-      float: none;
-      width: 100%;
-      max-width: 26rem;
-      margin: 1.25rem auto;
-    }
-    /* The Courses figure precedes its h2 in source (desktop title alignment);
-       stacked on mobile that reads as the previous section's photo. Flex
-       reorder puts the heading first: h2 keeps order 0, photo 2, text 3. */
-    .mentoring-section:nth-of-type(2) {
-      display: flex;
-      flex-direction: column;
-    }
-    .mentoring-section:nth-of-type(2) .mentoring-inset { order: 2; }
-    .mentoring-section:nth-of-type(2) p { order: 3; }
-    /* Stacked: no photo column to reserve; release the column margins. */
-    .mentoring-section:nth-of-type(1) p,
-    .mentoring-section:nth-of-type(3) p {
-      margin-right: 0;
-    }
-    .mentoring-section:nth-of-type(2) p,
-    .mentoring-section:nth-of-type(2) h2 {
-      margin-left: 0;
-    }
-  }
   .mentoring-inset .mentoring-frame {
     aspect-ratio: 4 / 3;
     overflow: hidden;
@@ -111,6 +83,40 @@ nav_order: 4
      (their 2.5rem margin plus the h2's own top margin). */
   .mentoring-section:first-of-type {
     margin-top: 2.75rem;
+  }
+
+  /* MOBILE. Placed LAST on purpose: these rules have the same specificity as the
+     base photo-column margins above, so source order is what makes them win. When
+     this block sat before those base rules, the reserved margin never released on
+     phones and the text was crushed into a thin strip beside the empty photo
+     column. Here we stack each photo full-width and drop the reserved margin so
+     text uses the full page width. */
+  @media (max-width: 640px) {
+    .mentoring-inset,
+    .mentoring-inset.inset-left {
+      float: none;
+      width: 100%;
+      max-width: 26rem;
+      margin: 1.25rem auto;
+    }
+    /* The Courses figure precedes its h2 in source (desktop title alignment);
+       stacked on mobile that reads as the previous section's photo. Flex
+       reorder puts the heading first: h2 keeps order 0, photo 2, text 3. */
+    .mentoring-section:nth-of-type(2) {
+      display: flex;
+      flex-direction: column;
+    }
+    .mentoring-section:nth-of-type(2) .mentoring-inset { order: 2; }
+    .mentoring-section:nth-of-type(2) p { order: 3; }
+    /* Release the reserved photo-column margins (no float to wrap around now). */
+    .mentoring-section:nth-of-type(1) p,
+    .mentoring-section:nth-of-type(3) p {
+      margin-right: 0;
+    }
+    .mentoring-section:nth-of-type(2) p,
+    .mentoring-section:nth-of-type(2) h2 {
+      margin-left: 0;
+    }
   }
 </style>
 

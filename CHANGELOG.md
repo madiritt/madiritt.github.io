@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Teaching page: fix crushed text column on mobile
+
+#### Fixed
+- `_pages/teaching.md`: on phones every section's text was crammed into a thin left strip with the right half empty and the photo stacked below. Cause was a CSS source-order bug: the `@media (max-width: 640px)` block that releases the reserved photo-column margins sat BEFORE the base rules that set those margins (`margin-right/left: calc(min(320px, 45%) + 1.75rem)`). Both have identical specificity, so the later base rules won even at mobile width and the margin never released. Moved the media query to the END of the style block so source order lets it win. Verified at true 390px (iframe harness): text now uses the full width and photos stack full-width; desktop floated insets unchanged at 1280px.
+
 ### 2026-07-10 - CV page: PDF preview now works on mobile
 
 #### Fixed

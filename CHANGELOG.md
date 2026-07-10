@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Teaching page: copy tweak
+
+#### Changed
+- `_pages/teaching.md`: Courses section reads "See my CV for a full list" instead of "See the CV for a full list" (Madison's wording).
+
 ### 2026-07-10 - Teaching page: fix crushed text column on mobile
 
 #### Fixed

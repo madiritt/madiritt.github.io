@@ -68,10 +68,10 @@ nav_order: 5
 <p class="gallery-hint">Select any image to view its caption</p>
 
 <div class="photo-grid">
-  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Mackinaw Nature Preserve, 2020">
+  <a href="{{ '/assets/img/gallery-paige-fieldwork.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Paige Duncan, M.S., and I at Mackinaw Nature Preserve, 2020">
     {% include figure.liquid path="assets/img/gallery-paige-fieldwork.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Running transects, May 2025">
+  <a href="{{ '/assets/img/gallery-transects-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Helping Mish with transects, 2025">
     {% include figure.liquid path="assets/img/gallery-transects-2025.jpg" title="" class="img-fluid" %}
   </a>
   <a href="{{ '/assets/img/gallery-p-phalangioides-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Pholcus phalangioides</em>, 2022">
@@ -80,13 +80,13 @@ nav_order: 5
   <a href="{{ '/assets/img/gallery-f-communis-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="<em>Frontinella communis</em> web, 2025">
     {% include figure.liquid path="assets/img/gallery-f-communis-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Painting clay models, 2025">
+  <a href="{{ '/assets/img/gallery-clay-models-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Helping Mish paint clay models, 2025">
     {% include figure.liquid path="assets/img/gallery-clay-models-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society meeting, 2025">
+  <a href="{{ '/assets/img/gallery-abs-2025.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Animal Behavior Society (ABS), 2025">
     {% include figure.liquid path="assets/img/gallery-abs-2025.jpg" title="" class="img-fluid" %}
   </a>
-  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Hunting for spiders, 2022">
+  <a href="{{ '/assets/img/gallery-spider-hunting-2022.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="field-gallery" data-title="Undergraduate researchers Ben Mueller and Kristen Lindemann, 2022">
     {% include figure.liquid path="assets/img/gallery-spider-hunting-2022.jpg" title="" class="img-fluid" %}
   </a>
 </div>

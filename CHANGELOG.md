@@ -11,6 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-10 - Gallery: captions cleaned up from Madison's image titles
+
+#### Changed
+- `_pages/gallery.md`: updated lightbox captions to match the descriptions in Madison's source image filenames. No new images: all seven provided files already exist in the gallery (six are byte-identical to the current assets; the seventh, a HEIC named for the undergrads in it, is the same photo as the existing "Hunting for spiders" tile). Per Madison's rule, existing photos just get their descriptions cleaned up.
+  - "Mackinaw Nature Preserve, 2020" -> "Paige Duncan, M.S., and I at Mackinaw Nature Preserve, 2020"
+  - "Running transects, May 2025" -> "Helping Mish with transects, 2025"
+  - "Painting clay models, 2025" -> "Helping Mish paint clay models, 2025"
+  - "Animal Behavior Society meeting, 2025" -> "Animal Behavior Society (ABS), 2025" (title was "ABS 2025"; expanded the acronym, dropped the not-in-title word "meeting")
+  - "Hunting for spiders, 2022" -> "Undergraduate researchers Ben Mueller and Kristen Lindemann, 2022"
+  - Unchanged: the *Pholcus phalangioides* (2022) and *Frontinella communis* web (2025) captions were already the correct full italic binomials (the filenames use abbreviated/typo'd forms).
+
+#### Notes
+- No photographer credits added: none of these seven filenames name a photographer (they are Madison's own field/lab photos), consistent with the Gallery's existing species/description-only caption style.
+
 ### 2026-07-10 - Teaching page: Courses section reconciled with the CV
 
 #### Fixed

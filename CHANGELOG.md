@@ -11,7 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
-### 2026-07-10 - Publications page: subtitle copy
+### 2026-07-10 - Publications page: updated thumbnails + photographer credits
+
+#### Changed
+- Replaced all four publication preview thumbnails with Madison's chosen images (converted from source JPG/PNG/TIF to JPG, resized to 1000-1200px long edge at q88, keeping the existing filenames so no `.bib` edits were needed): `treefrog.jpg` (gray treefrogs in amplexus), `web-spider.jpg` (cellar spider), `instinct-insight.jpg` (the 4-panel Innate/Previously-learned/Learned-de-novo/Insightful manuscript figure), `songbird-nestling.jpg` (male house wren).
+
+#### Added (photographer credits)
+- `_pages/publications.md`: a small credit caption now sits under each thumbnail: "Photo: Höbel Lab" (treefrogs), "Photo: Mark Yokoyama" (spider), "Photo: Dr. Rachael DiSciullo" (house wren). The instinct-to-insight figure is a composite manuscript figure with no single photographer, so it gets no credit.
+- Implementation note: al-folio's `bib.liquid` (in the al_folio_core gem) renders the `preview` image but has no photo-credit field, and a full local override of that 150-line layout would risk drifting from the gem on upgrades. So the credits are added by a small script IN `publications.md` that matches each `img.preview` by filename and inserts a `.pub-credit` caption. Degrades gracefully (no JS -> thumbnails still render, just no caption). To change a credit, edit the `credits` map in the page; omit a filename for no credit. Verified at 1280px and 390px.
 
 #### Changed
 - `_pages/publications.md`: the subtitle under the heading now reads "Happy to forward pdf's upon request" (was "Peer-reviewed papers, preprints, and work in progress."). This is the page `description`, so it also serves as the page's meta/social description.

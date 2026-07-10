@@ -40,6 +40,22 @@
     border-radius: 6px;
     box-sizing: border-box;
     background: var(--global-card-bg-color);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* momentum scroll inside the frame on iOS */
+    padding: 0.5rem;
+  }
+  /* PDF.js renders each page into one of these canvases, stacked and scrollable. */
+  .cv-preview canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 0.5rem;
+    border-radius: 2px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  }
+  .cv-preview canvas:last-child {
+    margin-bottom: 0;
   }
   .cv-fallback {
     padding: 2.5rem 1.5rem;
@@ -54,7 +70,53 @@
       height: 65vh;
     }
   }
-</style> <div class="cv-simple"> <a class="cv-download" href="/assets/pdf/Rittinger_2026_CV.pdf" download=""> <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 3v12"></path> <path d="M6 11l6 6 6-6"></path> <path d="M4 21h16"></path> </svg> Download CV (PDF) </a> <object class="cv-preview" data="/assets/pdf/Rittinger_2026_CV.pdf#toolbar=0&amp;navpanes=0" type="application/pdf" aria-label="CV preview"> <p class="cv-fallback"> A preview isn't available in this browser - <a href="/assets/pdf/Rittinger_2026_CV.pdf">download the CV (PDF)</a> instead. </p> </object> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Madison Rittinger. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script defer src="/assets/js/mossy-field.js?v=9b73f7054008730edfcf5c677b1e0563"></script> <script>
+</style> <div class="cv-simple"> <a class="cv-download" href="/assets/pdf/Rittinger_2026_CV.pdf" download=""> <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 3v12"></path> <path d="M6 11l6 6 6-6"></path> <path d="M4 21h16"></path> </svg> Download CV (PDF) </a> <div class="cv-preview" id="cv-preview" aria-label="CV preview"> <p class="cv-fallback" id="cv-fallback"> Loading preview... if it doesn't appear, <a href="/assets/pdf/Rittinger_2026_CV.pdf">download the CV (PDF)</a> instead. </p> </div> </div> <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js" integrity="sha384-/1qUCSGwTur9vjf/z9lmu/eCUYbpOTgSjmpbMQZ1/CtX2v/WcAIKqRv+U1DUCG6e" crossorigin="anonymous"></script> <script>
+  (function () {
+    var pdfUrl = "/assets/pdf/Rittinger_2026_CV.pdf";
+    var container = document.getElementById('cv-preview');
+    var fallback = document.getElementById('cv-fallback');
+    // Script blocked or failed to load: keep the download-link fallback.
+    if (!window.pdfjsLib || !container) return;
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+
+    // Cap device pixel ratio so high-DPI phones don't allocate huge canvases.
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function renderPage(pdf, num, cssWidth) {
+      return pdf.getPage(num).then(function (page) {
+        var base = page.getViewport({ scale: 1 });
+        var viewport = page.getViewport({ scale: (cssWidth * dpr) / base.width });
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        container.appendChild(canvas);
+        return page.render({
+          canvasContext: canvas.getContext('2d'),
+          viewport: viewport
+        }).promise;
+      });
+    }
+
+    pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+      if (fallback && fallback.parentNode) fallback.remove();
+      var cssWidth = container.clientWidth - 16; // account for padding
+      if (cssWidth <= 0) cssWidth = container.clientWidth;
+      // Render pages one at a time (memory-friendly on mobile).
+      var chain = Promise.resolve();
+      for (var i = 1; i <= pdf.numPages; i++) {
+        (function (n) {
+          chain = chain.then(function () { return renderPage(pdf, n, cssWidth); });
+        })(i);
+      }
+      return chain;
+    }).catch(function () {
+      // Render failed: restore the download-link fallback.
+      if (fallback && !fallback.parentNode) container.appendChild(fallback);
+    });
+  })();
+</script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Madison Rittinger. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script defer src="/assets/js/mossy-field.js?v=9b73f7054008730edfcf5c677b1e0563"></script> <script>
   window.alFolio = {
     compatBootstrap: false
   };

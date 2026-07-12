@@ -200,6 +200,8 @@
     var dfCount = Math.max(1, Math.round(CONFIG.dragonflies.count * crowd));
     var spCount = Math.max(1, Math.round(CONFIG.spiders.count * crowd));
 
+    var defs = el("defs", {});
+    field.appendChild(defs);
     var grassG = el("g", { opacity: CONFIG.grass.opacity });
     var spiderG = el("g", { opacity: CONFIG.spiders.opacity });
     var dfG = el("g", { opacity: CONFIG.dragonflies.opacity });
@@ -279,16 +281,32 @@
       var pos = tryPlace(70 * scale, function () {
         return placeFigure(sp, rand() * W, hangTop + rand() * (hangBottom - hangTop), W, H);
       });
-      // dragline: from the top edge down to the abdomen (drawn behind the body)
+      // dragline: from the top edge down to the abdomen (drawn behind the body).
+      // Faded along its length (invisible for the top half, easing in near the
+      // spider) so a long line never cuts across page content as an artifact
+      // (Trevor, 2026-07-12: the solid line read as a rendering glitch).
+      var dragEnd = pos.y - 12 * scale;
+      var gradId = "mossy-dragfade-" + i;
+      var grad = el("linearGradient", {
+        id: gradId,
+        gradientUnits: "userSpaceOnUse",
+        x1: 0,
+        y1: 0,
+        x2: 0,
+        y2: dragEnd,
+      });
+      grad.appendChild(el("stop", { offset: "0", "stop-color": color, "stop-opacity": "0" }));
+      grad.appendChild(el("stop", { offset: "0.5", "stop-color": color, "stop-opacity": "0" }));
+      grad.appendChild(el("stop", { offset: "1", "stop-color": color, "stop-opacity": "0.55" }));
+      defs.appendChild(grad);
       spiderG.insertBefore(
         el("line", {
           x1: pos.x,
           y1: 0,
           x2: pos.x,
-          y2: pos.y - 12 * scale,
-          stroke: color,
+          y2: dragEnd,
+          stroke: "url(#" + gradId + ")",
           "stroke-width": "0.9",
-          opacity: "0.8",
         }),
         sp
       );

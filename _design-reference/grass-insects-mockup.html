@@ -464,6 +464,8 @@ function render() {
   const rand = mulberry32(state.seed);
   const color = silColor();
 
+  const defs = el("defs", {});
+  field.appendChild(defs);
   const grassG = el("g", { opacity: state.grass.opacity });
   const spiderG = el("g", { opacity: state.spiders.opacity });
   const dfG = el("g", { opacity: state.dragonflies.opacity });
@@ -538,11 +540,23 @@ function render() {
     const pos = tryPlace(70 * scale, () =>
       placeFigure(sp, rand() * W, hangTop + rand() * (hangBottom - hangTop), W, H)
     );
-    // dragline: from the top edge down to the abdomen (drawn behind the body)
+    // dragline: from the top edge down to the abdomen (drawn behind the body).
+    // Faded along its length (invisible for the top half, easing in near the
+    // spider) so a long line never cuts across page content as an artifact.
+    const dragEnd = pos.y - 12 * scale;
+    const gradId = "dragfade-" + i;
+    const grad = el("linearGradient", {
+      id: gradId, gradientUnits: "userSpaceOnUse",
+      x1: 0, y1: 0, x2: 0, y2: dragEnd,
+    });
+    grad.appendChild(el("stop", { offset: "0", "stop-color": color, "stop-opacity": "0" }));
+    grad.appendChild(el("stop", { offset: "0.5", "stop-color": color, "stop-opacity": "0" }));
+    grad.appendChild(el("stop", { offset: "1", "stop-color": color, "stop-opacity": "0.55" }));
+    defs.appendChild(grad);
     spiderG.insertBefore(
       el("line", {
-        x1: pos.x, y1: 0, x2: pos.x, y2: pos.y - 12 * scale,
-        stroke: color, "stroke-width": "0.9", opacity: "0.8",
+        x1: pos.x, y1: 0, x2: pos.x, y2: dragEnd,
+        stroke: "url(#" + gradId + ")", "stroke-width": "0.9",
       }),
       sp
     );

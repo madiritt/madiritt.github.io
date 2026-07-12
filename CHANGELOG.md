@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-12 - Background spiders: fade the draglines
+
+#### Fixed
+- The spider draglines in the background silhouette field rendered as solid vertical lines from the top edge down to each spider (opacity 0.8 inside the 0.12 layer). Over half a viewport tall, they read as faint rendering artifacts crossing clean sections (Trevor spotted one through the homepage News section). Each dragline now uses a per-line SVG linearGradient (userSpaceOnUse): fully transparent for its top half, easing to stop-opacity 0.55 at the spider. The spider still clearly hangs; no long line crosses content. Changed in both `assets/js/mossy-field.js` and the retuning mockup `_design-reference/grass-insects-mockup.html` (kept in sync). Verified via headless-Edge screenshot of a harness loading the shipped script with the spider layer temporarily boosted to 0.7 opacity.
+
 ### 2026-07-12 - Pre-domain final pass: config cleanup
 
 Site-wide audit before the domain move (Phase 5). Verified clean: all 8 nav

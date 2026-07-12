@@ -168,7 +168,7 @@ Teaching assistant and head TA (Fall 2023-Present); co-authored new laboratory e
 
 **Guest Lecturer.** UW-Milwaukee. Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023); topics covered ecological succession, evolution, and the role of hormones in behavior.
 
-Earlier teaching: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University).
+Earlier teaching: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University); Statistics Tutor (Ohio Dominican University).
 
 </div>
 
@@ -197,9 +197,9 @@ mentees are confident in their work and that I can help troubleshoot any
 problems. Between these check-ins my mentees largely work independently which
 helps them gain confidence in their own research abilities.
 
-To date I have mentored 18 undergraduate researchers. Four of these
+To date I have mentored 20 undergraduate researchers. Four of these
 undergraduates will be coauthor on future publications and one undergraduate has
-presented our research at several local conferences. I have also mentored 16 high
+presented our research at several local conferences. I have also mentored 10 high
 school students through the [Mentor Matching Engine](https://help.mentormatchingengine.org/about) - a virtual mentor program.
 
 </div>

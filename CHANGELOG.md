@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-11 - CV update (v7) + teaching page reconcile
+
+#### Changed
+- `assets/pdf/Rittinger_2026_CV.pdf`: replaced with Madison's latest CV (from `Rittinger_2026_CV (7).pdf`). Filename unchanged, so `cv_pdf` in `_pages/cv.md` and the download/preview both pick it up with no further edits.
+- `_pages/teaching.md`: added "Statistics Tutor (Ohio Dominican University)" to the "Earlier teaching" summary line so it matches the CV's Teaching Experience section, which lists it (2014). The rest of the Courses section was already word-for-word in sync with the CV.
+- `_pages/teaching.md`: reconciled the mentoring counts to the CV (Trevor-approved, "site matches CV" rule). Undergraduate researchers 18 -> 20 (CV: 8 at UWM Arthropod Behavior Lab + 12 at ISU Wren Lab). High school students 16 -> 10 (CV Mentorship: "ten different students" across seven Mentor Matching Engine projects; note this LOWERED the site's figure). The qualitative sentence (four future coauthors, one presented at local conferences) was left as-is; those specifics aren't in the CV and don't conflict with it.
+
+#### Notes
+- Publication title now matches: the v7 CV lists the 2025 Biology Letters paper as "Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems," identical to `_bibliography/papers.bib` (`rittinger2025instinct`, DOI 10.1098/rsbl.2025.0293). The v6 CV's "Parsing insight from instinct" wording was corrected by Madison; no change needed to the bib.
+- CV lists in-review ("Insightful spiders?") and in-preparation papers not in `papers.bib`; consistent with publishing only published works on the site. No change.
+
 ### 2026-07-10 - Background silhouettes: a touch more visible
 
 #### Changed

@@ -11,6 +11,21 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-12 - Pre-domain final pass: config cleanup
+
+Site-wide audit before the domain move (Phase 5). Verified clean: all 8 nav
+pages + 3 project pages + CV PDF return 200; no placeholders in rendered
+content; name policy and em-dash rule hold; all 5 socials live; publication
+previews are real photos; all 4 DOIs correct; sitemap/robots/404/feed present.
+Three findings, all fixed below.
+
+#### Removed
+- `_config.yml` `external_sources` block (al-folio demo feeds): it was generating LIVE demo blog posts on the site - an al-folio Medium post and a Google Gemini marketing article at `/blog/2024/google-gemini-updates.../` - plus orphan tag/category archive pages, all indexed in the sitemap. Nothing on the site linked to them (the /blog/ index itself was already 404), but search engines would have crawled them under Madison's name.
+- Footer "Photos from Unsplash" credit (theme default in `footer_text`): her photos are her own, individually credited in-page.
+
+#### Changed
+- Favicon emoji: theme-default atom to a spider (`icon:` in `_config.yml`).
+
 ### 2026-07-11 - CV update (v7) + teaching page reconcile
 
 #### Changed

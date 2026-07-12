@@ -25,6 +25,7 @@ Three findings, all fixed below.
 
 #### Changed
 - Favicon emoji: theme-default atom to a spider (`icon:` in `_config.yml`).
+- Favicon again (same day, Trevor's call): now Madison's headshot instead of the spider emoji. Added `assets/img/favicon.png` (192px square face crop of `prof_pic.jpg`, crop region 266,220,640x640, generated via System.Drawing) and set `icon: favicon.png`. The theme treats any `icon:` value longer than 4 characters as a filename in `/assets/img/` (gem `head.liquid`). To update later: replace `favicon.png` in place with any square image.
 
 ### 2026-07-11 - CV update (v7) + teaching page reconcile
 

@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-12 - Contact note trimmed
+
+#### Changed
+- `_config.yml` `contact_note`: dropped the second sentence ("I welcome inquiries about research and potential collaborations."). The note under the homepage social icons now reads just "The best way to reach me is by email."
+
 ### 2026-07-12 - Background spiders: fade the draglines
 
 #### Fixed

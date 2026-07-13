@@ -136,7 +136,7 @@ Node is used only for build tooling and tests, not for serving. No runtime JS fr
 - `enable_math: true` (MathJax via al_math)
 - `style_engine: tailwind`
 - Identity: `first_name: Madison`, `last_name: Rittinger` (`title: blank` -> full name used)
-- `url: https://madiritt.github.io`, `baseurl:` (root)
+- `url: https://madisonrittinger.org`, `baseurl:` (root); repo-root `CNAME` file carries the custom domain onto gh-pages each deploy
 - Responsive images: `imagemagick.enabled: true`, multiple widths, WebP at quality 85
 
 ---

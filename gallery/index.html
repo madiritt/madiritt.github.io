@@ -51,6 +51,15 @@
   .photo-grid a.photo-tile figcaption {
     display: none; /* captions live in the lightbox, not on the tiles */
   }
+  /* Mobile: 2 tiles per row so each photo is half-width, not a full-width
+     square. Below 600px the 200px min-width would otherwise force a single
+     column; drop it and set a 50% basis. Desktop 4-across is unchanged. */
+  @media (max-width: 600px) {
+    .photo-grid a.photo-tile {
+      flex: 0 1 calc(50% - 0.3rem);
+      min-width: 0;
+    }
+  }
   /* Small citrine uppercase label, matching the hero eyebrow voice. */
   .gallery-hint {
     font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;

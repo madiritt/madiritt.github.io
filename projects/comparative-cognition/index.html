@@ -33,6 +33,12 @@
   }
   .research-photos a.photo-tile:hover img { transform: scale(1.06); }
 
+  /* Mobile: 2 tiles per row so each photo is half-width, not a full-width
+     square. Scoped under 600px, so the desktop auto-fit grid is unchanged. */
+  @media (max-width: 600px) {
+    .research-photos { grid-template-columns: repeat(2, 1fr); }
+  }
+
   .research-hint {
     font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 11px;

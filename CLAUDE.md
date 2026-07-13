@@ -12,8 +12,7 @@ A long-term personal academic website for **Madison Rittinger**, PhD candidate i
 
 - **Owner:** Madison Rittinger
 - **Technical lead:** Trevor Bellerive (GitHub: `abysulgaming`)
-- **Live URL (current):** https://madiritt.github.io
-- **Final URL (after Phase 5):** https://madisonrittinger.org
+- **Live URL:** https://madisonrittinger.org (since 2026-07-13; madiritt.github.io 301s here)
 - **Repo:** github.com/madiritt/madiritt.github.io
 
 ### Name policy (IMPORTANT)
@@ -70,26 +69,22 @@ Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
 
 ---
 
-## Current status (as of 2026-06-12)
+## Current status (as of 2026-07-13)
 
-**Phase 2 complete: the configured site builds green on madiritt.github.io.**
+**The site is LIVE at https://madisonrittinger.org** - design ported, content filled, custom domain active with enforced HTTPS. madiritt.github.io 301-redirects to the new domain. Day-to-day work is now polish, content updates from Madison, and the remaining nice-to-haves (madirittinger.org redirect domain, runbook refresh for the new URL).
 
-Commit chain on `main`:
-- `c7aab07` url/baseurl pointed at madiritt.github.io
-- `817845a` site configuration (identity, nav, placeholders, demo content stripped)
-- `a308323` Madison's headshot added
-- `634253c` purgecss.config.js restored (build fix)
+Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex A records to GitHub Pages IPs + `www` CNAME to madiritt.github.io; repo-root `CNAME` file carries the custom domain through every deploy (the deploy action rebuilds gh-pages from scratch, so the UI-only setting would be wiped without it); Let's Encrypt certificate covers apex + www; `Enforce HTTPS` ticked. Pages settings are owner-only on a personal repo - changing them requires the madiritt login, not a collaborator.
 
 ### Phase tracker
 | # | Phase | Status |
 |---|---|---|
 | 1 | Accounts + domains | COMPLETE (both domains owned, GitHub account + 2FA done) |
 | 2 | Configure al-folio | COMPLETE (2026-06-12, builds green) |
-| 3 | Content fill | IN PROGRESS (Trevor processing resources Madison shared) |
-| 4 | Visual design port | NEXT (Mossy Modernist mockup locked; needs porting to Tailwind v4) |
-| 5 | Domain + DNS + security | Not started (15-min job at the end) |
-| 6 | Documentation (runbooks) | Runbooks 00-05 drafted |
-| 7 | Launch | Pending 3-5 |
+| 3 | Content fill | COMPLETE (real bio, CV v7, publications, teaching, gallery, socials all live) |
+| 4 | Visual design port | COMPLETE (Mossy Modernist live in both themes; light cooled to cream 2026-07-13) |
+| 5 | Domain + DNS + security | COMPLETE (2026-07-13: madisonrittinger.org live, HTTPS enforced, old URL 301s). Remaining nice-to-haves: madirittinger.org redirect, GitHub verified-domain |
+| 6 | Documentation (runbooks) | Runbooks 00-05 drafted (live outside repo; consider moving into docs/) |
+| 7 | Launch | LIVE at madisonrittinger.org |
 
 ---
 

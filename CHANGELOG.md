@@ -22,6 +22,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 #### Notes
 - Cloudflare DNS (Trevor, via dashboard): four A records on the apex to GitHub Pages IPs (185.199.108-111.153) + CNAME `www` -> `madiritt.github.io`, all DNS only (grey cloud) so GitHub can issue the Let's Encrypt certificate. Verified resolving before the repo change.
 - Old madiritt.github.io URLs 301-redirect to the new domain automatically once the custom domain is active.
+- COMPLETED same day: GitHub picked the custom domain up from the published CNAME file automatically; certificate issued for apex + www within minutes; Enforce HTTPS ticked (madiritt login; Pages settings are owner-only on personal repos, the collaborator API returns 404). Verified: https apex 200, http apex 301 -> https, www 301 -> apex, madiritt.github.io 301 -> new domain. CLAUDE.md and TECH-STACK.md updated to the new live URL. Still open (nice-to-haves): madirittinger.org redirect domain, GitHub verified-domain setting.
 
 ### 2026-07-13 - Publication entries: remove the hairline divider too
 

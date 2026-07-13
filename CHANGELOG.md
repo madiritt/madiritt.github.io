@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - SEO: enable Open Graph, Schema.org, and social preview image
+
+#### Changed
+- `_config.yml`: `serve_og_meta` false -> true (adds Open Graph meta tags to every page head, so links shared to social/Slack/iMessage get a title, description, and image preview), `serve_schema_org` false -> true (adds Schema.org JSON-LD structured data, which helps Google understand the site is an academic Person profile), and `og_image` set to `/assets/img/prof_pic.jpg` as the site-wide default link-preview image.
+
+#### Notes
+- Root cause of "not in Google searches": the site is not yet indexed at all (`site:madisonrittinger.org` returns zero results). The single highest-impact fix is owner-only and cannot be done from the repo: verify the domain in Google Search Console (Madison's Google login) and submit `https://madisonrittinger.org/sitemap.xml`, then use "Request indexing" on the homepage. Config fields `google_site_verification` + `enable_google_verification` are staged for the verification meta-tag ID once she has it. Sitemap and robots.txt were already valid and open; those were not the blocker.
+
 ### 2026-07-13 - Research pages: 2-up photo grid on mobile
 
 #### Changed

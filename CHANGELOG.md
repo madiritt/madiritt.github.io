@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Footer: copyright line only
+
+#### Changed
+- Footer now reads just "(c) 2026 Madison Rittinger" sitewide. Emptied `footer_text` in `_config.yml` (was the theme-default "Powered by Jekyll with al-folio theme. Hosted by GitHub Pages." credit - MIT license, attribution optional) and trimmed the redundant "Copyright" word in the local `_includes/footer.liquid` override. The year comes from `site.time`, so it updates automatically each build.
+
 ### 2026-07-13 - Phase 5: custom domain madisonrittinger.org
 
 #### Added

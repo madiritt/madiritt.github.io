@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Footer: no longer pinned to the viewport
+
+#### Changed
+- `_config.yml` `footer_fixed`: true -> false. The copyright footer was permanently overlaid at the bottom of the screen on every page (desktop and mobile), which read poorly; it now sits in the normal page flow and is only visible when scrolled to the end of the content. Verified locally: footer markup switches from `fixed-bottom` to `sticky-bottom mt-5`, and a 900px-viewport screenshot of the homepage shows no pinned bar.
+
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: the absolute-beginner runbook
 
 #### Added

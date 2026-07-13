@@ -11,6 +11,14 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Research pages: 2-up photo grid on mobile
+
+#### Changed
+- The three `_projects/*.md` pages (individual-personality, comparative-cognition, decision-making-under-uncertainty) now show their photo tiles 2 per row on phones. The grid uses `repeat(auto-fit, minmax(220px, 1fr))`, which collapses to a single full-width column below ~440px content width, rendering each square tile at ~340px on a 375px phone (looked oversized; long scroll). Added a `@media (max-width: 600px)` block forcing `grid-template-columns: repeat(2, 1fr)` so each photo is half-width. Scoped under 600px, so the desktop 3-across auto-fit layout is unchanged.
+
+#### Notes
+- The Gallery page (`_pages/gallery.md`) has the same single-column-on-mobile behavior (flex tiles, `min-width: 200px`) but was left as-is; not part of this fix.
+
 ### 2026-07-13 - Footer: no longer pinned to the viewport
 
 #### Changed

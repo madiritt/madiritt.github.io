@@ -450,13 +450,11 @@ h1, h2, h3, h4, h5, h6,
   font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0.04em;
 }
-// Editorial hairlines (2026-07-09): thin rules between news rows and between
-// publication entries, like a publication site's headline/article lists. The
-// hero and section layout are untouched; this is list rhythm only.
+// Editorial hairlines (2026-07-09): thin rules between publication entries,
+// like a publication site's article list. The news rows had the same hairline
+// until 2026-07-13; it read as a stray line crossing the page, so news rows
+// now separate by spacing alone.
 .news table.table tr {
-  border-bottom: 1px solid var(--global-divider-color);
-}
-.news table.table tr:last-child {
   border-bottom: none;
 }
 .news table.table th,

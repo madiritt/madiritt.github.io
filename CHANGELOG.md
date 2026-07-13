@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - News rows: remove the hairline divider
+
+#### Fixed
+- The 2026-07-09 "editorial hairline" between news rows rendered as a thin full-width horizontal line crossing the page between the two homepage news items; Trevor flagged it as looking like a stray artifact rather than intentional. Removed the `border-bottom` on `.news table.table tr` in `_sass/_mossy.scss` (homepage News section and the /news/ archive, which share the class); rows now separate by padding alone. The matching hairlines between publication entries are unchanged.
+
 ### 2026-07-12 - Contact note trimmed
 
 #### Changed

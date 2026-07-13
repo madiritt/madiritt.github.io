@@ -11,6 +11,18 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Phase 5: custom domain madisonrittinger.org
+
+#### Added
+- `CNAME` file (repo root) containing `madisonrittinger.org`. Jekyll copies it into `_site` on every build, so the deploy action republishes it to `gh-pages` each time; without it, each deploy would wipe the custom-domain setting.
+
+#### Changed
+- `_config.yml` `url`: `https://madiritt.github.io` -> `https://madisonrittinger.org` (canonical URLs, sitemap, feed).
+
+#### Notes
+- Cloudflare DNS (Trevor, via dashboard): four A records on the apex to GitHub Pages IPs (185.199.108-111.153) + CNAME `www` -> `madiritt.github.io`, all DNS only (grey cloud) so GitHub can issue the Let's Encrypt certificate. Verified resolving before the repo change.
+- Old madiritt.github.io URLs 301-redirect to the new domain automatically once the custom domain is active.
+
 ### 2026-07-13 - Publication entries: remove the hairline divider too
 
 #### Fixed

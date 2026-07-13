@@ -17,7 +17,7 @@ keywords: behavioral ecology, animal cognition, jumping spiders, Madison Ritting
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: favicon.png # 192px square face crop of prof_pic.jpg; theme treats values >4 chars as a filename in /assets/img/
 
-url: https://madiritt.github.io # the base hostname & protocol for your site
+url: https://madisonrittinger.org # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR

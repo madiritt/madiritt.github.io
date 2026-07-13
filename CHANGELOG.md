@@ -11,6 +11,11 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Publication entries: remove the hairline divider too
+
+#### Fixed
+- Same "screen tear" read as the news rows: the thin divider under each publication entry (homepage Selected Publications + /publications archive, shared markup) is gone. Removed the `border-bottom` on `.publications ol.bibliography > li` in `_sass/_mossy.scss`; the 1.6rem spacing between entries stays. All the 2026-07-09 editorial hairlines are now retired.
+
 ### 2026-07-13 - Light mode: cool the brown/khaki cast to clean cream
 
 #### Fixed

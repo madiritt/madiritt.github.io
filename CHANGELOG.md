@@ -11,6 +11,15 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Light mode: cool the brown/khaki cast to clean cream
+
+#### Fixed
+- Light mode read as "the page turns brown" (Trevor): the yellowed parchment base (`#f1ecdd`), the warm tan corner pool (rgba 196,156,96 at 0.14), and the sage silhouette field at full strength stacked into a khaki-brown cast over the lower half of the page. Three changes in `_sass/_mossy.scss`, light theme only:
+  - Base palette cooled to clean warm cream: bg `#f1ecdd` -> `#f7f4ea`, darker `#e7e0cc` -> `#ece8db`, card `#fbf8ee` -> `#fdfbf3`.
+  - Atmospheric pools softened: sage 0.14 -> 0.10, tan 0.14 -> 0.07.
+  - Silhouette field dimmed via `#mossy-field { opacity: 0.65 }` (0.12 internal -> ~0.08 effective); dark mode explicitly keeps opacity 1. PurgeCSS-safe because "mossy-field" appears in the shipped JS, which purge scans.
+- Verified locally (jekyll serve + DevTools-protocol screenshots forcing `localStorage.theme` to light and dark): light is cream with whisper-level silhouettes, dark is pixel-identical to before. Contrast improves slightly (darker text/citrine on a lighter bg), so WCAG AA still holds.
+
 ### 2026-07-13 - News rows: remove the hairline divider
 
 #### Fixed

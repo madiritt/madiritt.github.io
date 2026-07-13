@@ -27,10 +27,12 @@ $d-citrine: #d4c878;
 $d-citrine-bright: #efe6a0;
 $d-divider: rgba(212, 200, 120, 0.18);
 
-// ---- LIGHT (warm parchment) ------------------------------------------------
-$l-bg: #f1ecdd;
-$l-darker: #e7e0cc;
-$l-card: #fbf8ee;
+// ---- LIGHT (clean warm cream) -----------------------------------------------
+// 2026-07-13: cooled from the original parchment (#f1ecdd bg) - the yellowed
+// base + tan corner pool + sage silhouettes stacked into a khaki-brown cast.
+$l-bg: #f7f4ea;
+$l-darker: #ece8db;
+$l-card: #fdfbf3;
 $l-text: #212a17;
 $l-muted: #5e6147;
 $l-citrine: #7c6f1d; // deep citrine, readable on parchment
@@ -90,10 +92,11 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   min-height: 100dvh; // iOS Safari: account for the dynamic address bar
-  // LIGHT: gentle warm + sage pools on parchment
+  // LIGHT: gentle sage pool + a much fainter warm pool on cream
+  // (tan pool halved 2026-07-13; at 0.14 it browned the lower half of the page)
   background-image:
-    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(120, 140, 85, 0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(196, 156, 96, 0.14) 0%, transparent 55%);
+    radial-gradient(ellipse 1100px 700px at 12% -5%, rgba(120, 140, 85, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 88% 110%, rgba(196, 156, 96, 0.07) 0%, transparent 55%);
 }
 
 html[data-theme="dark"] body {
@@ -114,10 +117,20 @@ html[data-theme="dark"] body {
 // (The old web tile generator _design-reference/genweb.js is retired but
 // kept for history; the tile itself is gone from this file.)
 :root {
-  --mossy-sil: #5e7245; // muted sage, readable-but-faint on parchment
+  --mossy-sil: #5e7245; // muted sage, readable-but-faint on cream
 }
 html[data-theme="dark"] {
   --mossy-sil: #52743f; // brighter moss green against deep moss
+}
+
+// Light mode dims the whole silhouette field (0.12 internal -> ~0.08 effective):
+// at full strength over the light bg the dense grass tinted the page khaki.
+// Safe from PurgeCSS: "mossy-field" appears in _site JS, which purge scans.
+#mossy-field {
+  opacity: 0.65;
+}
+html[data-theme="dark"] #mossy-field {
+  opacity: 1;
 }
 
 /*******************************************************************************

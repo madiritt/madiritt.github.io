@@ -83,7 +83,7 @@ Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex 
 | 3 | Content fill | COMPLETE (real bio, CV v7, publications, teaching, gallery, socials all live) |
 | 4 | Visual design port | COMPLETE (Mossy Modernist live in both themes; light cooled to cream 2026-07-13) |
 | 5 | Domain + DNS + security | COMPLETE (2026-07-13: madisonrittinger.org live, HTTPS enforced, old URL 301s). Remaining nice-to-haves: madirittinger.org redirect, GitHub verified-domain |
-| 6 | Documentation (runbooks) | Runbooks 00-05 drafted (live outside repo; consider moving into docs/) |
+| 6 | Documentation (runbooks) | COMPLETE (2026-07-13: MAINTENANCE-GUIDE.md at repo root supersedes the out-of-repo runbooks 00-05; beginner-level, covers browser + VS Code routes, every content type, recovery, Cloudflare) |
 | 7 | Launch | LIVE at madisonrittinger.org |
 
 ---

@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - MAINTENANCE-GUIDE.md: the absolute-beginner runbook
+
+#### Added
+- `MAINTENANCE-GUIDE.md` (repo root): the comprehensive self-maintenance guide for Madison, written for absolute beginners and designed to work with zero outside help ("in case Trevor gets hit by a bus"). Covers: how the publish pipeline works in plain language; the GitHub and Cloudflare accounts (with a hard warning never to commit passwords to this public repo); Route A browser-only editing (sign-in, pencil edit, file upload, new file); Route B VS Code setup per OS (Windows primary, Mac included) plus the pull-edit-commit-push routine; step-by-step recipes for every content type (Currently status, news, publications incl. thumbnails and the photographer-credit map, gallery, CV, bio, socials, research pages, teaching page with its layout warnings, profile pic/favicon, contact note); build monitoring and the cache window; failure recovery (red builds, per-file restore from History, stuck-deploy re-run, site-down triage); Cloudflare domain renewal and the exact DNS record table; house rules; and a file-map cheat sheet. Every recipe was verified against the actual files before writing.
+- `_config.yml`: added `MAINTENANCE-GUIDE.md` to the `exclude:` list so the guide never renders into the built site (it stays repo-only, like CLAUDE.md and CHANGELOG.md).
+
 ### 2026-07-13 - Footer: copyright line only
 
 #### Changed

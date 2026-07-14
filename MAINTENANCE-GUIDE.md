@@ -66,6 +66,7 @@ Every recipe in Part 5 works with either route.
 |---|---|---|---|
 | GitHub | github.com | `madiritt` | The site's files and settings. This is the account that matters day to day. |
 | Cloudflare | dash.cloudflare.com | (Madison's email) | The domain name registration and DNS. Touched almost never. See Part 8. |
+| Google Search Console | search.google.com/search-console | (Madison's Google account) | Tells Google the site exists and reports how it shows up in Google searches. Set up July 2026; touched almost never. See Part 7.5. |
 
 Both accounts have two-factor authentication (2FA) turned on: after the password, they ask for a code from a phone app. **Keep the recovery codes** (given when 2FA was set up) somewhere safe and offline; they are the only way back in if the phone is lost.
 
@@ -84,6 +85,7 @@ No installs. Works from any computer.
 ### 3.2 Editing a text file
 
 1. In the repo, click through the folders to the file you want (each recipe in Part 5 gives the exact path, like `_pages/about.md` - that means the file `about.md` inside the folder `_pages`).
+   - **Finding your way around the file list:** folders are listed first (at the top), then individual files below them. Many folder names start with an underscore, like `_pages`, `_news`, `_projects` - that underscore is normal, not a typo; click those folders exactly like any other. To open a folder, click its name; to go back up, click the folder name in the trail near the top (e.g. `madiritt.github.io / _pages`) or use your browser's Back button.
 2. Click the file name to view it, then click the **pencil icon** (top right of the file view, tooltip "Edit this file").
 3. Make your change in the editor that appears.
 4. Click the green **Commit changes...** button (top right).
@@ -155,7 +157,7 @@ Always in this order: **pull, edit, commit, push.**
 1. **PULL FIRST.** Click the **Source Control icon** in the left sidebar (it looks like a branching line, third icon down). Click the **... menu** at the top of that panel and choose **Pull**. This downloads any changes made elsewhere (by the browser route, or by someone else) so your copy is current. Skipping this is the number one cause of headaches.
 2. **Edit.** Open files from the Explorer icon (top of the left sidebar), make changes, save with `Ctrl+S` (Mac: `Cmd+S`). Add new files or photos by dragging them into the right folder in the Explorer panel.
 3. **Commit.** Back in Source Control, your changed files are listed under "Changes." Type a short description in the Message box at the top (e.g. `Add ABS talk news item`), then click the **Commit** button. If it asks whether to "stage" changes, click **Yes** (or **Always**).
-4. **Push.** Click **Sync Changes** (the button that appears after committing; the ... menu also has **Push**). This uploads your commit to GitHub, which triggers the rebuild.
+4. **Push.** Click **Sync Changes** (the button that appears after committing; the ... menu also has **Push**). It usually shows a small number, like a `1` with an up-arrow - that is how many commits are waiting to upload, so the number is a quick sanity check that you're pushing exactly what you just committed. This uploads your commit to GitHub, which triggers the rebuild.
 
 If you also used GitHub Desktop during the site's early setup: it does the same job with the same pull, commit, push idea, and it's fine to keep using it instead.
 
@@ -191,7 +193,7 @@ Every recipe: which file, what to put in it, and anything to watch out for. Use 
 
   New paper out in Animal Behaviour on spider decision-making.
   ```
-- The `date:` inside the file should match the filename date. Keep `inline: true` - that is what makes it a one-line item instead of a separate page.
+- The `date:` inside the file should match the filename date. **Only change the date part** (the `2026-09-15`); leave the time and the `-0600` after it exactly as they are. Those set the time zone and don't need touching. Keep `inline: true` too - that is what makes it a one-line item instead of a separate page.
 - The homepage shows the 5 newest items (that cap is `limit: 5` under `announcements:` in `_pages/about.md`); the full list lives at madisonrittinger.org/news/ automatically. Old items never need deleting.
 
 ### 5.3 Add a publication (with thumbnail and photo credit)
@@ -200,7 +202,8 @@ Three parts: the entry, the thumbnail, and (optionally) a photo credit.
 
 **Part 1 - the entry.**
 - **File:** `_bibliography/papers.bib`
-- Add a new block at the top, following this pattern (this is a real entry from the file):
+- **Easiest way, do this first:** don't type the entry by hand. On Google Scholar, find the paper, click **"Cite"** underneath it, then **"BibTeX"** at the bottom. Copy the whole block it shows you and paste it at the top of `papers.bib`. That gets the title, authors (including tricky accented names), journal, year, and DOI correct automatically. Then all you add by hand are the three special lines below: `doi`, `selected`, and `preview` if they aren't already there. Everything after this is just explaining what those pieces mean.
+- Add the new block at the top of the file, following this pattern (this is a real entry from the file):
   ```bibtex
   @article{rittinger2025instinct,
     title={Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems},
@@ -217,7 +220,7 @@ Three parts: the entry, the thumbnail, and (optionally) a photo credit.
   ```
 - Line by line, the parts you change:
   - `rittinger2025instinct` is the entry's internal ID. Make up a new unique one: last name + year + first word of title.
-  - `author={...}`: separate multiple authors with ` and ` (the word, spelled out). Accented characters use codes like `{\'\i}` for í; copying the author line from Google Scholar's BibTeX export (click "Cite" under the paper, then "BibTeX") is the easy way to get this right, and honestly the easy way to get the WHOLE entry: paste Scholar's export, then add the three special lines below.
+  - `author={...}`: separate multiple authors with ` and ` (the word, spelled out). Accented characters use codes like `{\'\i}` for í - this is exactly the fiddly part the Scholar copy-paste above handles for you, so you shouldn't need to type these by hand.
   - `doi={...}`: the paper's DOI, just the number part, no https prefix. This becomes the DOI button.
   - `selected={true}`: include this line to feature the paper on the HOMEPAGE under Selected Publications. Leave the line out for papers that should only appear on the Publications page. Keep the homepage list to the best 2 or 3.
   - `preview={filename.jpg}`: the thumbnail image (next part). Leave this line out for no thumbnail.
@@ -340,13 +343,14 @@ Stay calm: every version of every file is saved forever. Nothing is ever lost.
 
 ### 7.2 Restore a previous version of a file (the universal undo)
 
-Works in the browser for any file:
+Works in the browser for any file. The idea is simple: find the last good version of the file, copy its contents, and paste them over the broken current version.
 
-1. In the repo, click to the file, then click **History** (top right of the file view). You get a list of every change ever made to it, newest first.
-2. Click the commit from BEFORE the problem (the one below the bad change). You'll see the change it made.
-3. Click the **...** (three dots) at the top right of the file in that view and choose **View file** - now you're looking at the old, good version.
-4. Select everything, copy.
-5. Go back to the file's current version, click the pencil to edit, select everything, paste the old version over it, and commit with a message like `Restore previous version of gallery.md`.
+1. In the repo, open the file (click its name so you're viewing it), then click **History** (top right of the file view). You get a list of every change ever made to just that file, newest first. Each row is one change, with its date and description.
+2. In that list, click the row **just below** the bad change - that's the version from right before the problem. GitHub now shows you what that change did, with the file's full contents underneath.
+3. At the top right of the file box on that page, click the **...** (three dots) button, then choose **View file**. You are now looking at the old, good version of the whole file on its own page.
+4. Click anywhere in the file text, select everything (`Ctrl+A`, or `Cmd+A` on Mac), and copy (`Ctrl+C` / `Cmd+C`).
+5. Now go back to the file's current (broken) version: open the file normally in the repo, click the **pencil** icon to edit, select everything in the editor (`Ctrl+A`), delete it, and paste (`Ctrl+V`) the good version in its place.
+6. Commit with a message like `Restore previous version of gallery.md`. The site rebuilds and you're back to the working version.
 
 ### 7.3 Build is green but the site won't update
 
@@ -358,6 +362,16 @@ Works in the browser for any file:
 - Check https://www.githubstatus.com - if GitHub Pages shows an incident, it's them, not you; wait it out.
 - If GitHub is fine, check Cloudflare (Part 8): log in and make sure the domain hasn't expired and the DNS records are still there.
 - Remember the site also answers at https://madiritt.github.io (it forwards to the main domain). If THAT works but madisonrittinger.org doesn't, the problem is on the Cloudflare/domain side for sure.
+
+### 7.5 The site isn't showing up in a Google search
+
+This is about search visibility, not a broken site - the site can be perfectly healthy and still take time to appear well in Google. The tool that manages this is **Google Search Console** (search.google.com/search-console, sign in with Madison's Google account). It was set up in July 2026: the domain is verified, the site's page list (its "sitemap") is submitted, and Google has confirmed the homepage is indexed.
+
+A few things worth knowing:
+- **New pages take days to weeks to appear in Google.** This is normal and there is no button that makes it instant. When you add a big new page you want found sooner, you can nudge Google: in Search Console, paste the page's address into the **"Inspect any URL"** bar at the top, wait for the check, then click **Request Indexing**.
+- **Being in Google is not the same as ranking first.** For a while, other pages about Madison (her university profile, ResearchGate, etc.) may sit above her own site when you search her name. That improves with time and, most of all, with those other profiles linking to madisonrittinger.org. The single best thing Madison can do is add her website link to her Google Scholar, ORCID, LinkedIn, and ResearchGate profiles.
+- **To check what Google sees:** search Google for `site:madisonrittinger.org` (type it exactly, including `site:`). Whatever it lists is what Google currently has indexed. Search Console's **Pages** report (left menu, under Indexing) shows the same thing in more detail.
+- You almost never need to log in here. It's a health dashboard, not something to maintain.
 
 ---
 

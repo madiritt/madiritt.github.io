@@ -11,6 +11,22 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - MAINTENANCE-GUIDE.md: clarity buffs for first-time editors + Search Console
+
+#### Added
+- New section 7.5 "The site isn't showing up in a Google search": explains Google Search Console (set up today), that indexing takes days to weeks, the difference between being indexed and ranking, the `site:` check, and that profile backlinks are the main ranking lever.
+- Google Search Console row added to the Part 2 accounts table.
+
+#### Changed
+- 3.2: added a "finding your way around the file list" tip (folders sort first, underscore-prefixed folders like `_pages` are normal, how to navigate back up).
+- 4.4: noted the VS Code "Sync Changes" button shows a count of waiting commits as a sanity check.
+- 5.2: clarified that only the date part of the news `date:` line should change; the time and `-0600` stay as-is.
+- 5.3: promoted the "paste Google Scholar's BibTeX export" shortcut to the recommended first step of adding a publication; trimmed the now-duplicated mention in the author bullet.
+- 7.2: rewrote the restore-a-previous-version steps to be unambiguous click-by-click (open file, History, row below the bad change, ... -> View file, select-all/copy, paste over current, commit), with explicit Ctrl+A/C/V shortcuts.
+
+#### Notes
+- Verification pass first confirmed the guide had NO factual inaccuracies against the current repo (checked `about.md` front matter fields, news pattern, `cv_pdf`, the `publication-credits.html` credits map, `_projects` front matter, the "Deploy site" workflow name, and the Cloudflare DNS records). All six edits are additive clarity/coverage improvements, not corrections.
+
 ### 2026-07-13 - SEO: enable Open Graph, Schema.org, and social preview image
 
 #### Changed

@@ -44,7 +44,7 @@ The website is not edited "live." It works like this:
 1. **All the site's files live in one place on GitHub** (a free service that stores files and remembers every version of them forever). The collection of files is called a **repository**, or "repo." Ours is at: https://github.com/madiritt/madiritt.github.io
 2. **You change a file in the repo** (through the browser or through an app on your computer).
 3. **A robot notices and rebuilds the site.** Every time a file changes, GitHub automatically runs a build (takes about 3 to 7 minutes) and publishes the result.
-4. **The live site updates.** After the build, allow up to 10 more minutes for the update to reach everyone (old copies expire from caches), then refresh the page.
+4. **The live site updates.** After the build, allow up to 10 more minutes for the update to reach everyone. Browsers and the internet keep temporary copies of pages so they load fast; this is called the "cache," and the old cached copy has to expire before your change shows. Then refresh the page.
 
 That's the whole system. There is no server to manage, no "publish" button to press, nothing to renew except the domain name (Part 8). Saving a change into the repo is called a **commit**, and every commit triggers steps 3 and 4 automatically.
 
@@ -87,7 +87,7 @@ No installs. Works from any computer.
 
 1. In the repo, click through the folders to the file you want (each recipe in Part 5 gives the exact path, like `_pages/about.md` - that means the file `about.md` inside the folder `_pages`).
    - **Finding your way around the file list:** folders are listed first (at the top), then individual files below them. Many folder names start with an underscore, like `_pages`, `_news`, `_projects` - that underscore is normal, not a typo; click those folders exactly like any other. To open a folder, click its name; to go back up, click the folder name in the trail near the top (e.g. `madiritt.github.io / _pages`) or use your browser's Back button.
-2. Click the file name to view it, then click the **pencil icon** (top right of the file view, tooltip "Edit this file").
+2. Click the file name to view it, then click the **pencil icon** (top right of the file view; hover over it and a small label reads "Edit this file").
 3. Make your change in the editor that appears.
 4. Click the green **Commit changes...** button (top right).
 5. A box pops up asking for a description. Write a short note about what you did, e.g. `Update Currently status`. Leave **"Commit directly to the main branch"** selected - "main" is just the name of the site's one live version, and you always want to save straight to it. (Ignore the "Create a new branch" option; it's for a more advanced workflow you don't need here.)
@@ -157,7 +157,7 @@ Always in this order: **pull, edit, commit, push.**
 
 1. **PULL FIRST.** Click the **Source Control icon** in the left sidebar (it looks like a branching line, third icon down). Click the **... menu** at the top of that panel and choose **Pull**. This downloads any changes made elsewhere (by the browser route, or by someone else) so your copy is current. Skipping this is the number one cause of headaches.
 2. **Edit.** Open files from the Explorer icon (top of the left sidebar), make changes, save with `Ctrl+S` (Mac: `Cmd+S`). Add new files or photos by dragging them into the right folder in the Explorer panel.
-3. **Commit.** Back in Source Control, your changed files are listed under "Changes." Type a short description in the Message box at the top (e.g. `Add ABS talk news item`), then click the **Commit** button. If it asks whether to "stage" changes, click **Yes** (or **Always**).
+3. **Commit.** Back in Source Control, your changed files are listed under "Changes." Type a short description in the Message box at the top (e.g. `Add ABS talk news item`), then click the **Commit** button. If it asks whether to "stage" changes (that just means "include these files in this save"), click **Yes** (or **Always**).
 4. **Push.** Click **Sync Changes** (the button that appears after committing; the ... menu also has **Push**). It usually shows a small number, like a `1` with an up-arrow - that is how many commits are waiting to upload, so the number is a quick sanity check that you're pushing exactly what you just committed. This uploads your commit to GitHub, which triggers the rebuild.
 
 If you also used GitHub Desktop during the site's early setup: it does the same job with the same pull, commit, push idea, and it's fine to keep using it instead.
@@ -184,7 +184,7 @@ Every recipe: which file, what to put in it, and anything to watch out for. Use 
 ### 5.2 Add a news item
 
 - **Folder:** `_news/`
-- Create a new file named with the date and a short slug: `2026-09-15-new-paper.md` (format: `YYYY-MM-DD-something.md`, lowercase, hyphens, no spaces).
+- Create a new file whose name is the date followed by a few words describing the item: `2026-09-15-new-paper.md` (format: `YYYY-MM-DD-something.md`, all lowercase, words joined by hyphens, no spaces).
 - Contents (copy this exactly, change the date and the sentence):
   ```
   ---
@@ -290,7 +290,7 @@ Three parts: the entry, the thumbnail, and (optionally) a photo credit.
   linkedin_username: madison-rittinger-5a12711b8
   ```
 - Change a value to update a link; put a `#` at the start of a line to hide that icon.
-- Two traps, both explained in the file's own comments: the ResearchGate key must stay spelled `research_gate_profile`, and the `rss_icon` line must STAY commented out (with its `#`) - if that key exists at all, the icon shows.
+- Two traps, both explained in the file's own comments: the ResearchGate line must stay spelled exactly `research_gate_profile`, and the `rss_icon` line must keep its `#` at the front (that `#` is what hides it) - if that line is ever left active without the `#`, an unwanted RSS feed icon appears.
 
 ### 5.8 Edit the research pages
 

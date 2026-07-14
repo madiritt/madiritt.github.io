@@ -11,6 +11,16 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - MAINTENANCE-GUIDE.md: third pass (plain-language / de-jargon)
+
+#### Changed
+- Wording-only pass to remove unexplained jargon for absolute beginners (no meaning or steps changed):
+  - 5.2: dropped the term "slug" (undefined web jargon) in favor of "a few words describing the item."
+  - 4.4: glossed "stage" inline ("include these files in this save") at the commit step.
+  - Part 1: added a one-time plain explanation of "cache" (temporary saved copies of pages) since it underpins the whole "did my change show up yet?" flow and Part 6's "wait out the cache" step.
+  - 5.7: rewrote the confusing "if that key exists at all, the icon shows" into plain cause/effect about the `#` that hides the `rss_icon` line; changed "key" to "line."
+  - 3.2: replaced "tooltip" with a description of the hover label.
+
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: second clarity pass (deeper beginner friction)
 
 #### Fixed

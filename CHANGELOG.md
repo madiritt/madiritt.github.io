@@ -16,8 +16,13 @@ Claude project outputs and is summarized in CLAUDE.md.
 #### Changed
 - `_config.yml`: `serve_og_meta` false -> true (adds Open Graph meta tags to every page head, so links shared to social/Slack/iMessage get a title, description, and image preview), `serve_schema_org` false -> true (adds Schema.org JSON-LD structured data, which helps Google understand the site is an academic Person profile), and `og_image` set to `/assets/img/prof_pic.jpg` as the site-wide default link-preview image.
 
+#### Fixed
+- `og_image` changed from a relative path (`/assets/img/prof_pic.jpg`) to an absolute URL (`https://madisonrittinger.org/assets/img/prof_pic.jpg`). The al-folio head template emits `og_image` verbatim without prepending `site.url`, and the Open Graph spec requires an absolute URL; a relative one causes Facebook/LinkedIn/Slack/iMessage to render link previews with no image.
+
 #### Notes
-- Root cause of "not in Google searches": the site is not yet indexed at all (`site:madisonrittinger.org` returns zero results). The single highest-impact fix is owner-only and cannot be done from the repo: verify the domain in Google Search Console (Madison's Google login) and submit `https://madisonrittinger.org/sitemap.xml`, then use "Request indexing" on the homepage. Config fields `google_site_verification` + `enable_google_verification` are staged for the verification meta-tag ID once she has it. Sitemap and robots.txt were already valid and open; those were not the blocker.
+- Correction to the note below: the site turned out to be ALREADY indexed. Search Console URL Inspection on the homepage returned "URL is on Google / Page is indexed" immediately after verification. The empty `site:` result came from a stale/limited search index, not from the site being absent. Domain verified via Cloudflare's one-click DNS integration; sitemap submitted; re-indexing requested to pick up the new OG/Schema tags. The real gap is ranking (other profiles outrank the site for her name), which is a backlinks-and-time problem, not an indexing one.
+- Also stale in CLAUDE.md: `_data/socials.yml` is fully populated with real values (ORCID 0000-0001-6326-1572, Scholar FAzQaf4AAAAJ, ResearchGate Madison-Rittinger, LinkedIn madison-rittinger-5a12711b8), and the JSON-LD `sameAs` block already links all four. Not placeholders.
+- Original (now-corrected) diagnosis: the site is not yet indexed at all (`site:madisonrittinger.org` returns zero results). The single highest-impact fix is owner-only and cannot be done from the repo: verify the domain in Google Search Console (Madison's Google login) and submit `https://madisonrittinger.org/sitemap.xml`, then use "Request indexing" on the homepage. Config fields `google_site_verification` + `enable_google_verification` are staged for the verification meta-tag ID once she has it. Sitemap and robots.txt were already valid and open; those were not the blocker.
 
 ### 2026-07-13 - Research pages: 2-up photo grid on mobile
 

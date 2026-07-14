@@ -1,13 +1,13 @@
 {% comment %}
   LOCAL OVERRIDE of al_folio_core's _includes/footer.liquid.
-  Identical to the gem file except for ONE addition at the very end: it loads
-  assets/js/mossy-field.js (the sitewide grass/dragonfly/spider silhouette
-  background). The footer include renders on every page via the default
-  layout, which is why it hosts the script tag; the gem offers no lighter
-  custom-scripts hook. On gem upgrades, re-diff this file against the gem's.
+  Two additions at the end vs the gem: (1) loads assets/js/mossy-field.js (the sitewide
+  grass/dragonfly/spider silhouette background); (2) a small script that updates the
+  copyright year to the viewer's current year (the Liquid year is the build-time
+  fallback). The footer renders on every page via the default layout, which is why it
+  hosts the script tags. On gem upgrades, re-diff this file against the gem's.
 {% endcomment %}
 {% capture footer_contents %}
-  &copy; {{ site.time | date: '%Y' }}
+  &copy; <span id="footer-year">{{ site.time | date: '%Y' }}</span>
   {{ site.first_name }}
   {{ site.middle_name }}
   {{ site.last_name }}. {{ site.footer_text }}
@@ -43,3 +43,12 @@
 
 <!-- Mossy silhouette field (grasses, dragonflies, spiders) -->
 <script defer src="{{ '/assets/js/mossy-field.js' | relative_url | bust_file_cache }}"></script>
+
+<!-- Copyright year: overwrite the build-time year with the viewer's current year, so it
+     stays correct into new years with no rebuild. Falls back to the build-time year if JS is off. -->
+<script>
+  (function () {
+    var el = document.getElementById("footer-year");
+    if (el) el.textContent = new Date().getFullYear();
+  })();
+</script>

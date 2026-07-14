@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-14 - Footer: auto-updating copyright year (client-side)
+
+#### Added
+- The footer copyright year now updates to the viewer's current year via a small inline
+  script in `_includes/footer.liquid` (added alongside the existing mossy-field script),
+  so it stays correct into new years with no rebuild. The Liquid `site.time` year stays as
+  the build-time fallback for no-JS visitors. Scoped to the copyright line only; content
+  dates (news, publications, CV) are unchanged. Uses the visitor's clock (a wrong-clock
+  visitor sees only their own footer off, cosmetically); NTP/server-time was considered
+  and rejected as over-engineering for a copyright line (browsers can't speak NTP anyway).
+
 ### 2026-07-13 - Docs: use informal "Madi" for person-references in internal documentation
 
 #### Changed

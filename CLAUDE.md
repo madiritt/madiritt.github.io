@@ -8,7 +8,7 @@
 
 ## What this is
 
-A long-term personal academic website for **Madison Rittinger**, PhD candidate in behavioral ecology at the University of Wisconsin-Milwaukee. The site is meant to persist across her career (PhD to postdoc to faculty). Built once, maintained continuously by Madison via plain-language runbooks.
+A long-term personal academic website for **Madison Rittinger**, PhD candidate in behavioral ecology at the University of Wisconsin-Milwaukee. The site is meant to persist across her career (PhD to postdoc to faculty). Built once, maintained continuously by Madi via plain-language runbooks.
 
 - **Owner:** Madison Rittinger
 - **Technical lead:** Trevor Bellerive (GitHub: `abysulgaming`)
@@ -16,14 +16,16 @@ A long-term personal academic website for **Madison Rittinger**, PhD candidate i
 - **Repo:** github.com/madiritt/madiritt.github.io
 
 ### Name policy (IMPORTANT)
-Her displayed/published name everywhere on the site, in mockups, runbooks, and any formal content must always be **"Madison Rittinger"** (full first name), never "Madi". Informal conversational reference to "Madi" in chat is fine, but never in committed files or rendered output.
+Her displayed/published name on the rendered site, in mockups, and in any content she shares publicly must always be **"Madison Rittinger"** (full first name), never "Madi" or "Madi Rittinger". This is non-negotiable for anything a site visitor or external reader sees.
+
+Inside internal maintenance documentation (this `CLAUDE.md`, `MAINTENANCE-GUIDE.md`, `CHANGELOG.md`, `TECH-STACK.md`), informal **"Madi"** IS used and is fine when referring to her as a person (e.g. "Madi asked", "Madi's Google account"). This was Trevor's deliberate choice on 2026-07-13. Even in these internal docs, three things stay "Madison": the full formal name **"Madison Rittinger"**, anything inside a URL/domain (madisonrittinger.org), and literal config/code values the site actually reads (`first_name: Madison`, `research_gate_profile: Madison-Rittinger`, BibTeX author `Rittinger, Madison A`). Do NOT bulk-swap those back and forth; the distinction is person-reference (Madi) vs formal-name/site-literal (Madison).
 
 ---
 
 ## Hard rules for working in this repo
 
 - **NEVER use em-dashes** in any file, commit message, or output. Use a hyphen with spaces, a colon, or restructure. This is a strict, non-negotiable preference.
-  - **One sanctioned exception:** the bio paragraph in `_pages/about.md` ("...antagonizing my cat — Ollie") keeps its em-dash. Madison wrote it that way and asked for it untouched. Leave that one em-dash alone; the rule still applies everywhere else.
+  - **One sanctioned exception:** the bio paragraph in `_pages/about.md` ("...antagonizing my cat — Ollie") keeps its em-dash. Madi wrote it that way and asked for it untouched. Leave that one em-dash alone; the rule still applies everywhere else.
 - **Always update `CHANGELOG.md`** (repo root) when making changes. Use the existing format: dated entries under `[Unreleased]`, categorized (Added/Changed/Fixed/Removed/Decided/Notes).
 - **Error logging / changelog discipline** applies to scripts and config work.
 - Lowercase `dci` is a convention from Trevor's other work; not relevant here but if it ever comes up, honor it.
@@ -71,7 +73,7 @@ Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
 
 ## Current status (as of 2026-07-13)
 
-**The site is LIVE at https://madisonrittinger.org** - design ported, content filled, custom domain active with enforced HTTPS. madiritt.github.io 301-redirects to the new domain. Day-to-day work is now polish, content updates from Madison, and the remaining nice-to-haves (madirittinger.org redirect domain, runbook refresh for the new URL).
+**The site is LIVE at https://madisonrittinger.org** - design ported, content filled, custom domain active with enforced HTTPS. madiritt.github.io 301-redirects to the new domain. Day-to-day work is now polish, content updates from Madi, and the remaining nice-to-haves (madirittinger.org redirect domain, runbook refresh for the new URL).
 
 Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex A records to GitHub Pages IPs + `www` CNAME to madiritt.github.io; repo-root `CNAME` file carries the custom domain through every deploy (the deploy action rebuilds gh-pages from scratch, so the UI-only setting would be wiped without it); Let's Encrypt certificate covers apex + www; `Enforce HTTPS` ticked. Pages settings are owner-only on a personal repo - changing them requires the madiritt login, not a collaborator.
 
@@ -109,7 +111,7 @@ The visual design is locked as a standalone HTML mockup but has NOT been ported 
 - Card border: `rgba(212, 200, 120, 0.18)`, brightening to full citrine `#d4c878` on hover
 
 **Typography:**
-- **CURRENT (2026-06-30): single font sitewide = Lexend.** Madison asked for one font across the whole site; every text element (headings, the hero name, body, the uppercase labels, lightbox captions, news dates) now uses Lexend. Hierarchy is carried by weight, size, and letter-spacing, not by switching families. Code/typogram/bibtex blocks stay `monospace` (correct). Lora and JetBrains Mono are no longer used in rendered output (their Google Fonts links may still load until cleaned up; harmless).
+- **CURRENT (2026-06-30): single font sitewide = Lexend.** Madi asked for one font across the whole site; every text element (headings, the hero name, body, the uppercase labels, lightbox captions, news dates) now uses Lexend. Hierarchy is carried by weight, size, and letter-spacing, not by switching families. Code/typogram/bibtex blocks stay `monospace` (correct). Lora and JetBrains Mono are no longer used in rendered output (their Google Fonts links may still load until cleaned up; harmless).
 - HISTORICAL (pre-2026-06-30), kept for context if the multi-font look is ever revisited:
   - Display/headings: Lora (serif), weight 500, NO italic on titles. (Originally Fraunces; swapped 2026-06-22 because Fraunces' curly lowercase "f" read as too wavy on headings like "Professional Summary". Lora keeps the warm serif feel with conventional letterforms.)
   - Body: Lexend (sans-serif)
@@ -120,8 +122,8 @@ The visual design is locked as a standalone HTML mockup but has NOT been ported 
 
 **Layout signatures:**
 - Hero is a 2-column split: left = text (eyebrow, big name/headline, bio, Currently element) on moss; right = pastel orange panel (with transparency) holding the portrait
-- Portrait is full-bleed inside the orange panel: it fills the panel and the orange shows only as a slim even frame (8px padding). Changed 2026-06-30: previously the portrait was inset (88% width) and centered, but a figure/flex centering quirk drifted it off-center; full-bleed eliminates the margin entirely. The offset moss shadow (`box-shadow: 8px 8px 0 #1e2a18`) was also REMOVED 2026-06-30 at Madison's request, as was the same hard offset shadow on the publication thumbnails.
-- "Currently" status element below the bio: pastel orange dot with soft halo glow + citrine `CURRENTLY` mono label + cream text. Carries Madison's real status (first real text 2026-07-06: "Analyzing data and writing manuscripts"); keep it short, no timeline/date needed. Madison updates this 3-6x/year; it signals the site is live/maintained.
+- Portrait is full-bleed inside the orange panel: it fills the panel and the orange shows only as a slim even frame (8px padding). Changed 2026-06-30: previously the portrait was inset (88% width) and centered, but a figure/flex centering quirk drifted it off-center; full-bleed eliminates the margin entirely. The offset moss shadow (`box-shadow: 8px 8px 0 #1e2a18`) was also REMOVED 2026-06-30 at Madi's request, as was the same hard offset shadow on the publication thumbnails.
+- "Currently" status element below the bio: pastel orange dot with soft halo glow + citrine `CURRENTLY` mono label + cream text. Carries Madi's real status (first real text 2026-07-06: "Analyzing data and writing manuscripts"); keep it short, no timeline/date needed. Madi updates this 3-6x/year; it signals the site is live/maintained.
 - Research cards: 3-column grid, card surface `#2a3624`, citrine top accent, numbered (01/02/03) in mono. Hover: `translateY(-3px)` + border to full citrine + `box-shadow: 0 10px 24px rgba(0,0,0,0.28)`.
 - News/dates in mono small-caps, citrine.
 - **Background silhouette field (added 2026-07-06, replaced the orb-web texture layer):** tall grasses (with timothy seed heads) rising from the bottom viewport edge, dragonflies in the open air, a damselfly perched on the tallest seed head, and orb-weaver spiders hanging from draglines anchored above the top edge - all as faded silhouettes (opacity 0.07) behind every page. Generated per-viewport by `assets/js/mossy-field.js` (loaded via the local `_includes/footer.liquid` override); approved settings live in that script's CONFIG block; retune interactively with `_design-reference/grass-insects-mockup.html` then copy values back. Silhouette color = `--mossy-sil` in `_sass/_mossy.scss` (per theme). HARD RULE for this layer: no clipped/cut-off imagery; the generator clamps every blade tip and figure fully inside the viewport by construction. Do NOT reintroduce the orb-web tile (`genweb.js` is retired history).
@@ -168,20 +170,20 @@ About (homepage `/`) - Research (1) - Publications (2) - CV (3) - Teaching / Men
 - `_projects/*.md` - one file per research question (3 placeholders exist)
 - `_pages/publications.md` - driven by `_bibliography/papers.bib`
 - `_pages/cv.md` - simple CV page (2026-07-06): a download button + embedded PDF preview of `cv_pdf` (assets/pdf/Rittinger_2026_CV.pdf); the structured `layout: cv` / `_data/cv.yml` rendering was retired (data file kept, unrendered)
-- `_pages/teaching.md` - title "Teaching / Mentoring". Article-style layout (2026-07-09, Madison-approved): each of the 3 mentoring photos floats inside its section with text wrapping around it (right/left/right); the Courses photo precedes its h2 so the title sits beside the photo over its own text; every paragraph reserves the photo column (margin = photo width + gutter) so text edges stay uniform at all widths; NO section dividers on this page (Madison removed them here; homepage + /outreach keep theirs). All styles inline in the page.
+- `_pages/teaching.md` - title "Teaching / Mentoring". Article-style layout (2026-07-09, Madi-approved): each of the 3 mentoring photos floats inside its section with text wrapping around it (right/left/right); the Courses photo precedes its h2 so the title sits beside the photo over its own text; every paragraph reserves the photo column (margin = photo width + gutter) so text edges stay uniform at all widths; NO section dividers on this page (Madi removed them here; homepage + /outreach keep theirs). All styles inline in the page.
 - `_pages/gallery.md`, `_pages/outreach.md`, `_pages/news.md`
 - `_news/*.md` - news items (1 starter exists)
 - `_data/socials.yml` - email live; ORCID/Scholar/ResearchGate/LinkedIn are commented PLACEHOLDERs
-- `assets/img/prof_pic.jpg` - Madison's headshot (REQUIRED by about layout)
+- `assets/img/prof_pic.jpg` - Madi's headshot (REQUIRED by about layout)
 
-### Content placeholders awaiting Madison's real content
+### Content placeholders awaiting Madi's real content
 Search the repo for `PLACEHOLDER` to find them: 3 research-question descriptions, teaching philosophy + courses + mentoring, outreach activities, gallery photos, the .bib entries, and the commented social links in `_data/socials.yml`.
 
-The **bio paragraph in `_pages/about.md` is FINAL (Madison's real bio, as of 2026-06-24)** - no longer a placeholder. Keep its em-dash (see Hard rules exception).
+The **bio paragraph in `_pages/about.md` is FINAL (Madi's real bio, as of 2026-06-24)** - no longer a placeholder. Keep its em-dash (see Hard rules exception).
 
 ---
 
-## Still needed from Madison
+## Still needed from Madi
 - ORCID iD, Google Scholar URL, ResearchGate URL, LinkedIn URL (uncomment + fill in `_data/socials.yml`)
 - ~~Real bio paragraph~~ DONE (final bio in `_pages/about.md` as of 2026-06-24)
 - CV PDF (goes in `assets/pdf/`, referenced from `_pages/cv.md`)
@@ -195,7 +197,7 @@ She is processing/sharing these with Trevor. Content fill (Phase 3) can proceed 
 
 ---
 
-## Runbooks (plain-language, for Madison's self-maintenance)
+## Runbooks (plain-language, for Madi's self-maintenance)
 Drafted and delivered to Trevor (outside the repo, in Claude outputs). Consider moving copies into a `docs/` or wiki later:
 - 00: GitHub site setup (done)
 - 01: Apply site config via GitHub Desktop (done)

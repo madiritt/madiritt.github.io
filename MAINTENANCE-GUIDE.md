@@ -66,10 +66,10 @@ Every recipe in Part 5 works with either route.
 | Account | Where | Username | What it controls |
 |---|---|---|---|
 | GitHub | github.com | `madiritt` | The site's files and settings. This is the account that matters day to day. |
-| Cloudflare | dash.cloudflare.com | (Madison's email) | The domain name registration and DNS. Touched almost never. See Part 8. |
-| Google Search Console | search.google.com/search-console | (Madison's Google account) | Tells Google the site exists and reports how it shows up in Google searches. Set up July 2026; touched almost never. See Part 7.5. |
+| Cloudflare | dash.cloudflare.com | (Madi's email) | The domain name registration and DNS. Touched almost never. See Part 8. |
+| Google Search Console | search.google.com/search-console | (Madi's Google account) | Tells Google the site exists and reports how it shows up in Google searches. Set up July 2026; touched almost never. See Part 7.5. |
 
-The GitHub and Cloudflare accounts both have two-factor authentication (2FA) turned on, and Madison's Google account should as well: after the password, they ask for a code from a phone app. **Keep the recovery codes** (given when 2FA was set up) somewhere safe and offline; they are the only way back in if the phone is lost. Of the three, GitHub is the only one you'll sign into regularly; the other two are almost never touched.
+The GitHub and Cloudflare accounts both have two-factor authentication (2FA) turned on, and Madi's Google account should as well: after the password, they ask for a code from a phone app. **Keep the recovery codes** (given when 2FA was set up) somewhere safe and offline; they are the only way back in if the phone is lost. Of the three, GitHub is the only one you'll sign into regularly; the other two are almost never touched.
 
 ---
 
@@ -114,7 +114,7 @@ No installs. Works from any computer.
 
 One-time setup, then a simple routine. VS Code and Git are free and work the same on Windows and Mac.
 
-### 4.1 One-time setup - Windows (Madison's current computer)
+### 4.1 One-time setup - Windows (Madi's current computer)
 
 **Step 1 - install Git** (the tool that talks to GitHub):
 1. Download from https://git-scm.com/download/win (pick "64-bit Git for Windows Setup" if asked).
@@ -276,7 +276,7 @@ Three parts: the entry, the thumbnail, and (optionally) a photo credit.
 
 - **File:** `_pages/about.md`
 - The bio is the paragraph BELOW the second `---` line (everything above it is settings; be careful in there). Edit the paragraph text directly.
-- The long dash in the "antagonizing my cat" sentence is there on purpose (Madison's phrasing). Leave it unless Madison herself rewrites the sentence.
+- The long dash in the "antagonizing my cat" sentence is there on purpose (Madi's phrasing). Leave it unless Madi herself rewrites the sentence.
 
 ### 5.7 Update social links
 
@@ -378,11 +378,11 @@ Works in the browser for any file. The idea is simple: find the last good versio
 
 ### 7.5 The site isn't showing up in a Google search
 
-This is about search visibility, not a broken site - the site can be perfectly healthy and still take time to appear well in Google. The tool that manages this is **Google Search Console** (search.google.com/search-console, sign in with Madison's Google account). It was set up in July 2026: the domain is verified, the site's page list (its "sitemap") is submitted, and Google has confirmed the homepage is indexed.
+This is about search visibility, not a broken site - the site can be perfectly healthy and still take time to appear well in Google. The tool that manages this is **Google Search Console** (search.google.com/search-console, sign in with Madi's Google account). It was set up in July 2026: the domain is verified, the site's page list (its "sitemap") is submitted, and Google has confirmed the homepage is indexed.
 
 A few things worth knowing:
 - **New pages take days to weeks to appear in Google.** This is normal and there is no button that makes it instant. When you add a big new page you want found sooner, you can nudge Google: in Search Console, paste the page's address into the **"Inspect any URL"** bar at the top, wait for the check, then click **Request Indexing**.
-- **Being in Google is not the same as ranking first.** For a while, other pages about Madison (her university profile, ResearchGate, etc.) may sit above her own site when you search her name. That improves with time and, most of all, with those other profiles linking to madisonrittinger.org. The single best thing Madison can do is add her website link to her Google Scholar, ORCID, LinkedIn, and ResearchGate profiles.
+- **Being in Google is not the same as ranking first.** For a while, other pages about Madi (her university profile, ResearchGate, etc.) may sit above her own site when you search her name. That improves with time and, most of all, with those other profiles linking to madisonrittinger.org. The single best thing Madi can do is add her website link to her Google Scholar, ORCID, LinkedIn, and ResearchGate profiles.
 - **To check what Google sees:** search Google for `site:madisonrittinger.org` (type it exactly, including `site:`). Whatever it lists is what Google currently has indexed. Search Console's **Pages** report (left menu, under Indexing) shows the same thing in more detail.
 - You almost never need to log in here. It's a health dashboard, not something to maintain.
 
@@ -414,7 +414,7 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 
 ## Part 9: House rules
 
-1. **The name on the site is always "Madison Rittinger."** Never "Madi" in any page, caption, news item, or file that renders on the site.
+1. **The name on the site is always "Madison Rittinger."** Never "Madi" in any page, caption, news item, or file that renders on the site. (This maintenance guide is internal and is not part of the rendered site, so it refers to her informally as "Madi" in places - that's intentional and fine. The rule is about what visitors actually see.)
 2. **No em-dashes (the long dash) in site text.** Use a hyphen with spaces, a colon, or reword. One exception exists on purpose: the long dash in the bio's "antagonizing my cat" sentence.
 3. **Image guidelines:** JPG for photos. Keep files under about 2 MB (phone photos may need shrinking; any "resize image" tool works, aim for 1600 to 2000 pixels on the long side). Name files in lowercase with hyphens and a prefix that says where they belong: `gallery-`, `mentoring-`, `research-`, or into `publication_preview/`. No spaces in filenames.
 4. **Don't edit machinery.** Folders `_layouts`, `_sass`, `.github`, and the file `purgecss.config.js` are the site's engine room. The ONLY exception you'll ever need is the credits list in `_includes/publication-credits.html` (recipe 5.3). Root files `CNAME`, `Gemfile`, `Gemfile.lock`, `package.json`, `package-lock.json`, `requirements.txt` must not be deleted or renamed.

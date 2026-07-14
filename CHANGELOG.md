@@ -11,6 +11,16 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - Docs: use informal "Madi" for person-references in internal documentation
+
+#### Changed
+- Adopted a new naming convention for INTERNAL docs only (Trevor's decision): in `CLAUDE.md`, `MAINTENANCE-GUIDE.md`, and this `CHANGELOG.md`, bare person-references to "Madison" (e.g. "Madison asked", "Madison's Google account") are now written informally as "Madi". The rendered site is UNCHANGED and still shows "Madison Rittinger" everywhere.
+- Applied via a protected search-replace: converted bare personal "Madison" -> "Madi" while preserving the full formal name "Madison Rittinger", URLs/domains (madisonrittinger.org), and literal config/code values (`first_name: Madison`, `research_gate_profile: Madison-Rittinger`, BibTeX author `Rittinger, Madison A`). Verified no corrupted forms ("Madi Rittinger", "Madi-Rittinger", "first_name Madi") were produced.
+- Reworded the name-policy rule in `CLAUDE.md` and house rule #1 in `MAINTENANCE-GUIDE.md` to state the new split explicitly: "Madison Rittinger" on the rendered site and anything public; informal "Madi" allowed in internal maintenance docs; formal-name/URL/config literals stay "Madison" even there.
+
+#### Notes
+- Site-content files were deliberately NOT touched: `_pages/*`, `_projects/*`, `_news/*`, `_bibliography/papers.bib`, `_config.yml`, `_data/*.yml`, and the design mockup HTML all keep "Madison" because they render publicly. `TECH-STACK.md` and `_design-reference/README.md` were unchanged (their only "Madison" occurrences are the formal name and the `first_name: Madison` config note).
+
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: third pass (plain-language / de-jargon)
 
 #### Changed
@@ -24,7 +34,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: second clarity pass (deeper beginner friction)
 
 #### Fixed
-- Part 2: "Both accounts have 2FA" was inaccurate after the Google Search Console row made the table three accounts. Reworded to name GitHub + Cloudflare (and note Madison's Google account should have 2FA too), and clarified GitHub is the only one signed into regularly.
+- Part 2: "Both accounts have 2FA" was inaccurate after the Google Search Console row made the table three accounts. Reworded to name GitHub + Cloudflare (and note Madi's Google account should have 2FA too), and clarified GitHub is the only one signed into regularly.
 
 #### Added
 - New recipe 5.12 "Remove something (news item, gallery photo, publication)": the guide previously covered add/edit but not delete. Explains the key trap (removing the ENTRY, not just the image file, is what makes a photo/publication disappear), with Route A and Route B delete steps and the exact spans to remove for gallery/bib. Added to the table of contents and two appendix rows (remove-an-item, search-visibility).
@@ -64,7 +74,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 #### Notes
 - Correction to the note below: the site turned out to be ALREADY indexed. Search Console URL Inspection on the homepage returned "URL is on Google / Page is indexed" immediately after verification. The empty `site:` result came from a stale/limited search index, not from the site being absent. Domain verified via Cloudflare's one-click DNS integration; sitemap submitted; re-indexing requested to pick up the new OG/Schema tags. The real gap is ranking (other profiles outrank the site for her name), which is a backlinks-and-time problem, not an indexing one.
 - Also stale in CLAUDE.md: `_data/socials.yml` is fully populated with real values (ORCID 0000-0001-6326-1572, Scholar FAzQaf4AAAAJ, ResearchGate Madison-Rittinger, LinkedIn madison-rittinger-5a12711b8), and the JSON-LD `sameAs` block already links all four. Not placeholders.
-- Original (now-corrected) diagnosis: the site is not yet indexed at all (`site:madisonrittinger.org` returns zero results). The single highest-impact fix is owner-only and cannot be done from the repo: verify the domain in Google Search Console (Madison's Google login) and submit `https://madisonrittinger.org/sitemap.xml`, then use "Request indexing" on the homepage. Config fields `google_site_verification` + `enable_google_verification` are staged for the verification meta-tag ID once she has it. Sitemap and robots.txt were already valid and open; those were not the blocker.
+- Original (now-corrected) diagnosis: the site is not yet indexed at all (`site:madisonrittinger.org` returns zero results). The single highest-impact fix is owner-only and cannot be done from the repo: verify the domain in Google Search Console (Madi's Google login) and submit `https://madisonrittinger.org/sitemap.xml`, then use "Request indexing" on the homepage. Config fields `google_site_verification` + `enable_google_verification` are staged for the verification meta-tag ID once she has it. Sitemap and robots.txt were already valid and open; those were not the blocker.
 
 ### 2026-07-13 - Research pages: 2-up photo grid on mobile
 
@@ -87,7 +97,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: the absolute-beginner runbook
 
 #### Added
-- `MAINTENANCE-GUIDE.md` (repo root): the comprehensive self-maintenance guide for Madison, written for absolute beginners and designed to work with zero outside help ("in case Trevor gets hit by a bus"). Covers: how the publish pipeline works in plain language; the GitHub and Cloudflare accounts (with a hard warning never to commit passwords to this public repo); Route A browser-only editing (sign-in, pencil edit, file upload, new file); Route B VS Code setup per OS (Windows primary, Mac included) plus the pull-edit-commit-push routine; step-by-step recipes for every content type (Currently status, news, publications incl. thumbnails and the photographer-credit map, gallery, CV, bio, socials, research pages, teaching page with its layout warnings, profile pic/favicon, contact note); build monitoring and the cache window; failure recovery (red builds, per-file restore from History, stuck-deploy re-run, site-down triage); Cloudflare domain renewal and the exact DNS record table; house rules; and a file-map cheat sheet. Every recipe was verified against the actual files before writing.
+- `MAINTENANCE-GUIDE.md` (repo root): the comprehensive self-maintenance guide for Madi, written for absolute beginners and designed to work with zero outside help ("in case Trevor gets hit by a bus"). Covers: how the publish pipeline works in plain language; the GitHub and Cloudflare accounts (with a hard warning never to commit passwords to this public repo); Route A browser-only editing (sign-in, pencil edit, file upload, new file); Route B VS Code setup per OS (Windows primary, Mac included) plus the pull-edit-commit-push routine; step-by-step recipes for every content type (Currently status, news, publications incl. thumbnails and the photographer-credit map, gallery, CV, bio, socials, research pages, teaching page with its layout warnings, profile pic/favicon, contact note); build monitoring and the cache window; failure recovery (red builds, per-file restore from History, stuck-deploy re-run, site-down triage); Cloudflare domain renewal and the exact DNS record table; house rules; and a file-map cheat sheet. Every recipe was verified against the actual files before writing.
 - `_config.yml`: added `MAINTENANCE-GUIDE.md` to the `exclude:` list so the guide never renders into the built site (it stays repo-only, like CLAUDE.md and CHANGELOG.md).
 
 ### 2026-07-13 - Footer: copyright line only
@@ -146,22 +156,22 @@ previews are real photos; all 4 DOIs correct; sitemap/robots/404/feed present.
 Three findings, all fixed below.
 
 #### Removed
-- `_config.yml` `external_sources` block (al-folio demo feeds): it was generating LIVE demo blog posts on the site - an al-folio Medium post and a Google Gemini marketing article at `/blog/2024/google-gemini-updates.../` - plus orphan tag/category archive pages, all indexed in the sitemap. Nothing on the site linked to them (the /blog/ index itself was already 404), but search engines would have crawled them under Madison's name.
+- `_config.yml` `external_sources` block (al-folio demo feeds): it was generating LIVE demo blog posts on the site - an al-folio Medium post and a Google Gemini marketing article at `/blog/2024/google-gemini-updates.../` - plus orphan tag/category archive pages, all indexed in the sitemap. Nothing on the site linked to them (the /blog/ index itself was already 404), but search engines would have crawled them under Madi's name.
 - Footer "Photos from Unsplash" credit (theme default in `footer_text`): her photos are her own, individually credited in-page.
 
 #### Changed
 - Favicon emoji: theme-default atom to a spider (`icon:` in `_config.yml`).
-- Favicon again (same day, Trevor's call): now Madison's headshot instead of the spider emoji. Added `assets/img/favicon.png` (192px square face crop of `prof_pic.jpg`, crop region 266,220,640x640, generated via System.Drawing) and set `icon: favicon.png`. The theme treats any `icon:` value longer than 4 characters as a filename in `/assets/img/` (gem `head.liquid`). To update later: replace `favicon.png` in place with any square image.
+- Favicon again (same day, Trevor's call): now Madi's headshot instead of the spider emoji. Added `assets/img/favicon.png` (192px square face crop of `prof_pic.jpg`, crop region 266,220,640x640, generated via System.Drawing) and set `icon: favicon.png`. The theme treats any `icon:` value longer than 4 characters as a filename in `/assets/img/` (gem `head.liquid`). To update later: replace `favicon.png` in place with any square image.
 
 ### 2026-07-11 - CV update (v7) + teaching page reconcile
 
 #### Changed
-- `assets/pdf/Rittinger_2026_CV.pdf`: replaced with Madison's latest CV (from `Rittinger_2026_CV (7).pdf`). Filename unchanged, so `cv_pdf` in `_pages/cv.md` and the download/preview both pick it up with no further edits.
+- `assets/pdf/Rittinger_2026_CV.pdf`: replaced with Madi's latest CV (from `Rittinger_2026_CV (7).pdf`). Filename unchanged, so `cv_pdf` in `_pages/cv.md` and the download/preview both pick it up with no further edits.
 - `_pages/teaching.md`: added "Statistics Tutor (Ohio Dominican University)" to the "Earlier teaching" summary line so it matches the CV's Teaching Experience section, which lists it (2014). The rest of the Courses section was already word-for-word in sync with the CV.
 - `_pages/teaching.md`: reconciled the mentoring counts to the CV (Trevor-approved, "site matches CV" rule). Undergraduate researchers 18 -> 20 (CV: 8 at UWM Arthropod Behavior Lab + 12 at ISU Wren Lab). High school students 16 -> 10 (CV Mentorship: "ten different students" across seven Mentor Matching Engine projects; note this LOWERED the site's figure). The qualitative sentence (four future coauthors, one presented at local conferences) was left as-is; those specifics aren't in the CV and don't conflict with it.
 
 #### Notes
-- Publication title now matches: the v7 CV lists the 2025 Biology Letters paper as "Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems," identical to `_bibliography/papers.bib` (`rittinger2025instinct`, DOI 10.1098/rsbl.2025.0293). The v6 CV's "Parsing insight from instinct" wording was corrected by Madison; no change needed to the bib.
+- Publication title now matches: the v7 CV lists the 2025 Biology Letters paper as "Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems," identical to `_bibliography/papers.bib` (`rittinger2025instinct`, DOI 10.1098/rsbl.2025.0293). The v6 CV's "Parsing insight from instinct" wording was corrected by Madi; no change needed to the bib.
 - CV lists in-review ("Insightful spiders?") and in-preparation papers not in `papers.bib`; consistent with publishing only published works on the site. No change.
 
 ### 2026-07-10 - Background silhouettes: a touch more visible
@@ -185,15 +195,15 @@ Three findings, all fixed below.
 
 #### Changed
 - `_pages/gallery.md`: the gallery is now data-driven and self-sorting. The seven photos moved from hardcoded `.photo-tile` anchors into a `photos:` list in the page front matter (image, caption, year); the grid renders them with `{% assign gallery_photos = page.photos | sort: "year" | reverse %}` so they always present newest-first (2025 -> 2022 -> 2020) with no manual reordering. Adding a photo is now just a front-matter entry plus the image file; it slots into the right place by year on its own. GLightbox wiring, captions (including `<em>` species names), and the square-tile styling are unchanged. Verified: 7 tiles, correct newest-first order, identical caption encoding to the previous hardcoded version.
-- Ordering choice: newest-first (Madison), matching the Publications page. Sort key is `year`; photos within the same year group together in a deterministic (if not list-exact) order. Finer within-year control would need a full date field, not added since only the year is shown.
+- Ordering choice: newest-first (Madi), matching the Publications page. Sort key is `year`; photos within the same year group together in a deterministic (if not list-exact) order. Finer within-year control would need a full date field, not added since only the year is shown.
 
 #### Fixed
-- `_config.yml` `contact_note`: replaced the leftover al-folio placeholder ("You can even add a little note about which of these is the best way to reach you.", which was rendering live under the homepage social icons) with Madison's real note: "The best way to reach me is by email. I welcome inquiries about research and potential collaborations." Renders centered under the email/ORCID/Scholar/ResearchGate/LinkedIn icons via the existing `.contact-note` slot in `_layouts/about.liquid`.
+- `_config.yml` `contact_note`: replaced the leftover al-folio placeholder ("You can even add a little note about which of these is the best way to reach you.", which was rendering live under the homepage social icons) with Madi's real note: "The best way to reach me is by email. I welcome inquiries about research and potential collaborations." Renders centered under the email/ORCID/Scholar/ResearchGate/LinkedIn icons via the existing `.contact-note` slot in `_layouts/about.liquid`.
 
-### 2026-07-10 - Gallery: captions cleaned up from Madison's image titles
+### 2026-07-10 - Gallery: captions cleaned up from Madi's image titles
 
 #### Changed
-- `_pages/gallery.md`: updated lightbox captions to match the descriptions in Madison's source image filenames. No new images: all seven provided files already exist in the gallery (six are byte-identical to the current assets; the seventh, a HEIC named for the undergrads in it, is the same photo as the existing "Hunting for spiders" tile). Per Madison's rule, existing photos just get their descriptions cleaned up.
+- `_pages/gallery.md`: updated lightbox captions to match the descriptions in Madi's source image filenames. No new images: all seven provided files already exist in the gallery (six are byte-identical to the current assets; the seventh, a HEIC named for the undergrads in it, is the same photo as the existing "Hunting for spiders" tile). Per Madi's rule, existing photos just get their descriptions cleaned up.
   - "Mackinaw Nature Preserve, 2020" -> "Paige Duncan, M.S., and I at Mackinaw Nature Preserve, 2020"
   - "Running transects, May 2025" -> "Helping Mish with transects, 2025"
   - "Painting clay models, 2025" -> "Helping Mish paint clay models, 2025"
@@ -202,12 +212,12 @@ Three findings, all fixed below.
   - Unchanged: the *Pholcus phalangioides* (2022) and *Frontinella communis* web (2025) captions were already the correct full italic binomials (the filenames use abbreviated/typo'd forms).
 
 #### Notes
-- No photographer credits added: none of these seven filenames name a photographer (they are Madison's own field/lab photos), consistent with the Gallery's existing species/description-only caption style.
+- No photographer credits added: none of these seven filenames name a photographer (they are Madi's own field/lab photos), consistent with the Gallery's existing species/description-only caption style.
 
 ### 2026-07-10 - Teaching page: Courses section reconciled with the CV
 
 #### Fixed
-- `_pages/teaching.md`: made the Courses list match Madison's CV (`Rittinger_2026_CV.pdf`) instead of paraphrased/invented content. Changes:
+- `_pages/teaching.md`: made the Courses list match Madi's CV (`Rittinger_2026_CV.pdf`) instead of paraphrased/invented content. Changes:
   - Guest Lecturer dates now match the CV exactly: "Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023)" (was the vague "Ecology (2024-2025) and Behavioral Ecology (2023)").
   - Replaced the invented "Earlier teaching includes ... at UW-Milwaukee and Illinois State University" summary (which mis-lumped institutions and omitted the ISU General Ecology Lab) with an accurate line: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University).
   - Added the CV's course descriptions for the two MIAD instructor-of-record courses (Animal Behavior, Patterns in Nature), which the site had omitted.
@@ -217,13 +227,13 @@ Three findings, all fixed below.
 ### 2026-07-10 - Publications page: credits moved onto the photo
 
 #### Changed
-- `_pages/publications.md`: the photographer credit now sits ON each thumbnail (bottom) as a soft gradient-scrim overlay (cream Lexend over a moss-dark fade, inset inside the 3px orange frame with matching rounded bottom corners), instead of a plain caption beneath the tile (Madison's request for a classier, professional look). Same matching/degradation as before: the script wraps each credited `img.preview` in a `.pub-thumb` and lays a `.pub-credit-overlay` on it; no JS -> no overlay, thumbnails unaffected. The composite manuscript figure still gets no credit. Verified at 1280px and narrow width.
-- Follow-up: credit text left-aligned to sit in the bottom-LEFT corner (Madison's preference), the standard editorial photo-credit placement, rather than centered on the scrim.
+- `_pages/publications.md`: the photographer credit now sits ON each thumbnail (bottom) as a soft gradient-scrim overlay (cream Lexend over a moss-dark fade, inset inside the 3px orange frame with matching rounded bottom corners), instead of a plain caption beneath the tile (Madi's request for a classier, professional look). Same matching/degradation as before: the script wraps each credited `img.preview` in a `.pub-thumb` and lays a `.pub-credit-overlay` on it; no JS -> no overlay, thumbnails unaffected. The composite manuscript figure still gets no credit. Verified at 1280px and narrow width.
+- Follow-up: credit text left-aligned to sit in the bottom-LEFT corner (Madi's preference), the standard editorial photo-credit placement, rather than centered on the scrim.
 
 ### 2026-07-10 - Publications page: updated thumbnails + photographer credits
 
 #### Changed
-- Replaced all four publication preview thumbnails with Madison's chosen images (converted from source JPG/PNG/TIF to JPG, resized to 1000-1200px long edge at q88, keeping the existing filenames so no `.bib` edits were needed): `treefrog.jpg` (gray treefrogs in amplexus), `web-spider.jpg` (cellar spider), `instinct-insight.jpg` (the 4-panel Innate/Previously-learned/Learned-de-novo/Insightful manuscript figure), `songbird-nestling.jpg` (male house wren).
+- Replaced all four publication preview thumbnails with Madi's chosen images (converted from source JPG/PNG/TIF to JPG, resized to 1000-1200px long edge at q88, keeping the existing filenames so no `.bib` edits were needed): `treefrog.jpg` (gray treefrogs in amplexus), `web-spider.jpg` (cellar spider), `instinct-insight.jpg` (the 4-panel Innate/Previously-learned/Learned-de-novo/Insightful manuscript figure), `songbird-nestling.jpg` (male house wren).
 
 #### Added (photographer credits)
 - `_pages/publications.md`: a small credit caption now sits under each thumbnail: "Photo: Höbel Lab" (treefrogs), "Photo: Mark Yokoyama" (spider), "Photo: Dr. Rachael DiSciullo" (house wren). The instinct-to-insight figure is a composite manuscript figure with no single photographer, so it gets no credit.
@@ -235,7 +245,7 @@ Three findings, all fixed below.
 ### 2026-07-10 - Teaching page: copy tweaks
 
 #### Changed
-- `_pages/teaching.md`: Courses section reads "See my CV for a full list" instead of "See the CV for a full list" (Madison's wording).
+- `_pages/teaching.md`: Courses section reads "See my CV for a full list" instead of "See the CV for a full list" (Madi's wording).
 - `_pages/teaching.md`: "Mentor Matching Engine" in the mentoring blurb is now a hyperlink to https://help.mentormatchingengine.org/about (al-folio auto-adds `target="_blank"` + `rel="external nofollow noopener"` for external links).
 
 ### 2026-07-10 - Teaching page: fix crushed text column on mobile
@@ -258,12 +268,12 @@ Three findings, all fixed below.
 
 #### Added
 - `_projects/decision-making-under-uncertainty.md` ("How do spiders make decisions...") and `_projects/comparative-cognition.md` ("How do web spiders navigate?") now use the same gallery-tile + wide-text layout established on the nestlings page: full-width prose, a responsive grid of square `object-fit: cover` tiles with orange frames and hover zoom, a "Select any image to view it full-size" hint, and a GLightbox slider showing the full uncropped image + caption on click. Replaces the older single bottom-photo pattern on both pages.
-- Six new images (Madison's own photos), converted from source JPGs via .NET System.Drawing to 1600px long edge at q85:
+- Six new images (Madi's own photos), converted from source JPGs via .NET System.Drawing to 1600px long edge at q85:
   - Decisions (all *Pholcus phalangioides*, 2023): `research-decisions-adult-can.jpg` (adult on a can rim), `research-decisions-vial.jpg` (in a lab vial), `research-decisions-spiderlings.jpg` (mother with a spiderling brood). All three source files were distinct shots despite similar names.
   - Navigation: `research-navigation-web.jpg` (*Frontinella communis* web, 2024), `research-navigation-tetragnathid-branch.jpg` and `research-navigation-tetragnathid-twig.jpg` (Tetragnathid sp., Saukville WI, 2026; two distinct shots).
 
 #### Decided (attribution)
-- These six are Madison's OWN photos, so per Madison (2026-07-10) they carry NO photographer line: species + year lightbox caption only (italic binomial, matching the Gallery page's caption voice), and no `Photos: ...` credit line under the grid. The "credit the photographer on all images" standard still holds; it just resolves to no line when the photographer is Madison herself. Contrast the nestlings page, whose photos are Dr. Rachael DiSciullo's and are credited.
+- These six are Madi's OWN photos, so per Madi (2026-07-10) they carry NO photographer line: species + year lightbox caption only (italic binomial, matching the Gallery page's caption voice), and no `Photos: ...` credit line under the grid. The "credit the photographer on all images" standard still holds; it just resolves to no line when the photographer is Madi herself. Contrast the nestlings page, whose photos are Dr. Rachael DiSciullo's and are credited.
 
 #### Removed
 - `assets/img/research-decisions.jpg` and `assets/img/research-navigation.jpg` (the old single representative photos): now orphaned, replaced by the new named files above. Confirmed no remaining page references before deleting.
@@ -274,24 +284,24 @@ Three findings, all fixed below.
 ### 2026-07-10 - Nestlings research page: gallery-style photos + wide text
 
 #### Added
-- `_projects/individual-personality.md` (hatching patterns / house wrens): three house wren photos by Dr. Rachael DiSciullo added at the bottom of the page, replacing the previous no-photo state. Multi-photo research pages are the new standard going forward (Madison, 2026-07-10): as photos are provided, each page gets its set at the bottom rather than a single representative image.
-- `assets/img/research-nestlings-nestbox.jpg`, `research-nestlings-branch-a.jpg`, `research-nestlings-branch-b.jpg`: converted from Madison's source TIFFs (one was 198 MB) via .NET System.Drawing, resized to 1600px long edge at JPEG q85 (~190 KB each). The two "sits on branch" source files looked like duplicates by dimension (exactly 2x) but are distinct photographs (bird faces left vs right, different perch/background); both kept.
+- `_projects/individual-personality.md` (hatching patterns / house wrens): three house wren photos by Dr. Rachael DiSciullo added at the bottom of the page, replacing the previous no-photo state. Multi-photo research pages are the new standard going forward (Madi, 2026-07-10): as photos are provided, each page gets its set at the bottom rather than a single representative image.
+- `assets/img/research-nestlings-nestbox.jpg`, `research-nestlings-branch-a.jpg`, `research-nestlings-branch-b.jpg`: converted from Madi's source TIFFs (one was 198 MB) via .NET System.Drawing, resized to 1600px long edge at JPEG q85 (~190 KB each). The two "sits on branch" source files looked like duplicates by dimension (exactly 2x) but are distinct photographs (bird faces left vs right, different perch/background); both kept.
 
 #### Layout (gallery method + wide text)
-- Photos use the GALLERY METHOD (Madison, 2026-07-10: "same size method as the gallery photos"): `.research-photos` is a responsive grid of equal SQUARE tiles (`grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))`, `aspect-ratio: 1/1`, `object-fit: cover`, orange frame, hover zoom) that mirrors `_pages/gallery.md`. Clicking a tile opens the same GLightbox slider (loop, prev/next, Mossy-palette caption) showing the FULL uncropped image with its caption, so the square tile crop never permanently hides the photo. GLightbox CSS/JS + caption styling replicated inline from the Gallery page.
-- Iteration history (same session, none shipped before this): started as a 4:3-cropped row of three, then a full-view natural-ratio mosaic (7fr:9fr portrait + stacked landscapes), then this gallery-tile version per Madison's request to match the gallery sizing.
-- Text now spans the FULL content width (`.research-body { max-width: 100% }`, was 42-44rem), so the short prose reads WIDE rather than as a tall narrow column (Madison, 2026-07-10: "extend the text horizontally rather than vertically"). Title, text, and photo grid all share the same left/right edges.
+- Photos use the GALLERY METHOD (Madi, 2026-07-10: "same size method as the gallery photos"): `.research-photos` is a responsive grid of equal SQUARE tiles (`grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))`, `aspect-ratio: 1/1`, `object-fit: cover`, orange frame, hover zoom) that mirrors `_pages/gallery.md`. Clicking a tile opens the same GLightbox slider (loop, prev/next, Mossy-palette caption) showing the FULL uncropped image with its caption, so the square tile crop never permanently hides the photo. GLightbox CSS/JS + caption styling replicated inline from the Gallery page.
+- Iteration history (same session, none shipped before this): started as a 4:3-cropped row of three, then a full-view natural-ratio mosaic (7fr:9fr portrait + stacked landscapes), then this gallery-tile version per Madi's request to match the gallery sizing.
+- Text now spans the FULL content width (`.research-body { max-width: 100% }`, was 42-44rem), so the short prose reads WIDE rather than as a tall narrow column (Madi, 2026-07-10: "extend the text horizontally rather than vertically"). Title, text, and photo grid all share the same left/right edges.
 
 #### Added (photographer credits)
-- Every image is credited (standard set Madison, 2026-07-10: credit the photographer on ALL images). Credit shows in the GLightbox caption per image (`data-title`), plus a visible `Photos: Dr. Rachael DiSciullo` line under the grid. A `.research-hint` line ("Select any image to view it full-size") signals the tiles are clickable, matching the Gallery page's `.gallery-hint`.
+- Every image is credited (standard set Madi, 2026-07-10: credit the photographer on ALL images). Credit shows in the GLightbox caption per image (`data-title`), plus a visible `Photos: Dr. Rachael DiSciullo` line under the grid. A `.research-hint` line ("Select any image to view it full-size") signals the tiles are clickable, matching the Gallery page's `.gallery-hint`.
 
 #### Notes
-- Retro-credit / gallery-method TODO: DONE same day. Both `comparative-cognition.md` and `decision-making-under-uncertainty.md` moved to this gallery-tile treatment (see the entry above); their photos are Madison's own, so no photographer line.
+- Retro-credit / gallery-method TODO: DONE same day. Both `comparative-cognition.md` and `decision-making-under-uncertainty.md` moved to this gallery-tile treatment (see the entry above); their photos are Madi's own, so no photographer line.
 
 ### 2026-07-09 - Research question pages: photos moved to the bottom
 
 #### Changed
-- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo moved from a floated inline inset to a block at the BOTTOM of the page, below the text (Madison's preference: research photos sit tastefully after the prose, not wrapped inline). Left-aligned, orange 4:3 frame unchanged, `max-width: 34rem`, `margin-top: 2.75rem` for clean separation from the text. This also fills the previously-empty lower half of these short pages. Convention going forward: any future research-page photo goes at the bottom in this pattern (documented in each page's comment).
+- `_projects/comparative-cognition.md` and `_projects/decision-making-under-uncertainty.md`: the representative photo moved from a floated inline inset to a block at the BOTTOM of the page, below the text (Madi's preference: research photos sit tastefully after the prose, not wrapped inline). Left-aligned, orange 4:3 frame unchanged, `max-width: 34rem`, `margin-top: 2.75rem` for clean separation from the text. This also fills the previously-empty lower half of these short pages. Convention going forward: any future research-page photo goes at the bottom in this pattern (documented in each page's comment).
 - Text now held to a `max-width: 42rem` reading measure via a `.research-body` wrapper. Removing the float (which had reserved the photo's column) would otherwise have let the prose span the full ~1140px container at ~120 characters/line; 42rem restores a comfortable ~80-char measure. Verified at 1280px, 950px, and true 375px (iframe harness).
 
 ### 2026-07-09 - Research question pages: article-style photo insets
@@ -307,19 +317,19 @@ Three findings, all fixed below.
 ### 2026-07-09 - News: ABS item dated to the talk itself
 
 #### Changed
-- `_news/2026-07-06-abs-2026.md` -> `_news/2026-07-17-abs-2026.md`: the news row's date now reads Jul 17, 2026 (the date of Madison's ABS talk, per Madison) instead of the date the item was posted, and the text is the plain fact without a redundant date: "Presenting at the Animal Behavior Society (ABS) conference." Convention going forward: date news items by the event they announce, not the posting day.
+- `_news/2026-07-06-abs-2026.md` -> `_news/2026-07-17-abs-2026.md`: the news row's date now reads Jul 17, 2026 (the date of Madi's ABS talk, per Madi) instead of the date the item was posted, and the text is the plain fact without a redundant date: "Presenting at the Animal Behavior Society (ABS) conference." Convention going forward: date news items by the event they announce, not the posting day.
 
-### 2026-07-09 - Teaching/Mentoring page: article-style photo insets (Madison-approved)
+### 2026-07-09 - Teaching/Mentoring page: article-style photo insets (Madi-approved)
 
 #### Changed
 - `_pages/teaching.md`: full editorial redesign of the photo treatment. The 3-tile mentoring photo row under the page title is gone; each photo now lives inside its section as a floated inset the text wraps around, news-article style. Kenzie Dasek -> Teaching philosophy (right), Spider Squad -> Courses (left), Ellie Wheeler -> Mentoring philosophy (right). Orange frames, 4:3 crop, and visible captions unchanged; images still go through figure.liquid for responsive WebP.
-- Courses title placement (Madison): the Spider Squad figure precedes the h2 in source, so "Courses" renders beside the photo directly above "See the CV for a full list.", capping its own text column.
+- Courses title placement (Madi): the Spider Squad figure precedes the h2 in source, so "Courses" renders beside the photo directly above "See the CV for a full list.", capping its own text column.
 - Uniform text columns (Trevor, after resize testing): every paragraph reserves the photo's width + 1.75rem gutter on the photo's side (margin-right for sections 1/3, margin-left for Courses p + h2), so all lines in a section share one edge at every viewport width; text never snaps to full width mid-section. Trade-off accepted: text no longer flows under photos, so a text-heavy section shows open background under its photo on narrow windows.
 - Each section sits in a `.mentoring-section` flow-root wrapper (floats can't bleed across sections); first wrapper gets `margin-top: 2.75rem` so the title-to-first-section gap matches the ~5.5rem section rhythm.
 - Mobile (<=640px): photos stack full-width/centered and the reserved column margins release. The Courses section becomes a flex column with `order` so the heading renders before its photo (in source the photo is first; stacked naively it read as the previous section's image).
 
 #### Removed
-- `_pages/teaching.md`: the `.mossy-section` centered dividers, same day they were added (Madison's call after seeing them with the insets). Homepage and /outreach KEEP their dividers; only this page dropped them.
+- `_pages/teaching.md`: the `.mossy-section` centered dividers, same day they were added (Madi's call after seeing them with the insets). Homepage and /outreach KEEP their dividers; only this page dropped them.
 
 #### Notes
 - Headless-screenshot gotcha discovered during verification: Edge headless on Windows enforces a ~450px minimum window width, so `--window-size=375,...` silently renders a wider layout and fake-clips the right edge. For true phone-width checks, load the page in a 375px iframe from a local harness file and screenshot that (media queries track iframe width). The apparent site-wide mobile clipping this produced was a tool artifact; the real 375px render is clean.
@@ -338,7 +348,7 @@ Three findings, all fixed below.
 - `_sass/_mossy.scss`: thin hairline rules (`--global-divider-color`) between news rows and between publication entries, like a publication site's headline/article lists. News: border-bottom per `<tr>` (none on the last), Bootstrap cell borders cleared, 0.6rem vertical padding per row. Publications: border-bottom per `ol.bibliography > li` (none on the last) with 1.6rem spacing. Applies to the homepage sections AND the /news and /publications archives, which share the markup. Layout and hero untouched.
 
 #### Decided
-- A full "article-style" homepage experiment (portrait floated right with text wrap, justified bio, panel sized by aspect ratio) was built, previewed, and REJECTED by Madison the same day; rolled back before commit. The publication-site feel comes from list rhythm only (these hairlines), not from restructuring the hero. Do not reintroduce the float layout.
+- A full "article-style" homepage experiment (portrait floated right with text wrap, justified bio, panel sized by aspect ratio) was built, previewed, and REJECTED by Madi the same day; rolled back before commit. The publication-site feel comes from list rhythm only (these hairlines), not from restructuring the hero. Do not reintroduce the float layout.
 
 ### 2026-07-09 - Homepage divider bars centered and widened
 
@@ -348,7 +358,7 @@ Three findings, all fixed below.
 ### 2026-07-09 - Research question pages: representative photo under each title
 
 #### Added
-- `_projects/comparative-cognition.md` ("How do web spiders navigate?") and `_projects/decision-making-under-uncertainty.md` ("How do spiders make decisions involved in prey capture?"): a single pastel-orange-framed 4:3 photo directly under the title, matching the hero/mentoring frame (3px `#feac74` border, 6px radius, `object-fit: cover`). Left-aligned, `max-width: 32rem`. Images `assets/img/research-navigation.jpg` (navigation page) and `assets/img/research-decisions.jpg` (decisions page), copied from Madison's source JPGs. Routed through `figure.liquid` so the live build produces responsive WebP. Scoped `.research-photo` style block is inline in each page.
+- `_projects/comparative-cognition.md` ("How do web spiders navigate?") and `_projects/decision-making-under-uncertainty.md` ("How do spiders make decisions involved in prey capture?"): a single pastel-orange-framed 4:3 photo directly under the title, matching the hero/mentoring frame (3px `#feac74` border, 6px radius, `object-fit: cover`). Left-aligned, `max-width: 32rem`. Images `assets/img/research-navigation.jpg` (navigation page) and `assets/img/research-decisions.jpg` (decisions page), copied from Madi's source JPGs. Routed through `figure.liquid` so the live build produces responsive WebP. Scoped `.research-photo` style block is inline in each page.
 
 ### 2026-07-09 - Homepage section dividers + animated "Currently" dot
 
@@ -364,7 +374,7 @@ Three findings, all fixed below.
 Continuation of the 2026-07-08 session (after the orange-titles experiment below was rolled back). All previewed on the local dev server (headless-Edge screenshots + pixel sampling) before commit.
 
 #### Added
-- `_projects/individual-personality.md`: attribution sentence noting the house-wren work was Madison's Master's thesis in collaboration with the Avian Ecology Lab at Illinois State University, and made "Avian Ecology Lab" a hyperlink to https://about.illinoisstate.edu/wrens/research/ (al-folio auto-adds `target="_blank" rel="external nofollow noopener"`; the link inherits the citrine `--global-theme-color`, matching the highlighted nav tab).
+- `_projects/individual-personality.md`: attribution sentence noting the house-wren work was Madi's Master's thesis in collaboration with the Avian Ecology Lab at Illinois State University, and made "Avian Ecology Lab" a hyperlink to https://about.illinoisstate.edu/wrens/research/ (al-folio auto-adds `target="_blank" rel="external nofollow noopener"`; the link inherits the citrine `--global-theme-color`, matching the highlighted nav tab).
 - `_pages/teaching.md`: mentoring photo row at the top of the page (under the title): three equal pastel-orange-framed 4:3 tiles (matching the hero/gallery frame) with visible centered captions beneath. Images `assets/img/mentoring-{kenzie-dasek-2024,spider-squad-2023,ellie-wheeler-2023}.jpg`. Captions: "Undergraduate researcher Kenzie Dasek, 2024"; "The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner"; "Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner". Static (no lightbox); images go through `figure.liquid` so the live build generates responsive WebP. Grid + caption styles are inline in the page.
 
 #### Changed
@@ -391,15 +401,15 @@ Continuation of the 2026-07-08 session (after the orange-titles experiment below
 - KNOWN BUG discovered during the trial (since FIXED 2026-07-09, see the entry above): the hero eyebrow line ("PhD Candidate · ...") rendered cream instead of the intended citrine `--global-theme-color`. Cause: the al-folio theme ships `span { color: var(--global-text-color) }`, which matches the eyebrow's child `<span class="mossy-eyebrow__part">` elements DIRECTLY and beats any color inherited from the parent `<p>` (a direct match always outranks inheritance, even inherited `!important`). Fixed by adding `.mossy-eyebrow span { color: var(--global-theme-color); }` to `_sass/_mossy.scss`.
 - The same span trap defeated a hot-pink `!important` diagnostic on the eyebrow, which misleadingly suggested the local build pipeline was stale when it was actually fine. Lesson for future tracers: style an element whose text is not wrapped in child spans, or use geometry (border/transform) instead of color.
 
-### 2026-07-08 - Teaching/Mentoring: strip paraphrased course descriptions (from Madison)
+### 2026-07-08 - Teaching/Mentoring: strip paraphrased course descriptions (from Madi)
 
 #### Changed
-- `_pages/teaching.md` Courses section: removed the two one-line course summaries under **Animal Behavior** ("A foundation in animal behavior, applied through an independent research project.") and **Patterns in Nature** ("Hands-on experience with the scientific method, problem solving, and critical thinking."). Madison flagged these as not her own words - they were Claude's condensations of her CV goal sentences. Added an italic "See the CV for a full list." pointer at the top of the section (per her suggestion) and dropped the now-redundant "A full list is in the CV" sentence that closed the section. Kept the factual role/topic details on General Ecology Lab and Guest Lecturer (verbatim from her CV, not paraphrased). Course names, institutions, and dates unchanged.
+- `_pages/teaching.md` Courses section: removed the two one-line course summaries under **Animal Behavior** ("A foundation in animal behavior, applied through an independent research project.") and **Patterns in Nature** ("Hands-on experience with the scientific method, problem solving, and critical thinking."). Madi flagged these as not her own words - they were Claude's condensations of her CV goal sentences. Added an italic "See the CV for a full list." pointer at the top of the section (per her suggestion) and dropped the now-redundant "A full list is in the CV" sentence that closed the section. Kept the factual role/topic details on General Ecology Lab and Guest Lecturer (verbatim from her CV, not paraphrased). Course names, institutions, and dates unchanged.
 
-### 2026-07-06 - Currently status + first real news item (from Madison)
+### 2026-07-06 - Currently status + first real news item (from Madi)
 
 #### Changed
-- `_pages/about.md` hero `current:` -> "Analyzing data and writing manuscripts" (Madison's wording; she asked for no timeline on it since it is, well, currently). Replaces the placeholder "Field collections + behavior trials, summer 2026".
+- `_pages/about.md` hero `current:` -> "Analyzing data and writing manuscripts" (Madi's wording; she asked for no timeline on it since it is, well, currently). Replaces the placeholder "Field collections + behavior trials, summer 2026".
 
 #### Added
 - `_news/2026-07-06-abs-2026.md`: "Presenting at ABS July 17th 2026." (her verbatim text). News already works as the running log she asked for: dated `_news/` files, homepage shows the 5 most recent, full history stays at /news/.
@@ -418,7 +428,7 @@ Continuation of the 2026-07-08 session (after the orange-titles experiment below
 ### 2026-07-06 - Teaching/Mentoring: drop the mentorship-award sentence
 
 #### Removed
-- `_pages/teaching.md`: the closing Mentoring paragraph "In 2025 I received UW-Milwaukee's Graduate Student Mentorship Award, nominated by my undergraduate researchers." (This was the one sentence Claude had appended to Madison's verbatim mentoring text on 2026-07-02; her page is now 100% her own words.) The award itself still lives in the CV under Awards and Honors (`_data/cv.yml`), untouched.
+- `_pages/teaching.md`: the closing Mentoring paragraph "In 2025 I received UW-Milwaukee's Graduate Student Mentorship Award, nominated by my undergraduate researchers." (This was the one sentence Claude had appended to Madi's verbatim mentoring text on 2026-07-02; her page is now 100% her own words.) The award itself still lives in the CV under Awards and Honors (`_data/cv.yml`), untouched.
 
 ### 2026-07-06 - Gallery: drop the page subtitle
 
@@ -451,7 +461,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 #### Changed (v2, same day, after Trevor's first review)
 - Orb-web texture layer REMOVED from the mockup entirely (this design direction drops it; the live site keeps its web layer untouched until the port).
 - Grass can now rise to 1/3 - 1/2 of the screen: the height slider is a fraction of viewport height, range 0.12 - 0.50 (default 0.35). Blade width and seed-head size scale up with taller grass.
-- Grasshopper (cricket-adjacent) removed; SPIDERS added instead: orb-weavers hanging head-down from silk draglines anchored above the top viewport edge (reads as anchored, not cut off). On-brand for Madison's web-spider research.
+- Grasshopper (cricket-adjacent) removed; SPIDERS added instead: orb-weavers hanging head-down from silk draglines anchored above the top viewport edge (reads as anchored, not cut off). On-brand for Madi's web-spider research.
 - Dragonflies kept (they were a hit): now a configurable flock with varied sizes/rotations and simple overlap avoidance; the perched damselfly appears whenever at least one dragonfly is present and rides the dragonfly sliders.
 - Control panel rebuilt into three groups - Grass, Dragonflies, Spiders - each with its own sliders: Grass = height / opacity / amount; Dragonflies and Spiders = count (0-6) / size / opacity, with live value readouts. Tone selector dropped (moss tone fixed); Regenerate and Light/dark kept.
 
@@ -464,26 +474,26 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 #### Added
 - `TECH-STACK.md`: a repo tech inventory (versions pulled from the actual config files on 2026-06-24) that pairs with CLAUDE.md. Existed locally but was never committed; now tracked.
 
-### 2026-07-02 - Load Madison's real content (mentoring + 3 research questions)
+### 2026-07-02 - Load Madi's real content (mentoring + 3 research questions)
 
 #### Changed
-- Replaced the AI-drafted research descriptions and the paraphrased mentoring section with Madison's own verbatim text, supplied in her "Information for the website" doc. Wording copied exactly; only titles, frontmatter descriptions, and markdown wrapping were touched.
-  - `_projects/decision-making-under-uncertainty.md`: title -> "How do spiders make decisions involved in prey capture?"; body swapped to Madison's verbatim description. Removed the fabricated *Biology Letters* (2025) / *Scientific Reports* (2024) citations from the old draft.
-  - `_projects/comparative-cognition.md`: retitled from the miniaturization framing to "How do web spiders navigate?" to match Madison's Q2; body swapped to her verbatim navigation description. (Old title/body were about brain-size/miniaturization; her doc scopes this question to navigation.)
+- Replaced the AI-drafted research descriptions and the paraphrased mentoring section with Madi's own verbatim text, supplied in her "Information for the website" doc. Wording copied exactly; only titles, frontmatter descriptions, and markdown wrapping were touched.
+  - `_projects/decision-making-under-uncertainty.md`: title -> "How do spiders make decisions involved in prey capture?"; body swapped to Madi's verbatim description. Removed the fabricated *Biology Letters* (2025) / *Scientific Reports* (2024) citations from the old draft.
+  - `_projects/comparative-cognition.md`: retitled from the miniaturization framing to "How do web spiders navigate?" to match Madi's Q2; body swapped to her verbatim navigation description. (Old title/body were about brain-size/miniaturization; her doc scopes this question to navigation.)
   - `_projects/individual-personality.md`: title -> "How do hatching patterns impact nestling development?"; body swapped to her verbatim description. Stays `category: past` (she noted this question is no longer active).
-  - Each project's frontmatter `description` set to Madison's keyword line for that question.
+  - Each project's frontmatter `description` set to Madi's keyword line for that question.
   - `_pages/teaching.md` Mentoring section: replaced the paraphrase (which had different mentee counts) with her verbatim three paragraphs (18 undergraduates, 4 future coauthors, 1 conference presenter, 16 high-school students via the Mentor Matching Engine). Kept the 2025 Graduate Student Mentorship Award sentence appended (accurate, not in her doc).
 
 #### Notes
-- Per-instance exception: em-dashes allowed in Madison's own content for this pass (none appeared in the supplied text). The no-em-dash rule still holds for everything Trevor/Claude authors.
-- Project TITLES now name spiders, overriding the earlier taxon-agnostic-titles design note; Trevor chose Madison's exact question phrasings for coherence with the new bodies.
+- Per-instance exception: em-dashes allowed in Madi's own content for this pass (none appeared in the supplied text). The no-em-dash rule still holds for everything Trevor/Claude authors.
+- Project TITLES now name spiders, overriding the earlier taxon-agnostic-titles design note; Trevor chose Madi's exact question phrasings for coherence with the new bodies.
 - Teaching philosophy (`_pages/teaching.md`) and bio (`_pages/about.md`) already matched the doc verbatim; left unchanged.
 - One typo fix approved by Trevor: "various brains sizes" -> "various brain sizes" in the prey-capture description. "will be coauthor" (singular) is intentional (they will each be coauthor on one paper) and was left as written.
 
 ### 2026-06-30 - Single font sitewide: Lexend everywhere
 
 #### Changed
-- Collapsed the three-font system (Lora serif headings + Lexend sans body + JetBrains Mono labels) to a single sitewide font: **Lexend**, at Madison's request. Hierarchy is now carried by weight/size/letter-spacing rather than switching families.
+- Collapsed the three-font system (Lora serif headings + Lexend sans body + JetBrains Mono labels) to a single sitewide font: **Lexend**, at Madi's request. Hierarchy is now carried by weight/size/letter-spacing rather than switching families.
   - `_sass/_mossy.scss`: flipped every Lora and JetBrains Mono declaration (headings, hero name, navbar brand, eyebrow, "CURRENTLY" label, hero meta, news dates) to the Lexend stack.
   - `_pages/gallery.md`: the gallery hint label and the lightbox caption flipped to Lexend.
   - Updated the now-stale "Lora"/"mono" code comments.
@@ -520,7 +530,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 
 #### Changed
 - `_sass/_mossy.scss`: the hero portrait drifted off-center on the orange panel (fat orange margin on one side, sliver on the other). Root cause: the portrait was `width: 88%` and meant to center, but al-folio's `figure.liquid` wraps the `<img>` in an inline `<picture>` inside a shrink-wrapped `<figure>` that is a flex item in the panel's centering column, so the percentage-width image resolved/aligned ambiguously instead of centering.
-- New approach (chosen by Madison): full-bleed portrait. The image now fills the panel (`width/height: 100%`, `object-fit: cover`) and the orange shows only as a slim even 8px frame. Panel keeps equal height with the text column on desktop; on mobile the portrait falls back to its own `4 / 5` aspect ratio so it can't collapse.
+- New approach (chosen by Madi): full-bleed portrait. The image now fills the panel (`width/height: 100%`, `object-fit: cover`) and the orange shows only as a slim even 8px frame. Panel keeps equal height with the text column on desktop; on mobile the portrait falls back to its own `4 / 5` aspect ratio so it can't collapse.
 - Verified on desktop (1320px) and mobile (430px) via local headless screenshots before pushing: even frame on all sides, face well-placed (`object-position: 50% 16%`).
 
 ### 2026-06-30 - Gallery lightbox caption: gradient-scrim overlay
@@ -540,7 +550,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-30 - Remove the hard offset "block" shadows behind images
 
 #### Changed
-- `_sass/_mossy.scss`: removed the flat `Npx Npx 0` offset shadows that dropped a solid colored slab behind images (Madison found them goofy).
+- `_sass/_mossy.scss`: removed the flat `Npx Npx 0` offset shadows that dropped a solid colored slab behind images (Madi found them goofy).
   - Hero portrait (`.mossy-hero__panel img`): dropped `box-shadow: 8px 8px 0 $moss-shadow`.
   - Publication thumbnails (`.publications .preview`): dropped `box-shadow: 5px 5px 0 ...` and trimmed the now-unused `box-shadow` transition.
   - Removed the now-unused `$moss-shadow` brand constant.
@@ -549,27 +559,27 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 #### Decided
 - The offset moss shadow is no longer a design signature. CLAUDE.md Mossy spec updated to reflect the removal.
 
-### 2026-06-28 - Gallery: per-photo blurbs + integrate Madison's new images
+### 2026-06-28 - Gallery: per-photo blurbs + integrate Madi's new images
 
 #### Added
-- Five new gallery images imported to `assets/img/` (kebab-renamed from Madison's Drive export): `gallery-abs-2025.jpg`, `gallery-f-communis-2025.jpg`, `gallery-clay-models-2025.jpg`, `gallery-transects-2025.jpg`, `gallery-p-phalangioides-2022.jpg`.
-- Per-photo blurb method on the gallery: each tile now carries `data-title` + `data-description`, shown beneath the full image in the GLightbox lightbox (preserves the clean Google-Photos grid; no visible-caption clutter). Blurb text is currently PLACEHOLDER, awaiting Madison's real captions.
+- Five new gallery images imported to `assets/img/` (kebab-renamed from Madi's Drive export): `gallery-abs-2025.jpg`, `gallery-f-communis-2025.jpg`, `gallery-clay-models-2025.jpg`, `gallery-transects-2025.jpg`, `gallery-p-phalangioides-2022.jpg`.
+- Per-photo blurb method on the gallery: each tile now carries `data-title` + `data-description`, shown beneath the full image in the GLightbox lightbox (preserves the clean Google-Photos grid; no visible-caption clutter). Blurb text is currently PLACEHOLDER, awaiting Madi's real captions.
 
 #### Changed
 - `_pages/gallery.md`: rebuilt the tile set. Now 6 photos (Paige fieldwork, transects, P. phalangioides, F. communis, clay models, ABS) plus the existing spider-hunting tile.
 - Header comment updated to document the `data-title`/`data-description` blurb workflow for runbook 04.
 
 #### Removed
-- Dropped the `gallery-spider-squad-2023.jpg` tile from the gallery. It is the same photo as Madison's `mentoring - Ellie Wheeler, Ava Mueller, Sage DeLong, and me 2023`; it belongs on the mentoring page, not the gallery. (File retained in `assets/img/` for reuse on the teaching/mentoring page.)
+- Dropped the `gallery-spider-squad-2023.jpg` tile from the gallery. It is the same photo as Madi's `mentoring - Ellie Wheeler, Ava Mueller, Sage DeLong, and me 2023`; it belongs on the mentoring page, not the gallery. (File retained in `assets/img/` for reuse on the teaching/mentoring page.)
 
 #### Notes
-- Verified by eye that `gallery-paige-fieldwork.jpg` is identical to Madison's new "Paige Duncan...Mackinaw 2020" export, so the existing file is reused (no duplicate import).
-- `gallery-spider-hunting-2022.jpg` (3 students searching logs) is not in Madison's new set and has no blurb yet; kept in place pending a caption or a decision to retire it.
+- Verified by eye that `gallery-paige-fieldwork.jpg` is identical to Madi's new "Paige Duncan...Mackinaw 2020" export, so the existing file is reused (no duplicate import).
+- `gallery-spider-hunting-2022.jpg` (3 students searching logs) is not in Madi's new set and has no blurb yet; kept in place pending a caption or a decision to retire it.
 
 ### 2026-06-28 - Publications: real preview images replace placeholder cards
 
 #### Changed
-- Replaced all four placeholder preview cards in `assets/img/publication_preview/` with Madison's real images, one per paper:
+- Replaced all four placeholder preview cards in `assets/img/publication_preview/` with Madi's real images, one per paper:
   - `instinct-insight` <- the paper's 4-panel framework figure (Innate / Previously learned / Learned de novo / Insightful). Source was 3178x3510 / 14 MB; downscaled to 1200px wide JPG q90 (358 KB) to keep the repo lean. CI imagemagick still generates responsive WebP from it.
   - `web-spider` <- cellar spider (Pholcus phalangioides) macro.
   - `treefrog` <- eastern gray treefrog.
@@ -586,11 +596,11 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
   - `aspect-ratio` `3 / 4` -> `5 / 6` and added `object-position: 50% 12%`. Together these crop a little headroom and lower torso and pull her face onto the upper third. Portrait orientation (the Mossy panel design) is preserved.
 
 #### Notes
-- Chose the framing by rendering the candidate crops (3:4 current, 5:6, 9:10, 1:1) with System.Drawing, reproducing exactly what `object-fit: cover` + `object-position` would paint, and comparing them. 5:6 was the smallest change that fixed the float while keeping the portrait shape. Image file is untouched; this is CSS-only, so it is trivially reversible/swappable to a tighter crop (9:10 or 1:1) if Madison prefers.
+- Chose the framing by rendering the candidate crops (3:4 current, 5:6, 9:10, 1:1) with System.Drawing, reproducing exactly what `object-fit: cover` + `object-position` would paint, and comparing them. 5:6 was the smallest change that fixed the float while keeping the portrait shape. Image file is untouched; this is CSS-only, so it is trivially reversible/swappable to a tighter crop (9:10 or 1:1) if Madi prefers.
 
 #### Decided
-- The homepage bio in `_pages/about.md` is now Madison's FINAL bio (no longer a placeholder). CLAUDE.md content tracker updated to match.
-- Sanctioned a single exception to the no-em-dash project rule: the bio's "...my cat — Ollie" keeps its em-dash at Madison's request. The rule still holds everywhere else. Documented in CLAUDE.md hard rules.
+- The homepage bio in `_pages/about.md` is now Madi's FINAL bio (no longer a placeholder). CLAUDE.md content tracker updated to match.
+- Sanctioned a single exception to the no-em-dash project rule: the bio's "...my cat — Ollie" keeps its em-dash at Madi's request. The rule still holds everywhere else. Documented in CLAUDE.md hard rules.
 
 ### 2026-06-23 - Densify the orb-weaver web (kill the blank space)
 
@@ -621,7 +631,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 
 #### Added
 - `_bibliography/papers.bib`: a `preview={...}` field on all four entries, wiring each paper to a left-column thumbnail (al-folio's built-in feature; `enable_publication_thumbnails` was already `true` and `preview` already in `filtered_bibtex_keywords`).
-- `assets/img/publication_preview/`: four Mossy-colored square PLACEHOLDER PNGs (600x600), one per paper: `instinct-insight.png`, `web-spider.png`, `treefrog.png`, `songbird-nestling.png`. Madison replaces each in place (same filename) with a real paper figure or field photo; square sources >=600px work best.
+- `assets/img/publication_preview/`: four Mossy-colored square PLACEHOLDER PNGs (600x600), one per paper: `instinct-insight.png`, `web-spider.png`, `treefrog.png`, `songbird-nestling.png`. Madi replaces each in place (same filename) with a real paper figure or field photo; square sources >=600px work best.
 - `_sass/_mossy.scss`: publication-preview styling so the thumbnails match the design language (citrine hairline border, offset moss shadow echoing the hero portrait, border brightens to full citrine on row hover). Also a citrine retint for journal `abbr` venue badges, in case those are added later.
 
 #### Removed
@@ -685,7 +695,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 #### Changed
 - `_pages/gallery.md`: rebuilt the gallery as a Google Photos-style library. A responsive CSS grid of equal square tiles (`object-fit: cover`, so mixed portrait/landscape photos all crop tidily and the row is never uneven), with a subtle hover zoom. Tiles re-flow automatically as photos are added.
 - Clicking any tile opens a full-screen GLightbox slider (prev/next arrows, keyboard nav, mobile swipe, full uncropped image), the Gmail/Outlook/Google-Photos experience Trevor wanted. Replaced al-folio's medium-zoom (in-place magnify).
-- GLightbox 3.3.1 loaded from jsdelivr with SRI integrity hashes (matches the theme's CDN convention; permitted by the theme's permissive CSP). Grid CSS is page-scoped inline `<style>` to stay self-contained. Lightbox captions go in each tile anchor's `data-title` (blank for now, pending Madison's captions).
+- GLightbox 3.3.1 loaded from jsdelivr with SRI integrity hashes (matches the theme's CDN convention; permitted by the theme's permissive CSP). Grid CSS is page-scoped inline `<style>` to stay self-contained. Lightbox captions go in each tile anchor's `data-title` (blank for now, pending Madi's captions).
 - Validated with a local jekyll build.
 
 ### 2026-06-22 - Fix broken gallery image and add click-to-zoom
@@ -713,7 +723,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-22 - Remove leftover demo PDF
 
 #### Removed
-- `assets/pdf/example_pdf.pdf`: al-folio demo file, unreferenced anywhere. The real CV PDF (`Rittinger_2026_CV.pdf`) was already present and wired in `_pages/cv.md`; confirmed Madison's Downloads copy is byte-identical, so no PDF update needed.
+- `assets/pdf/example_pdf.pdf`: al-folio demo file, unreferenced anywhere. The real CV PDF (`Rittinger_2026_CV.pdf`) was already present and wired in `_pages/cv.md`; confirmed Madi's Downloads copy is byte-identical, so no PDF update needed.
 
 ### 2026-06-22 - Add Google Scholar and ResearchGate social links
 
@@ -736,11 +746,11 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-22 - Add first gallery photos
 
 #### Added
-- `assets/img/gallery-paige-fieldwork.jpg`, `gallery-spider-hunting-2022.jpg`, `gallery-spider-squad-2023.jpg`: Madison's first three field photos (originals; the live build generates responsive WebP via imagemagick).
+- `assets/img/gallery-paige-fieldwork.jpg`, `gallery-spider-hunting-2022.jpg`, `gallery-spider-squad-2023.jpg`: Madi's first three field photos (originals; the live build generates responsive WebP via imagemagick).
 - `_pages/gallery.md`: replaced the "coming soon" placeholder with a responsive 3-across grid (stacks on mobile) of the three photos.
 
 #### Notes
-- Captions are intentionally blank (`title=""`) for now; Madison to supply them later.
+- Captions are intentionally blank (`title=""`) for now; Madi to supply them later.
 
 ### 2026-06-22 - Remove Research page subtitle
 
@@ -761,17 +771,17 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-22 - Use academic email for homepage contact icon
 
 #### Changed
-- `_data/socials.yml`: switched the email social link from `mrittinger44@gmail.com` to her UWM academic address `ritting2@uwm.edu` (the same one already in `_data/cv.yml`). Interim choice until Madison says otherwise. RSS icon remains off; other social links still placeholder.
+- `_data/socials.yml`: switched the email social link from `mrittinger44@gmail.com` to her UWM academic address `ritting2@uwm.edu` (the same one already in `_data/cv.yml`). Interim choice until Madi says otherwise. RSS icon remains off; other social links still placeholder.
 
 ### 2026-06-22 - Real teaching philosophy
 
 #### Changed
-- `_pages/teaching.md`: replaced the DRAFT teaching philosophy with Madison's final text (provided verbatim).
+- `_pages/teaching.md`: replaced the DRAFT teaching philosophy with Madi's final text (provided verbatim).
 
 ### 2026-06-22 - Real bio paragraph
 
 #### Changed
-- `_pages/about.md`: replaced the placeholder bio with Madison's final text (provided verbatim). Note: contains one em-dash ("my cat — Ollie") kept at Madison's/Trevor's explicit request, a deliberate exception to the repo no-em-dash rule for author-provided content.
+- `_pages/about.md`: replaced the placeholder bio with Madi's final text (provided verbatim). Note: contains one em-dash ("my cat — Ollie") kept at Madi's/Trevor's explicit request, a deliberate exception to the repo no-em-dash rule for author-provided content.
 
 ### 2026-06-22 - Remove redundant hero photo caption
 
@@ -786,7 +796,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-22 - Widen sitewide content column
 
 #### Changed
-- `_config.yml`: `max_width` 930px -> 1200px. Feedback from Madison: content sat in a narrow center column with large empty margins on wider screens. The whole site reads this single value (`assets/css/main.scss` line 17 -> `$max-content-width`), so every page widens uniformly. Easy to tune later.
+- `_config.yml`: `max_width` 930px -> 1200px. Feedback from Madi: content sat in a narrow center column with large empty margins on wider screens. The whole site reads this single value (`assets/css/main.scss` line 17 -> `$max-content-width`), so every page widens uniformly. Easy to tune later.
 
 ### 2026-06-22 - Scrub Einstein/demo content; rebuild placeholders from CV
 
@@ -795,18 +805,18 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 - `_config.yml`: removed the JSON-resume pipeline (`jekyll_get_json` + `jsonresume`), now that the CV renders from `_data/cv.yml` (RenderCV).
 
 #### Changed
-- Research projects (`_projects/`) rewritten from Madison's real publications, with corrected categories (the miniaturization/dissertation work was wrongly marked "past"): problem-solving/insight in spiders (current), miniaturization and cognition (current), avian early-life physiology (past).
+- Research projects (`_projects/`) rewritten from Madi's real publications, with corrected categories (the miniaturization/dissertation work was wrongly marked "past"): problem-solving/insight in spiders (current), miniaturization and cognition (current), avian early-life physiology (past).
 - `_pages/teaching.md`: real courses, mentoring record, and a draft teaching philosophy.
 - `_pages/outreach.md`: real outreach/service activities.
 - `_pages/gallery.md`: cleaner "coming soon" placeholder.
 
 #### Notes
-- Interpretive prose (research narratives, teaching philosophy) is marked DRAFT in-file for Madison to confirm; factual lists are from her CV. Still placeholder: bio, social links (ORCID/Scholar), gallery photos.
+- Interpretive prose (research narratives, teaching philosophy) is marked DRAFT in-file for Madi to confirm; factual lists are from her CV. Still placeholder: bio, social links (ORCID/Scholar), gallery photos.
 
 ### 2026-06-22 - CV upgraded to native structured page
 
 #### Changed
-- `/cv/` is now a fully structured, on-theme CV instead of an embedded PDF. Replaced the demo `_data/cv.yml` (Albert Einstein) with Madison's complete CV in RenderCV format: Education, Peer-Reviewed Publications, Manuscripts in Review, Manuscripts in Preparation, Research Experience, Presentations, Teaching Experience, Professional Development, Mentorship, Grants and Fellowships, Awards and Honors, Service.
+- `/cv/` is now a fully structured, on-theme CV instead of an embedded PDF. Replaced the demo `_data/cv.yml` (Albert Einstein) with Madi's complete CV in RenderCV format: Education, Peer-Reviewed Publications, Manuscripts in Review, Manuscripts in Preparation, Research Experience, Presentations, Teaching Experience, Professional Development, Mentorship, Grants and Fellowships, Awards and Honors, Service.
 - `_pages/cv.md`: back to `layout: cv` with `cv_format: rendercv`; keeps the PDF download icon (`cv_pdf`). Dropped the iframe embed.
 - `_sass/_mossy.scss`: styled the CV cards and retinted the date badges (default red "danger" color) to citrine.
 
@@ -817,7 +827,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 ### 2026-06-22 - First real content: publications + CV
 
 #### Added
-- `_bibliography/papers.bib`: replaced the placeholder with Madison's 4 real publications (2022 GCE, 2024 Sci Reports, 2025 Biology Letters, 2026 Behav Ecol Sociobiol). The two recent first-author papers are flagged `selected={true}` so they feature on the homepage.
+- `_bibliography/papers.bib`: replaced the placeholder with Madi's 4 real publications (2022 GCE, 2024 Sci Reports, 2025 Biology Letters, 2026 Behav Ecol Sociobiol). The two recent first-author papers are flagged `selected={true}` so they feature on the homepage.
 - `assets/pdf/Rittinger_2026_CV.pdf`: real CV.
 
 #### Changed
@@ -837,7 +847,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
   - Typography: Fraunces (headings, weight 500, never italic), Lexend (body), JetBrains Mono (small-caps labels/dates).
   - Hero, "Currently" element, card hover-lift, mono citrine dates.
 - `_layouts/about.liquid` (local override): 2-column hero (eyebrow / name / bio / Currently on the left; rgba pastel-orange panel + portrait with `8px 8px 0` moss offset shadow on the right). News, selected publications, and social preserved below.
-- `_pages/about.md`: `current:` front-matter field driving the Currently element (Madison updates this 3-6x/year). PLACEHOLDER text for now.
+- `_pages/about.md`: `current:` front-matter field driving the Currently element (Madi updates this 3-6x/year). PLACEHOLDER text for now.
 - `_config.yml`: google_fonts URL extended with Fraunces, Lexend, JetBrains Mono.
 
 #### Notes
@@ -879,7 +889,7 @@ Trevor approved the v2 mockup direction with these settings (from the mockup sli
 
 #### Project status at this point
 - Phase 2 complete: configured site builds green on https://madiritt.github.io
-- Identity, navigation, content placeholders, and Madison's headshot all live
+- Identity, navigation, content placeholders, and Madi's headshot all live
 - Commit chain on main: c7aab07 (url/baseurl) -> 817845a (config) -> a308323 (headshot) -> 634253c (purgecss restore)
 - Next: Mossy Modernist design port into Tailwind v4 (Phase 4); content fill in parallel (Phase 3)
 

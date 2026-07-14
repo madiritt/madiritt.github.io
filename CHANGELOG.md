@@ -11,6 +11,22 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-13 - MAINTENANCE-GUIDE.md: second clarity pass (deeper beginner friction)
+
+#### Fixed
+- Part 2: "Both accounts have 2FA" was inaccurate after the Google Search Console row made the table three accounts. Reworded to name GitHub + Cloudflare (and note Madison's Google account should have 2FA too), and clarified GitHub is the only one signed into regularly.
+
+#### Added
+- New recipe 5.12 "Remove something (news item, gallery photo, publication)": the guide previously covered add/edit but not delete. Explains the key trap (removing the ENTRY, not just the image file, is what makes a photo/publication disappear), with Route A and Route B delete steps and the exact spans to remove for gallery/bib. Added to the table of contents and two appendix rows (remove-an-item, search-visibility).
+
+#### Changed
+- Part 5 formatting note: added the "two zones" mental model (between the `---` lines = settings, after the second `---` = content) and, most importantly, an explicit "indent with the space bar, never Tab" rule - a single Tab in front matter silently breaks the build and is the most common beginner failure.
+- 3.2: explained what "main branch" means (the site's one live version, always leave it selected) instead of leaving the term unexplained, and to ignore "Create a new branch."
+- 7.1: made reading a failed build more actionable (expand the red-X step, the real error is in the last few lines, look for a filename you recognize).
+
+#### Notes
+- Considered and deliberately REJECTED adding a "use GitHub's Preview tab to check your edit" tip: GitHub's markdown preview mis-renders Jekyll front matter and does not reflect the real site design, so it would mislead a beginner. Part 6 (watch the real build, then hard-refresh) remains the single verification path on purpose.
+
 ### 2026-07-13 - MAINTENANCE-GUIDE.md: clarity buffs for first-time editors + Search Console
 
 #### Added

@@ -28,6 +28,7 @@ This guide assumes you have never edited a website before. It explains everythin
   - 5.9 Edit the Teaching / Mentoring page (carefully)
   - 5.10 Change the profile photo or the browser-tab icon
   - 5.11 Small homepage text (contact note, subtitle)
+  - 5.12 Remove something (news item, gallery photo, publication)
 - Part 6: After every change - how to know it worked
 - Part 7: When something breaks
 - Part 8: Cloudflare and the domain (rarely touched, never ignored)
@@ -68,7 +69,7 @@ Every recipe in Part 5 works with either route.
 | Cloudflare | dash.cloudflare.com | (Madison's email) | The domain name registration and DNS. Touched almost never. See Part 8. |
 | Google Search Console | search.google.com/search-console | (Madison's Google account) | Tells Google the site exists and reports how it shows up in Google searches. Set up July 2026; touched almost never. See Part 7.5. |
 
-Both accounts have two-factor authentication (2FA) turned on: after the password, they ask for a code from a phone app. **Keep the recovery codes** (given when 2FA was set up) somewhere safe and offline; they are the only way back in if the phone is lost.
+The GitHub and Cloudflare accounts both have two-factor authentication (2FA) turned on, and Madison's Google account should as well: after the password, they ask for a code from a phone app. **Keep the recovery codes** (given when 2FA was set up) somewhere safe and offline; they are the only way back in if the phone is lost. Of the three, GitHub is the only one you'll sign into regularly; the other two are almost never touched.
 
 ---
 
@@ -89,7 +90,7 @@ No installs. Works from any computer.
 2. Click the file name to view it, then click the **pencil icon** (top right of the file view, tooltip "Edit this file").
 3. Make your change in the editor that appears.
 4. Click the green **Commit changes...** button (top right).
-5. A box pops up asking for a description. Write a short note about what you did, e.g. `Update Currently status`. Leave "Commit directly to the main branch" selected.
+5. A box pops up asking for a description. Write a short note about what you did, e.g. `Update Currently status`. Leave **"Commit directly to the main branch"** selected - "main" is just the name of the site's one live version, and you always want to save straight to it. (Ignore the "Create a new branch" option; it's for a more advanced workflow you don't need here.)
 6. Click **Commit changes**. Done - the robot takes it from here (Part 6).
 
 ### 3.3 Uploading a file (photo, PDF)
@@ -167,7 +168,9 @@ If you also used GitHub Desktop during the site's early setup: it does the same 
 
 Every recipe: which file, what to put in it, and anything to watch out for. Use Route A or B for the actual editing mechanics.
 
-**Formatting note for all recipes:** these files begin with a block fenced by two `---` lines. That block is settings (called front matter); the spacing and indentation in it matter. Copy the patterns exactly, change only the values.
+**Formatting note for all recipes:** these files begin with a block fenced by two `---` lines. Picture it as two zones: everything **between** the two `---` lines is settings (called front matter), and everything **after** the second `---` is the page's actual content. In the settings zone the spacing and indentation matter a lot. Two rules that prevent almost every broken build:
+- **Copy the patterns exactly and change only the values** (the text after the colon), never the labels before it.
+- **Indent with the space bar, never the Tab key.** A single Tab in the settings block looks fine on screen but stops the whole page from building. When a recipe says "two spaces," tap the space bar twice.
 
 ### 5.1 Update the "Currently" line (homepage status dot)
 
@@ -320,6 +323,16 @@ Three parts: the entry, the thumbnail, and (optionally) a photo credit.
   - `description:` - the one-line site summary search engines show.
 - The subtitle line under the name on the homepage ("PhD Candidate · Department of ...") is `subtitle:` in `_pages/about.md`. Update it when the title changes (PhD Candidate becomes Dr., new institution, etc.). Keep the ` · ` separators; they become the stacked lines.
 
+### 5.12 Remove something (news item, gallery photo, publication)
+
+Removing is the mirror of adding. The key idea: for photos and publications, deleting the image file is NOT what makes the item disappear - removing its ENTRY (the lines that list it) is. Do the entry first.
+
+- **A news item:** delete the whole file from `_news/`. In Route A: open the file, click the small caret (triangle) next to the pencil icon, or the **...** menu, and choose **Delete file**, then commit. In Route B (VS Code): right-click the file in the Explorer panel, choose **Delete**, then commit and push. Nothing else references it, so that's all.
+- **A gallery photo:** in `_pages/gallery.md`, delete that photo's three-line entry from the `photos:` list (the `- image:` line and its `caption:` and `year:` lines beneath it). That removes it from the page. You can optionally also delete the image file from `assets/img/` to tidy up, but you don't have to.
+- **A publication:** in `_bibliography/papers.bib`, delete the paper's whole block, from its `@article{...` line down to and including its closing `}`. If it had a thumbnail and/or a photo credit, you can optionally also delete the image from `assets/img/publication_preview/` and remove its line from the credits list in `_includes/publication-credits.html` (recipe 5.3).
+
+As always, one change at a time, then check the result (Part 6). If a removal ever looks wrong, restoring the previous version (Part 7.2) brings it right back.
+
 ---
 
 ## Part 6: After every change - how to know it worked
@@ -338,7 +351,7 @@ Stay calm: every version of every file is saved forever. Nothing is ever lost.
 ### 7.1 The build failed (red X in Actions)
 
 1. Your change had a formatting problem (usually a missing quote, bracket, or wrong indentation in front matter). The live site is still up - it just kept the previous version, so there's no rush.
-2. Click the red X row in the Actions tab, then the job name on the left, and skim the red text for a filename you recognize. You don't need to understand it; you just need to know which file to fix or restore.
+2. Click the red X row in the Actions tab, then the job name on the left. The step that failed has a red X next to it; click it to expand, and look near the BOTTOM of the text that appears - the real error is usually in the last few red lines. Skim for a filename you recognize (like `gallery.md`). You don't need to understand the message; you just need to know which file to fix or restore.
 3. Compare your edit against the recipe's pattern and fix the typo, or restore the file (7.2). Committing the fix triggers a fresh build automatically.
 
 ### 7.2 Restore a previous version of a file (the universal undo)
@@ -430,6 +443,8 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 | Profile photo | `assets/img/prof_pic.jpg` (replace, keep name) |
 | Browser-tab icon | `assets/img/favicon.png` (replace, keep name) |
 | Domain / DNS / renewal | Cloudflare dashboard (Part 8) |
+| Remove a news item / photo / publication | delete the file or its entry (recipe 5.12) |
+| Search visibility (not showing in Google) | Google Search Console (Part 7.5) |
 
 **Live site:** https://madisonrittinger.org
 **Repo:** https://github.com/madiritt/madiritt.github.io

@@ -38,7 +38,7 @@ This guide assumes you have never edited a website before. It explains everythin
   - 5.6 Edit the bio
   - 5.7 Update social links
   - 5.8 Edit the research pages
-  - 5.9 Edit the Teaching / Mentoring page (carefully)
+  - 5.9 Edit the Teaching / Mentoring page
   - 5.10 Change the profile photo or the browser-tab icon
   - 5.11 Contact note, Google summary, and the subtitle under your name
   - 5.12 Remove something (news item, gallery photo, publication)
@@ -307,7 +307,7 @@ Do not go looking in `_pages/research.md` for any of this. That file is 20 lines
 
 **CV page** (madisonrittinger.org/cv/) - one job only: replace the PDF. Recipe 5.5. Both the download button and the preview come from that one file.
 
-**Teaching / Mentoring page** (madisonrittinger.org/teaching/) - the words and the three photos, recipe 5.9. Read its warnings first; this page's layout is the fragile one.
+**Teaching / Mentoring page** (madisonrittinger.org/teaching/) - the words, the photos, the captions, and which side each photo sits on, all in one settings block, recipe 5.9.
 
 **Gallery page** (madisonrittinger.org/gallery/)
 
@@ -604,44 +604,46 @@ The Research page shows one card per research question. Each card is its own fil
 8. Commit. Expected result: the new card appears on the Research page on its own, with no other file to update.
 9. Then, as a SEPARATE change, swap each photo using the photo-swap steps above, one photo per commit. If you have fewer photos than the copied page had, delete the leftover tiles: each tile is three lines, an `<a href=...>` line, an `{% include figure.liquid ... %}` line, and a `</a>` line. Delete all three together.
 
-### 5.9 Edit the Teaching / Mentoring page (carefully)
+### 5.9 Edit the Teaching / Mentoring page
 
 - **File to edit:** `_pages/teaching.md`
 
-This page has a hand-tuned layout: three sections, each with a photo that the text wraps around. It is the one content page where the structure is fragile, so it gets its own rules. Read the two lists below before you edit anything here.
+The page is built from three sections. Everything you can see on the page (headings, paragraphs, photos, captions, which side each photo sits on) lives in the settings block at the top of the file, between the first `---` line and the second `---` line. Each section looks like this:
 
-**Safe to change freely:**
-- Any visible sentence or paragraph: mentoring counts, course lists, teaching philosophy text.
-- The caption text inside a line that looks like `<figcaption class="mentoring-caption">Undergraduate researcher Kenzie Dasek, 2024</figcaption>`. Change only the words between `>` and `</figcaption>`.
+```
+  - heading: Teaching philosophy
+    photo: assets/img/mentoring-kenzie-dasek-2024.jpg
+    photo_caption: Undergraduate researcher Kenzie Dasek, 2024
+    photo_side: right
+    text: |
+      In life, we are often faced with new knowledge and must decipher
+      what knowledge to trust. ...
+```
 
-**Do not touch:**
-- The whole `<style>` block at the top of the file, which runs about 120 lines. Everything from the line `<style>` down to the line `</style>` is off limits.
-- Any line starting with `<figure class="mentoring-inset"`, and the `{% include figure.liquid ... %}` line inside it (except the file name, see below).
-- Any line starting with `<div class="mentoring-section"`.
-- The order of the three sections.
+The layout itself (how photos float, how text lines up on phones) lives in a different file entirely, so nothing you change here can break it. The one rule that matters is indentation: the spaces at the start of each line are how the site knows what belongs to what, so keep them exactly as they are.
 
-These control how the photos float and how the text lines up at every screen size, including phones.
-
-**To change the words on the page:**
+**To change the words:**
 
 1. Open `_pages/teaching.md` for editing (section 3.2; use **Go to file** and type `teaching`).
-2. Scroll down past the `</style>` line, which is around line 121. Everything above it is off limits.
-3. Edit the sentences below that point. Leave every line that starts with `<` alone unless it is a `<figcaption ...>` caption.
-4. Commit (section 3.2, steps 4 to 7) and check the Teaching / Mentoring page (Part 6), on a phone as well as a computer if you can.
+2. Find the section you want. Each starts with a `- heading:` line.
+3. Its paragraphs sit under the `text: |` line. Edit the sentences, keeping two things as they are: every text line starts with the same six spaces, and paragraphs are separated by one empty line. Do not change the `text: |` line itself.
+4. Commit (section 3.2, steps 4 to 7) and check the Teaching / Mentoring page (Part 6).
 
-**To swap one of the three photos.** Pick a replacement with a similar shape to the photo it replaces. A tall portrait dropped in where a wide photo was changes how much text wraps beside it, and that is the one thing about this page you cannot fix from the page itself.
+**To swap a photo.** Any shape of photo works: the orange frame always shows a wide 4-by-3 crop from the middle, so just keep the subject centred.
 
 1. Rename the new image on your computer to a lowercase hyphenated name starting with `mentoring-`, for example `mentoring-lab-group-2027.jpg`.
 2. Upload it into `assets/img/` (section 3.3).
-3. Open `_pages/teaching.md` for editing and press `Ctrl+F`, then search for `mentoring-` to find the three photo lines. Each looks like this:
-   ```
-   {% include figure.liquid path="assets/img/mentoring-kenzie-dasek-2024.jpg" title="" class="img-fluid" %}
-   ```
-4. In the line for the photo you are replacing, change ONLY the file name between `assets/img/` and the closing `"`. Leave the `{% include figure.liquid path="`, the `assets/img/`, and everything after the closing quote exactly as they are.
-5. A few lines below it, update the `<figcaption class="mentoring-caption">` text to match the new photo, changing only the words between `>` and `</figcaption>`.
-6. Commit and check the page (Part 6).
+3. Open `_pages/teaching.md` for editing. In the section you are changing, replace the file name on the `photo:` line, keeping the `assets/img/` part: `photo: assets/img/mentoring-lab-group-2027.jpg`
+4. Update that section's `photo_caption:` line to describe the new photo.
+5. Commit and check the page (Part 6).
 
-**If this page looks broken after an edit,** do not try to fix the layout by hand. Restore the previous version of the file (Part 7.2), then retry with a smaller change, or leave a note for technical help.
+**To move a photo to the other side:** change that section's `photo_side:` line to `left` or `right`. A `left` photo sits beside its section heading (like Courses today); `right` photos sit beside the text under the heading. Alternating sides reads best.
+
+**To add a whole new section:** select an existing block from its `- heading:` line down to the last line of its `text:`, copy it, paste it directly after that block, and edit the copy. Keep the indentation identical to the block you copied. A section without a photo is fine: delete the `photo:`, `photo_caption:`, and `photo_side:` lines from the copy.
+
+**Leave alone:** everything above the first `- heading:` line, and the single `{% include teaching-sections.liquid %}` line at the very bottom of the file. That line pulls in the layout; without it the page shows nothing.
+
+**If the page looks wrong after an edit,** the cause is almost always indentation. Restore the previous version of the file (Part 7.2) and retry with a smaller change.
 
 ### 5.10 Change the profile photo or the browser-tab icon
 
@@ -900,7 +902,7 @@ Section 5.0 is the version of this keyed by what you see on a page. This one is 
 | Gallery | /gallery/ | `_pages/gallery.md` (photos list) + image in `assets/img/` | 5.4 |
 | CV | /cv/ | PDF in `assets/pdf/` (+ `cv_pdf:` in `_pages/cv.md` if renamed) | 5.5 |
 | Research cards and pages | /research/ | files in `_projects/`, NOT `_pages/research.md` | 5.8 |
-| Teaching / Mentoring | /teaching/ | `_pages/teaching.md` (text only) | 5.9 |
+| Teaching / Mentoring | /teaching/ | `_pages/teaching.md` (words, photos, captions, sides) | 5.9 |
 | Outreach | /outreach/ (not in the menu) | `_pages/outreach.md` | 5.13 |
 | Social icons | Homepage | `_data/socials.yml` | 5.7 |
 | Contact note under icons | Homepage | `_config.yml` (`contact_note:`, on the indented line below it) | 5.11 |

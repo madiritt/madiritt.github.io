@@ -29,6 +29,7 @@ This guide assumes you have never edited a website before. It explains everythin
   - 4.3 Connect VS Code to GitHub and copy the repo down
   - 4.4 The everyday routine: pull, edit, commit, push
 - Part 5: Task recipes
+  - **5.0 Start from the page you are looking at (a page-by-page index of everything below)**
   - 5.1 Update the "Currently" line
   - 5.2 Add a news item
   - 5.3 Add a publication (with thumbnail and photo credit)
@@ -39,8 +40,9 @@ This guide assumes you have never edited a website before. It explains everythin
   - 5.8 Edit the research pages
   - 5.9 Edit the Teaching / Mentoring page (carefully)
   - 5.10 Change the profile photo or the browser-tab icon
-  - 5.11 Small homepage text (contact note, subtitle)
+  - 5.11 Contact note, Google summary, and the subtitle under your name
   - 5.12 Remove something (news item, gallery photo, publication)
+  - 5.13 Edit the Outreach page
 - Part 6: After every change - how to know it worked
 - Part 7: When something breaks
   - 7.1 The build failed (red X)
@@ -265,7 +267,70 @@ If you also used GitHub Desktop during the site's early setup: it does the same 
 
 Every recipe: which file, what to put in it, and anything to watch out for. The recipes tell you WHAT to change. For the clicking mechanics, they point you back to section 3.2 (edit a text file), 3.3 (upload a photo or PDF), or 3.4 (create a new file). If you are using VS Code instead, the mechanics are section 4.4 and everything else in the recipe is identical.
 
-**Formatting note for all recipes.** Most of these files begin with a block fenced by two `---` lines. Picture it as two zones: everything **between** the two `---` lines is settings (called front matter), and everything **after** the second `---` is the page's actual content. Here is the top of the real `_pages/about.md` with the zones labeled:
+### 5.0 Start from the page you are looking at
+
+Normally you notice something while looking at your own site: "that sentence on my homepage is out of date." So start here. Find the page you were looking at, find the thing on it, and it tells you which recipe to open.
+
+**One thing to know before you use this table:** a single page is usually built from several different files. Your homepage alone is assembled from six of them. That is why "edit the homepage" is not one job, and why the table below is broken down by the individual thing you see rather than by page alone.
+
+**Homepage** (madisonrittinger.org)
+
+| The thing you see | Recipe |
+|---|---|
+| The line under the bio next to the orange dot ("Currently...") | 5.1 |
+| The dated one-line updates under News | 5.2 |
+| The 2 or 3 papers under Selected Publications | 5.3, the `selected={true}` line |
+| The main paragraph about you | 5.6 |
+| The small grey line above your name (role, department, university) | 5.11, the subtitle part |
+| The round social icons, and the sentence beneath them | 5.7 for the icons, 5.11 for the sentence |
+| Your photo in the orange panel | 5.10 |
+| Your name in the large headline | Neither. It comes from `first_name` and `last_name` in `_config.yml`. It should never need changing, so treat it as a technical-help job. |
+
+**Research page** (madisonrittinger.org/research/)
+
+| The thing you see | Recipe |
+|---|---|
+| A card's heading, blurb, or position in the row | 5.8 |
+| The text and photos on the page a card opens | 5.8 |
+| A whole new research question, or removing one | 5.8, the last two sub-recipes |
+
+Do not go looking in `_pages/research.md` for any of this. That file is 20 lines of machinery that assembles the cards; the actual content is one file per question in `_projects/`.
+
+**Publications page** (madisonrittinger.org/publications/)
+
+| The thing you see | Recipe |
+|---|---|
+| Adding a paper, or its DOI button | 5.3, Part 1 |
+| The small picture beside a paper | 5.3, Part 2 |
+| The photographer's name across a picture | 5.3, Part 3 |
+| Removing a paper | 5.12 |
+
+**CV page** (madisonrittinger.org/cv/) - one job only: replace the PDF. Recipe 5.5. Both the download button and the preview come from that one file.
+
+**Teaching / Mentoring page** (madisonrittinger.org/teaching/) - the words and the three photos, recipe 5.9. Read its warnings first; this page's layout is the fragile one.
+
+**Gallery page** (madisonrittinger.org/gallery/)
+
+| The thing you see | Recipe |
+|---|---|
+| Adding a photo, or its caption when clicked | 5.4 |
+| Removing a photo | 5.12 |
+
+**News page** (madisonrittinger.org/news/) - the same items as the homepage News section, recipe 5.2. You never edit this page: it lists everything in `_news/` automatically, while the homepage shows only the newest 5.
+
+**Outreach page** (madisonrittinger.org/outreach/) - recipe 5.13. This page is not in the top menu, but it is live and anyone with the link can read it.
+
+**Every page at once**
+
+| The thing you see | Recipe |
+|---|---|
+| The tiny icon in the browser tab | 5.10 |
+| The one-line summary Google shows under your site name | 5.11 |
+| The top menu, footer, colours, fonts, spacing | None of these. That is design and layout work, not content. Ask for technical help. |
+
+### Formatting note that applies to every recipe
+
+Most of these files begin with a block fenced by two `---` lines. Picture it as two zones: everything **between** the two `---` lines is settings (called front matter), and everything **after** the second `---` is the page's actual content. Here is the top of the real `_pages/about.md` with the zones labeled:
 
 ```
 ---                                    <- first fence: settings start here
@@ -596,9 +661,9 @@ These control how the photos float and how the text lines up at every screen siz
 3. Upload it into `assets/img/` (section 3.3).
 4. Commit and check (Part 6). Expected result: the new icon shows in the browser tab. Tab icons are cached especially stubbornly, so if the old one persists, close the tab entirely and open the site in a fresh tab.
 
-### 5.11 Small homepage text (contact note, subtitle)
+### 5.11 Contact note, Google summary, and the subtitle under your name
 
-**The sentence under the social icons, and the site summary.**
+**First, the sentence under the social icons and the summary Google shows.**
 
 - **File to edit:** `_config.yml`
 
@@ -662,6 +727,23 @@ In VS Code instead: right-click the file in the Explorer panel, choose **Delete*
 5. Optional, only if that paper had a thumbnail: delete its image from `assets/img/publication_preview/`, and remove its line from the credits list in `_includes/publication-credits.html` (recipe 5.3, Part 3). If you remove a credit line that was the last one in the list, make sure the line now last has NO comma at the end of it.
 
 As always: one change at a time, then check the result (Part 6). If a removal ever looks wrong, restoring the previous version (Part 7.2) brings it straight back.
+
+### 5.13 Edit the Outreach page
+
+- **File to edit:** `_pages/outreach.md`
+
+This page lives at madisonrittinger.org/outreach/ and is deliberately kept OUT of the top menu, so visitors only reach it if you send them the link. It is still fully public, so treat it as visible.
+
+It is the easiest page in the site to edit: 33 lines, no `<style>` block, no photos, just three headings with a paragraph under each. **It was drafted from Madi's CV rather than written by her**, so the first edit here should be a read-through to make it sound like her.
+
+1. Open `_pages/outreach.md` for editing (section 3.2; use **Go to file** and type `outreach`).
+2. Below the settings zone you will see a line in grey that starts `<!-- DRAFT`. That is a note to yourself, invisible to visitors. Delete the whole line once you have reviewed the page, or leave it; either is fine.
+3. Edit the paragraphs freely. They are ordinary sentences with no formatting to preserve.
+4. Leave the `{: .mossy-section}` line that sits directly under each `## ` heading exactly where it is. It looks like a typo and it is not: it is what draws the short gold divider line above that section on the page. Deleting it removes the divider and closes up the spacing.
+5. To add a section, copy an existing heading plus its `{: .mossy-section}` line plus its paragraph, paste the copy below, and rewrite all three. Keep the `## ` and the space after it at the start of the heading.
+6. Commit (section 3.2, steps 4 to 7) and check madisonrittinger.org/outreach/ (Part 6).
+
+**If you would rather this page were in the top menu:** that is a one-word change (`nav: false` to `nav: true` in the settings zone) plus a menu-position number, but it also shifts every other menu item along. Worth handing to technical help so the menu order stays sensible.
 
 ---
 
@@ -804,26 +886,30 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 
 ## Appendix: file map cheat sheet
 
-| To change... | Edit... |
-|---|---|
-| "Currently" status | `_pages/about.md` (the `current:` line) |
-| Bio paragraph | `_pages/about.md` (text below the second `---`) |
-| Subtitle under the name | `_pages/about.md` (`subtitle:`) |
-| News | new file in `_news/` |
-| Publications | `_bibliography/papers.bib` |
-| Publication thumbnails | image in `assets/img/publication_preview/` + `preview={...}` in the entry |
-| Photo credits on thumbnails | `_includes/publication-credits.html` (the credits list) |
-| Gallery | `_pages/gallery.md` (photos list) + image in `assets/img/` |
-| CV | PDF in `assets/pdf/` (+ `cv_pdf:` in `_pages/cv.md` if renamed) |
-| Research cards/pages | files in `_projects/` |
-| Teaching / Mentoring | `_pages/teaching.md` (text only; see 5.9) |
-| Social icons | `_data/socials.yml` |
-| Contact note under icons | `_config.yml` (`contact_note:`) |
-| Profile photo | `assets/img/prof_pic.jpg` (replace, keep name) |
-| Browser-tab icon | `assets/img/favicon.png` (replace, keep name) |
-| Domain / DNS / renewal | Cloudflare dashboard (Part 8) |
-| Remove a news item / photo / publication | delete the file or its entry (recipe 5.12) |
-| Search visibility (not showing in Google) | Google Search Console (Part 7.5) |
+Section 5.0 is the version of this keyed by what you see on a page. This one is keyed by file, for when you already know the name of the thing.
+
+| To change... | Which page it shows on | Edit... | Recipe |
+|---|---|---|---|
+| "Currently" status | Homepage | `_pages/about.md` (the `current:` line) | 5.1 |
+| Bio paragraph | Homepage | `_pages/about.md` (text below the second `---`) | 5.6 |
+| Subtitle under the name | Homepage | `_pages/about.md` (`subtitle:`) | 5.11 |
+| News | Homepage (newest 5) and /news/ (all) | new file in `_news/` | 5.2 |
+| Publications | /publications/, plus homepage if `selected` | `_bibliography/papers.bib` | 5.3 |
+| Publication thumbnails | Same as above | image in `assets/img/publication_preview/` + `preview={...}` in the entry | 5.3 |
+| Photo credits on thumbnails | Same as above | `_includes/publication-credits.html` (the credits list) | 5.3 |
+| Gallery | /gallery/ | `_pages/gallery.md` (photos list) + image in `assets/img/` | 5.4 |
+| CV | /cv/ | PDF in `assets/pdf/` (+ `cv_pdf:` in `_pages/cv.md` if renamed) | 5.5 |
+| Research cards and pages | /research/ | files in `_projects/`, NOT `_pages/research.md` | 5.8 |
+| Teaching / Mentoring | /teaching/ | `_pages/teaching.md` (text only) | 5.9 |
+| Outreach | /outreach/ (not in the menu) | `_pages/outreach.md` | 5.13 |
+| Social icons | Homepage | `_data/socials.yml` | 5.7 |
+| Contact note under icons | Homepage | `_config.yml` (`contact_note:`, on the indented line below it) | 5.11 |
+| Profile photo | Homepage | `assets/img/prof_pic.jpg` (replace, keep name) | 5.10 |
+| Browser-tab icon | Every page | `assets/img/favicon.png` (replace, keep name) | 5.10 |
+| Summary Google shows | Every page | `_config.yml` (`description:`, on the indented line below it) | 5.11 |
+| Remove a news item / photo / publication | Wherever it appeared | delete the file or its entry | 5.12 |
+| Domain / DNS / renewal | Everything | Cloudflare dashboard | Part 8 |
+| Search visibility (not showing in Google) | n/a | Google Search Console | Part 7.5 |
 
 Two section numbers worth remembering: **3.6** to practice safely, **7.6** when something is wrong and you do not know what.
 

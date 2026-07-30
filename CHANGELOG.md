@@ -11,6 +11,24 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-29 - MAINTENANCE-GUIDE.md: sixth pass (page-first routing + the missing Outreach recipe)
+
+Trevor's observation: the guide was keyed by task and file ("5.2 Add a news item"), but Madi will always arrive from the opposite direction, having just looked at a page on her own site and noticed something. Nothing indexed the guide that way.
+
+#### Added
+- **5.0 "Start from the page you are looking at."** A page-by-page index: for each live page, a table of the individual things a visitor sees on it and which recipe changes each one. Leads with the fact that one page is assembled from several files (the homepage draws on six), which is the reason "edit the homepage" was never a single recipe. Verified against `_layouts/about.liquid` for what the homepage actually composes, in render order: subtitle eyebrow, headline name, bio, Currently, portrait, News (limit 5), Selected Publications, social icons + contact note.
+- Rows in 5.0 for the two things that look editable and are not: the headline name (comes from `first_name`/`last_name` in `_config.yml`, flagged as technical-help) and menu/colour/font/spacing (design work, not content). Also a warning not to go hunting in `_pages/research.md`, which is 20 lines of card-assembly machinery with none of the research content in it.
+- **5.13 Edit the Outreach page.** `_pages/outreach.md` renders live at /outreach/ and had NO recipe in any previous version of this guide, despite still carrying its `<!-- DRAFT, assembled from Madison's CV -->` comment, meaning the one page most in need of Madi's own editing was the one page she had no instructions for. The recipe covers the draft comment, the paragraphs, adding a section, and the `{: .mossy-section}` line (verified against `_sass/_mossy.scss` line 388: it draws the 3px citrine divider bar above the section plus its top spacing, so deleting it silently removes the divider and closes up the gap). Notes that the page is off-menu but fully public, and that moving it into the menu is a `nav:` plus ordering change worth handing over.
+
+#### Changed
+- Appendix cheat sheet gained two columns: which page each thing shows on, and the recipe number. Previously it named the file but left her to find the matching recipe by scanning Part 5. The News and Publications rows now state the two-places-at-once behaviour (homepage newest 5 vs /news/ all; homepage `selected` vs the full Publications page). The Research row says explicitly to edit `_projects/`, NOT `_pages/research.md`. Added the Outreach row and a Google-summary row. Both `_config.yml` rows now say the value is on the indented line below the label, matching the fifth-pass fix.
+- 5.11 retitled from "Small homepage text (contact note, subtitle)" to "Contact note, Google summary, and the subtitle under your name". Its `description:` half is site-wide, not homepage text, so the old title mis-sold it.
+- Appendix now points at 5.0 as the by-page view of the same information, so the two indexes reference each other instead of competing.
+
+#### Notes
+- Purely additive to the recipes; no existing recipe's steps changed. Guide is 918 lines.
+- Verified page inventory from `_pages/*.md` permalinks and `nav:` flags: /research/ (nav 1), /publications/ (2), /cv/ (3), /teaching/ (4), /gallery/ (5), homepage at `/`, and /news/ + /outreach/ both `nav: false` but live.
+
 ### 2026-07-29 - MAINTENANCE-GUIDE.md: fifth pass (accuracy audit + trim)
 
 Audit pass over the fourth-pass rewrite, checking every claim against the actual repo contents rather than against the previous draft.

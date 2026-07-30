@@ -11,6 +11,18 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: continued cleanup (docs made merge-proof, production build validated)
+
+Kept hunting after the squeaky-clean pass. Two finds this round, one of them the biggest remaining blind spot.
+
+#### Fixed
+- **MAINTENANCE-GUIDE recipe 5.9 would have been wrong the moment the branch merges.** It still taught the pre-refactor Teaching page: editing sentences between HTML in the body, "carefully", with fragile-layout warnings. Rewritten on the branch for the front-matter world: words, photo swaps, side moves, and adding a section (now safe), with indentation as the one rule. The photo-shape warning is retired outright: the frame's CSS has always cropped to 4 by 3, so shape never mattered. TOC, 5.0 index entry, and appendix row updated; "(carefully)" dropped from the title. (Committed as 7c65535 without its changelog line; recorded here.)
+- TECH-STACK.md at-a-glance table gains the editor rows (Sveltia at /admin, the Worker + wrangler), so the stack inventory stays truthful post-merge.
+
+#### Verified
+- **The production build pipeline passes on the branch.** deploy.yml turns out to run its full build for pull requests and only skip the Deploy step, so draft PR #1 was opened to exercise it: imagemagick responsive WebP, JEKYLL_ENV=production, purgecss, all green, Deploy correctly skipped. This closes the one gap local testing could not reach (the dev config intentionally disables imagemagick). Tomorrow's Part 5 merge now runs a pipeline that has already succeeded on this exact tree; the PR is draft-only, marked do-not-merge (go-live stays gated by SETUP-ADMIN.md), and the Part 5 push will close it automatically.
+- README.md's only "cms" match is al-folio boilerplate; TECH-STACK.md contained nothing the branch invalidates.
+
 ### 2026-07-30 - Admin editor: paving tomorrow's manual work (branch `admin-cms`, still NOT live)
 
 Everything below removes a step, a decision, or a surprise from the login-requiring session planned for 2026-07-31.

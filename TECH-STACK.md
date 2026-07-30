@@ -21,6 +21,8 @@
 | Source branch | `main` (push triggers build) |
 | Registrar/DNS | Cloudflare (final domain madisonrittinger.org) |
 | TLS | Let's Encrypt via GitHub Pages |
+| Content editor | Sveltia CMS `^0.175.0` at `/admin` (static `admin/index.html` + `admin/config.yml`); commits to `main` like any other edit |
+| Editor sign-in | Our own Cloudflare Worker (`admin-auth/worker.js`, no bindings, `ALLOWED_USERS` var) brokering GitHub OAuth; wrangler 4.x to deploy; runbook `SETUP-ADMIN.md` |
 
 ---
 

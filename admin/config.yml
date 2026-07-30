@@ -1,3 +1,6 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@^0.175.0/schema/sveltia-cms.json
+# (That line gives VS Code live validation of this file if the YAML extension
+# is installed. It is a comment; the editor itself never reads it.)
 # =============================================================================
 # Editor configuration for madisonrittinger.org/admin
 #
@@ -58,13 +61,16 @@ collections:
   # ---------------------------------------------------------------------------
   - name: homepage
     label: Homepage
+    # description sits on the COLLECTION, not the file entry: the config schema
+    # has no description key on file entries and the editor would silently
+    # ignore it there. Same pattern for every files collection below.
+    description: >-
+      The Currently line, your bio, the small line above your name, and your
+      portrait. Five separate things that make up your homepage.
     files:
       - name: about
         label: Homepage
         file: _pages/about.md
-        description: >-
-          The Currently line, your bio, the small line above your name, and your
-          portrait. Five separate things that make up your homepage.
         fields:
           - { name: layout, widget: hidden, default: about }
           - { name: title, widget: hidden, default: About }
@@ -178,13 +184,13 @@ collections:
   # ---------------------------------------------------------------------------
   - name: gallery
     label: Gallery
+    description: >-
+      The grid sorts itself by year, newest first, so the order in this list
+      does not matter.
     files:
       - name: photos
         label: Gallery photos
         file: _pages/gallery.md
-        description: >-
-          The grid sorts itself by year, newest first, so the order in this list
-          does not matter.
         fields:
           - { name: layout, widget: hidden, default: page }
           - { name: title, widget: hidden, default: Gallery }
@@ -295,15 +301,15 @@ collections:
     # where the config schema defines it, and it is what tells the editor to
     # read the .bib file as front matter + body despite the odd extension.
     format: yaml-frontmatter
+    description: >-
+      The publication list as raw BibTeX, exactly as recipe 5.3 in the
+      maintenance guide describes. This is a power-user box, not a form:
+      one missing curly brace hides a paper from the site. Paste carefully,
+      and prefer recipe 5.3 if you are unsure.
     files:
       - name: papers
         label: Publication list (raw BibTeX)
         file: _bibliography/papers.bib
-        description: >-
-          The publication list as raw BibTeX, exactly as recipe 5.3 in the
-          maintenance guide describes. This is a power-user box, not a form:
-          one missing curly brace hides a paper from the site. Paste carefully,
-          and prefer recipe 5.3 if you are unsure.
         fields:
           - name: body
             label: BibTeX
@@ -318,14 +324,14 @@ collections:
   # ---------------------------------------------------------------------------
   - name: outreach
     label: Outreach
+    description: >-
+      Live at /outreach/ but deliberately kept out of the top menu. This page
+      was drafted from your CV rather than written by you, so it is worth a
+      read-through.
     files:
       - name: page
         label: Outreach page
         file: _pages/outreach.md
-        description: >-
-          Live at /outreach/ but deliberately kept out of the top menu. This page
-          was drafted from your CV rather than written by you, so it is worth a
-          read-through.
         fields:
           - { name: layout, widget: hidden, default: page }
           - { name: permalink, widget: hidden, default: /outreach/ }
@@ -353,14 +359,14 @@ collections:
   # ---------------------------------------------------------------------------
   - name: teaching
     label: Teaching / Mentoring
+    description: >-
+      Each section is a heading, an optional photo with caption, and its
+      text. The photo floats to one side and the text wraps around it; the
+      page handles all sizing and spacing itself.
     files:
       - name: teaching
         label: Teaching / Mentoring
         file: _pages/teaching.md
-        description: >-
-          Each section is a heading, an optional photo with caption, and its
-          text. The photo floats to one side and the text wraps around it; the
-          page handles all sizing and spacing itself.
         fields:
           - { name: layout, widget: hidden, default: page }
           - { name: permalink, widget: hidden, default: /teaching/ }
@@ -408,25 +414,23 @@ collections:
                   **this**, italics like *this*, and a link like this:
                   [words to click](https://example.com)
 
-          - name: body
-            label: Page code
-            widget: hidden
-            comment: >-
-              The body is one line that pulls in the layout machinery. Hidden
-              so it cannot be edited away by accident.
+          # The body is one line that pulls in the layout machinery. Hidden so
+          # it cannot be edited away by accident. Hidden fields accept only
+          # name/widget/default/i18n, hence no label here.
+          - { name: body, widget: hidden }
 
   # ---------------------------------------------------------------------------
   # CV
   # ---------------------------------------------------------------------------
   - name: cv
     label: CV
+    description: >-
+      One job here: hand over a new PDF. The download button and the on-page
+      preview both follow whatever you set.
     files:
       - name: cv
         label: CV
         file: _pages/cv.md
-        description: >-
-          One job here: hand over a new PDF. The download button and the on-page
-          preview both follow whatever you set.
         fields:
           - { name: layout, widget: hidden, default: page }
           - { name: permalink, widget: hidden, default: /cv/ }
@@ -439,24 +443,22 @@ collections:
             media_folder: /assets/pdf
             public_folder: /assets/pdf
             hint: Drop the new PDF here. Any filename is fine.
-          - name: body
-            label: Page code
-            widget: hidden
-            comment: >-
-              The CV page body is the PDF.js preview machinery. Hidden so it
-              cannot be edited away by accident.
+          # The CV page body is the PDF.js preview machinery. Hidden so it
+          # cannot be edited away by accident. Hidden fields accept only
+          # name/widget/default/i18n, hence no label here.
+          - { name: body, widget: hidden }
 
   # ---------------------------------------------------------------------------
   # Links and contact
   # ---------------------------------------------------------------------------
   - name: socials
     label: Links and contact
+    description: >-
+      The round icons under your bio. Clear a value to hide that icon.
     files:
       - name: socials
         label: Links and contact
         file: _data/socials.yml
-        description: >-
-          The round icons under your bio. Clear a value to hide that icon.
         fields:
           - { name: email, label: Email, widget: string, required: false }
           - name: orcid_id

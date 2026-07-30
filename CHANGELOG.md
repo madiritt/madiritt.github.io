@@ -11,6 +11,22 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: schema validation pass (nine invalid config keys found mechanically)
+
+Sveltia generates a JSON schema of its config format from its own source. Validating `admin/config.yml` against it (ajv, draft-07, schema pinned to our `^0.175.0`) found real problems every eyeball pass had missed, because the keys involved are valid SOMEWHERE in the config, just not where they sat.
+
+#### Fixed
+- **All seven file-entry `description` keys were invalid and silently ignored.** File entries accept no `description`; collections do. Every files collection (Homepage, Gallery, Publications, Outreach, Teaching, CV, Links and contact) had its explanatory text on the file entry, where the editor would never have shown it. All seven moved up to collection level, where they render in the UI.
+- **Hidden fields accept only `name`/`widget`/`default`/`i18n`.** The two hidden `body` fields (Teaching and CV) carried `label` and `comment` keys the schema rejects; both are now minimal `{ name: body, widget: hidden }` with the explanation moved to YAML `#` comments beside them.
+- Re-validated after the fixes: `admin-config.json valid`, zero violations. Boot re-verified by screenshot; `admin/config.yml` still byte-identical through the build (20476 = 20476).
+
+#### Added
+- `# yaml-language-server: $schema=...` comment at the top of `admin/config.yml`, pinned to `^0.175.0`, so VS Code (with the YAML extension) validates future edits live. A comment only; the editor never reads it.
+
+#### Notes
+- The schema run also CONFIRMED choices made earlier from documentation: `format` is legal at both collection and file level (yesterday's move was right but not required), `output.omit_empty_optional_fields` is a recognised root key, and the news `format`/`slug`/`view_filters`/`sortable_fields` block is clean.
+- Second PR build (triggered by the docs push) also green, and this push gives a third run on the corrected config for free.
+
 ### 2026-07-30 - Admin editor: continued cleanup (docs made merge-proof, production build validated)
 
 Kept hunting after the squeaky-clean pass. Two finds this round, one of them the biggest remaining blind spot.

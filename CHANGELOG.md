@@ -40,7 +40,7 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 #### Notes
 - Wording and structure only. No site files, layouts, or styles touched, so this pass cannot change the rendered site. Verified against the live repo contents (`about.md` line 19 for `current:`, the five `_data/socials.yml` keys, the three `_projects` importance values 1/2/3, `Rittinger_2026_CV.pdf`, the `credits` map in `_includes/publication-credits.html`, workflow name "Deploy site"), so every quoted line and file name in the guide matches what she will actually see.
-- Guide grew from 452 to 812 lines. That is deliberate per the literal-instructions rule: explicitness outranks brevity here, and the recipes are meant to be jumped into individually, not read start to finish.
+- Guide grew from 452 to 815 lines. That is deliberate per the literal-instructions rule: explicitness outranks brevity here, and the recipes are meant to be jumped into individually, not read start to finish.
 
 ### 2026-07-14 - Footer: auto-updating copyright year (client-side)
 

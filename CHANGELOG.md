@@ -11,6 +11,32 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-29 - MAINTENANCE-GUIDE.md: fifth pass (accuracy audit + trim)
+
+Audit pass over the fourth-pass rewrite, checking every claim against the actual repo contents rather than against the previous draft.
+
+#### Fixed
+- **5.11 was flatly wrong.** `contact_note:` and `description:` in `_config.yml` are YAML folded block scalars (the label line ends in `>` and the sentence sits on the NEXT line, indented two spaces). The recipe said "change only the text after the colon," which would have had her editing the `>` and the stock al-folio comment instead of the sentence. Now shows the real four lines from the file, explains what `>` does, and says to keep the two-space indent. Verified `_config.yml` is the ONLY file any recipe touches that uses folded scalars (`_pages`, `_projects`, `_data/socials.yml`, `papers.bib` are all plain), so the "text after the colon" wording stays correct everywhere else.
+- 5.11 also now warns off `blog_description` (line 125, unused, looks similar to the real `description`).
+- **5.8 pointed at an ambiguous anchor.** `_projects/*.md` contain TWO `<style>` blocks (lines 17-60 and 102-138), so "scroll past the `</style>` line, roughly 70 lines down" pointed at the wrong boundary and would have dropped her into the photo/script tail. Re-anchored on the unambiguous `<div class="research-body" markdown="1">` block (line 62) and its closing `</div>` 15 lines later, which is genuinely the only editable region. Shorter than the wording it replaced.
+- 5.3 step 8 told her to "press Enter twice" after pasting a BibTeX block, which assumes what Scholar's clipboard content ends with. Replaced with a self-checking instruction: look at where the block ends, add one blank line only if the closing `}` is touching the next `@article{`.
+- 5.12's news-item deletion described GitHub's delete-confirmation screen as "contents crossed out or a commit box at the bottom." That hedge covered uncertainty about which UI generation is live. Now describes it as a deletion preview and defers to the commit steps already taught in 3.2.
+- House rule 4 omitted `_includes` from the machinery list while its own exception (`_includes/publication-credits.html`) lives there. Added.
+- 7.6's "no new run in Actions" row blamed VS Code only; it is equally the browser symptom of never clicking the final **Commit changes**. Row now covers both with the section number for each.
+
+#### Changed (trimmed, no information lost)
+- 5.3 Part 1 dropped from a 15-step slog with two redundant steps to 15 tighter ones: the "add the last three lines" preview no longer duplicates the three steps that follow it, and the `preview={...}` step no longer forward-references Part 2 which already covers it. The duplicate-BibTeX-ID check moved out of the numbered steps (it is a rare snag, not a per-paper action) into a footnote that says what the build error looks like.
+- Non-action items pulled out of numbered lists and into notes: "never delete prof_pic.jpg" (5.10), "pick a photo of similar shape" (5.9, moved BEFORE the steps where it is actionable rather than after the commit), and the house-rule-4 reminder (5.3 Part 3).
+- Cut the appendix's three-row "sections worth remembering" table, which duplicated the bolded TOC entries and the intro pointer, down to one sentence.
+
+#### Added
+- One line in 3.2 noting that `Ctrl+F` in edit mode opens the editor's own find box, not the browser's, so it looks different than expected. Several recipes tell her to use it.
+- One line closing 3.6 that bridges the practice run to recipe 5.1 and names the rhythm every Part 5 recipe shares.
+
+#### Notes
+- Verified against the repo: `_config.yml` lines 9-16, `contact_note`/`description` folded scalars, `icon: favicon.png` (so 5.10's favicon filename is right), `_pages/teaching.md` `</style>` at line 121, `_projects` style blocks at 17-60 and 102-138 with `research-body` at 62-77, `_bibliography/papers.bib` `---` fence on lines 1-2 with the first `@article{` on line 4, `_projects` importance values 1/2/3, `_includes/publication-credits.html` credits map at line 54 of 81, workflow name "Deploy site", single workflow file, `CNAME` contains madisonrittinger.org. Also confirmed via `gh api` that the repo really is public, which Part 2's password warning depends on.
+- Every numbered list re-checked for sequential numbering after the edits. Guide is 832 lines.
+
 ### 2026-07-29 - MAINTENANCE-GUIDE.md: fourth pass (literal step-by-step for absolute beginners)
 
 #### Added

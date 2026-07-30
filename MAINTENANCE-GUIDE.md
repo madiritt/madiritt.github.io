@@ -128,6 +128,8 @@ No installs. Works from any computer.
 6. Below those fields, make sure **"Commit directly to the `main` branch"** is the selected option. It is selected by default, so normally you change nothing here. ("main" is just the name of the site's one live version, and you always want to save straight to it. Ignore the "Create a new branch" option; that is for a more advanced workflow you do not need.)
 7. Click the green **Commit changes** button inside the pop-up. Expected result: the pop-up closes and you are back to viewing the file, with your new text in it. The change is now saved and the robot has started rebuilding. Go to Part 6 to watch it.
 
+**Searching inside a file:** while you are in edit mode, `Ctrl+F` (Mac `Cmd+F`) opens a small find box that belongs to the editor, not the usual browser one, so it looks different than you expect. Type your text and press Enter to jump to it. This is the fastest way to find a line in a long file, and several recipes below tell you to use it.
+
 **If you get stuck partway and want out, see 3.5. Nothing you have not committed can hurt anything.**
 
 ### 3.3 Uploading a file (photo, PDF)
@@ -198,6 +200,8 @@ Do this once, all the way through, before you need to make a real change. Budget
 **If step 18 shows a red X instead of a green check:** you have a typo, most likely a deleted colon or a deleted `current` label in step 10. The live site is still fine and still showing the old version. Go to Part 7.2 and restore the previous version of `about.md`, then start over at step 5.
 
 **If step 21 still shows the old text:** you almost certainly shortened the wait in step 19 or did a normal refresh instead of `Ctrl+F5`. Wait another 10 minutes and hard-refresh again. If it is still wrong after an hour, go to Part 7.3.
+
+From now on, updating that line is recipe 5.1, which is these same steps in short form. Every other recipe in Part 5 follows the identical rhythm: open the file, change the thing, commit, watch for green, wait, hard refresh.
 
 ---
 
@@ -338,8 +342,9 @@ This recipe has three parts. **Part 1 is required. Parts 2 and 3 are optional** 
 5. Open `_bibliography/papers.bib` for editing (section 3.2; use the **Go to file** button and type `papers` to find it fast).
 6. Look at the top of the file. Lines 1 and 2 are two `---` lines with nothing between them, then a blank line, then the first paper's `@article{` line. **Leave those two `---` lines alone.** They look pointless and they are not; deleting them stops the Publications page from building.
 7. Click at the very start of the first `@article{` line, which is line 4, so the cursor is blinking immediately before the `@` symbol.
-8. Paste the copied block (`Ctrl+V`, Mac `Cmd+V`), then press Enter twice to put a blank line between your new entry and the paper that used to be first. Expected result: the two `---` lines are still at the top, your new paper comes next, and the old entries follow below it. New papers go at the top so the newest work reads first.
-9. Your pasted block will look roughly like the real entry below. Compare yours to it and add any of the last three lines that Scholar did not include:
+8. Paste the copied block (`Ctrl+V`, Mac `Cmd+V`). Expected result: the two `---` lines are still at the top, your new paper comes next, and the old entries follow below it. New papers go at the top so the newest work reads first.
+9. Look at where your pasted block ends. If its closing `}` is touching the next `@article{` line with no gap, click at the end of that `}` and press Enter once so there is one blank line between them. This is cosmetic, not structural, but it keeps the file readable.
+10. Compare your pasted block against this real entry from the file. Yours should have the same shape, though Scholar may not include all the same lines:
    ```bibtex
    @article{rittinger2025instinct,
      title={Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems},
@@ -354,14 +359,15 @@ This recipe has three parts. **Part 1 is required. Parts 2 and 3 are optional** 
      preview={instinct-insight.jpg}
    }
    ```
-10. Check the ID on the first line (in the example, `rittinger2025instinct`, the text between `{` and the comma). It must not match any other entry in the file. Scholar usually generates a unique one. If it happens to duplicate an existing entry, replace it with last name + year + first word of the title, all lowercase and run together, for example `rittinger2027webs`.
-11. Check there is a `doi={...}` line. If Scholar omitted it, add it, and put in just the number part of the DOI with no `https://doi.org/` in front, for example `doi={10.1098/rsbl.2025.0293},`. This line is what creates the DOI button on the site.
-12. Decide about the homepage. If this paper should be featured on the HOMEPAGE under Selected Publications, include the line `selected={true},`. If it should appear only on the Publications page, leave that line out entirely. Keep the homepage list to the best 2 or 3 papers.
-13. If you are not adding a thumbnail image, leave out the `preview={...}` line entirely. If you are adding one, do Part 2 below and use the file name you upload there.
-14. Make sure the block ends with a `}` on its own line, and that every line inside the block except the last one ends with a comma. The last line before the `}` has NO comma.
+11. Check there is a `doi={...}` line. If Scholar omitted it, add one, using just the number part of the DOI with no `https://doi.org/` in front, like `doi={10.1098/rsbl.2025.0293},`. That line is what creates the DOI button on the site.
+12. Decide about the homepage. To feature this paper on the HOMEPAGE under Selected Publications, add the line `selected={true},`. To have it appear only on the Publications page, leave that line out. Keep the homepage list to the best 2 or 3 papers.
+13. Leave out the `preview={...}` line for now. Part 2 below adds it if you want a thumbnail.
+14. Last check before saving: the block ends with a `}` on its own line, and every line inside the block ends with a comma EXCEPT the last one before that `}`.
 15. Commit (section 3.2, steps 4 to 7), then check the Publications page went live (Part 6).
 
-Your own name is bolded automatically wherever it appears in the list. You do not do anything for that.
+Two things you never have to do here: your own name is bolded automatically wherever it appears in the list, and the papers sort themselves by year on the page, so the order inside the file is only for your own convenience.
+
+Rare snag: the text between `{` and the first comma on the `@article{` line is the entry's internal ID, and no two entries may share one. Scholar builds it from surname, year, and first title word, so a clash only happens with two same-year papers whose titles start with the same word. If the build fails and the error mentions a duplicate key, change one character in the newer ID (`rittinger2027webs` to `rittinger2027websb`) and commit again.
 
 **Part 2 - add a thumbnail image (optional; skip it and the entry just shows no picture).**
 
@@ -397,7 +403,8 @@ Figures from Madi's own papers need no credit, so skip this part for those.
 5. Double-check the file name on the left is character-for-character identical to the `preview={...}` file name from Part 2. If they differ at all, no credit appears.
 6. Ignore the line that starts with `//`. That is a note to humans, not a setting.
 7. Commit and check the site (Part 6). Expected result: the photographer's name shows in small text across the bottom of that thumbnail.
-8. This file is the one and only exception to house rule 4 ("don't edit machinery"). Do not change anything else in it. If the thumbnails ever look wrong after editing here, restore the previous version (Part 7.2).
+
+This file is the one and only exception to house rule 4 ("don't edit machinery"), so change nothing else in it. If the thumbnails look wrong afterwards, restore the previous version (Part 7.2).
 
 ### 5.4 Add a gallery photo
 
@@ -500,8 +507,8 @@ The Research page shows one card per research question. Each card is its own fil
    - `importance: 2` controls the order on the page, lowest number first. `1` sits before `2`.
    - `category: current` puts it in the current-work section; `category: past` moves it to the past-work section. Those are the only two values that work.
    - `img:` would be a picture on the card itself. All three are currently empty (the text after `img:` starts with a `#`, which means it is a note, not a value). Leave it as it is unless you want card pictures, and then set all three, not one.
-3. Below the settings zone the page has a `<style>` block, the same as the Teaching page. Scroll PAST the line that reads `</style>`, roughly 70 lines down, before editing anything. Everything above that line is layout machinery.
-4. Edit the sentences below `</style>` freely. Leave every line that starts with `<` or `{%` alone.
+3. Press `Ctrl+F` and search for `research-body`. It finds one line, about 60 lines down, that reads `<div class="research-body" markdown="1">`. **The page's paragraphs are the text between that line and the `</div>` about 15 lines below it.** That block is the only part of the page you edit.
+4. Edit those paragraphs freely. Everything outside that block is layout machinery: two `<style>` blocks, the photo tiles, and some scripts at the bottom. Leave all of it alone.
 5. Commit (section 3.2, steps 4 to 7) and check the Research page (Part 6).
 
 **To swap a photo on a research page.** This one is fiddlier than the other photo recipes, because each photo's file name appears TWICE in the file and its caption is in a third place. Change all three or the photo will half-work.
@@ -527,9 +534,10 @@ The Research page shows one card per research question. Each card is its own fil
 3. Create a new file in the `_projects/` folder (section 3.4). Name it after the question, lowercase with hyphens, ending in `.md`, for example `web-building-decisions.md`.
 4. Paste the copied contents into the large text area (`Ctrl+V`).
 5. Change the `title:` and `description:` lines, and give `importance:` a number no other file is using. The three existing files use 1, 2, and 3, so use 4. Also set `category:` to `current` or `past`.
-6. Rewrite the sentences below the `</style>` line. Leave the `<style>` block itself exactly as copied; that is what makes the new page match the others.
-7. Delete the photo block near the bottom, because it points at the copied page's images. Delete every `<a href=...>` line, every `{% include figure.liquid ... %}` line, and the `</a>` lines that go with them. Leave the `<div>` that contained them if it has no photos in it; an empty photo area is harmless.
-8. Commit. Expected result: the new card appears on the Research page on its own, with no other file to update. Add photos afterwards as a second, separate change, following the photo-swap steps above but using the copied page's structure as your pattern.
+6. Rewrite the paragraphs inside the `research-body` block (find it the same way as above). Leave everything outside that block exactly as copied; that machinery is what makes the new page look like the others.
+7. Leave the photo tiles alone for now. The new page will temporarily show the copied page's photos, which looks wrong but breaks nothing.
+8. Commit. Expected result: the new card appears on the Research page on its own, with no other file to update.
+9. Then, as a SEPARATE change, swap each photo using the photo-swap steps above, one photo per commit. If you have fewer photos than the copied page had, delete the leftover tiles: each tile is three lines, an `<a href=...>` line, an `{% include figure.liquid ... %}` line, and a `</a>` line. Delete all three together.
 
 ### 5.9 Edit the Teaching / Mentoring page (carefully)
 
@@ -552,11 +560,11 @@ These control how the photos float and how the text lines up at every screen siz
 **To change the words on the page:**
 
 1. Open `_pages/teaching.md` for editing (section 3.2; use **Go to file** and type `teaching`).
-2. Scroll PAST the `</style>` line, roughly 120 lines down. Everything above it is off limits.
+2. Scroll down past the `</style>` line, which is around line 121. Everything above it is off limits.
 3. Edit the sentences below that point. Leave every line that starts with `<` alone unless it is a `<figcaption ...>` caption.
 4. Commit (section 3.2, steps 4 to 7) and check the Teaching / Mentoring page (Part 6), on a phone as well as a computer if you can.
 
-**To swap one of the three photos:**
+**To swap one of the three photos.** Pick a replacement with a similar shape to the photo it replaces. A tall portrait dropped in where a wide photo was changes how much text wraps beside it, and that is the one thing about this page you cannot fix from the page itself.
 
 1. Rename the new image on your computer to a lowercase hyphenated name starting with `mentoring-`, for example `mentoring-lab-group-2027.jpg`.
 2. Upload it into `assets/img/` (section 3.3).
@@ -567,7 +575,6 @@ These control how the photos float and how the text lines up at every screen siz
 4. In the line for the photo you are replacing, change ONLY the file name between `assets/img/` and the closing `"`. Leave the `{% include figure.liquid path="`, the `assets/img/`, and everything after the closing quote exactly as they are.
 5. A few lines below it, update the `<figcaption class="mentoring-caption">` text to match the new photo, changing only the words between `>` and `</figcaption>`.
 6. Commit and check the page (Part 6).
-7. Use a photo with a similar shape to the one you removed. A tall portrait swapped in where a wide photo was will change how much text wraps beside it.
 
 **If this page looks broken after an edit,** do not try to fix the layout by hand. Restore the previous version of the file (Part 7.2), then retry with a smaller change, or leave a note for technical help.
 
@@ -579,7 +586,8 @@ These control how the photos float and how the text lines up at every screen siz
 2. Rename it on your computer to exactly `prof_pic.jpg`. All lowercase, an underscore between `prof` and `pic`, and `.jpg` at the end. If your file is a `.jpeg` or `.JPG`, renaming the extension to `.jpg` is fine.
 3. Upload it into `assets/img/` (section 3.3). Expected result: GitHub replaces the old file silently, with no extra question asked.
 4. Commit and check the homepage (Part 6).
-5. Never DELETE this file. The homepage refuses to build without a file at `assets/img/prof_pic.jpg`, so always replace it, never remove it.
+
+**Never DELETE this file.** The homepage refuses to build without something at `assets/img/prof_pic.jpg`. Always replace it, never remove it.
 
 **The browser-tab icon (the tiny picture in the browser tab, called a favicon):**
 
@@ -594,12 +602,26 @@ These control how the photos float and how the text lines up at every screen siz
 
 - **File to edit:** `_config.yml`
 
-This file also holds machinery settings, so change ONLY the two lines named below and nothing else.
+This file also holds machinery settings, so change ONLY the text named below and nothing else.
+
+**These two settings are laid out differently from every other one in this guide.** Their label line ends in a `>` and the sentence you actually edit is on the NEXT line, indented by two spaces. Near the top of the file it looks like this:
+
+```yaml
+contact_note: >
+  The best way to reach me is by email.
+description: > # the ">" symbol means to ignore newlines until "footer_text:"
+  Madison Rittinger - behavioral ecologist studying decision-making and cognition in animals. PhD candidate, UW Milwaukee.
+```
+
+The `>` is what lets a long sentence sit on its own indented line below the label. Leave the `>` and everything before it alone, including the grey comment text after `description: >`.
 
 1. Open `_config.yml` for editing (section 3.2; use **Go to file** and type `config`).
-2. Press `Ctrl+F` and search for `contact_note` to jump to it. That line's value is the sentence under the social icons on the homepage ("The best way to reach me is by email."). Change only the text after the colon.
-3. To change the one-line site summary that search engines show, press `Ctrl+F` and search for `description:`. Change only the text after the colon.
-4. Commit (section 3.2, steps 4 to 7) and check the homepage (Part 6).
+2. Press `Ctrl+F` and search for `contact_note`. It is around line 9.
+3. Edit the indented sentence on the line BELOW it: "The best way to reach me is by email." That sentence appears under the social icons on the homepage. Keep the two spaces of indentation at the start of the line.
+4. To change the one-line site summary that Google shows in search results, edit the indented sentence below `description: >`, two lines further down. Same rule: keep the two spaces at the start.
+5. Commit (section 3.2, steps 4 to 7) and check the homepage (Part 6).
+
+Do not touch `blog_description` further down the file. It looks similar and is unused.
 
 **The subtitle under the name on the homepage** ("PhD Candidate · Department of Biological Sciences · University of Wisconsin-Milwaukee") lives in a different file:
 
@@ -616,10 +638,11 @@ Removing is the mirror of adding. **The key idea: for photos and publications, d
 
 1. On the repo page, click the `_news` folder, then click the file you want gone.
 2. Near the top right of the file box, click the **...** (three dots) button. A menu drops down.
-3. Click **Delete file**. Expected result: a page showing the file's contents crossed out or a commit box at the bottom.
-4. Type a commit message like `Remove ABS 2026 news item`, leave **"Commit directly to the `main` branch"** selected, and click the green **Commit changes** button.
+3. Click **Delete file**. Expected result: a page previewing the deletion, with a green commit button.
+4. Commit it the same way as any edit (section 3.2, steps 4 to 7), using a message like `Remove ABS 2026 news item`.
 5. That is all. Nothing else in the site refers to a news file.
-6. In VS Code instead: right-click the file in the Explorer panel, choose **Delete**, then commit and push (section 4.4, steps 3 and 4).
+
+In VS Code instead: right-click the file in the Explorer panel, choose **Delete**, then commit and push (section 4.4, steps 3 and 4).
 
 **To remove a gallery photo:**
 
@@ -732,7 +755,7 @@ Find your symptom on the left before reading anything else.
 | What you're seeing | Most likely cause | Go to |
 |---|---|---|
 | Change isn't on the site, Actions shows a green check | You didn't wait 10 minutes, or you did a normal refresh instead of a hard refresh | Part 6, steps 2 and 3 |
-| Change isn't on the site, Actions shows NO new run at all | (VS Code only) you committed but never pushed | Part 4.4, step 4 |
+| Change isn't on the site, Actions shows NO new run at all | Nothing was ever saved: in VS Code you committed but never pushed, or in the browser you never clicked the final **Commit changes** | Part 4.4 step 4, or Part 3.2 step 7 |
 | Red X in Actions | A typo in the settings zone: missing quote, missing comma, deleted colon, or a Tab used for indenting | Part 7.1 |
 | A page looks scrambled or half-empty | Indentation broken in that page's settings zone | Part 7.2, restore the file |
 | A photo shows as a broken-image icon | The file name in the entry doesn't match the uploaded file exactly, including capital letters and `.jpg` vs `.jpeg` | The relevant recipe in Part 5 |
@@ -773,7 +796,7 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 1. **The name on the site is always "Madison Rittinger."** Never "Madi" in any page, caption, news item, or file that renders on the site. (This maintenance guide is internal and is not part of the rendered site, so it refers to her informally as "Madi" in places - that's intentional and fine. The rule is about what visitors actually see.)
 2. **No em-dashes (the long dash) in site text.** Use a hyphen with spaces, a colon, or reword. One exception exists on purpose: the long dash in the bio's "antagonizing my cat" sentence.
 3. **Image guidelines:** JPG for photos. Keep files under about 2 MB (phone photos may need shrinking; any "resize image" tool works, aim for 1600 to 2000 pixels on the long side). Name files in lowercase with hyphens and a prefix that says where they belong: `gallery-`, `mentoring-`, `research-`, or into `publication_preview/`. No spaces in filenames.
-4. **Don't edit machinery.** Folders `_layouts`, `_sass`, `.github`, and the file `purgecss.config.js` are the site's engine room. The ONLY exception you'll ever need is the credits list in `_includes/publication-credits.html` (recipe 5.3). Root files `CNAME`, `Gemfile`, `Gemfile.lock`, `package.json`, `package-lock.json`, `requirements.txt` must not be deleted or renamed.
+4. **Don't edit machinery.** Folders `_layouts`, `_sass`, `_includes`, `.github`, and the file `purgecss.config.js` are the site's engine room. The ONLY exception you'll ever need is the credits list in `_includes/publication-credits.html` (recipe 5.3). Root files `CNAME`, `Gemfile`, `Gemfile.lock`, `package.json`, `package-lock.json`, `requirements.txt` must not be deleted or renamed.
 5. **One change at a time.** Make an edit, commit it, watch it go green, look at the site. Small steps make mistakes easy to find and undo.
 6. **Log what you change.** The file `CHANGELOG.md` at the repo root is the site's diary. Adding a dated line about what you changed is good practice, not mandatory for small content edits.
 
@@ -802,13 +825,7 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 | Remove a news item / photo / publication | delete the file or its entry (recipe 5.12) |
 | Search visibility (not showing in Google) | Google Search Console (Part 7.5) |
 
-And the three sections worth remembering by number:
-
-| Situation | Section |
-|---|---|
-| I have never done this and want to practice safely | 3.6 |
-| I am mid-edit and want out without saving | 3.5 |
-| Something is wrong and I do not know what | 7.6, then 7.2 |
+Two section numbers worth remembering: **3.6** to practice safely, **7.6** when something is wrong and you do not know what.
 
 **Live site:** https://madisonrittinger.org
 **Repo:** https://github.com/madiritt/madiritt.github.io

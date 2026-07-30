@@ -19,3 +19,4 @@ vendor
 
 # wrangler local-dev secrets for admin-auth (never commit)
 .dev.vars
+.wrangler/

@@ -198,6 +198,45 @@ export default {
         ));
       }
 
+      /* Belt over GitHub's braces: only hand the token back if the account is
+         one of the site's named editors. GitHub already rejects pushes from
+         anyone without access, so this adds no capability, but it stops a
+         stranger's sign-in at the door instead of at their first save. The
+         list lives in wrangler.toml [vars]; if it is ever removed or emptied,
+         the check switches itself off rather than locking everyone out. */
+      const allowed = (env.ALLOWED_USERS || "")
+        .split(",")
+        .map((u) => u.trim().toLowerCase())
+        .filter(Boolean);
+
+      if (allowed.length > 0) {
+        let login;
+        try {
+          const who = await fetch("https://api.github.com/user", {
+            headers: {
+              authorization: `Bearer ${data.access_token}`,
+              accept: "application/vnd.github+json",
+              // GitHub's API rejects requests without a User-Agent.
+              "user-agent": "madisonrittinger-org-admin-auth",
+            },
+          });
+          if (!who.ok) throw new Error();
+          login = (await who.json()).login;
+        } catch {
+          return clearState(relayPage(
+            { provider: "github", error: "Could not confirm which account signed in. Try again." },
+            origin
+          ));
+        }
+
+        if (!allowed.includes(String(login).toLowerCase())) {
+          return clearState(relayPage(
+            { provider: "github", error: `The account "${login}" is not one of this site's editors.` },
+            origin
+          ));
+        }
+      }
+
       /* OAuth Apps return only access_token. GitHub Apps (which use these
          same two endpoints) can also return refresh_token when user-token
          expiration is enabled. Sveltia's auth client understands an optional

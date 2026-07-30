@@ -10,3 +10,13 @@ main = "worker.js"
 compatibility_date = "2026-07-01"
 
 # No KV, no D1, no bindings. The Worker holds no state between requests.
+
+# The only GitHub accounts the Worker will hand a token to, comma-separated,
+# case-insensitive. GitHub separately rejects saves from anyone without push
+# access, so this list adds no capability; it just refuses a stranger's
+# sign-in at the door instead of at their first save. To add or remove an
+# editor: change the repo's Collaborators on GitHub, edit this line to match,
+# then run `wrangler deploy` in this folder. Deleting the line (or leaving it
+# empty) turns the check off entirely; it cannot lock everyone out.
+[vars]
+ALLOWED_USERS = "madiritt,AbysulGaming"

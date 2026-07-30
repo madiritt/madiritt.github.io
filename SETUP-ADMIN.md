@@ -28,11 +28,15 @@ Part 0 tests piece 1 by itself, on this computer, with no accounts. Pieces 2
 and 3 exist only for the sign-in button, and there is a documented Plan B near
 the end of this file that skips them both.
 
-Who can edit is decided by GitHub, not by anything here. Anyone can reach the
-sign-in page and sign in; only accounts with push access to
-`madiritt/madiritt.github.io` can actually save a change. Right now that is
-exactly two accounts, `madiritt` and `AbysulGaming`. To add or remove an editor
-later, change the repo's Collaborators list and nothing else.
+Who can edit is decided by GitHub, not by anything here: only accounts with
+push access to `madiritt/madiritt.github.io` can save a change. Right now that
+is exactly two accounts, `madiritt` and `AbysulGaming`. On top of that, the
+Worker carries its own copy of that list (`ALLOWED_USERS` in
+`admin-auth/wrangler.toml`) and refuses to complete a sign-in for anyone else,
+so a stranger is turned away at the door instead of at their first save. To
+add or remove an editor later: change the repo's Collaborators list on GitHub,
+edit the `ALLOWED_USERS` line to match, and run `wrangler deploy` in the
+`admin-auth` folder.
 
 **Time needed:** about 40 minutes, most of it waiting for a build, plus about
 20 minutes for the Part 0 test.
@@ -376,6 +380,52 @@ This is the step that puts the editor on the real site.
 
 ---
 
+## Part 6: Optional hardening, a second gate in front of the sign-in
+
+Do this only AFTER Part 5 works end to end, so you are never debugging two new
+systems at once. It puts Cloudflare's own login screen (a one-time code sent
+by email) in front of the Worker, so nobody even reaches the GitHub sign-in
+without first proving they own one of two email addresses. It costs nothing on
+the free plan.
+
+Written from Cloudflare's docs as of July 2026 but NOT yet exercised by us, so
+treat labels as approximate and expect small differences: the feature is the
+**Enable Cloudflare Access** button on the Worker's workers.dev route.
+
+1. Open https://dash.cloudflare.com and sign in.
+2. In the left sidebar, click **Workers & Pages**.
+3. Click the Worker named `madiritt-admin-auth`.
+4. Go to **Settings**, then **Domains & Routes**.
+5. On the `workers.dev` row, click **Enable Cloudflare Access**.
+   Expected result: Access turns on with an auto-created policy named
+   `madiritt-admin-auth - Production`.
+6. Click **Manage Cloudflare Access** (or open the Zero Trust dashboard and
+   find that policy under Access > Policies).
+7. Edit the policy so the ONLY include rule is **Emails**, listing exactly:
+   `trevornoelb@gmail.com` and Madi's email (confirm with her which one she
+   wants to use; her GitHub commits use `mrittinger44@gmail.com`).
+8. Save the policy.
+9. Test the gate alone: open the Worker URL in a private/incognito window.
+   Expected result: a Cloudflare Access page asking for an email, not the
+   Worker's own "This address only handles signing in" page. Enter your email,
+   get the code from your inbox, enter it, and THEN the Worker page shows.
+10. Test the whole chain: open https://madisonrittinger.org/admin/ and sign
+    in. Expected result: the popup shows the Access email step first (only
+    when its session has expired, roughly daily by default), then the usual
+    GitHub authorisation, then the editor.
+
+Note for the future: with Access in front, the sign-in popup's first hop goes
+through Cloudflare's login, which can strip the Referer the Worker uses to
+learn which page opened it. In production that is harmless (the fallback IS
+the production site); it only matters if someone someday tries the full
+GitHub sign-in from localhost, which nothing in our workflow does (local
+editing uses Part 0's local mode instead).
+
+To back it out: same Settings page, disable Access on the route. The sign-in
+returns to GitHub-only.
+
+---
+
 ## Plan B: skip the OAuth pieces entirely (access token sign-in)
 
 The editor's sign-in screen has a third button, **Sign In Using Access Token**.
@@ -428,6 +478,13 @@ the two Worker secrets with the new values; (3) do Part 3 step 9 on the NEW
 app's form; (4) on https://github.com/settings/apps, open the old GitHub App,
 scroll to the **Danger zone**, and click **Delete GitHub App**. Nothing else
 changes and nothing needs rebuilding.
+
+**The sign-in ends with: The account "..." is not one of this site's editors.**
+Working as designed if the account really is a stranger. If it is YOUR account
+being refused, the name is missing from the `ALLOWED_USERS` line in
+`admin-auth/wrangler.toml`: fix the line, then run `wrangler deploy` in that
+folder. The comparison ignores capital letters, so capitalisation is never the
+problem.
 
 **The editor loads but saving fails with a permissions error.**
 The signed-in account lacks push access. Check

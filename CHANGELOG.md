@@ -11,6 +11,22 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: paving tomorrow's manual work (branch `admin-cms`, still NOT live)
+
+Everything below removes a step, a decision, or a surprise from the login-requiring session planned for 2026-07-31.
+
+#### Added
+- **Worker sign-in allowlist (the "A" hardening, built tonight so tomorrow needs one deploy instead of two).** After the token exchange the Worker asks GitHub which account just signed in and only relays the token if the login is on the `ALLOWED_USERS` list (a plain var in `wrangler.toml`, currently madiritt + AbysulGaming, case-insensitive). GitHub already rejects saves from strangers, so this adds no capability; it turns them away at sign-in instead of at their first save. Fails safe in both directions: an unreachable GitHub API refuses the sign-in with a readable message, and an empty or deleted list switches the check off rather than locking everyone out. Runbook's who-can-edit section and troubleshooting updated (adding an editor is now Collaborators + this list + `wrangler deploy`).
+- **SETUP-ADMIN Part 6: the Cloudflare Access gate (the "D" hardening), written up from current Cloudflare docs.** One-click "Enable Cloudflare Access" on the Worker's workers.dev route, policy restricted to two literal email addresses, a gate-alone test and a whole-chain test, the back-out, and a note on the one interaction with our own design (Access's redirect can strip the Referer the Worker reads; harmless in production because the fallback IS the production origin). Flagged as docs-derived and unexercised.
+
+#### Done tonight that the runbook expected tomorrow
+- Part 2 complete: wrangler 4.115.0 installed globally and on PATH.
+- Part 3's mechanics proven without an account: `wrangler deploy --dry-run` bundles the Worker green (6.96 KiB) and shows `ALLOWED_USERS` bound as an environment variable. Only `wrangler login` and the real deploy remain.
+- Worker re-verified after the allowlist: Node syntax check green.
+
+#### Changed
+- CLAUDE.md gains an "IN PROGRESS: /admin web editor" section: branch state, what is done and verified, exactly what remains (with runbook part numbers), the honest unknowns, and the post-go-live reminder to update MAINTENANCE-GUIDE (deliberately not before). A fresh session tomorrow starts with the full picture instead of reconstructing it from git.
+
 ### 2026-07-30 - Admin editor: squeaky-clean pass (branch `admin-cms`, still NOT live)
 
 Final sweep of the corners no earlier pass had reached. Nothing dramatic surfaced, which was the point of checking.

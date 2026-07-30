@@ -90,6 +90,40 @@ Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex 
 
 ---
 
+## IN PROGRESS: /admin web editor (branch `admin-cms`, NOT merged, NOT live)
+
+A form-based editor at madisonrittinger.org/admin (Sveltia CMS + our own
+Cloudflare Worker OAuth broker in `admin-auth/`) so Madi can edit through
+forms. Everything is on the `admin-cms` branch; the site only builds from
+`main`, so nothing is live until the merge in `SETUP-ADMIN.md` Part 5.
+
+- **Read first:** `SETUP-ADMIN.md` (the full deploy runbook, Parts 0-6 + Plan
+  B) and the 2026-07-30 CHANGELOG entries (five, newest first: squeaky-clean
+  pass, error-hunting pass, teaching refactor + GitHub App route, verification
+  pass, original build). They carry every decision, bug found, and open risk.
+- **State (2026-07-30 night):** all code/config/runbook work that can be done
+  without logins is DONE and verified (handshake contract checked against
+  Sveltia source, config audited against every editable file, teaching page
+  refactored to front-matter sections and byte-identical, wrangler installed
+  and `wrangler deploy --dry-run` green, Worker carries an ALLOWED_USERS
+  allowlist). What remains needs humans: Part 0 (Trevor's 21-step no-account
+  local test with three embedded experiments: portrait preview, news filename
+  + date format, BibTeX round-trip), Part 1-ALT (GitHub App experiment,
+  madiritt login; OAuth App is the fallback), Parts 3-5 (Cloudflare login,
+  deploy, merge), Part 6 (optional Cloudflare Access gate, do with Madi).
+- **Honest unknowns:** GitHub's half of the OAuth flow (consent + code swap)
+  is contract-verified but never run; the GitHub App route and collaborator
+  sign-in are try-and-see; Part 6's UI labels are from docs, not exercised.
+- Publications ARE in the editor (raw-BibTeX box, experimental, lives or dies
+  by Part 0's git-diff gate). Teaching IS editable (its layout machinery moved
+  to `_includes/teaching-sections.liquid`; the page's words live in
+  `_pages/teaching.md` front matter as a `sections` list).
+- After go-live: update MAINTENANCE-GUIDE.md to mention the editor as the
+  primary route with the manual recipes as fallback (NOT done yet, on
+  purpose; the guide must not describe an editor that is not live).
+
+---
+
 ## THE NEXT BIG TASK: Mossy Modernist design port
 
 The visual design is locked as a standalone HTML mockup but has NOT been ported into the site's Tailwind v4 styling yet. This is the next major work item. The mockup lives outside the repo (in Trevor's Claude outputs as `visual_directions_for_madi.html`); the full spec is below so it can be reproduced.

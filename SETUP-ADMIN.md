@@ -77,20 +77,40 @@ needs a feature Firefox does not have.
    each. Expected result: every form shows the site's real current content in
    its boxes. A form showing empty boxes where content should be means that
    collection's config is wrong; stop and tell me which one.
-9. Now the round-trip test on the riskiest file. Open **Publications
-   (advanced)**, click into the **BibTeX** box, go to the very end of the text,
-   and press Enter once to add one blank line at the bottom.
-10. Click the **Save** button (top right).
+9. While you are in the **Homepage** form: check that the **Portrait** field
+   shows a small preview of the real headshot photo. A blank or broken
+   preview there means the photo path mapping is wrong; tell me, but keep
+   going with the rest of the test.
+10. Now the round-trip test on the riskiest file. Open **Publications
+    (advanced)**, click into the **BibTeX** box, go to the very end of the
+    text, and press Enter once to add one blank line at the bottom.
+11. Click the **Save** button (top right).
     Expected result: the button finishes without an error message. In local
     mode, Save writes straight to the file on disk; nothing is committed to
     git, so nothing can reach the live site from here.
-11. Back in PowerShell, open a SECOND PowerShell window (the first one is busy
+12. Now the create-a-new-entry test. In the sidebar click **News**, then the
+    button for creating a new entry (labelled **Create** or **New news
+    update**, top right).
+13. In the new form, leave the date as it is (today is filled in), and in the
+    **What happened** box type exactly:
+    `Test item, will be deleted.`
+14. Click **Save**.
+    Expected result: it saves without an error and the item appears in the
+    News list. This tests the one thing editing cannot: what filename the
+    editor invents for a brand-new item (our news files have no title, which
+    is unusual, and the filename recipe leans on one).
+15. Back in PowerShell: open a SECOND PowerShell window (the first one is busy
     running the server), and type this, then press Enter:
     `cd C:\Repos\madiritt.github.io`
-12. Type this and press Enter:
-    `git diff --stat`
-    Expected result: a short list of the files you just saved. Now type this
-    and press Enter to see the actual changes:
+16. Type this and press Enter:
+    `git status --short`
+    Expected result: a few lines starting with ` M` (files you saved), plus
+    one line starting with `??` for a NEW file inside `_news\`. Look at that
+    new file's name: PASS if it starts with today's date, like
+    `2026-07-31-something.md`. If it is named something odd like
+    `untitled.md` instead, the test still passes; just tell me the exact
+    name and I will fix the filename recipe before go-live.
+17. Type this and press Enter:
     `git diff`
     Expected result for a PASS: the only changes are the ones you made on
     purpose (the blank line in `_bibliography/papers.bib`). Whitespace-only
@@ -99,10 +119,14 @@ needs a feature Firefox does not have.
     touch, mangled BibTeX, or changes in files you never opened. If you see
     that, copy the diff output and show me; that collection gets fixed or
     removed before go-live.
-13. Type this and press Enter to throw away the test edits:
+18. Type this and press Enter to throw away the edits to existing files:
     `git checkout -- .`
     Expected result: nothing prints. That is correct.
-14. Type this and press Enter to confirm the repo is clean again:
+19. Type this and press Enter to delete the test news item (checkout cannot
+    remove it, because it is a new file git was never told about):
+    `git clean -fd _news`
+    Expected result: one line starting with `Removing _news/`.
+20. Type this and press Enter to confirm the repo is clean again:
     `git status`
     Expected result: `nothing to commit, working tree clean`.
 
@@ -330,7 +354,9 @@ This is the step that puts the editor on the real site.
    with Homepage, News, Gallery, Research, Publications (advanced), Outreach,
    Teaching / Mentoring, CV, and Links and contact.
 8. Make one small real edit to prove the whole chain works: open **Homepage**,
-   change the Currently line, and click the publish button.
+   change the Currently line, and click the **Save** button (top right). In
+   this signed-in mode, Save commits straight to the repo, which is what
+   triggers the site to rebuild.
 9. Watch the Actions tab again for a green check, then hard-refresh
    https://madisonrittinger.org with `Ctrl+F5`. Expected result: your change is
    on the homepage. The editor is working.

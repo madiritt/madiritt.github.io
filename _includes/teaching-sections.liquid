@@ -123,6 +123,7 @@
 {% assign side = section.photo_side | default: "right" %}
 <div class="mentoring-section{% if section.photo %} photo-{{ side }}{% endif %}">
 
+{% if section.photo %}
 {% capture section_figure %}
 <figure class="mentoring-inset{% if side == 'left' %} inset-left{% endif %}">
   <div class="mentoring-frame">
@@ -131,6 +132,7 @@
   <figcaption class="mentoring-caption">{{ section.photo_caption }}</figcaption>
 </figure>
 {% endcapture %}
+{% endif %}
 
 {% if section.photo and side == "left" %}{{ section_figure }}{% endif %}
 

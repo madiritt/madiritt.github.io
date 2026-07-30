@@ -11,6 +11,27 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: error-hunting pass over our own work (branch `admin-cms`, still NOT live)
+
+Deliberate defect hunt over everything built on this branch today, checking claims against files rather than against memory. Four real bugs found and fixed, plus a full front-matter audit.
+
+#### Fixed
+- **teaching-sections.liquid ran figure.liquid even for photo-less sections.** The figure markup was built inside `{% capture %}` before the photo check, so a section without a photo would still execute the include with a nil path (broken image or build error waiting for the first photo-less section). The capture is now inside the guard. Rendered output for the current three sections: verified unchanged, every `<p>`, `<h2>` and `<figcaption>` byte-identical to the pre-refactor baseline.
+- **Publications collection had `format: yaml-frontmatter` on the file entry; the config schema defines it at collection level.** At file level it could be ignored, and a `.bib` extension has no inferred format, so the collection might not have loaded at all. Moved up, with a comment saying why it sits there.
+- **Clearing an optional field would have written a truthy empty string.** Sveltia writes `""` for emptied fields by default, and empty string is truthy to Liquid, so clearing ORCID would render a broken icon while the field's own hint says "clear a value to hide that icon". Root-level `output: omit_empty_optional_fields: true` makes clearing genuinely remove the key (Sveltia-only option; harmless if Decap ever replaces it).
+- **Worker: a thrown fetch to GitHub surfaced as a bare Cloudflare exception page.** The token exchange is now wrapped so network failures come back through the normal relay ("Could not reach GitHub..."), which the editor shows on its sign-in screen. The one-time state cookie is also expired on every callback outcome instead of lingering for its 10-minute window.
+
+#### Verified (audit, no changes needed)
+- Every front-matter key in every file the editor touches, re-checked against the live files: about.md (all 13 keys incl. the three nested objects), gallery.md, cv.md (`cv_pdf` leading slash matches the field's `public_folder`), outreach.md, `_projects/*` (incl. empty `img`), `_news/*`, socials.yml. No undeclared keys anywhere.
+- Gallery and Teaching photo paths store as `assets/img/...` via the global media settings, matching what the pages already contain.
+
+#### Changed
+- SETUP-ADMIN Part 0 grew from 14 to 20 steps, adding the two checks the audit could not settle from source alone: the Homepage portrait preview (the one image field with a nonstandard path mapping) and a create-a-news-item test. News files have no `title` key and the filename recipe leans on one, so what filename the editor invents for a new item is genuinely unknown; the test says what a pass looks like and what to report otherwise. Cleanup switched to `git checkout -- .` plus `git clean -fd _news`, since checkout cannot remove a file git was never told about.
+- SETUP-ADMIN Part 5 step 8: the go-live smoke test said to click "the publish button"; the button is labelled **Save** (top right), and in signed-in mode Save commits to the repo. Named exactly now.
+
+#### Notes
+- `/admin` boot re-verified by screenshot after the config changes; `admin/config.yml` still byte-identical through the build (20061 = 20061). Full local build green.
+
 ### 2026-07-30 - Teaching page refactor (now editable) + GitHub App sign-in route (branch `admin-cms`, still NOT live)
 
 Second follow-up of the day, reopening the two items previously written off as not workaroundable. Both fell.

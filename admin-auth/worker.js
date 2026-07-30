@@ -142,6 +142,16 @@ export default {
       const state = url.searchParams.get("state");
       const jar = readCookie(request, COOKIE);
 
+      /* The state cookie is one-time-use: whatever happens next, expire it so
+         a stale value cannot be replayed within its 10-minute window. */
+      const clearState = (response) => {
+        response.headers.append(
+          "Set-Cookie",
+          `${COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`
+        );
+        return response;
+      };
+
       if (!code || !state || !jar) {
         return html("<p>Sign-in did not complete. Close this window and try again.</p>", 400);
       }
@@ -150,33 +160,42 @@ export default {
       const origin = decodeURIComponent(rawOrigin || "");
 
       if (state !== wantState) {
-        return html("<p>Sign-in could not be verified. Close this window and try again.</p>", 400);
+        return clearState(html("<p>Sign-in could not be verified. Close this window and try again.</p>", 400));
       }
       if (!ALLOWED_ORIGINS.includes(origin)) {
-        return html("<p>That site is not allowed to use this sign-in.</p>", 403);
+        return clearState(html("<p>That site is not allowed to use this sign-in.</p>", 403));
       }
 
-      const res = await fetch("https://github.com/login/oauth/access_token", {
-        method: "POST",
-        headers: { "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({
-          client_id: env.GITHUB_CLIENT_ID,
-          client_secret: env.GITHUB_CLIENT_SECRET,
-          code,
-          redirect_uri: `${url.origin}/callback`,
-        }),
-      });
-
-      if (!res.ok) {
-        return relayPage({ error: "GitHub refused the sign-in. Try again." }, origin);
+      /* A thrown fetch (network trouble between Cloudflare and GitHub) would
+         otherwise surface as a bare Worker exception page; catch it and tell
+         the editor instead, which shows the message on the sign-in screen. */
+      let data;
+      try {
+        const res = await fetch("https://github.com/login/oauth/access_token", {
+          method: "POST",
+          headers: { "content-type": "application/json", accept: "application/json" },
+          body: JSON.stringify({
+            client_id: env.GITHUB_CLIENT_ID,
+            client_secret: env.GITHUB_CLIENT_SECRET,
+            code,
+            redirect_uri: `${url.origin}/callback`,
+          }),
+        });
+        if (!res.ok) {
+          return clearState(relayPage({ error: "GitHub refused the sign-in. Try again." }, origin));
+        }
+        data = await res.json();
+      } catch {
+        return clearState(
+          relayPage({ error: "Could not reach GitHub to finish signing in. Try again." }, origin)
+        );
       }
 
-      const data = await res.json();
       if (data.error || !data.access_token) {
-        return relayPage(
+        return clearState(relayPage(
           { error: data.error_description || "GitHub did not return a token." },
           origin
-        );
+        ));
       }
 
       /* OAuth Apps return only access_token. GitHub Apps (which use these
@@ -187,7 +206,7 @@ export default {
       const payload = { token: data.access_token, provider: "github" };
       if (data.refresh_token) payload.refreshToken = data.refresh_token;
 
-      return relayPage(payload, origin);
+      return clearState(relayPage(payload, origin));
     }
 
     /* ---- anything else -------------------------------------------------- */

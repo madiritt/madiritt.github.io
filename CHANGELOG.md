@@ -11,6 +11,28 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: verification pass + pragmatic workarounds (branch `admin-cms`, still NOT live)
+
+Follow-up to the entry below, attacking its open risks in order. The OAuth handshake is no longer a leap of faith, the editor is now testable end to end without any accounts, and publications made it into the editor after all.
+
+#### Fixed (both would have broken the first sign-in)
+- **The Sveltia version pin was wrong.** `@sveltia/cms@^0.1.0` was meant to pin the major version, but Sveltia versions as 0.MINOR.PATCH, so it resolved to 0.1.8 from early 2023 while current is 0.175.1. Now pinned `^0.175.0` (one minor: patches arrive, breaking releases do not), and verified 0.175.1 ships `dist/sveltia-cms.js` at that path. Also dropped `type="module"` from the script tag, which the Sveltia docs say not to add.
+- **The Worker read a query param that never arrives.** It expected `site_origin` to learn which page to hand the token back to, but Sveltia sends only `provider`, `site_id` and `scope`, and its `site_id` is useless as an origin (a bare domain, and literally `cms.netlify.com` when the editor runs on localhost, a Netlify-era relic). Every sign-in would have fallen back to the apex default, so localhost and www sign-ins would have hung with no error. The Worker now derives the editor's origin from the Referer header (browsers send at least the origin cross-site under the default policy), validated against the same allowlist. A wrong or missing Referer fails closed: the token postMessage is simply never delivered to an unlisted origin.
+- Worker's missing-secret error pointed at `admin-auth/README.md`, which does not exist. Now points at SETUP-ADMIN.md Part 3.
+
+#### Verified (the "UNTESTED end to end" flag, mostly retired)
+- The popup handshake contract was checked against Sveltia's actual source (`src/lib/services/backends/git/shared/auth.js`) and against Sveltia's own official authenticator Worker: announce `authorizing:github`, wait for the editor's echo, then `authorization:github:success:{json}` with a `token` key, origins checked both ways. Our relay implements exactly this, and is stricter than the official one in one respect (it targets the editor's specific origin where the official uses a wildcard for the initial announce). What remains untested is only GitHub's half (the consent screen and code swap), which cannot run without the registered app.
+- Editor boot verified live: Jekyll serve + headless Edge screenshot of /admin shows Sveltia 0.175.1 parsing our config and rendering the sign-in screen, with the local-repository and access-token options present.
+
+#### Added
+- **Publications made it into the editor after all** (the entry below ruled them out). `papers.bib` carries an empty Jekyll front-matter fence, so it parses as front matter + body like any page, and the whole BibTeX text is now exposed as one plain text box: collection "Publications (advanced)". Not a form, and never will be: it is recipe 5.3's file in a bigger window with commit-on-save. Explicitly experimental: it stays only if the Part 0 round-trip test (save, then `git diff` must be clean) passes; the config block says so in its own comment.
+- **SETUP-ADMIN.md Part 0: test the whole editor with no accounts.** Sveltia's local-repository mode (Chromium's File System Access API; Edge or Chrome required, no proxy server, no sign-in) edits the working tree directly. The runbook walks every collection, then a deliberate round-trip on papers.bib with a `git diff` pass/fail gate and `git checkout -- .` cleanup. This moves "does every form and hidden field survive a save" from launch-day discovery to a 15-minute pre-flight.
+- **SETUP-ADMIN.md Plan B: access-token sign-in.** The sign-in screen's "Sign In Using Access Token" button works with no OAuth app and no Worker, so Parts 1 to 3 are now documented as optional. A fine-grained PAT scoped to only this repo's Contents is actually tighter than the OAuth app's `public_repo` scope. Trade-off stated in the runbook: fine for Trevor, clunkier for Madi day-to-day, so OAuth remains the primary plan.
+
+#### Notes
+- Referer-origin claim is documented browser default behaviour (strict-origin-when-cross-origin sends the origin on cross-site requests); flagged here because it is the one piece of the fix that rests on a browser default rather than something exercised locally. The Part 0 test cannot reach it; the first real sign-in in Part 5 does.
+- Local `jekyll build` still green after all changes; /admin boot re-verified by screenshot after the config gained the Publications collection.
+
 ### 2026-07-30 - Web editor at /admin (branch `admin-cms`, NOT yet live)
 
 A form-based editor so Madi can change the site without editing files. Built on the `admin-cms` branch; the site only rebuilds on pushes to `main`, so nothing reaches visitors until the merge step in `SETUP-ADMIN.md` Part 5.

@@ -24,13 +24,91 @@ Three pieces:
    It exists for one reason: GitHub's sign-in needs a secret that cannot be put
    in a web page, so the secret lives in the Worker instead. You deploy this.
 
+Part 0 tests piece 1 by itself, on this computer, with no accounts. Pieces 2
+and 3 exist only for the sign-in button, and there is a documented Plan B near
+the end of this file that skips them both.
+
 Who can edit is decided by GitHub, not by anything here. Anyone can reach the
 sign-in page and sign in; only accounts with push access to
 `madiritt/madiritt.github.io` can actually save a change. Right now that is
 exactly two accounts, `madiritt` and `AbysulGaming`. To add or remove an editor
 later, change the repo's Collaborators list and nothing else.
 
-**Time needed:** about 40 minutes, most of it waiting for a build.
+**Time needed:** about 40 minutes, most of it waiting for a build, plus about
+15 minutes for the Part 0 test.
+
+---
+
+## Part 0: Test the whole editor first, with no accounts at all
+
+Do this before anything else. The editor has a local mode that reads and writes
+the files in `C:\Repos\madiritt.github.io` directly, with no sign-in, no OAuth
+app, and no Worker. It proves every form works before you create any accounts.
+The only thing this cannot test is the GitHub sign-in popup itself.
+
+You must use **Microsoft Edge or Google Chrome** for this part. The local mode
+needs a feature Firefox does not have.
+
+1. Open PowerShell.
+2. Type this and press Enter:
+   `cd C:\Repos\madiritt.github.io`
+   Expected result: the prompt changes to that folder. Nothing else prints.
+3. Type this and press Enter:
+   `git checkout admin-cms`
+   Expected result: `Switched to branch 'admin-cms'`, or `Already on
+   'admin-cms'`. Both are fine.
+4. Type this and press Enter:
+   `bundle exec jekyll serve --config _config.yml,_config.dev.yml`
+   Expected result: after a few seconds, a line reading
+   `Server address: http://127.0.0.1:4000/`. Leave this window open; the server
+   runs until you close it or press Ctrl+C.
+5. Open Edge and go to: `http://localhost:4000/admin/`
+   Expected result: a dark page titled **Sveltia CMS** with a blue button
+   labelled **Work with Local Repository**.
+6. Click **Work with Local Repository**.
+   Expected result: a folder-picker window opens.
+7. Pick the folder `C:\Repos\madiritt.github.io` and click **Select Folder**.
+   Edge then asks for permission to view and save changes to the folder; click
+   the button that allows it.
+   Expected result: the editor loads with a sidebar listing Homepage, News,
+   Gallery, Research, Publications (advanced), Outreach, CV, and Links and
+   contact.
+8. Click through every sidebar item and open the entry (or one entry) inside
+   each. Expected result: every form shows the site's real current content in
+   its boxes. A form showing empty boxes where content should be means that
+   collection's config is wrong; stop and tell me which one.
+9. Now the round-trip test on the riskiest file. Open **Publications
+   (advanced)**, click into the **BibTeX** box, go to the very end of the text,
+   and press Enter once to add one blank line at the bottom.
+10. Click the **Save** button (top right).
+    Expected result: the button finishes without an error message. In local
+    mode, Save writes straight to the file on disk; nothing is committed to
+    git, so nothing can reach the live site from here.
+11. Back in PowerShell, open a SECOND PowerShell window (the first one is busy
+    running the server), and type this, then press Enter:
+    `cd C:\Repos\madiritt.github.io`
+12. Type this and press Enter:
+    `git diff --stat`
+    Expected result: a short list of the files you just saved. Now type this
+    and press Enter to see the actual changes:
+    `git diff`
+    Expected result for a PASS: the only changes are the ones you made on
+    purpose (the blank line in `_bibliography/papers.bib`). Whitespace-only
+    noise (a trailing newline) is also a pass.
+    A FAIL looks like: reordered keys, deleted `#` comment lines you did not
+    touch, mangled BibTeX, or changes in files you never opened. If you see
+    that, copy the diff output and show me; that collection gets fixed or
+    removed before go-live.
+13. Type this and press Enter to throw away the test edits:
+    `git checkout -- .`
+    Expected result: nothing prints. That is correct.
+14. Type this and press Enter to confirm the repo is clean again:
+    `git status`
+    Expected result: `nothing to commit, working tree clean`.
+
+If all of that passed, every form, hidden field, and file mapping is proven.
+Everything after this point exists only to replace "Work with Local Repository"
+with a GitHub sign-in that works from any computer.
 
 ---
 
@@ -175,6 +253,37 @@ This is the step that puts the editor on the real site.
 10. Have Madi repeat steps 5 to 7 on her own computer with her own login. She
     should see the same thing. If she does, both of you are set up and you are
     finished.
+
+---
+
+## Plan B: skip the OAuth pieces entirely (access token sign-in)
+
+The editor's sign-in screen has a third button, **Sign In Using Access Token**.
+It works with no OAuth app and no Worker: you paste a GitHub token instead of
+clicking through a popup. This means Parts 1 to 3 are OPTIONAL. If the Worker
+ever fights us, or you want the editor live today, this path works now:
+
+1. Sign in to GitHub in a browser as the account that will edit (`madiritt` for
+   Madi, `AbysulGaming` for you).
+2. Go to https://github.com/settings/personal-access-tokens/new
+3. In **Token name**, type: `madisonrittinger.org editor`
+4. Under **Expiration**, pick **No expiration** (or 1 year if you prefer; an
+   expired token just means repeating this list).
+5. Under **Repository access**, choose **Only select repositories**, then pick
+   `madiritt/madiritt.github.io`. (For the AbysulGaming account this is under
+   the madiritt owner; if the repo is not listed, the account lacks access.)
+6. Under **Permissions**, expand **Repository permissions**, find **Contents**,
+   and set it to **Read and write**. Leave everything else at No access.
+7. Click **Generate token** and copy the token shown (it starts with
+   `github_pat_`). It is shown once; store it in a password manager.
+8. On the /admin sign-in screen, click **Sign In Using Access Token**, paste
+   it, and confirm. The editor loads exactly as it would after OAuth.
+
+Trade-off, stated plainly: the OAuth route is one click forever; this route
+means keeping a token somewhere safe and pasting it when the browser forgets
+it. Fine for you; worse for Madi day-to-day. A fine-grained token scoped this
+way can touch ONLY this one repo's contents, which is actually tighter than
+the OAuth app's `public_repo` scope.
 
 ---
 

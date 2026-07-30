@@ -44,11 +44,14 @@
 
     <!--
       Sveltia CMS: a drop-in replacement for Decap CMS that reads the same
-      config.yml. Pinned to a major version so a breaking release cannot land on
-      Madi unannounced. If Sveltia ever misbehaves, swapping this one script tag
-      for Decap's build works against the identical config:
+      config.yml. Sveltia versions as 0.MINOR.PATCH, so the caret below pins to
+      one minor (0.175.x): patch fixes arrive, breaking releases do not. To
+      upgrade deliberately, bump the minor here and re-test /admin locally.
+      No type="module" attribute: the Sveltia docs say the plain script tag is
+      correct and styling is bundled in. If Sveltia ever misbehaves, swapping
+      this one script tag for Decap's build works against the identical config:
         https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js
     -->
-    <script src="https://unpkg.com/@sveltia/cms@^0.1.0/dist/sveltia-cms.js" type="module"></script>
+    <script src="https://unpkg.com/@sveltia/cms@^0.175.0/dist/sveltia-cms.js"></script>
   </body>
 </html>

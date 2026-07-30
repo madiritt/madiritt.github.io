@@ -95,13 +95,27 @@ export default {
 
     /* ---- start the flow ------------------------------------------------- */
     if (url.pathname === "/auth") {
-      const origin = url.searchParams.get("site_origin") || ALLOWED_ORIGINS[0];
-      if (!ALLOWED_ORIGINS.includes(origin)) {
-        return html("<p>That site is not allowed to use this sign-in.</p>", 403);
+      /* Which editor page opened the popup? Sveltia does not send its origin
+         in the query string (its `site_id` param is a bare domain, and from
+         localhost it is literally "cms.netlify.com", a Netlify-era relic), so
+         the reliable signal is the Referer header: browsers send at least the
+         origin on cross-site navigations under the default referrer policy.
+         Fall back to the production origin if the header is absent. The token
+         is only ever postMessage'd to this origin, so a wrong guess fails
+         closed: the message is simply not delivered. */
+      let origin = ALLOWED_ORIGINS[0];
+      const referer = request.headers.get("Referer");
+      if (referer) {
+        try {
+          const refOrigin = new URL(referer).origin;
+          if (ALLOWED_ORIGINS.includes(refOrigin)) origin = refOrigin;
+        } catch {
+          /* unparseable Referer: keep the default */
+        }
       }
 
       if (!env.GITHUB_CLIENT_ID) {
-        return html("<p>This Worker is missing GITHUB_CLIENT_ID. See admin-auth/README.md.</p>", 500);
+        return html("<p>This Worker is missing GITHUB_CLIENT_ID. See SETUP-ADMIN.md Part 3.</p>", 500);
       }
 
       const state = newState();

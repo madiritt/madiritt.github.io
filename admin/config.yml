@@ -267,6 +267,41 @@ collections:
           brackets or curly braces untouched.
 
   # ---------------------------------------------------------------------------
+  # Publications (EXPERIMENTAL, see note)
+  #
+  # papers.bib is BibTeX, which no form widget can model. But the file carries
+  # an empty Jekyll front-matter fence, so it parses as "front matter + body"
+  # like any page, and the whole BibTeX text can be exposed as one plain text
+  # box. That is all this is: the same file recipe 5.3 edits, in a bigger
+  # window, with the same commit-on-save as every other collection.
+  #
+  # Kept ONLY if it survives the round-trip test in SETUP-ADMIN.md Part 0
+  # (save with no changes, then `git diff` must be clean or trivially
+  # whitespace). If it mangles the file, delete this whole block; recipe 5.3
+  # remains the documented route either way.
+  # ---------------------------------------------------------------------------
+  - name: publications
+    label: Publications (advanced)
+    files:
+      - name: papers
+        label: Publication list (raw BibTeX)
+        file: _bibliography/papers.bib
+        format: yaml-frontmatter
+        description: >-
+          The publication list as raw BibTeX, exactly as recipe 5.3 in the
+          maintenance guide describes. This is a power-user box, not a form:
+          one missing curly brace hides a paper from the site. Paste carefully,
+          and prefer recipe 5.3 if you are unsure.
+        fields:
+          - name: body
+            label: BibTeX
+            widget: text
+            hint: >-
+              Each paper is one block starting with @article{ and ending with a
+              closing curly brace. Copy an existing block as your template. Keep
+              one blank line between blocks.
+
+  # ---------------------------------------------------------------------------
   # Outreach
   # ---------------------------------------------------------------------------
   - name: outreach

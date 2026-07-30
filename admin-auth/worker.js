@@ -182,18 +182,18 @@ export default {
           }),
         });
         if (!res.ok) {
-          return clearState(relayPage({ error: "GitHub refused the sign-in. Try again." }, origin));
+          return clearState(relayPage({ provider: "github", error: "GitHub refused the sign-in. Try again." }, origin));
         }
         data = await res.json();
       } catch {
         return clearState(
-          relayPage({ error: "Could not reach GitHub to finish signing in. Try again." }, origin)
+          relayPage({ provider: "github", error: "Could not reach GitHub to finish signing in. Try again." }, origin)
         );
       }
 
       if (data.error || !data.access_token) {
         return clearState(relayPage(
-          { error: data.error_description || "GitHub did not return a token." },
+          { provider: "github", error: data.error_description || "GitHub did not return a token." },
           origin
         ));
       }

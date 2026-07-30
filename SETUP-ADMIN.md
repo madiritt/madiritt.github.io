@@ -35,7 +35,7 @@ exactly two accounts, `madiritt` and `AbysulGaming`. To add or remove an editor
 later, change the repo's Collaborators list and nothing else.
 
 **Time needed:** about 40 minutes, most of it waiting for a build, plus about
-15 minutes for the Part 0 test.
+20 minutes for the Part 0 test.
 
 ---
 
@@ -110,7 +110,17 @@ needs a feature Firefox does not have.
     `2026-07-31-something.md`. If it is named something odd like
     `untitled.md` instead, the test still passes; just tell me the exact
     name and I will fix the filename recipe before go-live.
-17. Type this and press Enter:
+17. Look inside the new file. Type this, replacing BOTH `FILENAME.md` parts
+    with the actual name from step 16, and press Enter:
+    `Get-Content _news\FILENAME.md`
+    Expected result: a block like the existing news items:
+    `---`, a `layout: post` line, a `date:` line ending in
+    `09:00:00-0600`, `inline: true`, `related_posts: false`, `---`, a blank
+    line, then your test sentence. If the `date:` line looks different
+    (for example a bare date with no time, or a `T` in the middle), the
+    test still passes; tell me exactly what the line says and I will fix
+    the date recipe before go-live.
+18. Type this and press Enter:
     `git diff`
     Expected result for a PASS: the only changes are the ones you made on
     purpose (the blank line in `_bibliography/papers.bib`). Whitespace-only
@@ -119,14 +129,14 @@ needs a feature Firefox does not have.
     touch, mangled BibTeX, or changes in files you never opened. If you see
     that, copy the diff output and show me; that collection gets fixed or
     removed before go-live.
-18. Type this and press Enter to throw away the edits to existing files:
+19. Type this and press Enter to throw away the edits to existing files:
     `git checkout -- .`
     Expected result: nothing prints. That is correct.
-19. Type this and press Enter to delete the test news item (checkout cannot
+20. Type this and press Enter to delete the test news item (checkout cannot
     remove it, because it is a new file git was never told about):
     `git clean -fd _news`
     Expected result: one line starting with `Removing _news/`.
-20. Type this and press Enter to confirm the repo is clean again:
+21. Type this and press Enter to confirm the repo is clean again:
     `git status`
     Expected result: `nothing to commit, working tree clean`.
 

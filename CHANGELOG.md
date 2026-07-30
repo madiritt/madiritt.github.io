@@ -11,6 +11,26 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: squeaky-clean pass (branch `admin-cms`, still NOT live)
+
+Final sweep of the corners no earlier pass had reached. Nothing dramatic surfaced, which was the point of checking.
+
+#### Fixed
+- Worker error payloads now carry `provider: "github"` alongside `error`, matching the shape Sveltia's own authenticator sends. Success payloads already had it; errors did not.
+- SETUP-ADMIN's time estimate still said 15 minutes for a Part 0 that had grown to 20 steps; now says 20.
+
+#### Added
+- Part 0 step 17: after creating the test news item, `Get-Content` the new file and compare its `date:` line against the existing items' fixed `09:00:00-0600` shape. The datetime widget's stored format is the last thing only a real save can prove; now the test proves it, with told-what-to-report wording if it differs.
+
+#### Verified (no changes needed)
+- `wrangler.toml` read end to end for the first time: name matches the URL pattern the runbook promises, `main = worker.js`, no bindings, secrets documented as CLI-only. Correct as written on day one.
+- `worker.js` passes a real syntax check (Node `--check` as an ES module).
+- `admin/config.yml` and the refactored `_pages/teaching.md` both parse under a second YAML implementation (Ruby's, the one the live build actually uses); teaching yields its 3 sections.
+- `papers.bib` front-matter fence confirmed intact (first two lines `---`).
+- Built output re-checked: `/admin/` absent from `sitemap.xml`, `/teaching/` present, `robots.txt` carries the Disallow (its localhost sitemap URL is the dev-config override, not a bug).
+- Every numbered list in SETUP-ADMIN.md re-verified strictly sequential after the step insertions (Part 0 runs 1 to 21).
+- Em-dash sweep across every file the branch touches vs `main`: the only two hits are the pre-existing sanctioned CHANGELOG mentions of the bio's "Ollie" exception.
+
 ### 2026-07-30 - Admin editor: error-hunting pass over our own work (branch `admin-cms`, still NOT live)
 
 Deliberate defect hunt over everything built on this branch today, checking claims against files rather than against memory. Four real bugs found and fixed, plus a full front-matter audit.

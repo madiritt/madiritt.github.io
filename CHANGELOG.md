@@ -11,6 +11,24 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Admin editor: Worker runtime-tested locally (every path except GitHub's happy one)
+
+The Worker had been syntax-checked and contract-verified but never executed. `wrangler dev` runs it locally with no Cloudflare account, so it got a five-test curl battery tonight.
+
+#### Verified (all five passed, no code changes needed)
+- `GET /` returns the 404 explainer page.
+- `GET /auth` with a localhost Referer issues the 302 to GitHub with the right `client_id`, `scope=public_repo`, a fresh random `state`, and `redirect_uri` derived from the Worker's own origin; the state cookie carries `state|origin` with the origin correctly resolved FROM THE REFERER and validated against the allowlist. This is the first live exercise of the Referer fix.
+- Bare `GET /callback` is refused with 400.
+- `GET /callback` with a wrong `state` is refused with 400 AND clears the state cookie.
+- `GET /callback` with the correct state and a fake code runs the full exchange against GitHub's REAL token endpoint (which refused the fake credentials), and the resulting relay page is exactly the Sveltia contract: `authorization:github:error:` + JSON carrying `provider` and `error`, the `authorizing:github` announce, the target origin faithfully round-tripped (`http://localhost:4000`), the cookie cleared, and syntactically valid embedded JS.
+- Net: the only untested code path left in the Worker is the one that requires a real OAuth app: a genuine code swap succeeding, plus the allowlist lookup that follows it.
+
+#### Added
+- `.dev.vars` (wrangler's local-dev secrets file) added to `.gitignore` before first use, so tomorrow's debugging can never accidentally commit real credentials. Tonight's run used fake values, deleted after the test.
+
+#### Notes
+- Third PR production build (the schema-fix push) green.
+
 ### 2026-07-30 - Admin editor: schema validation pass (nine invalid config keys found mechanically)
 
 Sveltia generates a JSON schema of its config format from its own source. Validating `admin/config.yml` against it (ajv, draft-07, schema pinned to our `^0.175.0`) found real problems every eyeball pass had missed, because the keys involved are valid SOMEWHERE in the config, just not where they sat.

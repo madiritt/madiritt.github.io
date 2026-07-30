@@ -16,3 +16,6 @@ node_modules/
 output/playwright/
 test-results/
 vendor
+
+# wrangler local-dev secrets for admin-auth (never commit)
+.dev.vars

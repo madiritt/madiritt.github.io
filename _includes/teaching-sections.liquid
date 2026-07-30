@@ -1,0 +1,144 @@
+<!-- Renders the Teaching / Mentoring page from the `sections` list in
+     _pages/teaching.md front matter. The words live there (and are editable
+     at /admin); everything here is machinery Madi never needs to touch.
+
+     Mentoring photos as article-style insets (2026-07-09, Madison-approved):
+     one orange-framed photo floated inside each section so the text wraps
+     around it like a news article. Floats alternate right/left/right for the
+     editorial mix. Captions stay visible under each photo; responsive images
+     via figure.liquid (WebP on the live build).
+     Madison's follow-up (same day): NO section dividers on this page (the
+     .mossy-section bars were removed here; homepage and /outreach keep
+     theirs), and a LEFT-floated photo comes BEFORE its heading in the source
+     so the title sits beside the photo over its own text (the Courses
+     section). Each section lives in a .mentoring-section flow-root wrapper so
+     a photo taller than its text can never bleed into the next section.
+
+     2026-07-30 refactor: content moved to front matter, and the per-section
+     CSS switched from :nth-of-type(1/2/3) to .photo-right / .photo-left
+     classes, so adding, removing, or reordering sections cannot silently
+     detach a section from its layout rules. Rendered output is otherwise
+     unchanged (verified by HTML diff at the time). -->
+<style>
+  .mentoring-inset {
+    width: min(320px, 45%);
+    margin: 0.35rem 0 1rem 1.75rem;
+    float: right;
+  }
+  .mentoring-inset.inset-left {
+    float: left;
+    margin: 0.35rem 1.75rem 1rem 0;
+  }
+  .mentoring-inset .mentoring-frame {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 6px;
+    /* Pastel-orange frame matching the hero portrait and gallery tiles. */
+    border: 3px solid #feac74;
+    box-sizing: border-box;
+  }
+  .mentoring-inset .mentoring-frame figure,
+  .mentoring-inset .mentoring-frame picture {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .mentoring-inset .mentoring-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mentoring-inset figcaption.mentoring-caption {
+    font-family: "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--global-text-color-light);
+    margin: 0.55rem 0 0;
+    text-align: center;
+  }
+  /* Self-contained sections: flow-root swallows each photo's float so it
+     can't overlap the next section; margin replaces the removed dividers'
+     spacing. */
+  .mentoring-section {
+    display: flow-root;
+    margin-bottom: 2.5rem;
+  }
+  /* Uniform text column per section: reserve the photo's width (plus its
+     1.75rem gutter) on the photo's side for EVERY paragraph, so all lines in
+     a section share one left/right edge at every viewport width. Without
+     this, a paragraph starting below the photo snaps to full width and the
+     text edges jump around as the window narrows. A left-floated photo also
+     shares the column with its h2 so the title stays over its own text. */
+  .mentoring-section.photo-right p {
+    margin-right: calc(min(320px, 45%) + 1.75rem);
+  }
+  .mentoring-section.photo-left p,
+  .mentoring-section.photo-left h2 {
+    margin-left: calc(min(320px, 45%) + 1.75rem);
+  }
+  /* Page title -> first section: match the visual gap between sections
+     (their 2.5rem margin plus the h2's own top margin). */
+  .mentoring-section:first-of-type {
+    margin-top: 2.75rem;
+  }
+
+  /* MOBILE. Placed LAST on purpose: these rules have the same specificity as the
+     base photo-column margins above, so source order is what makes them win. When
+     this block sat before those base rules, the reserved margin never released on
+     phones and the text was crushed into a thin strip beside the empty photo
+     column. Here we stack each photo full-width and drop the reserved margin so
+     text uses the full page width. */
+  @media (max-width: 640px) {
+    .mentoring-inset,
+    .mentoring-inset.inset-left {
+      float: none;
+      width: 100%;
+      max-width: 26rem;
+      margin: 1.25rem auto;
+    }
+    /* A left-floated photo precedes its h2 in source (desktop title
+       alignment); stacked on mobile that reads as the previous section's
+       photo. Flex reorder puts the heading first: h2 keeps order 0, photo 2,
+       text 3. */
+    .mentoring-section.photo-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .mentoring-section.photo-left .mentoring-inset { order: 2; }
+    .mentoring-section.photo-left p { order: 3; }
+    /* Release the reserved photo-column margins (no float to wrap around now). */
+    .mentoring-section.photo-right p {
+      margin-right: 0;
+    }
+    .mentoring-section.photo-left p,
+    .mentoring-section.photo-left h2 {
+      margin-left: 0;
+    }
+  }
+</style>
+
+{% for section in page.sections %}
+{% assign side = section.photo_side | default: "right" %}
+<div class="mentoring-section{% if section.photo %} photo-{{ side }}{% endif %}">
+
+{% capture section_figure %}
+<figure class="mentoring-inset{% if side == 'left' %} inset-left{% endif %}">
+  <div class="mentoring-frame">
+    {% include figure.liquid path=section.photo title="" class="img-fluid" %}
+  </div>
+  <figcaption class="mentoring-caption">{{ section.photo_caption }}</figcaption>
+</figure>
+{% endcapture %}
+
+{% if section.photo and side == "left" %}{{ section_figure }}{% endif %}
+
+{{ section.heading | prepend: "## " | markdownify }}
+
+{% if section.photo and side == "right" %}{{ section_figure }}{% endif %}
+
+{{ section.text | markdownify }}
+
+</div>
+{% endfor %}

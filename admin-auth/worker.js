@@ -179,7 +179,15 @@ export default {
         );
       }
 
-      return relayPage({ token: data.access_token, provider: "github" }, origin);
+      /* OAuth Apps return only access_token. GitHub Apps (which use these
+         same two endpoints) can also return refresh_token when user-token
+         expiration is enabled. Sveltia's auth client understands an optional
+         refreshToken key, so pass it through when present; for OAuth Apps
+         this branch simply never fires. */
+      const payload = { token: data.access_token, provider: "github" };
+      if (data.refresh_token) payload.refreshToken = data.refresh_token;
+
+      return relayPage(payload, origin);
     }
 
     /* ---- anything else -------------------------------------------------- */

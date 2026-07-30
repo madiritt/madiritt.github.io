@@ -71,8 +71,8 @@ needs a feature Firefox does not have.
    Edge then asks for permission to view and save changes to the folder; click
    the button that allows it.
    Expected result: the editor loads with a sidebar listing Homepage, News,
-   Gallery, Research, Publications (advanced), Outreach, CV, and Links and
-   contact.
+   Gallery, Research, Publications (advanced), Outreach, Teaching / Mentoring,
+   CV, and Links and contact.
 8. Click through every sidebar item and open the entry (or one entry) inside
    each. Expected result: every form shows the site's real current content in
    its boxes. A form showing empty boxes where content should be means that
@@ -114,6 +114,16 @@ with a GitHub sign-in that works from any computer.
 
 ## Part 1: Create the GitHub OAuth app
 
+**Before doing this part, consider Part 1-ALT below instead.** Both produce the
+same two values (a Client ID and a client secret) and everything after Part 1
+is identical for both. Part 1-ALT is tighter: its app can touch only the one
+site repo, while this Part's app gets whichever public repos the signed-in
+account can push to. Part 1-ALT is also the experimental one; the sign-in
+endpoints are identical and should behave the same, but no CMS documents it,
+so treat it as try-and-see. If Part 5 step 6 fails on the Part 1-ALT app, come
+back and do this Part 1 instead; the failure section at the end says how to
+swap cleanly.
+
 1. Open https://github.com/settings/developers in a browser.
 2. Sign in as `madiritt` if you are not already. Use her login here, not
    `AbysulGaming`, so the site and its sign-in belong to the same account.
@@ -139,6 +149,77 @@ with a GitHub sign-in that works from any computer.
     scratch note. If you lose it before Part 3 you can generate another; the old
     one stops working.
 14. Leave this browser tab open. You come back to it in Part 3, step 9.
+
+---
+
+## Part 1-ALT: Create a GitHub App instead (the experiment, preferred if it works)
+
+Do either this or Part 1, not both. Why this one is better if it works: a
+GitHub App is installed on exactly one repository with exactly one permission
+(this repo, contents), so a leaked token cannot touch anything else at all,
+and to revoke everything at once you uninstall the app. The sign-in screens
+GitHub shows are almost identical either way.
+
+These steps name the form fields as they exist in July 2026; GitHub moves
+labels around occasionally, so if a field is missing look for a similar name
+before assuming the recipe is wrong.
+
+1. Open https://github.com/settings/apps/new in a browser.
+2. Sign in as `madiritt` if you are not already. Use her login, not
+   `AbysulGaming`, so the site and its sign-in belong to the same account.
+3. In the box labelled **GitHub App name**, type:
+   `madisonrittinger.org editor`
+4. In the box labelled **Homepage URL**, type:
+   `https://madisonrittinger.org`
+5. In the section **Identifying and authorizing users**, in the box labelled
+   **Callback URL**, type this for now:
+   `https://example.com/callback`
+   You will correct it in Part 3, step 9, exactly as with the Part 1 route.
+6. Still in that section, UNTICK the box labelled
+   **Expire user authorization tokens**. It is ticked by default. Unticking it
+   makes the app behave exactly like the Part 1 app for our purposes. (Leaving
+   it ticked is a possible later hardening: tokens then die after 8 hours and
+   the editor must refresh them. The Worker already passes the refresh token
+   through if this is ever turned on, but that mode is untested; start with
+   the box unticked.)
+7. Leave **Request user authorization (OAuth) during installation** unticked.
+8. Scroll to the section headed **Webhook**. UNTICK the box labelled
+   **Active**. This matters: with it ticked, the form demands a webhook URL we
+   do not have, and will not save.
+9. Scroll to **Permissions**. Click **Repository permissions** to expand it.
+10. Find the row named **Contents**. In its dropdown (which reads
+    **No access**), choose **Read and write**.
+    Expected result: a note appears saying **Metadata** was set to read-only
+    automatically. That is correct; change nothing else.
+11. At the question **Where can this GitHub App be installed?**, choose
+    **Only on this account**.
+12. Click the green **Create GitHub App** button.
+13. You land on the app's settings page. Near the top it shows **Client ID**
+    (for GitHub Apps it starts with `Iv`). Copy it into a scratch note. It
+    plays the same role as Part 1 step 11's Client ID in everything that
+    follows.
+14. Under the heading **Client secrets**, click **Generate a new client
+    secret**. You may be asked for your password or 2FA code. Copy the secret
+    shown into the same scratch note; it is shown once, and plays the same
+    role as Part 1 step 13's secret.
+15. The app now exists but is installed nowhere, so it can reach nothing. In
+    the LEFT sidebar of the app's settings page, click **Install App**.
+16. A row appears for the `madiritt` account. Click its green **Install**
+    button.
+17. On the next screen, choose **Only select repositories**, open the
+    repository dropdown, and tick `madiritt/madiritt.github.io`.
+18. Click the green **Install** button.
+    Expected result: you land on the installation's settings page. The app is
+    now allowed to touch that one repo and nothing else.
+19. Leave the browser tab open. Part 3, step 9 comes back here: the callback
+    URL box for this route lives at
+    https://github.com/settings/apps -> your app -> **General**.
+
+One honest unknown, flagged: when YOU sign in (as `AbysulGaming`, a
+collaborator rather than the app's owner), GitHub may show an extra approval
+screen the first time. Approve it; if saving as AbysulGaming then fails where
+it worked for madiritt, tell me exactly what the error says. That is the
+try-and-see part of this experiment.
 
 ---
 
@@ -179,13 +260,14 @@ Skip to Part 3 if `wrangler --version` already prints a version number.
    steps fix that.
 5. Type this and press Enter:
    `wrangler secret put GITHUB_CLIENT_ID`
-   Expected result: it prompts for a value. Paste the **Client ID** from Part 1
-   step 11 and press Enter. It prints that the secret was uploaded. The value is
-   not echoed to the screen as you paste; that is correct.
+   Expected result: it prompts for a value. Paste the **Client ID** from your
+   scratch note (Part 1 step 11, or Part 1-ALT step 13) and press Enter. It
+   prints that the secret was uploaded. The value is not echoed to the screen
+   as you paste; that is correct.
 6. Type this and press Enter:
    `wrangler secret put GITHUB_CLIENT_SECRET`
-   Expected result: same prompt. Paste the **client secret** from Part 1 step 13
-   and press Enter.
+   Expected result: same prompt. Paste the **client secret** from your scratch
+   note (Part 1 step 13, or Part 1-ALT step 14) and press Enter.
 7. Type this and press Enter to confirm both landed:
    `wrangler secret list`
    Expected result: a short list naming `GITHUB_CLIENT_ID` and
@@ -195,8 +277,9 @@ Skip to Part 3 if `wrangler --version` already prints a version number.
    reading "This address only handles signing in to the editor". That means the
    Worker is alive. Seeing a Cloudflare error page instead means the deploy
    failed; re-read step 3's output for the reason.
-9. Go back to the GitHub browser tab from Part 1. In the
-   **Authorization callback URL** box, delete `https://example.com/callback` and
+9. Go back to the GitHub browser tab from Part 1 (the box is labelled
+   **Authorization callback URL**) or Part 1-ALT (labelled **Callback URL**,
+   on the app's **General** page). Delete `https://example.com/callback` and
    type your Worker URL followed by `/callback`. For example, if step 3 printed
    `https://madiritt-admin-auth.trevor.workers.dev`, then type:
    `https://madiritt-admin-auth.trevor.workers.dev/callback`
@@ -244,7 +327,8 @@ This is the step that puts the editor on the real site.
 6. Click that button. A popup opens on github.com asking you to authorise
    `madisonrittinger.org editor`. Click the green **Authorize** button.
 7. Expected result: the popup closes and the editor loads, showing a sidebar
-   with Homepage, News, Gallery, Research, Outreach, CV, and Links and contact.
+   with Homepage, News, Gallery, Research, Publications (advanced), Outreach,
+   Teaching / Mentoring, CV, and Links and contact.
 8. Make one small real edit to prove the whole chain works: open **Homepage**,
    change the Currently line, and click the publish button.
 9. Watch the Actions tab again for a green check, then hard-refresh
@@ -300,6 +384,15 @@ red lines; a mismatch usually names the origin it refused.
 Part 3 step 9 does not exactly match what the Worker sends. Re-copy the Worker
 URL from Part 3 step 3, add `/callback`, and save the GitHub form again.
 
+**You used Part 1-ALT and sign-in or saving fails in a way nothing above
+explains.** The experiment did not pan out; swap to the boring route. The swap
+is clean because everything except the app itself is identical: (1) do Part 1
+and get its Client ID and secret; (2) re-run Part 3 steps 5 and 6 to overwrite
+the two Worker secrets with the new values; (3) do Part 3 step 9 on the NEW
+app's form; (4) on https://github.com/settings/apps, open the old GitHub App,
+scroll to the **Danger zone**, and click **Delete GitHub App**. Nothing else
+changes and nothing needs rebuilding.
+
 **The editor loads but saving fails with a permissions error.**
 The signed-in account lacks push access. Check
 https://github.com/madiritt/madiritt.github.io/settings/access and confirm the
@@ -318,8 +411,11 @@ If you decide against the whole thing:
 
 1. `git rm -r admin` then commit and push. The `/admin` page stops existing.
 2. In the `admin-auth` folder, `wrangler delete`. The Worker stops existing.
-3. On https://github.com/settings/developers, open the OAuth app and click
-   **Delete application**.
+3. Delete the app you registered: for the Part 1 route, on
+   https://github.com/settings/developers open the OAuth app and click
+   **Delete application**; for the Part 1-ALT route, on
+   https://github.com/settings/apps open the GitHub App and use
+   **Delete GitHub App** in the Danger zone.
 
 The site itself is untouched by all three, because nothing about the published
 site depends on the editor.

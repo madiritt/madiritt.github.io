@@ -332,6 +332,78 @@ collections:
               divider above that section.
 
   # ---------------------------------------------------------------------------
+  # Teaching / Mentoring
+  #
+  # Editable since the 2026-07-30 refactor: the words live in the page's front
+  # matter as a `sections` list, and _includes/teaching-sections.liquid renders
+  # the Madison-approved float layout around them. The fragile part (the CSS
+  # and figure markup) is no longer inside the editable file at all.
+  # ---------------------------------------------------------------------------
+  - name: teaching
+    label: Teaching / Mentoring
+    files:
+      - name: teaching
+        label: Teaching / Mentoring
+        file: _pages/teaching.md
+        description: >-
+          Each section is a heading, an optional photo with caption, and its
+          text. The photo floats to one side and the text wraps around it; the
+          page handles all sizing and spacing itself.
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: permalink, widget: hidden, default: /teaching/ }
+          - { name: title, widget: hidden, default: Teaching / Mentoring }
+          - { name: nav, widget: hidden, default: true }
+          - { name: nav_order, widget: hidden, default: 4 }
+
+          - name: sections
+            label: Sections
+            label_singular: section
+            widget: list
+            summary: "{{fields.heading}}"
+            fields:
+              - name: heading
+                label: Section title
+                widget: string
+              - name: photo
+                label: Photo
+                widget: image
+                required: false
+                hint: >-
+                  Optional. Shown in an orange frame at a wide 4 by 3 shape
+                  with the middle kept, so any photo works; keep the subject
+                  centred.
+              - name: photo_caption
+                label: Photo caption
+                widget: string
+                required: false
+                hint: Shown under the photo.
+              - name: photo_side
+                label: Photo side
+                widget: select
+                default: right
+                options:
+                  - { label: Right of the text, value: right }
+                  - { label: Left of the text, value: left }
+                hint: >-
+                  On the left, the photo sits beside the section title, like
+                  the current Courses section. Alternating sides reads best.
+              - name: text
+                label: Text
+                widget: text
+                hint: >-
+                  Leave one blank line between paragraphs. Bold works like
+                  **this**, italics like *this*, and a link like this:
+                  [words to click](https://example.com)
+
+          - name: body
+            label: Page code
+            widget: hidden
+            comment: >-
+              The body is one line that pulls in the layout machinery. Hidden
+              so it cannot be edited away by accident.
+
+  # ---------------------------------------------------------------------------
   # CV
   # ---------------------------------------------------------------------------
   - name: cv

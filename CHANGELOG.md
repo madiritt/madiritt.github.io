@@ -11,6 +11,24 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Teaching page refactor (now editable) + GitHub App sign-in route (branch `admin-cms`, still NOT live)
+
+Second follow-up of the day, reopening the two items previously written off as not workaroundable. Both fell.
+
+#### Changed
+- **Teaching / Mentoring page refactored so its words are editable without touching its layout.** The page's text now lives in the front matter as a `sections` list (heading, optional photo + caption + side, text), and a new local `_includes/teaching-sections.liquid` renders the Madison-approved article-style float layout around it. The page body is now a single include line. The one content change: the CV link's `relative_url` Liquid (which cannot run in front matter) became a literal `/cv/`, byte-identical output since `baseurl` is empty.
+- While moving the CSS into the include, the per-section selectors changed from `:nth-of-type(1/2/3)` (which hardcoded "three sections, right/left/right") to `.photo-right`/`.photo-left` classes derived from each section's `photo_side`. Adding, removing, or reordering sections can no longer silently detach a section from its layout rules. A left-side photo now automatically renders before its heading (the Courses title-beside-photo behaviour, generalized).
+- Verified faithful: whitespace-normalized diff of the built page shows only the intended class renames and comment text, with every content line, heading id, link, and smart quote identical; before/after screenshots at 1280px and 500px match, including the mobile flex reorder that keeps the Courses heading above its photo.
+
+#### Added
+- **Teaching / Mentoring collection in the /admin editor.** Sections as a list widget with heading, photo, caption, side picker, and text. Machinery (`layout` etc. and the include-line body) pinned hidden, same pattern as the CV page. The fourth-pass "too fragile for a text box" verdict is retired: the fragile part is simply no longer in the editable file.
+- **SETUP-ADMIN.md Part 1-ALT: register a GitHub App instead of an OAuth App.** GitHub Apps use the identical authorize/token endpoints, so the Worker needs no changes; the app is installable on exactly this one repo with only Contents read/write, the tightest blast radius available. Runbook covers the webhook untick (the form will not save without it), disabling user-token expiration for the first test, single-repo install, cross-references in Part 3, a clean-swap procedure back to the OAuth App if the experiment fails, and backout. Flagged try-and-see: endpoints verified identical, but no CMS documents the combination, and the collaborator-account sign-in is the honest unknown.
+- Worker now passes GitHub's `refresh_token` through to the editor as `refreshToken` (Sveltia's auth client understands it). Inert for OAuth Apps; only fires if a GitHub App with token expiration is ever used.
+
+#### Notes
+- Local build green; `/admin` boot re-verified by screenshot with the Teaching collection added; `admin/config.yml` still byte-identical through the build (19339 = 19339).
+- Both Part 0 sidebar expectations and Part 5 step 7 updated to the nine-collection list.
+
 ### 2026-07-30 - Admin editor: verification pass + pragmatic workarounds (branch `admin-cms`, still NOT live)
 
 Follow-up to the entry below, attacking its open risks in order. The OAuth handshake is no longer a leap of faith, the editor is now testable end to end without any accounts, and publications made it into the editor after all.

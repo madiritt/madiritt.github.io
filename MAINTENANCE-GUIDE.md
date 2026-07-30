@@ -6,6 +6,8 @@
 
 This guide assumes you have never edited a website before. It explains everything: what the site is made of, how to sign in, how to change things, and how to fix mistakes. Read Part 1 once so the rest makes sense. After that, jump straight to the recipe you need in Part 5. Ctrl+F (Cmd+F on Mac) is your friend.
 
+**Never edited the site before? Do section 3.6 first.** It is a practice run (about 10 minutes of clicking, then waiting for the site to rebuild): one real, harmless edit from signing in to seeing it live, with every click named and every expected result written down. Everything else in this guide is a variation on those same steps.
+
 **If you only remember one thing:** you cannot permanently break this site. Every change ever made is saved forever in the history, and Part 7 shows you how to roll anything back.
 
 ---
@@ -15,7 +17,17 @@ This guide assumes you have never edited a website before. It explains everythin
 - Part 1: How the site works (read once)
 - Part 2: Accounts you need
 - Part 3: Route A - editing in the web browser (no installs)
+  - 3.1 Signing in
+  - 3.2 Editing a text file
+  - 3.3 Uploading a file (photo, PDF)
+  - 3.4 Creating a brand-new text file
+  - 3.5 Backing out of an edit you have not saved yet
+  - **3.6 Practice run: your first edit, start to finish (START HERE)**
 - Part 4: Route B - editing with VS Code (for bigger jobs)
+  - 4.1 One-time setup, Windows
+  - 4.2 One-time setup, Mac
+  - 4.3 Connect VS Code to GitHub and copy the repo down
+  - 4.4 The everyday routine: pull, edit, commit, push
 - Part 5: Task recipes
   - 5.1 Update the "Currently" line
   - 5.2 Add a news item
@@ -31,6 +43,12 @@ This guide assumes you have never edited a website before. It explains everythin
   - 5.12 Remove something (news item, gallery photo, publication)
 - Part 6: After every change - how to know it worked
 - Part 7: When something breaks
+  - 7.1 The build failed (red X)
+  - 7.2 Restore a previous version of a file (the universal undo)
+  - 7.3 Build is green but the site won't update
+  - 7.4 The whole site is down
+  - 7.5 The site isn't showing up in a Google search
+  - **7.6 Quick diagnosis: what the symptom usually means (start here when something is wrong)**
 - Part 8: Cloudflare and the domain (rarely touched, never ignored)
 - Part 9: House rules
 - Appendix: file map cheat sheet
@@ -79,34 +97,107 @@ No installs. Works from any computer.
 
 ### 3.1 Signing in
 
-1. Go to https://github.com and click **Sign in** (top right).
-2. Username: `madiritt`. Enter the password, then the 2FA code when asked.
-3. Go to the repo: https://github.com/madiritt/madiritt.github.io (or click your profile picture, top right, then **Your repositories**, then **madiritt.github.io**).
+1. Go to https://github.com
+2. Click **Sign in** (top right corner of the page).
+3. In the box labeled **Username or email address**, type `madiritt`
+4. Type the password in the box below it, then click the green **Sign in** button.
+5. GitHub asks for a 2FA code. Open the authenticator app on the phone, read the 6-digit code for GitHub, and type it in. Expected result: you land on your GitHub home page, which is a feed of activity. That page is not the site; ignore it.
+6. Go to the repo by typing this address into the browser: https://github.com/madiritt/madiritt.github.io
+   Expected result: a page titled `madiritt / madiritt.github.io` with a list of folders and files. This file list is where all editing starts.
+   - Alternate way to reach the same page if you forget the address: click your profile picture (top right), then **Your repositories**, then **madiritt.github.io**.
+7. Optional but recommended: bookmark that repo page in the browser. If you skip this, just retype the address next time.
 
 ### 3.2 Editing a text file
 
-1. In the repo, click through the folders to the file you want (each recipe in Part 5 gives the exact path, like `_pages/about.md` - that means the file `about.md` inside the folder `_pages`).
-   - **Finding your way around the file list:** folders are listed first (at the top), then individual files below them. Many folder names start with an underscore, like `_pages`, `_news`, `_projects` - that underscore is normal, not a typo; click those folders exactly like any other. To open a folder, click its name; to go back up, click the folder name in the trail near the top (e.g. `madiritt.github.io / _pages`) or use your browser's Back button.
-2. Click the file name to view it, then click the **pencil icon** (top right of the file view; hover over it and a small label reads "Edit this file").
-3. Make your change in the editor that appears.
-4. Click the green **Commit changes...** button (top right).
-5. A box pops up asking for a description. Write a short note about what you did, e.g. `Update Currently status`. Leave **"Commit directly to the main branch"** selected - "main" is just the name of the site's one live version, and you always want to save straight to it. (Ignore the "Create a new branch" option; it's for a more advanced workflow you don't need here.)
-6. Click **Commit changes**. Done - the robot takes it from here (Part 6).
+**Two ways to reach a file. Use whichever you like.**
+
+*Way 1 - click through the folders.* Each recipe in Part 5 gives the exact path, like `_pages/about.md`. That means: the file `about.md` inside the folder `_pages`. So click `_pages`, then click `about.md`.
+- Folders are listed first (at the top of the list), then individual files below them.
+- Many folder names start with an underscore, like `_pages`, `_news`, `_projects`. That underscore is normal, not a typo; click those folders exactly like any other.
+- To go back up a level, click the folder name in the trail near the top of the page (it reads `madiritt.github.io / _pages`) or press your browser's Back button.
+
+*Way 2 - search for the file by name (faster).* On the repo page, click the **Go to file** button (it sits just above the file list, near the green **Code** button). A search box appears. Type part of the file name, for example `gallery`. Expected result: a short list of matching file paths. Click the one you want. This skips all folder clicking.
+
+**Then edit it:**
+
+1. Click the file name so you are viewing the file. Expected result: you see the file's contents as read-only text with line numbers down the left side.
+2. Click the **pencil icon** near the top right of the file box. Hover over it and a small label reads "Edit this file". Expected result: the same text, now with a blinking cursor when you click into it. You are in edit mode.
+3. Click into the text and make your change, exactly as the recipe in Part 5 describes. Nothing is saved yet at this point, and nothing is live. That is correct.
+4. Click the green **Commit changes...** button (top right). Expected result: a pop-up box appears titled "Commit changes".
+5. In that box, the first field is **Commit message**. Type a short note about what you did, for example `Update Currently status`. The second field, "Extended description", can stay empty.
+6. Below those fields, make sure **"Commit directly to the `main` branch"** is the selected option. It is selected by default, so normally you change nothing here. ("main" is just the name of the site's one live version, and you always want to save straight to it. Ignore the "Create a new branch" option; that is for a more advanced workflow you do not need.)
+7. Click the green **Commit changes** button inside the pop-up. Expected result: the pop-up closes and you are back to viewing the file, with your new text in it. The change is now saved and the robot has started rebuilding. Go to Part 6 to watch it.
+
+**If you get stuck partway and want out, see 3.5. Nothing you have not committed can hurt anything.**
 
 ### 3.3 Uploading a file (photo, PDF)
 
-1. In the repo, navigate INTO the folder the file belongs in (for example click `assets`, then `img`).
-2. Click the **Add file** button (near the top right), then **Upload files**.
-3. Drag the file from your computer into the big dashed box (or click "choose your files").
-4. In the description box write e.g. `Add gallery photo`, leave "Commit directly to the main branch" selected, click **Commit changes**.
+1. Rename the file on your computer FIRST, before uploading, to the name the recipe asks for. Renaming it after it is on GitHub is extra work. (On Windows: right-click the file in File Explorer, choose **Rename**, type the new name, press Enter.)
+2. On the repo page, click into the folder the file belongs in. For a photo that is `assets`, then `img`. Expected result: the trail near the top of the page reads `madiritt.github.io / assets / img` and you see a long list of image files.
+3. Click the **Add file** button (near the top right, next to the green **Code** button). A small menu drops down.
+4. In that menu click **Upload files**. Expected result: a mostly empty page with a big dashed rectangle that says "Drag files here to add them to your repository".
+5. Drag the file from your computer into that dashed rectangle. If dragging is awkward, click the blue **choose your files** link inside the rectangle instead and pick the file in the file-picker window.
+6. Wait for the upload. Expected result: the file name appears in a list below the rectangle with a green check next to it. On a slow connection a large photo can take up to a minute.
+7. Scroll down to the **Commit changes** section at the bottom of the page. In the first box type a short note, for example `Add gallery photo`.
+8. Leave **"Commit directly to the `main` branch"** selected (it is the default).
+9. Click the green **Commit changes** button. Expected result: you land back in the folder and your file is now in the list.
 
-**To replace an existing file** (like the CV): give the new file **exactly the same name** as the old one on your computer first, then upload it into the same folder. GitHub replaces the old version automatically.
+**To replace an existing file** (like the CV, or the profile photo): give the new file on your computer **exactly the same name** as the old one, character for character, then upload it into the same folder with the steps above. GitHub replaces the old version automatically and asks you nothing extra. If the name differs even slightly (`prof_pic.JPG` vs `prof_pic.jpg`), you will end up with two files instead of a replacement, and the site keeps showing the old one.
 
 ### 3.4 Creating a brand-new text file
 
-1. Navigate into the folder where the file should live (e.g. `_news`).
-2. Click **Add file**, then **Create new file**.
-3. Type the file name in the name box at the top, type the contents in the big box below, then **Commit changes** as usual.
+1. On the repo page, click into the folder where the new file should live. For a news item that is `_news`. Expected result: the trail near the top reads `madiritt.github.io / _news`.
+2. Click the **Add file** button (near the top right). A small menu drops down.
+3. In that menu click **Create new file**. Expected result: a page with an empty name box at the top and a large empty text area below it.
+4. Click the name box and type the file name exactly as the recipe gives it, including the `.md` at the end.
+5. Click into the large text area and type or paste the contents.
+6. Click the green **Commit changes...** button (top right). A pop-up appears.
+7. Type a short note in the **Commit message** field, leave **"Commit directly to the `main` branch"** selected, and click the green **Commit changes** button. Expected result: the pop-up closes and your new file is listed in the folder.
+
+### 3.5 Backing out of an edit you have not saved yet
+
+Any time you are mid-edit and want to abandon it, the escape is the same: **do not click Commit changes.** An edit only becomes real when you commit it.
+
+1. Press your browser's Back button, or click the repo name `madiritt.github.io` in the trail at the top of the page.
+2. If the browser pops up a warning like "Leave site? Changes you made may not be saved", click **Leave** or **Leave page**. That warning is exactly what you want here.
+3. Expected result: you are back on a normal file list and your typing is gone. The file on GitHub is untouched and the live site never saw anything. Nothing broke.
+
+If you already committed and want that undone, that is Part 7.2 instead.
+
+### 3.6 Practice run: your first edit, start to finish
+
+Do this once, all the way through, before you need to make a real change. Budget about 10 minutes of clicking plus 15 minutes of waiting.
+
+**What you are changing:** the short "Currently" line on the homepage, under the bio. It reads "Analyzing data and writing manuscripts" today. You will change it to another sentence that is also true, so that if a visitor happens to look during the practice run they see nothing odd. Step 22 puts the original wording back.
+
+1. Open a browser tab and go to https://github.com
+2. Click **Sign in** (top right).
+3. Type `madiritt` in the **Username or email address** box, type the password below it, click the green **Sign in** button, then type the 6-digit code from the phone authenticator app when GitHub asks. Expected result: you are signed in and looking at a GitHub activity feed.
+4. In the browser address bar, type https://github.com/madiritt/madiritt.github.io and press Enter. Expected result: a file list, with the page title `madiritt / madiritt.github.io` at the top.
+5. In that file list, click the folder named `_pages`. Expected result: a shorter list of files, all ending in `.md`, including `about.md`.
+6. Click the file named `about.md`. Expected result: you are viewing the file's text, read-only, with line numbers down the left.
+7. Near the top right of the file box, click the **pencil icon** (hovering shows "Edit this file"). Expected result: the text is now editable and clicking into it gives you a blinking cursor.
+8. Find the line that reads `current: Analyzing data and writing manuscripts`. It is about 19 lines down, in the upper settings section of the file. If you cannot spot it, press `Ctrl+F` (Mac: `Cmd+F`), type `current:`, and press Enter to jump to it.
+9. Click at the very end of that line, after the word `manuscripts`, so the cursor is blinking there.
+10. Hold Backspace and delete only the words after `current: `, leaving the line reading exactly `current: ` with the colon and one space still there. Do NOT delete the word `current` or the colon.
+11. Type this text: `Writing manuscripts and mentoring undergraduates`
+    Expected result: the line now reads `current: Writing manuscripts and mentoring undergraduates` and nothing else on the page has changed.
+12. Click the green **Commit changes...** button (top right). Expected result: a pop-up box titled "Commit changes".
+13. In the **Commit message** field, type `Update Currently line`
+14. Confirm the option **"Commit directly to the `main` branch"** is selected. It is the default, so normally you do not touch this.
+15. Click the green **Commit changes** button inside the pop-up. Expected result: the pop-up closes and you are viewing `about.md` again with your new text in it. Nothing appears to happen on the live site yet. That is correct; the rebuild has just started.
+16. Open a new browser tab and go to https://github.com/madiritt/madiritt.github.io/actions
+17. Look at the top row of the list. Expected result: it shows your message `Update Currently line` with a spinning yellow-brown dot next to it, meaning the site is being rebuilt. This takes 3 to 7 minutes.
+18. Wait, refreshing that Actions page every couple of minutes, until the top row shows a **green check mark**. Expected result: green check = the new version is published.
+19. Wait 10 more minutes after the green check. Nothing to do in this step; the internet is still handing out the old cached copy of the page. Skipping this wait is the single most common reason people think an edit failed.
+20. Open https://madisonrittinger.org and press `Ctrl+F5` (Mac: `Cmd+Shift+R`) to force a fresh copy.
+21. Look at the homepage under the bio, next to the small orange dot. Expected result: it reads "Writing manuscripts and mentoring undergraduates". You have now made a real edit end to end, and every recipe in Part 5 is a variation on what you just did.
+22. Now put the original wording back. Go to https://github.com/madiritt/madiritt.github.io again, then repeat steps 5 through 15, with one change: in step 11 type `Analyzing data and writing manuscripts` instead. (Or, if you prefer the new sentence, skip this step and leave it. Either is fine; both are true.)
+23. You do not need to watch this second build, but check the homepage again in about 20 minutes to confirm the wording you wanted is the wording that is live.
+
+**If step 18 shows a red X instead of a green check:** you have a typo, most likely a deleted colon or a deleted `current` label in step 10. The live site is still fine and still showing the old version. Go to Part 7.2 and restore the previous version of `about.md`, then start over at step 5.
+
+**If step 21 still shows the old text:** you almost certainly shortened the wait in step 19 or did a normal refresh instead of `Ctrl+F5`. Wait another 10 minutes and hard-refresh again. If it is still wrong after an hour, go to Part 7.3.
 
 ---
 
@@ -155,10 +246,12 @@ You now have a full copy of the site on your computer. You never have to clone a
 
 Always in this order: **pull, edit, commit, push.**
 
-1. **PULL FIRST.** Click the **Source Control icon** in the left sidebar (it looks like a branching line, third icon down). Click the **... menu** at the top of that panel and choose **Pull**. This downloads any changes made elsewhere (by the browser route, or by someone else) so your copy is current. Skipping this is the number one cause of headaches.
-2. **Edit.** Open files from the Explorer icon (top of the left sidebar), make changes, save with `Ctrl+S` (Mac: `Cmd+S`). Add new files or photos by dragging them into the right folder in the Explorer panel.
-3. **Commit.** Back in Source Control, your changed files are listed under "Changes." Type a short description in the Message box at the top (e.g. `Add ABS talk news item`), then click the **Commit** button. If it asks whether to "stage" changes (that just means "include these files in this save"), click **Yes** (or **Always**).
-4. **Push.** Click **Sync Changes** (the button that appears after committing; the ... menu also has **Push**). It usually shows a small number, like a `1` with an up-arrow - that is how many commits are waiting to upload, so the number is a quick sanity check that you're pushing exactly what you just committed. This uploads your commit to GitHub, which triggers the rebuild.
+1. **PULL FIRST.** Click the **Source Control icon** in the left sidebar (it looks like a branching line, third icon down). Click the **... menu** at the top of that panel and choose **Pull**. Expected result: nothing visible happens, or a brief progress flicker in the bottom bar. That is correct. This downloads any changes made elsewhere (by the browser route, or by someone else) so your copy is current. Skipping this is the number one cause of headaches.
+2. **Edit.** Open files from the Explorer icon (top of the left sidebar), make changes, save with `Ctrl+S` (Mac: `Cmd+S`). Add new files or photos by dragging them from a File Explorer window into the right folder in the Explorer panel. Expected result after saving: the file name in the tab loses its dot, and the Source Control icon shows a small number badge.
+3. **Commit.** Back in Source Control, your changed files are listed under "Changes." Type a short description in the Message box at the top (e.g. `Add ABS talk news item`), then click the **Commit** button. If it asks whether to "stage" changes (that just means "include these files in this save"), click **Yes** (or **Always**). Expected result: the Changes list empties out. Your work is saved on your computer only; GitHub has not seen it yet and the site has NOT started rebuilding.
+4. **Push.** Click **Sync Changes** (the button that appears after committing; the ... menu also has **Push**). It usually shows a small number, like a `1` with an up-arrow - that is how many commits are waiting to upload, so the number is a quick sanity check that you're pushing exactly what you just committed. Expected result: the button goes back to plain "Sync Changes" with no number. Only now has the rebuild started, so go to Part 6.
+
+**The trap unique to Route B: committing is not publishing.** In the browser (Route A) one click does both. Here, a commit without a push leaves your change sitting on your computer, invisible to everyone, with no build running and no green check to find. If you cannot see your change on the live site and the Actions tab shows no new run at all, this is almost always why. Go back to step 4.
 
 If you also used GitHub Desktop during the site's early setup: it does the same job with the same pull, commit, push idea, and it's fine to keep using it instead.
 
@@ -166,181 +259,400 @@ If you also used GitHub Desktop during the site's early setup: it does the same 
 
 ## Part 5: Task recipes
 
-Every recipe: which file, what to put in it, and anything to watch out for. Use Route A or B for the actual editing mechanics.
+Every recipe: which file, what to put in it, and anything to watch out for. The recipes tell you WHAT to change. For the clicking mechanics, they point you back to section 3.2 (edit a text file), 3.3 (upload a photo or PDF), or 3.4 (create a new file). If you are using VS Code instead, the mechanics are section 4.4 and everything else in the recipe is identical.
 
-**Formatting note for all recipes:** these files begin with a block fenced by two `---` lines. Picture it as two zones: everything **between** the two `---` lines is settings (called front matter), and everything **after** the second `---` is the page's actual content. In the settings zone the spacing and indentation matter a lot. Two rules that prevent almost every broken build:
+**Formatting note for all recipes.** Most of these files begin with a block fenced by two `---` lines. Picture it as two zones: everything **between** the two `---` lines is settings (called front matter), and everything **after** the second `---` is the page's actual content. Here is the top of the real `_pages/about.md` with the zones labeled:
+
+```
+---                                    <- first fence: settings start here
+layout: about
+title: About
+subtitle: PhD Candidate · Department of Biological Sciences · University of Wisconsin-Milwaukee
+current: Analyzing data and writing manuscripts
+---                                    <- second fence: settings end here
+
+I am a behavioral ecologist who is...  <- from here down is the visible page text
+```
+
+(The `<-` arrows above are labels for this guide only. They are not in the real file, and you never type them.)
+
+In the settings zone the spacing and indentation matter a lot. Three rules prevent almost every broken build:
 - **Copy the patterns exactly and change only the values** (the text after the colon), never the labels before it.
+- **Keep the colon and the single space after it.** `current: text` builds; `current:text` and `current text` do not.
 - **Indent with the space bar, never the Tab key.** A single Tab in the settings block looks fine on screen but stops the whole page from building. When a recipe says "two spaces," tap the space bar twice.
 
 ### 5.1 Update the "Currently" line (homepage status dot)
 
-- **File:** `_pages/about.md`
-- Near the top, find:
-  ```yaml
-  current: Analyzing data and writing manuscripts
-  ```
-- Replace the text after `current:` with the new status. Keep it to one short line, no dates needed. Update it a few times a year so the site feels alive.
+The short line under the bio, next to the orange dot. Madi updates it a few times a year so the site reads as live and maintained.
+
+- **File to edit:** `_pages/about.md`
+
+1. Open `_pages/about.md` for editing (section 3.2: click `_pages`, click `about.md`, click the pencil icon).
+2. Find the line that reads `current: Analyzing data and writing manuscripts`. It is in the settings zone near the top. Press `Ctrl+F` and search for `current:` if you cannot see it.
+3. Delete only the words after `current: `, leaving the label, the colon, and one space intact.
+4. Type the new status on that same line. Keep it to one short line and do not add a date or a timeline. Expected result: the line reads like `current: Running field trials in Door County`.
+5. Commit (section 3.2, steps 4 to 7), then check it went live (Part 6).
 
 ### 5.2 Add a news item
 
-- **Folder:** `_news/`
-- Create a new file whose name is the date followed by a few words describing the item: `2026-09-15-new-paper.md` (format: `YYYY-MM-DD-something.md`, all lowercase, words joined by hyphens, no spaces).
-- Contents (copy this exactly, change the date and the sentence):
-  ```
-  ---
-  layout: post
-  date: 2026-09-15 09:00:00-0600
-  inline: true
-  related_posts: false
-  ---
+News items are the dated one-line updates on the homepage. Each item is its own small file.
 
-  New paper out in Animal Behaviour on spider decision-making.
-  ```
-- The `date:` inside the file should match the filename date. **Only change the date part** (the `2026-09-15`); leave the time and the `-0600` after it exactly as they are. Those set the time zone and don't need touching. Keep `inline: true` too - that is what makes it a one-line item instead of a separate page.
-- The homepage shows the 5 newest items (that cap is `limit: 5` under `announcements:` in `_pages/about.md`); the full list lives at madisonrittinger.org/news/ automatically. Old items never need deleting.
+- **Folder the new file goes in:** `_news/`
+
+1. Decide the item's date and a two-or-three-word description of it. For example: 15 September 2026, new paper.
+2. Turn that into a file name in this exact shape: `2026-09-15-new-paper.md`
+   - The date comes first, as `YYYY-MM-DD` (four-digit year, two-digit month, two-digit day).
+   - Then a hyphen, then the description words joined by hyphens.
+   - All lowercase. No spaces anywhere. Ends in `.md`.
+   - Real examples already in the folder: `2026-06-01-site-launched.md` and `2026-07-17-abs-2026.md`.
+3. Create the new file in the `_news` folder (section 3.4).
+4. For the contents, copy the block below exactly, then change only the two things named underneath it:
+   ```
+   ---
+   layout: post
+   date: 2026-09-15 09:00:00-0600
+   inline: true
+   related_posts: false
+   ---
+
+   New paper out in Animal Behaviour on spider decision-making.
+   ```
+5. Change the date on the `date:` line to match the date in your file name. **Change only the `2026-09-15` part.** Leave the ` 09:00:00-0600` after it exactly as it is; that is the time and time zone and it never needs touching.
+6. Change the sentence at the bottom to the actual news. One or two sentences is right. Do not change `layout: post`, `inline: true`, or `related_posts: false`; `inline: true` is what makes it a one-line item instead of its own separate page.
+7. Commit (section 3.4, steps 6 and 7), then check it went live (Part 6). Expected result: the new item appears at the top of the News section on the homepage, and also at https://madisonrittinger.org/news/
+8. Nothing to clean up afterwards. The homepage shows only the 5 newest items (that cap is the `limit: 5` line under `announcements:` in `_pages/about.md`) and the full list at /news/ builds itself. Old items never need deleting.
 
 ### 5.3 Add a publication (with thumbnail and photo credit)
 
-Three parts: the entry, the thumbnail, and (optionally) a photo credit.
+This recipe has three parts. **Part 1 is required. Parts 2 and 3 are optional** and each says so. Do them as three separate commits, checking the site between each one, rather than all at once.
 
-**Part 1 - the entry.**
-- **File:** `_bibliography/papers.bib`
-- **Easiest way, do this first:** don't type the entry by hand. On Google Scholar, find the paper, click **"Cite"** underneath it, then **"BibTeX"** at the bottom. Copy the whole block it shows you and paste it at the top of `papers.bib`. That gets the title, authors (including tricky accented names), journal, year, and DOI correct automatically. Then all you add by hand are the three special lines below: `doi`, `selected`, and `preview` if they aren't already there. Everything after this is just explaining what those pieces mean.
-- Add the new block at the top of the file, following this pattern (this is a real entry from the file):
-  ```bibtex
-  @article{rittinger2025instinct,
-    title={Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems},
-    author={Rittinger, Madison A and Rodr{\'\i}guez, Rafael Lucas},
-    journal={Biology Letters},
-    volume={21},
-    number={10},
-    year={2025},
-    publisher={The Royal Society},
-    doi={10.1098/rsbl.2025.0293},
-    selected={true},
-    preview={instinct-insight.jpg}
-  }
-  ```
-- Line by line, the parts you change:
-  - `rittinger2025instinct` is the entry's internal ID. Make up a new unique one: last name + year + first word of title.
-  - `author={...}`: separate multiple authors with ` and ` (the word, spelled out). Accented characters use codes like `{\'\i}` for í - this is exactly the fiddly part the Scholar copy-paste above handles for you, so you shouldn't need to type these by hand.
-  - `doi={...}`: the paper's DOI, just the number part, no https prefix. This becomes the DOI button.
-  - `selected={true}`: include this line to feature the paper on the HOMEPAGE under Selected Publications. Leave the line out for papers that should only appear on the Publications page. Keep the homepage list to the best 2 or 3.
-  - `preview={filename.jpg}`: the thumbnail image (next part). Leave this line out for no thumbnail.
-  - Your name is bolded automatically on the site; nothing special needed.
+**Part 1 - add the paper's entry (required).**
 
-**Part 2 - the thumbnail.**
-- Upload a square-ish image into the folder `assets/img/publication_preview/`, e.g. `new-paper.jpg`, and set `preview={new-paper.jpg}` in the entry. Around 400 to 800 pixels on the short side is plenty; the build makes small web copies automatically.
+- **File to edit:** `_bibliography/papers.bib`
+- Do NOT type the entry by hand. Google Scholar will write most of it for you, including the fiddly accented names.
 
-**Part 3 - photo credit (only if the thumbnail is someone else's photo).**
-- **File:** `_includes/publication-credits.html`
-- Find the block that looks like this:
-  ```js
-  var credits = {
-    'treefrog.jpg': 'Photo: Höbel Lab',
-    'web-spider.jpg': 'Photo: Mark Yokoyama',
-    'songbird-nestling.jpg': 'Photo: Dr. Rachael DiSciullo'
-  };
-  ```
-- Add your line inside the braces, matching the pattern, with a comma after the previous line:
-  ```js
-    'songbird-nestling.jpg': 'Photo: Dr. Rachael DiSciullo',
-    'new-paper.jpg': 'Photo: Jane Photographer'
-  ```
-- The key (left side) must exactly match the `preview={...}` filename. No entry means no credit overlay, which is correct for figures from your own papers.
+1. Go to https://scholar.google.com and search for the paper by title.
+2. Underneath the search result, click **Cite**. A small window opens showing formatted citations.
+3. At the bottom of that window, click **BibTeX**. Expected result: a plain-text page appears showing a block that starts with `@article{`.
+4. Select all of that text (`Ctrl+A`, Mac `Cmd+A`) and copy it (`Ctrl+C`, Mac `Cmd+C`).
+5. Open `_bibliography/papers.bib` for editing (section 3.2; use the **Go to file** button and type `papers` to find it fast).
+6. Look at the top of the file. Lines 1 and 2 are two `---` lines with nothing between them, then a blank line, then the first paper's `@article{` line. **Leave those two `---` lines alone.** They look pointless and they are not; deleting them stops the Publications page from building.
+7. Click at the very start of the first `@article{` line, which is line 4, so the cursor is blinking immediately before the `@` symbol.
+8. Paste the copied block (`Ctrl+V`, Mac `Cmd+V`), then press Enter twice to put a blank line between your new entry and the paper that used to be first. Expected result: the two `---` lines are still at the top, your new paper comes next, and the old entries follow below it. New papers go at the top so the newest work reads first.
+9. Your pasted block will look roughly like the real entry below. Compare yours to it and add any of the last three lines that Scholar did not include:
+   ```bibtex
+   @article{rittinger2025instinct,
+     title={Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems},
+     author={Rittinger, Madison A and Rodr{\'\i}guez, Rafael Lucas},
+     journal={Biology Letters},
+     volume={21},
+     number={10},
+     year={2025},
+     publisher={The Royal Society},
+     doi={10.1098/rsbl.2025.0293},
+     selected={true},
+     preview={instinct-insight.jpg}
+   }
+   ```
+10. Check the ID on the first line (in the example, `rittinger2025instinct`, the text between `{` and the comma). It must not match any other entry in the file. Scholar usually generates a unique one. If it happens to duplicate an existing entry, replace it with last name + year + first word of the title, all lowercase and run together, for example `rittinger2027webs`.
+11. Check there is a `doi={...}` line. If Scholar omitted it, add it, and put in just the number part of the DOI with no `https://doi.org/` in front, for example `doi={10.1098/rsbl.2025.0293},`. This line is what creates the DOI button on the site.
+12. Decide about the homepage. If this paper should be featured on the HOMEPAGE under Selected Publications, include the line `selected={true},`. If it should appear only on the Publications page, leave that line out entirely. Keep the homepage list to the best 2 or 3 papers.
+13. If you are not adding a thumbnail image, leave out the `preview={...}` line entirely. If you are adding one, do Part 2 below and use the file name you upload there.
+14. Make sure the block ends with a `}` on its own line, and that every line inside the block except the last one ends with a comma. The last line before the `}` has NO comma.
+15. Commit (section 3.2, steps 4 to 7), then check the Publications page went live (Part 6).
+
+Your own name is bolded automatically wherever it appears in the list. You do not do anything for that.
+
+**Part 2 - add a thumbnail image (optional; skip it and the entry just shows no picture).**
+
+1. Get a square-ish image, roughly 400 to 800 pixels on its short side. Bigger is fine; the build makes small web copies automatically.
+2. Rename it on your computer to a lowercase, hyphenated name ending in `.jpg`, for example `new-paper.jpg`.
+3. Upload it into the folder `assets/img/publication_preview/` (section 3.3). Note this is a DIFFERENT folder from the gallery images; it is inside `assets/img/`.
+4. Open `_bibliography/papers.bib` for editing again and add this line inside the paper's block, just before the closing `}`, using your file name: `preview={new-paper.jpg}`
+5. Make sure the line above it ends with a comma, and that the `preview={new-paper.jpg}` line itself has NO comma after it if it is the last line before the `}`.
+6. Commit and check the site (Part 6). Expected result: the thumbnail appears next to that paper.
+
+**Part 3 - add a photo credit on the thumbnail (optional; only if the thumbnail is someone else's photograph).**
+
+Figures from Madi's own papers need no credit, so skip this part for those.
+
+- **File to edit:** `_includes/publication-credits.html`
+
+1. Open `_includes/publication-credits.html` for editing (section 3.2; use **Go to file** and type `credits`).
+2. Press `Ctrl+F` and search for `var credits` to jump to the right spot. You are looking for this block, about two-thirds of the way down the file:
+   ```js
+   var credits = {
+     'treefrog.jpg': 'Photo: Höbel Lab',
+     'web-spider.jpg': 'Photo: Mark Yokoyama',
+     'songbird-nestling.jpg': 'Photo: Dr. Rachael DiSciullo'
+     // instinct-insight.jpg: composite manuscript figure, no single credit.
+   };
+   ```
+3. Click at the end of the LAST line that has a quote mark on it (in the example, the `'songbird-nestling.jpg': ...` line) and type a comma there.
+4. Press Enter and type your new line in the same shape, with no comma at the end of it:
+   ```js
+     'new-paper.jpg': 'Photo: Jane Photographer'
+   ```
+   Expected result: every credit line now ends with a comma except the last one, which is yours.
+5. Double-check the file name on the left is character-for-character identical to the `preview={...}` file name from Part 2. If they differ at all, no credit appears.
+6. Ignore the line that starts with `//`. That is a note to humans, not a setting.
+7. Commit and check the site (Part 6). Expected result: the photographer's name shows in small text across the bottom of that thumbnail.
+8. This file is the one and only exception to house rule 4 ("don't edit machinery"). Do not change anything else in it. If the thumbnails ever look wrong after editing here, restore the previous version (Part 7.2).
 
 ### 5.4 Add a gallery photo
 
-- **Step 1:** upload the image into `assets/img/` with a descriptive name starting with `gallery-`, e.g. `gallery-fieldwork-door-county-2026.jpg`.
-- **Step 2:** open `_pages/gallery.md` and add an entry to the `photos:` list in the front matter, copying the pattern:
-  ```yaml
-  photos:
-    - image: assets/img/gallery-fieldwork-door-county-2026.jpg
-      caption: "Surveying orb weavers in Door County, 2026"
-      year: 2026
-    - image: assets/img/gallery-abs-2025.jpg
-      caption: "Animal Behavior Society (ABS), 2025"
-      year: 2025
-  ```
-- The grid sorts itself newest year first; you can add your entry anywhere in the list and it lands in the right spot.
-- Species names in captions go in italics using `<em>` tags inside the quotes: `caption: "<em>Pholcus phalangioides</em>, 2022"`.
-- Indentation matters in this list: two spaces before `-`, four before `image:`/`caption:`/`year:`. Copy an existing entry and edit it rather than typing fresh.
+Two jobs here: upload the photo file (steps 1 to 3), then add its entry to the list of photos (steps 4 to 11). The photo does not appear on the site until BOTH are done.
+
+1. Rename the photo on your computer to a lowercase, hyphenated name that starts with `gallery-` and ends in `.jpg`, for example `gallery-fieldwork-door-county-2026.jpg`. No spaces, no capital letters.
+2. If the file is larger than about 2 MB, shrink it first. Any "resize image" tool works; aim for 1600 to 2000 pixels on the long side.
+3. Upload it into the folder `assets/img/` (section 3.3: click `assets`, then `img`, then **Add file** > **Upload files**).
+4. Open `_pages/gallery.md` for editing (section 3.2; use **Go to file** and type `gallery`).
+5. Find the `photos:` line in the settings zone near the top. Below it is a list of entries, each three lines long, that looks like this:
+   ```yaml
+   photos:
+     - image: assets/img/gallery-abs-2025.jpg
+       caption: "Animal Behavior Society (ABS), 2025"
+       year: 2025
+     - image: assets/img/gallery-f-communis-2025.jpg
+       caption: "<em>Frontinella communis</em> web, 2025"
+       year: 2025
+   ```
+6. Select the three lines of any one existing entry (its `- image:` line and the `caption:` and `year:` lines under it), copy them, click at the end of that third line, press Enter, and paste. Expected result: you now have two identical entries in a row. Editing a copy is far safer than typing a new entry from scratch, because the indentation comes along for free.
+   - Check the pasted `- image:` line starts at exactly the same distance from the left edge as the other `- image:` lines. The editor sometimes adds extra spaces when you press Enter. If your line is pushed further right than its neighbors, click just before the `-` and press Backspace until it lines up.
+7. In your pasted copy, change the file name after `assets/img/` to the photo you uploaded in step 3. Leave the `assets/img/` part alone.
+8. Change the text inside the quote marks on the `caption:` line. Keep both quote marks. This caption is what shows under the photo when a visitor clicks it.
+9. Change the number on the `year:` line to the year the photo was taken. Just the four digits, no quote marks.
+10. Do not fix the ordering. The grid sorts itself by year, newest first, so your entry can sit anywhere in the list and still land in the right place on the page.
+11. Commit (section 3.2, steps 4 to 7) and check the Gallery page (Part 6).
+
+**Italic species names.** To italicize a scientific name in a caption, wrap it in `<em>` and `</em>` inside the quote marks, like this: `caption: "<em>Pholcus phalangioides</em>, 2022"`. The `<em>` goes before the name and the `</em>` (note the slash) goes after it.
+
+**If the Gallery page breaks,** it is nearly always indentation in this list. Each entry needs exactly two spaces before the `-`, and exactly four spaces before `image:`, `caption:`, and `year:`. Spaces only, never Tab. Restoring the previous version (Part 7.2) and redoing step 6 by copying an existing entry fixes it.
 
 ### 5.5 Replace the CV
 
-- The CV PDF lives at `assets/pdf/Rittinger_2026_CV.pdf` and both the download button and the preview on the CV page point at it.
-- **Easiest way:** rename your new PDF on your computer to exactly `Rittinger_2026_CV.pdf`, then upload it into `assets/pdf/` (Route A: section 3.3). It replaces the old one; nothing else to edit. Ignore that the filename says 2026 in later years, or use the tidier way:
-- **Tidier way (optional):** upload the new PDF with a new name (e.g. `Rittinger_2027_CV.pdf`) into `assets/pdf/`, then edit `_pages/cv.md` and change the line `cv_pdf: /assets/pdf/Rittinger_2026_CV.pdf` to the new filename. You can then delete the old PDF from `assets/pdf/`.
+The CV PDF lives at `assets/pdf/Rittinger_2026_CV.pdf`. Both the download button and the on-page preview point at that exact file name, so the simplest update is to hand GitHub a new file with the same name.
+
+**Easiest way (recommended, one step, nothing to edit):**
+
+1. On your computer, rename the new CV PDF to exactly `Rittinger_2026_CV.pdf`. Capital R, capital CV, underscores not spaces, character for character.
+2. Upload it into the folder `assets/pdf/` (section 3.3: click `assets`, then `pdf`, then **Add file** > **Upload files**).
+3. Commit and check the CV page (Part 6). Expected result: the download button gives the new PDF and the preview shows the new pages.
+4. Yes, the file name still says 2026 in later years. Nobody sees the file name except you, so this is fine and is the trade for never having to edit a settings line.
+
+**Tidier way (optional, two files to change):**
+
+1. Rename the new PDF on your computer to a fresh name, for example `Rittinger_2027_CV.pdf`.
+2. Upload it into `assets/pdf/` (section 3.3).
+3. Open `_pages/cv.md` for editing (section 3.2).
+4. Find the line `cv_pdf: /assets/pdf/Rittinger_2026_CV.pdf` in the settings zone near the top.
+5. Change only the file name at the end of that line to your new name. Keep the `/assets/pdf/` part and the leading slash exactly as they are.
+6. Commit and check the CV page (Part 6).
+7. Optional cleanup: delete the old PDF from `assets/pdf/`. If you skip this, nothing breaks; the old file just sits there unused.
 
 ### 5.6 Edit the bio
 
-- **File:** `_pages/about.md`
-- The bio is the paragraph BELOW the second `---` line (everything above it is settings; be careful in there). Edit the paragraph text directly.
-- The long dash in the "antagonizing my cat" sentence is there on purpose (Madi's phrasing). Leave it unless Madi herself rewrites the sentence.
+- **File to edit:** `_pages/about.md`
+
+1. Open `_pages/about.md` for editing (section 3.2).
+2. Scroll to the SECOND `---` line, roughly 30 lines down. Everything below that line is the bio paragraph. Everything above it is settings, so stay out of there for this edit.
+3. Edit the paragraph text directly, the way you would in a Word document. It is one single paragraph with no special formatting.
+4. Leave the long dash in the "antagonizing my cat" sentence alone. It is there on purpose because it is Madi's own phrasing, and it is the one sanctioned exception to house rule 2. Change it only if Madi rewrites that sentence herself.
+5. Commit (section 3.2, steps 4 to 7) and check the homepage (Part 6).
 
 ### 5.7 Update social links
 
-- **File:** `_data/socials.yml`
-- Current live entries:
-  ```yaml
-  email: ritting2@uwm.edu
-  orcid_id: 0000-0001-6326-1572
-  scholar_userid: FAzQaf4AAAAJ
-  research_gate_profile: Madison-Rittinger
-  linkedin_username: madison-rittinger-5a12711b8
-  ```
-- Change a value to update a link; put a `#` at the start of a line to hide that icon.
-- Two traps, both explained in the file's own comments: the ResearchGate line must stay spelled exactly `research_gate_profile`, and the `rss_icon` line must keep its `#` at the front (that `#` is what hides it) - if that line is ever left active without the `#`, an unwanted RSS feed icon appears.
+These are the small round icons under the bio on the homepage.
+
+- **File to edit:** `_data/socials.yml`
+
+1. Open `_data/socials.yml` for editing (section 3.2; use **Go to file** and type `socials`).
+2. The whole live file is these five lines. Each one is a label, a colon, and a value:
+   ```yaml
+   email: ritting2@uwm.edu
+   orcid_id: 0000-0001-6326-1572
+   scholar_userid: FAzQaf4AAAAJ
+   research_gate_profile: Madison-Rittinger
+   linkedin_username: madison-rittinger-5a12711b8
+   ```
+3. To update a link, change only the value after the colon. Never change the label before the colon.
+4. Note that most of these are NOT full web addresses. `scholar_userid` is just the ID code out of the middle of the Google Scholar address; `linkedin_username` is just the last part of the LinkedIn profile address. Match the shape of what is already there rather than pasting a whole `https://...` address.
+5. To HIDE one icon without deleting the line, type a `#` and a space at the very start of that line. Expected result once live: that icon disappears from the homepage. Removing the `#` again brings it back.
+6. Commit (section 3.2, steps 4 to 7) and check the homepage (Part 6).
+
+Two traps in this file, both also flagged in the file's own comment lines:
+- The ResearchGate label must stay spelled exactly `research_gate_profile`. `research_gate` looks more sensible and does not work.
+- The `rss_icon` line at the bottom must keep the `#` at its front. That `#` is the only thing hiding it. Uncomment that line and an unwanted RSS feed icon appears on the site.
 
 ### 5.8 Edit the research pages
 
-- The Research page lists one card per research question. Each card is a file in `_projects/`:
-  - `decision-making-under-uncertainty.md`
-  - `comparative-cognition.md`
-  - `individual-personality.md`
-- In each file's front matter: `title` and `description` are the card text; `importance: 1` (2, 3...) controls order, lowest number first; `category: current` or `category: past` controls which section it sits in.
-- The page text and photos live in the body below the `---`. Photos referenced there (named `research-*.jpg`) live in `assets/img/`; to swap one, upload the new image and change the filename in the body where it's referenced.
-- To ADD a research question: copy one of the three files (Route A: open it, copy all, create a new file in `_projects/`, paste, edit), give it a new filename, title, description, and importance number. It appears on the Research page automatically.
+The Research page shows one card per research question. Each card is its own file in the `_projects/` folder. The three that exist today are:
+- `decision-making-under-uncertainty.md`
+- `comparative-cognition.md`
+- `individual-personality.md`
+
+**To change an existing research question:**
+
+1. Open the relevant file in `_projects/` for editing (section 3.2: click `_projects`, then the file).
+2. In the settings zone at the top, these are the lines you may change:
+   - `title:` is the card's heading.
+   - `description:` is the short blurb under the heading on the card.
+   - `importance: 2` controls the order on the page, lowest number first. `1` sits before `2`.
+   - `category: current` puts it in the current-work section; `category: past` moves it to the past-work section. Those are the only two values that work.
+   - `img:` would be a picture on the card itself. All three are currently empty (the text after `img:` starts with a `#`, which means it is a note, not a value). Leave it as it is unless you want card pictures, and then set all three, not one.
+3. Below the settings zone the page has a `<style>` block, the same as the Teaching page. Scroll PAST the line that reads `</style>`, roughly 70 lines down, before editing anything. Everything above that line is layout machinery.
+4. Edit the sentences below `</style>` freely. Leave every line that starts with `<` or `{%` alone.
+5. Commit (section 3.2, steps 4 to 7) and check the Research page (Part 6).
+
+**To swap a photo on a research page.** This one is fiddlier than the other photo recipes, because each photo's file name appears TWICE in the file and its caption is in a third place. Change all three or the photo will half-work.
+
+1. Rename the new image on your computer to a lowercase hyphenated name starting with `research-`, for example `research-navigation-web-2027.jpg`.
+2. Upload it into `assets/img/` (section 3.3).
+3. Open the research file in `_projects/` for editing and press `Ctrl+F`, then search for the OLD file name (for example `research-navigation-web.jpg`). The photos live in a block near the bottom of the file. Each photo is two lines that look like this:
+   ```
+   <a href="{{ '/assets/img/research-navigation-web.jpg' | relative_url }}" class="glightbox photo-tile" data-gallery="navigation-gallery" data-title="<em>Frontinella communis</em> web, 2024">
+     {% include figure.liquid path="assets/img/research-navigation-web.jpg" title="" class="img-fluid" %}
+   ```
+4. On the FIRST line, replace the old file name with your new one, keeping the quote marks and everything else on the line intact.
+5. On that same first line, update the caption, which is the text inside `data-title="..."`. Change only the words between those quote marks. If it is a species name, keep it wrapped in `<em>` and `</em>`.
+6. On the SECOND line, replace the old file name with the new one again, inside `path="assets/img/..."`. This is the occurrence people forget.
+7. Read both lines over and confirm the same new file name now appears twice, spelled identically.
+8. Commit and check the page (Part 6). Expected result: the new photo appears as a tile, and clicking it opens the large version with your new caption.
+9. If the tile shows a broken-image icon, the two file names do not match each other or do not match the uploaded file. Compare all three spellings character by character, including `.jpg` versus `.jpeg`.
+
+**To ADD a new research question.** This is the most technical task in this guide and it is a perfectly reasonable one to hand to technical help instead. If you do it yourself, do it on a quiet day and know that Part 7.2 undoes anything.
+
+1. Pick the existing file in `_projects/` whose page looks most like what you want, and open it by clicking its name so you are VIEWING it. Do not click the pencil icon.
+2. Near the top right of the file box, click the small icon labeled **Copy raw file** (hover over the icons to find it). Expected result: nothing visible happens. The whole file is now on your clipboard. If you cannot find that icon, click **Raw**, then press `Ctrl+A` and `Ctrl+C`.
+3. Create a new file in the `_projects/` folder (section 3.4). Name it after the question, lowercase with hyphens, ending in `.md`, for example `web-building-decisions.md`.
+4. Paste the copied contents into the large text area (`Ctrl+V`).
+5. Change the `title:` and `description:` lines, and give `importance:` a number no other file is using. The three existing files use 1, 2, and 3, so use 4. Also set `category:` to `current` or `past`.
+6. Rewrite the sentences below the `</style>` line. Leave the `<style>` block itself exactly as copied; that is what makes the new page match the others.
+7. Delete the photo block near the bottom, because it points at the copied page's images. Delete every `<a href=...>` line, every `{% include figure.liquid ... %}` line, and the `</a>` lines that go with them. Leave the `<div>` that contained them if it has no photos in it; an empty photo area is harmless.
+8. Commit. Expected result: the new card appears on the Research page on its own, with no other file to update. Add photos afterwards as a second, separate change, following the photo-swap steps above but using the copied page's structure as your pattern.
 
 ### 5.9 Edit the Teaching / Mentoring page (carefully)
 
-- **File:** `_pages/teaching.md`
-- This page has a hand-tuned layout: three sections, each with a photo the text wraps around. It is the one content page where the structure is fragile.
-- **Safe to edit freely:** the visible sentences and paragraphs (mentoring counts, course lists, philosophy text), and the `<figcaption class="mentoring-caption">...</figcaption>` caption text.
-- **Do not touch:** the `<style>` block at the top, the `<figure class="mentoring-inset">` blocks (except the caption text inside), the `<div class="mentoring-section" ...>` wrapper lines, or the order of anything. These control the photo float and text alignment at every screen size.
-- **To swap a photo:** upload the new image to `assets/img/` (name it `mentoring-something.jpg`), then inside the relevant `<figure>` block change the old filename in the `path="assets/img/..."` part to the new one, and update the caption.
-- If the page layout ever looks broken after an edit here, don't fight it: use Part 7.2 to restore the previous version of the file and try again with a smaller change (or leave a note for technical help).
+- **File to edit:** `_pages/teaching.md`
+
+This page has a hand-tuned layout: three sections, each with a photo that the text wraps around. It is the one content page where the structure is fragile, so it gets its own rules. Read the two lists below before you edit anything here.
+
+**Safe to change freely:**
+- Any visible sentence or paragraph: mentoring counts, course lists, teaching philosophy text.
+- The caption text inside a line that looks like `<figcaption class="mentoring-caption">Undergraduate researcher Kenzie Dasek, 2024</figcaption>`. Change only the words between `>` and `</figcaption>`.
+
+**Do not touch:**
+- The whole `<style>` block at the top of the file, which runs about 120 lines. Everything from the line `<style>` down to the line `</style>` is off limits.
+- Any line starting with `<figure class="mentoring-inset"`, and the `{% include figure.liquid ... %}` line inside it (except the file name, see below).
+- Any line starting with `<div class="mentoring-section"`.
+- The order of the three sections.
+
+These control how the photos float and how the text lines up at every screen size, including phones.
+
+**To change the words on the page:**
+
+1. Open `_pages/teaching.md` for editing (section 3.2; use **Go to file** and type `teaching`).
+2. Scroll PAST the `</style>` line, roughly 120 lines down. Everything above it is off limits.
+3. Edit the sentences below that point. Leave every line that starts with `<` alone unless it is a `<figcaption ...>` caption.
+4. Commit (section 3.2, steps 4 to 7) and check the Teaching / Mentoring page (Part 6), on a phone as well as a computer if you can.
+
+**To swap one of the three photos:**
+
+1. Rename the new image on your computer to a lowercase hyphenated name starting with `mentoring-`, for example `mentoring-lab-group-2027.jpg`.
+2. Upload it into `assets/img/` (section 3.3).
+3. Open `_pages/teaching.md` for editing and press `Ctrl+F`, then search for `mentoring-` to find the three photo lines. Each looks like this:
+   ```
+   {% include figure.liquid path="assets/img/mentoring-kenzie-dasek-2024.jpg" title="" class="img-fluid" %}
+   ```
+4. In the line for the photo you are replacing, change ONLY the file name between `assets/img/` and the closing `"`. Leave the `{% include figure.liquid path="`, the `assets/img/`, and everything after the closing quote exactly as they are.
+5. A few lines below it, update the `<figcaption class="mentoring-caption">` text to match the new photo, changing only the words between `>` and `</figcaption>`.
+6. Commit and check the page (Part 6).
+7. Use a photo with a similar shape to the one you removed. A tall portrait swapped in where a wide photo was will change how much text wraps beside it.
+
+**If this page looks broken after an edit,** do not try to fix the layout by hand. Restore the previous version of the file (Part 7.2), then retry with a smaller change, or leave a note for technical help.
 
 ### 5.10 Change the profile photo or the browser-tab icon
 
-- **Profile photo (homepage portrait):** upload the new image as `assets/img/prof_pic.jpg` (exact name; it replaces the old one). Roughly square looks best in the orange panel. This file must always exist - deleting it breaks the build.
-- **Browser-tab icon (favicon):** upload a SQUARE image as `assets/img/favicon.png` (exact name). It's the tiny face in the browser tab; around 192x192 pixels is right.
+**The homepage portrait:**
+
+1. Crop the new photo roughly square. It sits inside the orange panel on the homepage and a square shape fills it best.
+2. Rename it on your computer to exactly `prof_pic.jpg`. All lowercase, an underscore between `prof` and `pic`, and `.jpg` at the end. If your file is a `.jpeg` or `.JPG`, renaming the extension to `.jpg` is fine.
+3. Upload it into `assets/img/` (section 3.3). Expected result: GitHub replaces the old file silently, with no extra question asked.
+4. Commit and check the homepage (Part 6).
+5. Never DELETE this file. The homepage refuses to build without a file at `assets/img/prof_pic.jpg`, so always replace it, never remove it.
+
+**The browser-tab icon (the tiny picture in the browser tab, called a favicon):**
+
+1. Make or crop a SQUARE image, about 192 by 192 pixels. It is displayed very small, so simple shapes read better than a detailed photo.
+2. Rename it on your computer to exactly `favicon.png`. Note this one is a `.png`, not a `.jpg`.
+3. Upload it into `assets/img/` (section 3.3).
+4. Commit and check (Part 6). Expected result: the new icon shows in the browser tab. Tab icons are cached especially stubbornly, so if the old one persists, close the tab entirely and open the site in a fresh tab.
 
 ### 5.11 Small homepage text (contact note, subtitle)
 
-- **File:** `_config.yml` - edit gently, this file also holds machinery settings. Change only lines you recognize:
-  - `contact_note:` - the sentence under the social icons ("The best way to reach me is by email.").
-  - `description:` - the one-line site summary search engines show.
-- The subtitle line under the name on the homepage ("PhD Candidate · Department of ...") is `subtitle:` in `_pages/about.md`. Update it when the title changes (PhD Candidate becomes Dr., new institution, etc.). Keep the ` · ` separators; they become the stacked lines.
+**The sentence under the social icons, and the site summary.**
+
+- **File to edit:** `_config.yml`
+
+This file also holds machinery settings, so change ONLY the two lines named below and nothing else.
+
+1. Open `_config.yml` for editing (section 3.2; use **Go to file** and type `config`).
+2. Press `Ctrl+F` and search for `contact_note` to jump to it. That line's value is the sentence under the social icons on the homepage ("The best way to reach me is by email."). Change only the text after the colon.
+3. To change the one-line site summary that search engines show, press `Ctrl+F` and search for `description:`. Change only the text after the colon.
+4. Commit (section 3.2, steps 4 to 7) and check the homepage (Part 6).
+
+**The subtitle under the name on the homepage** ("PhD Candidate · Department of Biological Sciences · University of Wisconsin-Milwaukee") lives in a different file:
+
+1. Open `_pages/about.md` for editing (section 3.2).
+2. Find the `subtitle:` line in the settings zone near the top.
+3. Change the text after the colon. Keep the ` · ` separators between the parts, with one space on each side of each dot. Those dots are what break the line into stacked lines on the page. Copy an existing ` · ` from the line rather than trying to type that character.
+4. Commit and check the homepage (Part 6). Update this line whenever the title changes, for example when PhD Candidate becomes Dr., or the institution changes.
 
 ### 5.12 Remove something (news item, gallery photo, publication)
 
-Removing is the mirror of adding. The key idea: for photos and publications, deleting the image file is NOT what makes the item disappear - removing its ENTRY (the lines that list it) is. Do the entry first.
+Removing is the mirror of adding. **The key idea: for photos and publications, deleting the image file is NOT what makes the item disappear. Removing its ENTRY, meaning the lines that list it, is.** Always do the entry first. Deleting an image whose entry still exists leaves a broken picture on the page.
 
-- **A news item:** delete the whole file from `_news/`. In Route A: open the file, click the small caret (triangle) next to the pencil icon, or the **...** menu, and choose **Delete file**, then commit. In Route B (VS Code): right-click the file in the Explorer panel, choose **Delete**, then commit and push. Nothing else references it, so that's all.
-- **A gallery photo:** in `_pages/gallery.md`, delete that photo's three-line entry from the `photos:` list (the `- image:` line and its `caption:` and `year:` lines beneath it). That removes it from the page. You can optionally also delete the image file from `assets/img/` to tidy up, but you don't have to.
-- **A publication:** in `_bibliography/papers.bib`, delete the paper's whole block, from its `@article{...` line down to and including its closing `}`. If it had a thumbnail and/or a photo credit, you can optionally also delete the image from `assets/img/publication_preview/` and remove its line from the credits list in `_includes/publication-credits.html` (recipe 5.3).
+**To remove a news item:**
 
-As always, one change at a time, then check the result (Part 6). If a removal ever looks wrong, restoring the previous version (Part 7.2) brings it right back.
+1. On the repo page, click the `_news` folder, then click the file you want gone.
+2. Near the top right of the file box, click the **...** (three dots) button. A menu drops down.
+3. Click **Delete file**. Expected result: a page showing the file's contents crossed out or a commit box at the bottom.
+4. Type a commit message like `Remove ABS 2026 news item`, leave **"Commit directly to the `main` branch"** selected, and click the green **Commit changes** button.
+5. That is all. Nothing else in the site refers to a news file.
+6. In VS Code instead: right-click the file in the Explorer panel, choose **Delete**, then commit and push (section 4.4, steps 3 and 4).
+
+**To remove a gallery photo:**
+
+1. Open `_pages/gallery.md` for editing (section 3.2).
+2. Find that photo's entry in the `photos:` list. It is three lines: the `- image:` line naming the file, plus the `caption:` and `year:` lines directly beneath it.
+3. Delete all three of those lines, and no others. Expected result: the entries above and below yours are untouched and still correctly indented.
+4. Commit (section 3.2, steps 4 to 7) and check the Gallery page (Part 6). The photo is gone from the page.
+5. Optional: delete the image file itself from `assets/img/` using the **...** > **Delete file** steps above, just to keep the folder tidy. Skipping this changes nothing a visitor sees.
+
+**To remove a publication:**
+
+1. Open `_bibliography/papers.bib` for editing (section 3.2).
+2. Find the paper's block. It starts with a line beginning `@article{` and ends with a `}` on its own line, usually 8 to 12 lines later.
+3. Delete the whole block, from the `@article{` line down to and including that closing `}`. Expected result: the blocks above and below still each start with `@article{` and end with `}`.
+   - If the paper you are deleting is the FIRST one in the file, be careful not to also delete the two `---` lines at the very top. Those must stay or the Publications page will not build.
+4. Commit (section 3.2, steps 4 to 7) and check the Publications page (Part 6).
+5. Optional, only if that paper had a thumbnail: delete its image from `assets/img/publication_preview/`, and remove its line from the credits list in `_includes/publication-credits.html` (recipe 5.3, Part 3). If you remove a credit line that was the last one in the list, make sure the line now last has NO comma at the end of it.
+
+As always: one change at a time, then check the result (Part 6). If a removal ever looks wrong, restoring the previous version (Part 7.2) brings it straight back.
 
 ---
 
 ## Part 6: After every change - how to know it worked
 
-1. **Watch the robot.** Go to https://github.com/madiritt/madiritt.github.io/actions - the top row is your change. A yellow dot means building (3 to 7 minutes), a **green check** means published, a **red X** means the build failed (go to Part 7.1).
-2. **Wait out the cache.** After the green check, the OLD version of the site can keep appearing for up to 10 more minutes. This is normal.
-3. **Hard refresh.** Open the page and force a fresh copy: Windows `Ctrl+F5`, Mac `Cmd+Shift+R`. On a phone, close the tab and reopen it.
-4. Check your change is there and looks right. That's it.
+Same four steps after every single change. Total wait is usually 15 to 20 minutes, most of it doing nothing.
+
+1. **Watch the robot.** Go to https://github.com/madiritt/madiritt.github.io/actions (or click the **Actions** tab along the top of the repo page). Expected result: a list of runs, newest at the top. The top row carries your commit message, so you can confirm it is yours.
+   - A spinning **yellow-brown dot** means it is still building. This takes 3 to 7 minutes. Refresh the page every couple of minutes.
+   - A **green check mark** means the new version is published.
+   - A **red X** means the build failed. The live site is unharmed and still showing the previous version. Go to Part 7.1.
+2. **Wait out the cache.** After the green check, wait about 10 more minutes. Nothing to do in this step. The internet is still handing out saved copies of the old page, and there is no way to hurry it. Cutting this wait short is the number one reason people think an edit did not work.
+3. **Hard refresh.** Open the page on the live site and force it to fetch a fresh copy: Windows `Ctrl+F5`, Mac `Cmd+Shift+R`. A normal refresh is not always enough. On a phone, close the tab completely and open the site in a new one.
+4. **Look at your change.** Expected result: the new text or photo is there and the rest of the page looks normal. If the change is missing, go back to step 2 and wait longer. If the page looks broken, go to Part 7.2 and restore the previous version.
 
 ---
 
@@ -350,25 +662,52 @@ Stay calm: every version of every file is saved forever. Nothing is ever lost.
 
 ### 7.1 The build failed (red X in Actions)
 
-1. Your change had a formatting problem (usually a missing quote, bracket, or wrong indentation in front matter). The live site is still up - it just kept the previous version, so there's no rush.
-2. Click the red X row in the Actions tab, then the job name on the left. The step that failed has a red X next to it; click it to expand, and look near the BOTTOM of the text that appears - the real error is usually in the last few red lines. Skim for a filename you recognize (like `gallery.md`). You don't need to understand the message; you just need to know which file to fix or restore.
-3. Compare your edit against the recipe's pattern and fix the typo, or restore the file (7.2). Committing the fix triggers a fresh build automatically.
+**First, the reassurance: the live site is still up and still showing the previous version.** A failed build publishes nothing. There is no rush and no visitor sees a problem. Nine times out of ten the cause is a formatting slip in the settings zone: a missing quote mark, a missing comma, a deleted colon, or indentation done with Tab instead of spaces.
+
+You have two choices. If you can guess the typo, do the quick fix. If you cannot, skip straight to restoring (7.2), which always works.
+
+**Quick fix, if you know what you typed:**
+
+1. Open the file you just edited and compare your change against the recipe's pattern, character by character. Check the colon, the space after the colon, the quote marks in pairs, and the indentation.
+2. Fix it and commit. Committing anything at all starts a fresh build automatically; there is no separate retry button to press.
+
+**If you want to see what the robot is complaining about:**
+
+1. In the Actions tab, click the top row (the one with the red X).
+2. On the left side of the page that opens, click the job name. Expected result: a long list of steps, most with green checks, one with a red X.
+3. Click the step with the red X to expand it. Expected result: a wall of text, most of it meaningless.
+4. Scroll to the very BOTTOM of that text. The real error is almost always in the last few red lines.
+5. Skim those lines for a file name you recognize, like `gallery.md` or `papers.bib`. You do not need to understand the message. You only need to know which file to fix or restore.
+6. Fix that file, or restore it with 7.2.
 
 ### 7.2 Restore a previous version of a file (the universal undo)
 
-Works in the browser for any file. The idea is simple: find the last good version of the file, copy its contents, and paste them over the broken current version.
+This works in the browser for any file, and it is the answer to almost every "I broke something" moment. The idea is simple: find the last good version of the file, copy its text, and paste it over the current broken version. You are not deleting history; you are adding a new commit that happens to contain the old text.
 
-1. In the repo, open the file (click its name so you're viewing it), then click **History** (top right of the file view). You get a list of every change ever made to just that file, newest first. Each row is one change, with its date and description.
-2. In that list, click the row **just below** the bad change - that's the version from right before the problem. GitHub now shows you what that change did, with the file's full contents underneath.
-3. At the top right of the file box on that page, click the **...** (three dots) button, then choose **View file**. You are now looking at the old, good version of the whole file on its own page.
-4. Click anywhere in the file text, select everything (`Ctrl+A`, or `Cmd+A` on Mac), and copy (`Ctrl+C` / `Cmd+C`).
-5. Now go back to the file's current (broken) version: open the file normally in the repo, click the **pencil** icon to edit, select everything in the editor (`Ctrl+A`), delete it, and paste (`Ctrl+V`) the good version in its place.
-6. Commit with a message like `Restore previous version of gallery.md`. The site rebuilds and you're back to the working version.
+1. On the repo page, open the file you broke (click through the folders, or use **Go to file**, then click the file name so you are viewing it).
+2. Near the top right of the file box, click **History**. Expected result: a list of every change ever made to just this one file, newest at the top. Each row shows one change with its date and its commit message.
+3. Find the row for your bad change, which is normally the very top one. Click the row **directly BELOW** it. That is the version of the file from just before the problem. Expected result: a page showing what that older change did, with red and green highlighted lines.
+4. Near the top right of the file box on that page, click the **...** (three dots) button, then click **View file**. Expected result: you are now looking at the complete old, good version of the file on its own page. Check the top of the page says the file name you expect.
+5. Copy the whole file. The reliable way: near the top right of the file box, hover over the small icons until you find the one labeled **Copy raw file**, and click it. Expected result: nothing visible happens, or a brief "Copied!" tooltip. That is correct; the text is on your clipboard.
+   - If you cannot find that icon, click the **Raw** button instead. The page turns into plain unformatted text. Then press `Ctrl+A` (Mac `Cmd+A`) and `Ctrl+C` (Mac `Cmd+C`).
+   - Do NOT use `Ctrl+A` on the normal formatted file view. It grabs the page's menus and line numbers along with the code.
+6. Now open the file's current broken version: go back to the repo, click through to the file, and click the **pencil icon** to edit it.
+7. Click into the text, press `Ctrl+A` (Mac `Cmd+A`) to select all of it, and press Delete. Expected result: a completely empty editor. This looks alarming and is fine.
+8. Press `Ctrl+V` (Mac `Cmd+V`) to paste the good version in.
+9. Click the green **Commit changes...** button, type a message like `Restore previous version of gallery.md`, leave **"Commit directly to the `main` branch"** selected, and click the green **Commit changes** button.
+10. Check it (Part 6). Expected result: a green check in Actions, and after the cache wait the page looks the way it did before you broke it.
 
 ### 7.3 Build is green but the site won't update
 
-- First: did you wait 10 minutes and do a HARD refresh (Part 6, steps 2 and 3)? That's the answer 9 times out of 10.
-- If it's been an hour and truly nothing changed: go to the Actions tab, click the most recent "Deploy site" run, and press **Re-run all jobs** (button at the top right). Wait for the green check and try again. (Rarely, GitHub's publishing step times out and holds things up; a re-run clears it.)
+**First, before anything else:** did you wait a full 10 minutes after the green check and then do a HARD refresh (`Ctrl+F5`, Mac `Cmd+Shift+R`)? That is the answer 9 times out of 10. Go do that before reading on.
+
+If it has been an hour and truly nothing changed, make the robot run again:
+
+1. Go to https://github.com/madiritt/madiritt.github.io/actions
+2. Click the top row, the most recent run, which is named **Deploy site**.
+3. Near the top right of that page, click **Re-run all jobs**. If a small confirmation box appears, click the green **Re-run jobs** button in it.
+4. Expected result: the run restarts with a spinning yellow-brown dot. Wait for the green check, then do the cache wait and hard refresh again (Part 6, steps 2 and 3).
+5. This works because GitHub's publishing step occasionally times out and stalls; a re-run clears it. It is safe to do more than once.
 
 ### 7.4 The whole site is down
 
@@ -385,6 +724,23 @@ A few things worth knowing:
 - **Being in Google is not the same as ranking first.** For a while, other pages about Madi (her university profile, ResearchGate, etc.) may sit above her own site when you search her name. That improves with time and, most of all, with those other profiles linking to madisonrittinger.org. The single best thing Madi can do is add her website link to her Google Scholar, ORCID, LinkedIn, and ResearchGate profiles.
 - **To check what Google sees:** search Google for `site:madisonrittinger.org` (type it exactly, including `site:`). Whatever it lists is what Google currently has indexed. Search Console's **Pages** report (left menu, under Indexing) shows the same thing in more detail.
 - You almost never need to log in here. It's a health dashboard, not something to maintain.
+
+### 7.6 Quick diagnosis: what the symptom usually means
+
+Find your symptom on the left before reading anything else.
+
+| What you're seeing | Most likely cause | Go to |
+|---|---|---|
+| Change isn't on the site, Actions shows a green check | You didn't wait 10 minutes, or you did a normal refresh instead of a hard refresh | Part 6, steps 2 and 3 |
+| Change isn't on the site, Actions shows NO new run at all | (VS Code only) you committed but never pushed | Part 4.4, step 4 |
+| Red X in Actions | A typo in the settings zone: missing quote, missing comma, deleted colon, or a Tab used for indenting | Part 7.1 |
+| A page looks scrambled or half-empty | Indentation broken in that page's settings zone | Part 7.2, restore the file |
+| A photo shows as a broken-image icon | The file name in the entry doesn't match the uploaded file exactly, including capital letters and `.jpg` vs `.jpeg` | The relevant recipe in Part 5 |
+| A photo you uploaded doesn't appear anywhere | You uploaded the image but never added its entry | 5.4 (gallery) or 5.3 Part 2 (publication) |
+| Two versions of the same photo in the folder | The replacement file name differed from the original | Part 3.3, "To replace an existing file" |
+| Publications page is missing papers after an edit | A comma or a closing `}` is missing in `papers.bib` | Part 7.2, restore the file |
+| Whole site is unreachable | GitHub outage, or a domain/DNS problem | Part 7.4 |
+| Site is fine but not appearing in Google | Normal indexing delay, nothing is broken | Part 7.5 |
 
 ---
 
@@ -445,6 +801,14 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 | Domain / DNS / renewal | Cloudflare dashboard (Part 8) |
 | Remove a news item / photo / publication | delete the file or its entry (recipe 5.12) |
 | Search visibility (not showing in Google) | Google Search Console (Part 7.5) |
+
+And the three sections worth remembering by number:
+
+| Situation | Section |
+|---|---|
+| I have never done this and want to practice safely | 3.6 |
+| I am mid-edit and want out without saving | 3.5 |
+| Something is wrong and I do not know what | 7.6, then 7.2 |
 
 **Live site:** https://madisonrittinger.org
 **Repo:** https://github.com/madiritt/madiritt.github.io

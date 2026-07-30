@@ -11,6 +11,37 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-29 - MAINTENANCE-GUIDE.md: fourth pass (literal step-by-step for absolute beginners)
+
+#### Added
+- **3.6 Practice run: your first edit, start to finish.** A 23-step dry run of a real edit (the homepage `current:` line) from sign-in through green check, cache wait, hard refresh, and restore. Every click named, every step stating its expected result including the ones where success looks like nothing happening. The practice text is a sentence that is also TRUE ("Writing manuscripts and mentoring undergraduates") rather than a visible "test" string, so a visitor who loads the page mid-run sees nothing odd. Flagged from the guide's intro as the thing to do first.
+- **3.5 Backing out of an edit you have not saved yet.** The missing escape hatch: an uncommitted browser edit is abandoned by navigating away, and the "Leave site?" warning is the desired outcome, not an error.
+- **7.6 Quick diagnosis table.** Symptom -> most likely cause -> section, covering the 10 failure modes a content editor actually hits (green check but no change, no run at all, red X, scrambled page, broken-image icon, orphan upload, duplicate file, missing papers, site down, not in Google).
+- "Way 2" file navigation in 3.2: the **Go to file** button, so she can find `papers.bib` or `gallery.md` by name instead of clicking through folders.
+- Labeled front-matter diagram in the Part 5 preamble using the real `_pages/about.md` (with an explicit note that the `<-` arrows are guide-only annotations, not file content), plus a third formatting rule (keep the colon and the single space after it).
+- Appendix: a small "three sections worth remembering by number" table (3.6 / 3.5 / 7.6).
+- TOC now lists every subsection of Parts 3, 4, and 7.
+
+#### Changed
+- Recipes 5.1 through 5.12 rewritten from bullet-lists-of-facts into numbered steps, one action per step, each pointing back to the mechanics section it needs (3.2 edit, 3.3 upload, 3.4 create) instead of assuming she remembers them. Expected results stated throughout.
+- 3.1 / 3.2 / 3.3 / 3.4 given per-step expected results and exact UI labels ("Username or email address", "Commit message", "Extended description", "choose your files", "Commit directly to the `main` branch"). 3.3 now says to rename the file on the computer BEFORE uploading and warns that a case mismatch (`prof_pic.JPG`) produces a second file instead of a replacement.
+- 4.4 (VS Code) now names the Route-B-only trap explicitly: a commit without a push produces no build and no Actions row at all.
+- Part 6 expanded per step, with the yellow/green/red states spelled out and the cache wait restated as a do-nothing step.
+- 7.1 split into "quick fix" vs "read the log", leading with the reassurance that a failed build publishes nothing.
+- 7.2 (universal undo) now uses the **Copy raw file** button or **Raw** view instead of `Ctrl+A` on the formatted file view, which would have grabbed GitHub's page chrome and line numbers along with the file.
+- 7.3 turned into numbered re-run steps naming the workflow by its real name (**Deploy site**).
+- 5.9 (Teaching) "do not touch" list made concrete: the `<style>` block by its `<style>`/`</style>` boundaries, and the exact line prefixes to leave alone.
+
+#### Fixed
+- 5.3 (add a publication) had no mention of the two `---` lines at the top of `_bibliography/papers.bib`. Pasting a new entry "at the very top" as previously worded would have destroyed that required empty front matter and broken the Publications page. The recipe now anchors the paste at the first `@article{` line and calls the `---` lines out as must-keep; 5.12's removal steps carry the same warning.
+- 5.8 (research pages) understated the photo swap: each research image's file name appears TWICE per photo (the `<a href>` and the `{% include figure.liquid path=...%}`) and its caption is a third place (`data-title`). The old "change the filename in the body" wording would have left a half-broken tile. Now all three are called out with the real markup shown.
+- 5.8 also now documents the `img:` front-matter field (empty in all three files, deliberately) and warns that `_projects/*.md` have their own `<style>` blocks to scroll past.
+- 5.4 opening line said "The photo will not appear until you do step 2" while the recipe has 11 steps; reworded to name the two jobs by step range.
+
+#### Notes
+- Wording and structure only. No site files, layouts, or styles touched, so this pass cannot change the rendered site. Verified against the live repo contents (`about.md` line 19 for `current:`, the five `_data/socials.yml` keys, the three `_projects` importance values 1/2/3, `Rittinger_2026_CV.pdf`, the `credits` map in `_includes/publication-credits.html`, workflow name "Deploy site"), so every quoted line and file name in the guide matches what she will actually see.
+- Guide grew from 452 to 812 lines. That is deliberate per the literal-instructions rule: explicitness outranks brevity here, and the recipes are meant to be jumped into individually, not read start to finish.
+
 ### 2026-07-14 - Footer: auto-updating copyright year (client-side)
 
 #### Added

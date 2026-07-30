@@ -11,6 +11,35 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-30 - Web editor at /admin (branch `admin-cms`, NOT yet live)
+
+A form-based editor so Madi can change the site without editing files. Built on the `admin-cms` branch; the site only rebuilds on pushes to `main`, so nothing reaches visitors until the merge step in `SETUP-ADMIN.md` Part 5.
+
+#### Added
+- `admin/index.html` and `admin/config.yml`: Sveltia CMS (reads Decap's config format unchanged, so swapping to Decap is a one-line script-tag change if it ever misbehaves). Collections for Homepage, News, Gallery, Research, Outreach, CV, and Links and contact.
+- `admin-auth/worker.js` + `wrangler.toml`: our own ~200-line Cloudflare Worker brokering the GitHub OAuth handshake. Written in-house rather than depending on a third-party worker whose current endpoint contract could not be verified. Holds no state, has no bindings, and does exactly two things (`/auth`, `/callback`).
+- `SETUP-ADMIN.md`: numbered one-time runbook for the parts needing a login (register the OAuth app, deploy the Worker, set the two secrets, merge to go live), with expected results per step, a failure-diagnosis section, and a complete back-out procedure.
+- `robots.txt`: `Disallow: /admin/`. Filed as polish, not protection; robots.txt is public and advertises the path as much as it hides it.
+
+#### Decided
+- **Authorisation is GitHub's, not ours.** The Worker authenticates but authorises nothing. Anyone may sign in; only accounts with push access to the repo can save. Verified live: `madiritt` (admin) and `AbysulGaming` (push) both qualify, so the "two admins" requirement needed zero implementation. Adding or removing an editor is a Collaborators change and nothing else.
+- **OAuth scope is `public_repo`, not `repo`.** The site repo is public, so the narrower scope suffices. This matters because `repo` would also grant write access to every private repository the signed-in person can reach (`claude-home`, `academic-site-starter`, and the rest). Free reduction in blast radius.
+- **A GitHub App would be tighter still** (installable on one repo) but OAuth App is the path both CMSes document. Deferred rather than promised, since GitHub App support could not be confirmed.
+- **Publications are NOT in the editor.** `_bibliography/papers.bib` is BibTeX read by jekyll-scholar; these CMSes model YAML/markdown only. The design mockup showed a publications form, and that is a phase-2 custom widget, not something this config delivers. Recipe 5.3 remains the route, which is a handful of papers a year.
+- **Teaching page body is not exposed.** Its hand-tuned float layout is too fragile for a text box; recipe 5.9 stays. Research and Outreach bodies use a plain `text` widget rather than a rich markdown editor so their `<style>` blocks and `{: .mossy-section}` attribute lines survive verbatim.
+- Rejected a secret admin path (`/admin/<number>`) and hosting the editor from a private repo. Both confuse source privacy with page privacy: a public repo publishes the path in a browsable file list, and Pages serves the built output publicly regardless of repo visibility (Trevor's own `integrity-preview` and `helius-preview` repos are public for exactly this reason, and private-repo Pages needs a paid plan besides). Also rejected client-side MFA on the admin page, which is unenforceable in static files and redundant: both accounts already have GitHub 2FA, so the sign-in is already multi-factor.
+
+#### Fixed (caught before it shipped)
+- `admin/config.yml` contains Liquid-looking templates (`{{fields.caption}}`, `{{year}}`, `{{slug}}`, `{{body | truncate(70)}}`). Giving it front matter would make Jekyll run Liquid over it and silently blank all of them, breaking the editor in a way that would be very hard to trace. Both admin files are therefore deliberately front-matter-free static files, with a comment at the top of each saying so and why. Verified: build output is byte-identical to source for both.
+- jekyll-sitemap lists static `.html` files, so `/admin/` appeared in `sitemap.xml` on the first build. Excluded via a second `defaults` scope, matching the existing `assets` precedent, rather than with front matter (which would have reintroduced the Liquid problem above).
+- Every existing front-matter key in every file the editor touches is declared in the config, including ones Madi must never edit, as `widget: hidden` with the current value as default. Undeclared keys can be dropped on save, and losing `layout` or `permalink` breaks that page's build. `_pages/about.md` was the risky one: `layout`, `title`, `permalink`, the whole `profile` object, `selected_papers`, `social`, `announcements`, and `latest_posts` are all pinned.
+
+#### Notes
+- Verified locally: full `jekyll build` green in 3.6s with the new files; `/admin/` and `/admin/config.yml` published; `admin-auth/` and `SETUP-ADMIN.md` excluded from output; `robots.txt` correct; sitemap clean.
+- UNTESTED end to end, and honestly flagged as such in the runbook: the OAuth popup handshake (the `postMessage` contract between the Worker's relay page and the editor) cannot be exercised without a registered OAuth app. It is the most likely thing to need a tweak, so `SETUP-ADMIN.md` leads its troubleshooting with that symptom and a console-inspection step.
+- KNOWN COST: the editor rewrites YAML mechanically, so the explanatory `#` comments in `about.md`, `gallery.md` and `socials.yml` are stripped the first time she saves those files. Their content was moved into `hint:` text on the corresponding fields, where it surfaces in the UI at the moment it is useful, and it remains in CLAUDE.md and MAINTENANCE-GUIDE.md.
+- The maintenance guide stays the documented fallback. The editor is a convenience layer over ordinary commits, so if the Worker ever breaks, the browser route still works unchanged. Madi should still do the 3.6 practice run.
+
 ### 2026-07-29 - MAINTENANCE-GUIDE.md: sixth pass (page-first routing + the missing Outreach recipe)
 
 Trevor's observation: the guide was keyed by task and file ("5.2 Add a news item"), but Madi will always arrive from the opposite direction, having just looked at a page on her own site and noticed something. Nothing indexed the guide that way.

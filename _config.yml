@@ -203,9 +203,11 @@ kramdown:
 # Includes & excludes
 include: ["_pages"]
 exclude:
+  - admin-auth/ # Cloudflare Worker source for the /admin sign-in; not part of the site
   - CLAUDE.md
   - CHANGELOG.md
   - MAINTENANCE-GUIDE.md
+  - SETUP-ADMIN.md
   - al-folio-upgrade-report.md
   - bin/
   - CONTRIBUTING.md
@@ -280,6 +282,14 @@ plugins:
 defaults:
   - scope:
       path: "assets"
+    values:
+      sitemap: false
+  # The editor at /admin/ is a tool, not a page of the site. jekyll-sitemap
+  # lists static .html files by default, so it needs excluding here. Doing it
+  # this way rather than with front matter keeps admin/config.yml a static file,
+  # which is what stops Liquid from eating its {{...}} templates.
+  - scope:
+      path: "admin"
     values:
       sitemap: false
 

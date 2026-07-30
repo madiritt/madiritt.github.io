@@ -1,0 +1,12 @@
+# Cloudflare Worker that brokers the GitHub sign-in for /admin.
+# Deploy from inside this folder:  wrangler deploy
+#
+# Secrets are NEVER put in this file. Set them once with:
+#   wrangler secret put GITHUB_CLIENT_ID
+#   wrangler secret put GITHUB_CLIENT_SECRET
+
+name = "madiritt-admin-auth"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+# No KV, no D1, no bindings. The Worker holds no state between requests.

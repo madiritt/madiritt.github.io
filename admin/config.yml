@@ -1,0 +1,495 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@^0.175.0/schema/sveltia-cms.json
+# (That line gives VS Code live validation of this file if the YAML extension
+# is installed. It is a comment; the editor itself never reads it.)
+# =============================================================================
+# Editor configuration for madisonrittinger.org/admin
+#
+# DO NOT add YAML front matter (two --- lines) to the top of this file. Without
+# it Jekyll treats this as a static file and copies it through byte for byte.
+# With it, Jekyll would run Liquid over the file and silently blank out the
+# {{fields.caption}} and {{year}} templates below, which would break the editor
+# in a way that is very hard to spot.
+#
+# Read by Sveltia CMS (and by Decap CMS unchanged, if we ever swap).
+#
+# THE ONE RULE FOR EDITING THIS FILE
+# Every key that exists in a file's front matter must appear here, even the ones
+# Madi must never touch. Anything not declared can be DROPPED when the editor
+# saves, and losing a key like `layout` or `permalink` breaks that page's build.
+# Fields she should not touch are declared as `widget: hidden` with the current
+# value as `default`.
+#
+# KNOWN COST: the editor rewrites YAML mechanically, so the explanatory
+# `#` comments currently sitting in about.md, gallery.md and socials.yml are
+# stripped the first time she saves that file. Their content has been moved into
+# the `hint:` text below, where it shows up in the UI at the moment it is
+# actually useful, and it also lives in CLAUDE.md and MAINTENANCE-GUIDE.md.
+# =============================================================================
+
+backend:
+  name: github
+  repo: madiritt/madiritt.github.io
+  branch: main
+  # Our own OAuth broker on Cloudflare Workers. See admin-auth/ in this repo.
+  # This is the URL printed by `wrangler deploy` on 2026-07-31.
+  base_url: https://madiritt-admin-auth.abysul.workers.dev
+  auth_endpoint: auth
+
+# Commits land straight on main, which is what triggers the normal site build.
+publish_mode: simple
+
+# Cleared optional fields are REMOVED from the file rather than written back as
+# empty strings. This matters: an empty string is truthy to Liquid, so
+# `orcid_id: ""` in socials.yml would render a broken icon, and an empty
+# `img: ""` on a research question could confuse the card layout. With this
+# option, clearing a field genuinely removes it. (Sveltia option; Decap would
+# ignore it, one of the few knobs that differ if we ever swap.)
+output:
+  omit_empty_optional_fields: true
+
+media_folder: assets/img
+# No leading slash: the gallery list stores paths as `assets/img/...` and they
+# must keep matching what is already in gallery.md.
+public_folder: assets/img
+
+site_url: https://madisonrittinger.org
+logo_url: https://madisonrittinger.org/assets/img/favicon.png
+
+collections:
+  # ---------------------------------------------------------------------------
+  # Homepage
+  # ---------------------------------------------------------------------------
+  - name: homepage
+    label: Homepage
+    # description sits on the COLLECTION, not the file entry: the config schema
+    # has no description key on file entries and the editor would silently
+    # ignore it there. Same pattern for every files collection below.
+    description: >-
+      The Currently line, your bio, the small line above your name, and your
+      portrait. Five separate things that make up your homepage.
+    files:
+      - name: about
+        label: Homepage
+        file: _pages/about.md
+        fields:
+          - { name: layout, widget: hidden, default: about }
+          - { name: title, widget: hidden, default: About }
+          - { name: permalink, widget: hidden, default: / }
+
+          - name: subtitle
+            label: The small line above your name
+            widget: string
+            hint: >-
+              Separate each part with a space, a dot, then a space. Each part
+              becomes its own stacked line on the page.
+
+          - name: current
+            label: Currently
+            widget: string
+            hint: >-
+              One short line, no dates. Worth updating three or four times a
+              year so the site reads as maintained.
+
+          - name: profile
+            label: Portrait
+            widget: object
+            fields:
+              # Uses the global media/public folder (assets/img), same as the
+              # gallery, so the stored value is the full assets/img/... path
+              # and the editor can show a preview. The about layout accepts
+              # both this form and the old bare filename.
+              - name: image
+                label: Photo
+                widget: image
+                hint: >-
+                  Upright, taller than wide. Aim for 1200 by 1500 pixels or
+                  larger, and leave headroom above your face: the orange panel
+                  crops from the top down.
+              - { name: align, widget: hidden, default: right }
+              - { name: image_circular, widget: hidden, default: false }
+
+          - { name: selected_papers, widget: hidden, default: true }
+          - { name: social, widget: hidden, default: true }
+
+          - name: announcements
+            label: News section
+            widget: object
+            collapsed: true
+            fields:
+              - { name: enabled, label: Show the News section, widget: boolean, default: true }
+              - { name: scrollable, widget: hidden, default: true }
+              - name: limit
+                label: How many news items to show
+                widget: number
+                value_type: int
+                min: 1
+                max: 20
+                default: 5
+                hint: The full list always lives at /news/ regardless of this number.
+
+          - name: latest_posts
+            label: Blog posts section
+            widget: object
+            collapsed: true
+            fields:
+              - { name: enabled, label: Show blog posts, widget: boolean, default: false }
+              - { name: scrollable, widget: hidden, default: true }
+              - { name: limit, widget: hidden, default: 3 }
+
+          - name: body
+            label: About you
+            widget: markdown
+            hint: >-
+              One paragraph, written in your voice. This is the bio under your
+              name on the homepage.
+
+  # ---------------------------------------------------------------------------
+  # News
+  # ---------------------------------------------------------------------------
+  - name: news
+    label: News
+    label_singular: news update
+    folder: _news
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    # Filename recipe. The date comes from the entry's Date field (NOT the
+    # save-time clock, which is UTC and rolls to tomorrow every evening US
+    # time); news items have no title, so a short random id makes the name
+    # unique. Found in the Part 0 test: the old {{year}}-{{month}}-{{day}}
+    # tags used UTC save time and produced a filename dated one day ahead.
+    slug: "{{fields.date | date('YYYY-MM-DD')}}-{{uuid_short}}"
+    summary: "{{date | date('MMM D, YYYY')}} - {{body | truncate(70)}}"
+    sortable_fields: [date]
+    view_filters:
+      - { label: This year, field: date, pattern: "2026" }
+    description: >-
+      Short dated updates. The newest few show on your homepage; every one of
+      them shows at /news/.
+    fields:
+      - { name: layout, widget: hidden, default: post }
+      - { name: inline, widget: hidden, default: true }
+      - { name: related_posts, widget: hidden, default: false }
+
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        # Written back with the fixed time and offset the site has always used.
+        format: "YYYY-MM-DD 09:00:00-0600"
+        hint: The date the news happened. Today is filled in for you.
+
+      - name: body
+        label: What happened
+        widget: text
+        hint: One or two sentences reads best.
+
+  # ---------------------------------------------------------------------------
+  # Gallery
+  # ---------------------------------------------------------------------------
+  - name: gallery
+    label: Gallery
+    description: >-
+      The grid sorts itself by year, newest first, so the order in this list
+      does not matter.
+    files:
+      - name: photos
+        label: Gallery photos
+        file: _pages/gallery.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: title, widget: hidden, default: Gallery }
+          - { name: permalink, widget: hidden, default: /gallery/ }
+          - { name: nav, widget: hidden, default: true }
+          - { name: nav_order, widget: hidden, default: 5 }
+
+          - name: photos
+            label: Photos
+            label_singular: photo
+            widget: list
+            summary: "{{fields.caption}} ({{fields.year}})"
+            fields:
+              - name: image
+                label: Photo
+                widget: image
+                hint: >-
+                  Any shape works. Aim for 1600 pixels or more on the short
+                  side. The grid shows a square from the middle, so keep your
+                  subject centred; clicking shows the whole photo uncropped.
+              - name: caption
+                label: Caption
+                widget: string
+                hint: >-
+                  Shown under the photo when a visitor opens it. For a species
+                  name, wrap it like this to italicise it:
+                  <em>Pholcus phalangioides</em>
+              - name: year
+                label: Year taken
+                widget: number
+                value_type: int
+                min: 1990
+                max: 2040
+
+  # ---------------------------------------------------------------------------
+  # Research
+  # ---------------------------------------------------------------------------
+  - name: research
+    label: Research
+    label_singular: research question
+    folder: _projects
+    create: true
+    delete: false
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{slug}}"
+    summary: "{{importance}}. {{title}}"
+    sortable_fields: [importance, title]
+    description: >-
+      One card per research question. The page text and photos below the front
+      matter are hand-built HTML: edit the words inside it, and leave the lines
+      starting with a pointed bracket alone.
+    fields:
+      - { name: layout, widget: hidden, default: page }
+      - name: title
+        label: Question
+        widget: string
+        hint: The heading on the card, phrased as a question.
+      - name: description
+        label: Card blurb
+        widget: string
+        hint: The short line under the heading on the card. A few keywords.
+      - name: img
+        label: Card picture
+        widget: image
+        required: false
+        hint: >-
+          Optional, and currently empty on all three questions. Leave it empty
+          unless you are setting a picture on every card at once.
+      - name: importance
+        label: Position on the page
+        widget: number
+        value_type: int
+        min: 1
+        max: 20
+        hint: Lowest number first. The three existing questions use 1, 2 and 3.
+      - name: category
+        label: Section
+        widget: select
+        options:
+          - { label: Current work, value: current }
+          - { label: Past work, value: past }
+      - name: body
+        label: Page content
+        widget: text
+        hint: >-
+          Plain text box on purpose, so the layout and photo markup survive
+          exactly as written. Change the sentences; leave anything in pointed
+          brackets or curly braces untouched.
+
+  # ---------------------------------------------------------------------------
+  # Publications (EXPERIMENTAL, see note)
+  #
+  # papers.bib is BibTeX, which no form widget can model. But the file carries
+  # an empty Jekyll front-matter fence, so it parses as "front matter + body"
+  # like any page, and the whole BibTeX text can be exposed as one plain text
+  # box. That is all this is: the same file recipe 5.3 edits, in a bigger
+  # window, with the same commit-on-save as every other collection.
+  #
+  # Kept ONLY if it survives the round-trip test in SETUP-ADMIN.md Part 0
+  # (save with no changes, then `git diff` must be clean or trivially
+  # whitespace). If it mangles the file, delete this whole block; recipe 5.3
+  # remains the documented route either way.
+  # ---------------------------------------------------------------------------
+  - name: publications
+    label: Publications (advanced)
+    # format sits here at collection level (not on the file entry): that is
+    # where the config schema defines it, and it is what tells the editor to
+    # read the .bib file as front matter + body despite the odd extension.
+    format: yaml-frontmatter
+    description: >-
+      The publication list as raw BibTeX, exactly as recipe 5.3 in the
+      maintenance guide describes. This is a power-user box, not a form:
+      one missing curly brace hides a paper from the site. Paste carefully,
+      and prefer recipe 5.3 if you are unsure.
+    files:
+      - name: papers
+        label: Publication list (raw BibTeX)
+        file: _bibliography/papers.bib
+        fields:
+          - name: body
+            label: BibTeX
+            widget: text
+            hint: >-
+              Each paper is one block starting with @article{ and ending with a
+              closing curly brace. Copy an existing block as your template. Keep
+              one blank line between blocks.
+
+  # ---------------------------------------------------------------------------
+  # Outreach
+  # ---------------------------------------------------------------------------
+  - name: outreach
+    label: Outreach
+    description: >-
+      Live at /outreach/ but deliberately kept out of the top menu. This page
+      was drafted from your CV rather than written by you, so it is worth a
+      read-through.
+    files:
+      - name: page
+        label: Outreach page
+        file: _pages/outreach.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: permalink, widget: hidden, default: /outreach/ }
+          - { name: title, widget: hidden, default: Outreach }
+          - { name: nav, widget: hidden, default: false }
+          - name: description
+            label: Page summary
+            widget: string
+            hint: Used by search engines. One short sentence.
+          - name: body
+            label: Page content
+            widget: text
+            hint: >-
+              Keep the line reading {: .mossy-section} directly under each
+              heading. It looks like a typo and is not: it draws the short gold
+              divider above that section.
+
+  # ---------------------------------------------------------------------------
+  # Teaching / Mentoring
+  #
+  # Editable since the 2026-07-30 refactor: the words live in the page's front
+  # matter as a `sections` list, and _includes/teaching-sections.liquid renders
+  # the Madison-approved float layout around them. The fragile part (the CSS
+  # and figure markup) is no longer inside the editable file at all.
+  # ---------------------------------------------------------------------------
+  - name: teaching
+    label: Teaching / Mentoring
+    description: >-
+      Each section is a heading, an optional photo with caption, and its
+      text. The photo floats to one side and the text wraps around it; the
+      page handles all sizing and spacing itself.
+    files:
+      - name: teaching
+        label: Teaching / Mentoring
+        file: _pages/teaching.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: permalink, widget: hidden, default: /teaching/ }
+          - { name: title, widget: hidden, default: Teaching / Mentoring }
+          - { name: nav, widget: hidden, default: true }
+          - { name: nav_order, widget: hidden, default: 4 }
+
+          - name: sections
+            label: Sections
+            label_singular: section
+            widget: list
+            summary: "{{fields.heading}}"
+            fields:
+              - name: heading
+                label: Section title
+                widget: string
+              - name: photo
+                label: Photo
+                widget: image
+                required: false
+                hint: >-
+                  Optional. Shown in an orange frame at a wide 4 by 3 shape
+                  with the middle kept, so any photo works; keep the subject
+                  centred.
+              - name: photo_caption
+                label: Photo caption
+                widget: string
+                required: false
+                hint: Shown under the photo.
+              - name: photo_side
+                label: Photo side
+                widget: select
+                default: right
+                options:
+                  - { label: Right of the text, value: right }
+                  - { label: Left of the text, value: left }
+                hint: >-
+                  On the left, the photo sits beside the section title, like
+                  the current Courses section. Alternating sides reads best.
+              - name: text
+                label: Text
+                widget: text
+                hint: >-
+                  Leave one blank line between paragraphs. Bold works like
+                  **this**, italics like *this*, and a link like this:
+                  [words to click](https://example.com)
+
+          # The body is one line that pulls in the layout machinery. Hidden so
+          # it cannot be edited away by accident. Hidden fields accept only
+          # name/widget/default/i18n, hence no label here.
+          - { name: body, widget: hidden }
+
+  # ---------------------------------------------------------------------------
+  # CV
+  # ---------------------------------------------------------------------------
+  - name: cv
+    label: CV
+    description: >-
+      One job here: hand over a new PDF. The download button and the on-page
+      preview both follow whatever you set.
+    files:
+      - name: cv
+        label: CV
+        file: _pages/cv.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: permalink, widget: hidden, default: /cv/ }
+          - { name: title, widget: hidden, default: CV }
+          - { name: nav, widget: hidden, default: true }
+          - { name: nav_order, widget: hidden, default: 3 }
+          - name: cv_pdf
+            label: CV file
+            widget: file
+            media_folder: /assets/pdf
+            public_folder: /assets/pdf
+            hint: Drop the new PDF here. Any filename is fine.
+          # The CV page body is the PDF.js preview machinery. Hidden so it
+          # cannot be edited away by accident. Hidden fields accept only
+          # name/widget/default/i18n, hence no label here.
+          - { name: body, widget: hidden }
+
+  # ---------------------------------------------------------------------------
+  # Links and contact
+  # ---------------------------------------------------------------------------
+  - name: socials
+    label: Links and contact
+    description: >-
+      The round icons under your bio. Clear a value to hide that icon.
+    files:
+      - name: socials
+        label: Links and contact
+        file: _data/socials.yml
+        fields:
+          - { name: email, label: Email, widget: string, required: false }
+          - name: orcid_id
+            label: ORCID
+            widget: string
+            required: false
+            hint: Just the number, like 0000-0001-6326-1572. Not the full web address.
+          - name: scholar_userid
+            label: Google Scholar
+            widget: string
+            required: false
+            hint: >-
+              Just the ID code from the middle of your Scholar address, like
+              FAzQaf4AAAAJ.
+          - name: research_gate_profile
+            label: ResearchGate
+            widget: string
+            required: false
+            hint: >-
+              Just the profile name, like Madison-Rittinger. The setting name
+              behind this field has to stay exactly as it is, which is why you
+              cannot rename it here.
+          - name: linkedin_username
+            label: LinkedIn
+            widget: string
+            required: false
+            hint: The last part of your LinkedIn address only.

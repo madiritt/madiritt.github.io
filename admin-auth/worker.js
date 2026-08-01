@@ -67,24 +67,50 @@ function readCookie(request, name) {
 function relayPage(payload, targetOrigin) {
   const json = JSON.stringify(payload).replace(/</g, "\\u003c");
   return html(`<title>Signing in</title>
-<p style="font-family:system-ui;padding:2rem;text-align:center">Signing you in...</p>
+<p style="font-family:system-ui;padding:2rem 2rem 0;text-align:center">Signing you in...</p>
+<p id="diag" style="font-family:system-ui;padding:0 2rem;text-align:center;color:#666;font-size:0.85rem"></p>
 <script>
   (function () {
     var message = 'authorization:github:${payload.token ? "success" : "error"}:' + ${JSON.stringify(json)};
     var target = ${JSON.stringify(targetOrigin)};
+    var tries = 0;
 
-    function send() {
-      if (window.opener) { window.opener.postMessage(message, target); }
+    function diag(text) { document.getElementById('diag').textContent = text; }
+
+    /* No line back to the editor window: nothing can be delivered. A popup
+       blocker forcing the sign-in into a full tab causes this, as does a
+       browser policy that cuts a popup loose from its opener mid-flow. */
+    if (!window.opener) {
+      diag('This window has no connection back to the editor (window.opener is empty), ' +
+           'so the sign-in cannot be handed over. Close this window, make sure popups ' +
+           'are allowed for the editor page, and try again. If it keeps happening, ' +
+           'report exactly this message. Editor origin expected: ' + target);
+      return;
     }
+
+    function send() { window.opener.postMessage(message, target); }
     // The editor replies once it is listening; send the token only to it.
     window.addEventListener('message', function (e) {
       if (e.origin === target) { send(); }
     }, false);
-    // Announce that this popup is ready.
-    if (window.opener) { window.opener.postMessage('authorizing:github', target); }
-    // Belt and braces: some browsers deliver the reply before the listener is
-    // attached, so send once more shortly after.
-    setTimeout(send, 500);
+    // Announce that this popup is ready, then keep announcing and sending on a
+    // loop: the editor closes this window the moment the token arrives, so a
+    // healthy flow never sees more than a try or two. If the loop is still
+    // running after several seconds, the on-page text says where it is stuck.
+    var timer = setInterval(function () {
+      window.opener.postMessage('authorizing:github', target);
+      send();
+      tries++;
+      diag('Delivering the sign-in to the editor at ' + target + ' (attempt ' + tries + '). ' +
+           'This window should close itself within a second or two.');
+      if (tries >= 25) {
+        clearInterval(timer);
+        diag('Gave up after ' + tries + ' attempts. The editor at ' + target + ' never ' +
+             'accepted the sign-in, although this window does have a connection back to ' +
+             'its opener. Close this window and report exactly this message, including ' +
+             'the address just mentioned.');
+      }
+    }, 400);
   })();
 </script>`);
 }
@@ -95,22 +121,40 @@ export default {
 
     /* ---- start the flow ------------------------------------------------- */
     if (url.pathname === "/auth") {
-      /* Which editor page opened the popup? Sveltia does not send its origin
-         in the query string (its `site_id` param is a bare domain, and from
-         localhost it is literally "cms.netlify.com", a Netlify-era relic), so
-         the reliable signal is the Referer header: browsers send at least the
-         origin on cross-site navigations under the default referrer policy.
-         Fall back to the production origin if the header is absent. The token
-         is only ever postMessage'd to this origin, so a wrong guess fails
-         closed: the message is simply not delivered. */
+      /* Which editor page opened the popup? Sveltia announces it in the
+         `site_id` query param: the editor's hostname, except from localhost
+         where it sends the literal "cms.netlify.com" (a Netlify-era relic,
+         which therefore fingerprints localhost exactly). This is deterministic
+         where the Referer header proved not to be: in live testing Edge never
+         sent a Referer from the http://localhost editor to the https Worker,
+         so the old Referer-based guess fell back to production and the token
+         was postMessage'd to an origin the editor wasn't on. The guess still
+         fails closed either way: a mis-addressed message is simply dropped by
+         the browser, never delivered to a stranger. */
       let origin = ALLOWED_ORIGINS[0];
-      const referer = request.headers.get("Referer");
-      if (referer) {
-        try {
-          const refOrigin = new URL(referer).origin;
-          if (ALLOWED_ORIGINS.includes(refOrigin)) origin = refOrigin;
-        } catch {
-          /* unparseable Referer: keep the default */
+      const siteId = url.searchParams.get("site_id");
+      if (siteId === "cms.netlify.com") {
+        origin = "http://localhost:4000";
+      } else if (siteId) {
+        const match = ALLOWED_ORIGINS.find((o) => {
+          try {
+            return new URL(o).hostname === siteId;
+          } catch {
+            return false;
+          }
+        });
+        if (match) origin = match;
+      } else {
+        /* No site_id at all (not a Sveltia client?): fall back to Referer,
+           then to the production origin. */
+        const referer = request.headers.get("Referer");
+        if (referer) {
+          try {
+            const refOrigin = new URL(referer).origin;
+            if (ALLOWED_ORIGINS.includes(refOrigin)) origin = refOrigin;
+          } catch {
+            /* unparseable Referer: keep the default */
+          }
         }
       }
 

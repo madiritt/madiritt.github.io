@@ -31,8 +31,8 @@ backend:
   repo: madiritt/madiritt.github.io
   branch: main
   # Our own OAuth broker on Cloudflare Workers. See admin-auth/ in this repo.
-  # Replace this host with the workers.dev URL printed by `wrangler deploy`.
-  base_url: https://madiritt-admin-auth.WORKERS-SUBDOMAIN.workers.dev
+  # This is the URL printed by `wrangler deploy` on 2026-07-31.
+  base_url: https://madiritt-admin-auth.abysul.workers.dev
   auth_endpoint: auth
 
 # Commits land straight on main, which is what triggers the normal site build.

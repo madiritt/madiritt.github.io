@@ -11,6 +11,19 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-31 - Admin editor: OAuth deployed and proven end to end (one real bug found and fixed)
+
+The full sign-in chain ran for the first time tonight and works: GitHub App (Part 1-ALT route) created on the madiritt account and installed on only the site repo, Worker deployed to https://madiritt-admin-auth.abysul.workers.dev with both secrets set, and a live localhost sign-in as madiritt completed through GitHub's real consent flow into a working editor session.
+
+#### Fixed
+- **The Worker's editor-origin guess was wrong for localhost, stalling sign-in forever.** The token handoff postMessages to the editor's origin, which the Worker guessed from the Referer header. In practice Edge never sent a Referer from the http://localhost:4000 editor to the https Worker, so the guess fell back to the production origin and the browser silently dropped every delivery (fail-closed, but stuck). Origin now comes from Sveltia's `site_id` query param, which is deterministic: literal `cms.netlify.com` means localhost (a Netlify-era relic that fingerprints local runs exactly), a real hostname is matched against ALLOWED_ORIGINS, and Referer remains only as a last-resort fallback for non-Sveltia clients.
+- **The relay page now diagnoses itself.** Instead of a bare spinner, the "Signing you in" popup prints its delivery target and attempt count on the page, names a missing `window.opener` (popup blocker symptom) in plain words, and after 25 attempts says exactly what to report. This turned the second debugging round from console archaeology into reading one grey sentence, and stays useful for any future sign-in trouble.
+
+#### Notes
+- GitHub App experiment (Part 1-ALT): the app route works exactly like an OAuth App through the same endpoints, as hoped. Client ID starts with `Iv`, tokens exchange fine, allowlist lookup via /user works.
+- The one-time workers.dev subdomain registration (abysul.workers.dev) had to be done in the Cloudflare dashboard before the first deploy would go through.
+- Remaining untested: sign-in from the live https://madisonrittinger.org origin (Part 5), collaborator sign-in as AbysulGaming, and Madi's own machine.
+
 ### 2026-07-31 - Admin editor: Part 0 local test run by Trevor, two findings fixed
 
 First human run of the SETUP-ADMIN.md Part 0 no-account test (Sveltia local mode against the running dev server). Every sidebar collection showed real content, both saves worked, and the repo was verified clean afterward.

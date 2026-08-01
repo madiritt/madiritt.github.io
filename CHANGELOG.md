@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-07-31 - Hero portrait sharpened (Madi's report)
+
+Madi flagged the homepage portrait as softer than the photo she provided. Two causes, both fixed:
+
+#### Fixed
+- The committed `assets/img/prof_pic.jpg` was a downscaled recompression (1200x1500, 347 KB) of her original. Replaced with the original file untouched (1638x2048, 818 KB, from Trevor's Madisite folder, `1. About-Homepage/headshot (2).jpg`). Every generated WebP variant now derives from the full-quality source, and the 1400w variant is no longer an upscale.
+- The hero image's `sizes` hint said 360px while the orange panel actually renders about 430px wide, so browsers on scaled Windows displays (125-150%, the common case) picked the smallest 480w WebP and stretched it. Now hints 480px, which keeps those displays on the 800w variant.
+
+#### Notes
+- WebP quality stays at 85; the loss Madi saw came from the source file, not the compression setting.
+
 ### 2026-07-31 - Admin editor: OAuth deployed and proven end to end (one real bug found and fixed)
 
 The full sign-in chain ran for the first time tonight and works: GitHub App (Part 1-ALT route) created on the madiritt account and installed on only the site repo, Worker deployed to https://madiritt-admin-auth.abysul.workers.dev with both secrets set, and a live localhost sign-in as madiritt completed through GitHub's real consent flow into a working editor session.

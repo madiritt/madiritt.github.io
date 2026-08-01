@@ -52,7 +52,10 @@ layout: default
             {% comment %} Accepts both the bare-filename form (al-folio default) and the
             full assets/img/ path the /admin editor writes. {% endcomment %}
             {% assign profile_image_path = page.profile.image | remove_first: 'assets/img/' | prepend: 'assets/img/' %}
-            {% capture sizes %}(min-width: 768px) 360px, 85vw{% endcapture %}
+            {% comment %} The orange panel renders ~430px wide on desktop; asking for 480px
+            keeps scaled Windows displays (125-150%) on the sharp 800w variant instead of
+            the 480w one. {% endcomment %}
+            {% capture sizes %}(min-width: 768px) 480px, 85vw{% endcapture %}
             {%
               include figure.liquid loading="eager" path=profile_image_path class="mossy-portrait"
               sizes=sizes alt="Portrait of Madison Rittinger" cache_bust=true

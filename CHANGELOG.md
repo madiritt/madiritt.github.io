@@ -11,7 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
-### 2026-07-30 - Admin editor: Worker runtime-tested locally (every path except GitHub's happy one)
+### 2026-07-31 - Admin editor: Part 0 local test run by Trevor, two findings fixed
+
+First human run of the SETUP-ADMIN.md Part 0 no-account test (Sveltia local mode against the running dev server). Every sidebar collection showed real content, both saves worked, and the repo was verified clean afterward.
+
+#### Verified
+- **BibTeX round-trip PASSED (the go/no-go gate for Publications).** Saving `papers.bib` from the editor produced a zero-line `git diff`: no reordered keys, no stripped comments, no mangling (the deliberately added trailing blank line was normalized away, which the runbook counts as a pass). Publications stays in the editor.
+- New-news-item creation writes correct front matter: `layout`/`inline`/`related_posts` hidden defaults all present, date in the site's exact `YYYY-MM-DD 09:00:00-0600` format.
+
+#### Fixed
+- **News filename was dated tomorrow.** The slug tags `{{year}}-{{month}}-{{day}}` use save-time UTC, so any evening save in US time produced a filename one day ahead of the front-matter date (test file: `2026-08-01-...` for a July 31 item). Slug recipe is now `{{fields.date | date('YYYY-MM-DD')}}-{{uuid_short}}`: date from the Date field itself, short random id for uniqueness (news items have no title to slug). Harmless to the build either way (front-matter date wins) but confusing to a human.
+- **Homepage Portrait preview was blank.** The stored value was the al-folio bare filename (`prof_pic.jpg`), which the editor cannot map back to a real file for preview. The portrait field now uses the same global `assets/img` media/public mapping as the gallery (whose previews worked): `_pages/about.md` stores `assets/img/prof_pic.jpg`, and the local `_layouts/about.liquid` normalizes with `remove_first: 'assets/img/' | prepend: 'assets/img/'` so BOTH the bare and full-path forms render identically. Gem consumers of the bare form (`profiles.liquid`) are unused by this site. While in there, the hero image's alt text changed from the filename to "Portrait of Madison Rittinger" (screen-reader fix).
+
+#### Notes
+- Retest of just these two items (portrait preview + news filename) is the remaining Part 0 work; the `{{fields.date | date(...)}}` slug syntax is documented Sveltia but untested here until that retest.
 
 The Worker had been syntax-checked and contract-verified but never executed. `wrangler dev` runs it locally with no Cloudflare account, so it got a five-test curl battery tonight.
 

@@ -94,11 +94,13 @@ collections:
             label: Portrait
             widget: object
             fields:
+              # Uses the global media/public folder (assets/img), same as the
+              # gallery, so the stored value is the full assets/img/... path
+              # and the editor can show a preview. The about layout accepts
+              # both this form and the old bare filename.
               - name: image
                 label: Photo
                 widget: image
-                media_folder: /assets/img
-                public_folder: ""
                 hint: >-
                   Upright, taller than wide. Aim for 1200 by 1500 pixels or
                   larger, and leave headroom above your face: the orange panel
@@ -152,7 +154,12 @@ collections:
     delete: true
     extension: md
     format: yaml-frontmatter
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    # Filename recipe. The date comes from the entry's Date field (NOT the
+    # save-time clock, which is UTC and rolls to tomorrow every evening US
+    # time); news items have no title, so a short random id makes the name
+    # unique. Found in the Part 0 test: the old {{year}}-{{month}}-{{day}}
+    # tags used UTC save time and produced a filename dated one day ahead.
+    slug: "{{fields.date | date('YYYY-MM-DD')}}-{{uuid_short}}"
     summary: "{{date | date('MMM D, YYYY')}} - {{body | truncate(70)}}"
     sortable_fields: [date]
     view_filters:

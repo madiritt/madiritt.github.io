@@ -49,11 +49,13 @@ layout: default
       <div class="mossy-hero__right">
         <div class="mossy-hero__panel">
           {% if page.profile.image %}
-            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% comment %} Accepts both the bare-filename form (al-folio default) and the
+            full assets/img/ path the /admin editor writes. {% endcomment %}
+            {% assign profile_image_path = page.profile.image | remove_first: 'assets/img/' | prepend: 'assets/img/' %}
             {% capture sizes %}(min-width: 768px) 360px, 85vw{% endcapture %}
             {%
               include figure.liquid loading="eager" path=profile_image_path class="mossy-portrait"
-              sizes=sizes alt=page.profile.image cache_bust=true
+              sizes=sizes alt="Portrait of Madison Rittinger" cache_bust=true
             %}
           {% endif %}
           {% if page.profile.more_info %}

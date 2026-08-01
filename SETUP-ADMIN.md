@@ -93,8 +93,7 @@ needs a feature Firefox does not have.
     mode, Save writes straight to the file on disk; nothing is committed to
     git, so nothing can reach the live site from here.
 12. Now the create-a-new-entry test. In the sidebar click **News**, then the
-    button for creating a new entry (labelled **Create** or **New news
-    update**, top right).
+    button labelled **New** (top right).
 13. In the new form, leave the date as it is (today is filled in), and in the
     **What happened** box type exactly:
     `Test item, will be deleted.`

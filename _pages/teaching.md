@@ -4,17 +4,12 @@ permalink: /teaching/
 title: Teaching / Mentoring
 nav: true
 nav_order: 4
-
-# The page content. Each section: a heading, an optional photo with caption
-# floated to one side (text wraps around it), and the text itself, written in
-# markdown. The layout machinery lives in _includes/teaching-sections.liquid;
-# these entries are editable at /admin without touching any of it.
 sections:
   - heading: Teaching philosophy
     photo: assets/img/mentoring-kenzie-dasek-2024.jpg
     photo_caption: Undergraduate researcher Kenzie Dasek, 2024
     photo_side: right
-    text: |
+    text: |-
       In life, we are often faced with new knowledge and must decipher what knowledge
       to trust. This skill is applicable to many areas of life such as keeping up with
       current events, making medical decisions, and navigating politics. It is
@@ -25,12 +20,11 @@ sections:
       students the tools to decipher what knowledge to trust, I emphasize critical and
       independent thinking in my courses and create a learner-centered classroom to
       encourage students to apply those skills in real time.
-
   - heading: Courses
     photo: assets/img/mentoring-spider-squad-2023.jpg
-    photo_caption: "The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner"
+    photo_caption: 'The Spider Squad: Ellie Wheeler, Ava Mueller, Sage DeLong, and me, 2023. Photo: Em Wikner'
     photo_side: left
-    text: |
+    text: |-
       *See my [CV](/cv/) for a full list.*
 
       **Animal Behavior** (instructor of record). Milwaukee Institute of Art and Design (MIAD), Summer 2026.
@@ -45,12 +39,11 @@ sections:
       **Guest Lecturer.** UW-Milwaukee. Ecology (Spring 2024, Fall 2024, Fall 2025) and Behavioral Ecology (Spring 2023); topics covered ecological succession, evolution, and the role of hormones in behavior.
 
       Earlier teaching: Human Anatomy and Physiology Lab (UW-Milwaukee); Invertebrate Zoology Lab, General Ecology Lab, Biostatistics Lab, and Introduction to Biology Lab (Illinois State University); Statistics Tutor (Ohio Dominican University).
-
   - heading: Mentoring philosophy
     photo: assets/img/mentoring-ellie-wheeler-2023.jpg
-    photo_caption: "Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner"
+    photo_caption: 'Undergraduate researcher Ellie Wheeler and I. Photo: Em Wikner'
     photo_side: right
-    text: |
+    text: |-
       During my undergraduate degree, research opportunities were "few and far
       between". This lack of opportunity hindered my progress towards graduate school
       and in the field of animal behavior more generally. One of my career goals is to
@@ -65,9 +58,9 @@ sections:
       problems. Between these check-ins my mentees largely work independently which
       helps them gain confidence in their own research abilities.
 
-      To date I have mentored 20 undergraduate researchers. Four of these
+      To date I have mentored 21 undergraduate researchers. Five of these
       undergraduates will be coauthor on future publications and one undergraduate has
-      presented our research at several local conferences. I have also mentored 10 high
+      presented our research at several local conferences. I have also mentored 19 high
       school students through the [Mentor Matching Engine](https://help.mentormatchingengine.org/about) - a virtual mentor program.
 ---
 

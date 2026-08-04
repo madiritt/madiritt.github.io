@@ -17,6 +17,7 @@ Trevor asked that only Madi's images live in the repo.
 
 #### Removed
 - The 15 demo images the al-folio template shipped for its example posts, none referenced anywhere: `assets/img/1.jpg` through `12.jpg` (coffee cups, books, stock shots), `rhino.png`, `template_error.png`, and `book_covers/the_godfather.jpg` (with its now-empty `book_covers/` folder; the repo has no `_books` collection).
+- `assets/img/_PLACEHOLDER_README.md`, the early folder note. Unreferenced, never published (leading underscore keeps it out of the built site), and its "runbook 04" pointer was stale; MAINTENANCE-GUIDE.md covers the same ground including the `prof_pic.jpg` requirement.
 
 #### Notes
 - Verified before deleting: zero references in repo content and zero in the al_folio_core 1.0.11 gem; local Jekyll build stays green afterward. The `.lycheeignore` line naming `_books/the_godfather.md` was already dead (that file never existed here) and is harmless.

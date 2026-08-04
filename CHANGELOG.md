@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-04 - Removed al-folio demo images
+
+Trevor asked that only Madi's images live in the repo.
+
+#### Removed
+- The 15 demo images the al-folio template shipped for its example posts, none referenced anywhere: `assets/img/1.jpg` through `12.jpg` (coffee cups, books, stock shots), `rhino.png`, `template_error.png`, and `book_covers/the_godfather.jpg` (with its now-empty `book_covers/` folder; the repo has no `_books` collection).
+
+#### Notes
+- Verified before deleting: zero references in repo content and zero in the al_folio_core 1.0.11 gem; local Jekyll build stays green afterward. The `.lycheeignore` line naming `_books/the_godfather.md` was already dead (that file never existed here) and is harmless.
+- Rollback: all files recoverable from git history (`git checkout <commit>~1 -- assets/img/<name>`).
+
 ### 2026-08-04 - Admin editor reskinned in Mossy Modernist
 
 The /admin editor (Sveltia CMS) now matches the site's Mossy Modernist look instead of Sveltia's stock blue-gray, modeled on the custom admin-console mockup Trevor approved on 2026-07-31.

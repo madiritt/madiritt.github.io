@@ -11,6 +11,20 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-04 - Admin editor reskinned in Mossy Modernist
+
+The /admin editor (Sveltia CMS) now matches the site's Mossy Modernist look instead of Sveltia's stock blue-gray, modeled on the custom admin-console mockup Trevor approved on 2026-07-31.
+
+#### Added
+- A CSS override block in `admin/index.html` that retargets Sveltia's `--sui-*` custom properties to the Mossy palette: moss surfaces (#1e2a18 base, #2a3624 cards), cream text (#f4f0d8), citrine accents and buttons (#d4c878, moss text on citrine), citrine-tinted borders, and Lexend as the UI font (monospace fields like the BibTeX box untouched). One look in both of Sveltia's themes; alert colors pinned to the dark-theme values so notices stay readable.
+- Lexend Google Fonts links in the admin page head.
+
+#### Notes
+- Colors and typography only. The mockup's custom layout (left rail, publish tracker, DOI lookup) is bespoke UI and out of scope for a CSS skin.
+- Verified locally: Sveltia renders without shadow DOM, so page-level CSS reaches it; login screen screenshot confirms the palette. The editor interior consumes the same variables but was not screenshot-verified (needs an interactive sign-in); check it on next real use.
+- The `--sui-*` surface is not a documented theming API. It is stable within the pinned 0.175.x minor; re-check the skin after any deliberate Sveltia version bump. If variables are ever renamed the editor falls back to its stock look; nothing functional can break.
+- Rollback: delete the marked style block and the two font `<link>`s plus preconnects in `admin/index.html`.
+
 ### 2026-07-31 - Hero portrait sharpened (Madi's report)
 
 Madi flagged the homepage portrait as softer than the photo she provided. Two causes, both fixed:

@@ -14,6 +14,9 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Edit madisonrittinger.org</title>
     <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       /* Shown only until the editor script boots, and again if it fails to. */
       body {
@@ -30,6 +33,77 @@
       .boot h1 { font-weight: 500; font-size: 1.2rem; margin: 0 0 0.6rem; }
       .boot p { color: #b8b5a3; font-size: 0.9rem; max-width: 44ch; margin: 0 auto; }
       .boot a { color: #d4c878; }
+
+      /*
+        Mossy Modernist skin for the Sveltia editor UI.
+
+        Sveltia's whole look is driven by CSS custom properties (--sui-*) it
+        sets on :root for its light and dark themes. It does not use shadow
+        DOM, so this page-level block can restyle it. The !important flags are
+        required: Sveltia injects its stylesheets at runtime, after this one.
+
+        Values are the site's Mossy palette translated to Sveltia's HSL-triplet
+        format: moss #1e2a18 = 100 27% 13%, card #2a3624 = 100 20% 18%,
+        cream #f4f0d8 = 51 56% 90%, citrine #d4c878 = 52 52% 65%.
+
+        This variable surface is NOT a documented Sveltia theming API. It is
+        stable within our pinned minor (0.175.x); re-check this skin after any
+        deliberate version bump. Worst case if variables are ever renamed: the
+        editor falls back to its stock look, nothing functional breaks.
+
+        Rollback: delete this block (and the Lexend font links in <head>).
+      */
+      :root {
+        color-scheme: dark !important;
+
+        /* Any color Sveltia derives from its base hue goes moss, not blue */
+        --sui-base-hue: 100 !important;
+
+        /* Surfaces: darkest frame, moss app background, card, raised, hover */
+        --sui-background-color-1-hsl: 100 27% 10% !important;
+        --sui-background-color-2-hsl: 100 27% 13% !important;
+        --sui-background-color-3-hsl: 100 20% 18% !important;
+        --sui-background-color-4-hsl: 100 20% 22% !important;
+        --sui-background-color-5-hsl: 100 18% 30% !important;
+
+        /* Text: cream down to muted sage */
+        --sui-foreground-color-1-hsl: 51 56% 90% !important;
+        --sui-foreground-color-2-hsl: 50 40% 84% !important;
+        --sui-foreground-color-3-hsl: 51 13% 68% !important;
+        --sui-foreground-color-4-hsl: 51 10% 58% !important;
+        --sui-foreground-color-5-hsl: 51 8% 45% !important;
+
+        /* Borders: citrine-tinted, strongest first */
+        --sui-border-color-1-hsl: 52 30% 45% !important;
+        --sui-border-color-2-hsl: 52 18% 30% !important;
+        --sui-border-color-3-hsl: 100 15% 24% !important;
+        --sui-shadow-color: 100 10% 0% !important;
+
+        /* Accent: citrine gold; buttons get moss text on citrine */
+        --sui-primary-accent-color-text: hsl(52 60% 72%) !important;
+        --sui-primary-accent-color-light: hsl(52 52% 70%) !important;
+        --sui-primary-accent-color: hsl(52 52% 65%) !important;
+        --sui-primary-accent-color-dark: hsl(52 45% 55%) !important;
+        --sui-primary-accent-color-inverted: hsl(100 27% 13%) !important;
+        --sui-primary-accent-color-translucent: hsl(52 52% 65% / 60%) !important;
+        --sui-primary-accent-color-translucent-light: hsl(52 52% 65% / 40%) !important;
+
+        /* Alerts: keep Sveltia's dark-theme values even if light theme is
+           selected, so notices stay readable on the moss surfaces */
+        --sui-alert-foreground-color-saturation: 85% !important;
+        --sui-alert-foreground-color-lightness: 75% !important;
+        --sui-alert-background-color-saturation: 40% !important;
+        --sui-alert-background-color-lightness: 10% !important;
+        --sui-alert-border-color-saturation: 48% !important;
+        --sui-alert-border-color-lightness: 38% !important;
+
+        /* Sitewide font is Lexend; leave monospace (BibTeX box) untouched */
+        --sui-font-family-default: "Lexend", system-ui, sans-serif !important;
+        --sui-heading-font-family: "Lexend", system-ui, sans-serif !important;
+        --sui-control-font-family: "Lexend", system-ui, sans-serif !important;
+        --sui-tab-font-family: "Lexend", system-ui, sans-serif !important;
+        --sui-textbox-font-family: "Lexend", system-ui, sans-serif !important;
+      }
     </style>
   </head>
   <body>

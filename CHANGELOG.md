@@ -11,6 +11,25 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-04 - Editor: photo uploads auto-shrink; maintenance guide leads with the editor
+
+Two smoothing items from the editing-experience review, approved by Trevor.
+
+#### Added
+- **Photo uploads through /admin now shrink themselves.** New `media_libraries` block in `admin/config.yml`: uploads resize to fit 2048px, re-encode as WebP quality 85, and get slugified filenames (spaces and parentheses become hyphens). Madi can upload straight from a phone camera roll; multi-MB originals no longer land in the repo. Existing images untouched. Verified the pinned Sveltia 0.175 bundle implements these keys; also verified it ALWAYS converts to WebP when a raster transformation is configured, so "resize but keep JPEG" was not an option.
+- **Build-side WebP support** so those uploads render with responsive variants like every other photo: `.webp` added to imagemagick `input_formats` in `_config.yml`, and a local `_includes/figure.liquid` override (verbatim gem copy plus webp in the srcset extension list and path-stripping filter). Without the override, the gem serves WebP sources as a single full-size file.
+- **MAINTENANCE-GUIDE.md Part 0: the site editor.** New first part documenting /admin as the primary route: sign-in steps, a sidebar-to-recipe map for all 13 Part 5 recipes, the photos-need-no-prep note, a practice run (0.4), and when to fall back to the manual route. Intro, "ways to edit", and Part 5 lead-in updated to point at it. Existing part numbering unchanged on purpose: the guide's internal cross-references all survive.
+
+#### Changed
+- CLAUDE.md /admin section rewritten from "IN PROGRESS, not live" to LIVE status, recording the Mossy skin, the upload pipeline, and the remaining nice-to-haves (status page, DOI helper, research-sections refactor, Access gate).
+
+#### Removed
+- The News "This year" view filter in `admin/config.yml`: its hardcoded 2026 pattern would silently go stale every January, and date sorting covers the need.
+
+#### Notes
+- Untested until first real use: an actual photo upload through the editor (the transformation runs client-side in the browser). Spot-check the first one Madi or Trevor makes: the gallery/site image should look normal, and the committed file should be a .webp around a few hundred KB. If anything looks wrong, remove the `media_libraries` block from `admin/config.yml`; uploads then land unmodified as before (the build-side WebP support is harmless either way).
+- Local build green with the figure.liquid override in place (imagemagick disabled locally, so the srcset branch is exercised only by the live CI build; the override is a one-condition diff on the gem file, re-apply it if a future gem upgrade changes figure.liquid).
+
 ### 2026-08-04 - Removed al-folio demo images
 
 Trevor asked that only Madi's images live in the repo.

@@ -6,7 +6,9 @@
 
 This guide assumes you have never edited a website before. It explains everything: what the site is made of, how to sign in, how to change things, and how to fix mistakes. Read Part 1 once so the rest makes sense. After that, jump straight to the recipe you need in Part 5. Ctrl+F (Cmd+F on Mac) is your friend.
 
-**Never edited the site before? Do section 3.6 first.** It is a practice run (about 10 minutes of clicking, then waiting for the site to rebuild): one real, harmless edit from signing in to seeing it live, with every click named and every expected result written down. Everything else in this guide is a variation on those same steps.
+**Start with Part 0.** The site has its own editor at madisonrittinger.org/admin: you sign in once, click the thing you want to change, type in a form, and press Save. It covers almost every routine change and is the easiest route by far. Everything else in this guide (Parts 3 to 5) is the manual route: it always works, needs nothing but a browser, and is the fallback for anything the editor cannot do.
+
+**Never edited the site before? Do the practice run in 0.4 first** (or, for the manual route, section 3.6). Each is one real, harmless edit from signing in to seeing it live, with every click named and every expected result written down.
 
 **If you only remember one thing:** you cannot permanently break this site. Every change ever made is saved forever in the history, and Part 7 shows you how to roll anything back.
 
@@ -14,6 +16,12 @@ This guide assumes you have never edited a website before. It explains everythin
 
 ## Table of contents
 
+- **Part 0: The site editor at /admin (the easy route, start here)**
+  - 0.1 Signing in to the editor
+  - 0.2 What each sidebar item edits (map to the Part 5 recipes)
+  - 0.3 Photos through the editor
+  - 0.4 Practice run: your first editor change
+  - 0.5 When to use the manual route instead
 - Part 1: How the site works (read once)
 - Part 2: Accounts you need
 - Part 3: Route A - editing in the web browser (no installs)
@@ -57,6 +65,61 @@ This guide assumes you have never edited a website before. It explains everythin
 
 ---
 
+## Part 0: The site editor at /admin (the easy route, start here)
+
+The editor is a page on your own site that turns most edits into filling in a form. Behind the scenes it saves to the same GitHub repo as every other route, so Part 1's build-and-wait story, Part 6's "how to know it worked", and Part 7's undo all apply exactly the same. It works on a phone or tablet too, so you can post a news item from the field.
+
+### 0.1 Signing in to the editor
+
+1. Go to https://madisonrittinger.org/admin
+   Expected result: a green page titled "Sveltia CMS" with a "Sign In with GitHub" button.
+2. Click **Sign In with GitHub**.
+   Expected result: a small popup window opens. If nothing opens, your browser blocked the popup: look for a popup-blocked icon at the right end of the address bar, click it, and choose Allow, then click the button again.
+3. If the popup asks you to sign in to GitHub, sign in as `madiritt` the same way as in section 3.1, including the 2FA code.
+4. The first time only, GitHub shows a green **Authorize** button naming the site's sign-in app. Click it.
+   Expected result: the popup closes by itself and the editor loads, showing a list on the left: Homepage, News, Gallery, Research, Publications (advanced), Outreach, Teaching / Mentoring, CV, Links and contact.
+5. You stay signed in on that browser for a long time. Next visit usually skips straight to the editor.
+
+### 0.2 What each sidebar item edits (map to the Part 5 recipes)
+
+Click an item on the left, change what you want, then click **Save** (top right). Save is the commit: the 3-to-7-minute rebuild starts on its own, then allow up to 10 more minutes of cache time (Part 6 shows how to check). Grey hint text under each box tells you what the box wants.
+
+| Sidebar item | What it changes | Manual recipe it replaces |
+|---|---|---|
+| Homepage | The "Currently" line, your bio, the line above your name, your portrait, the News section settings | 5.1, 5.6, 5.10, 5.11 |
+| News | Dated updates (newest few show on the homepage) | 5.2 |
+| Gallery | The photo grid: add, recaption, or remove photos | 5.4 |
+| Research | The three research-question cards and their pages | 5.8 |
+| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. If unsure, use recipe 5.3 instead | 5.3 |
+| Outreach | The /outreach/ page text | 5.13 |
+| Teaching / Mentoring | Every section of that page: headings, text, photos, captions, which side the photo sits on | 5.9 |
+| CV | Hand over a new CV PDF | 5.5 |
+| Links and contact | Email, ORCID, Google Scholar, ResearchGate, LinkedIn icons | 5.7 |
+
+To remove a news item or gallery photo (recipe 5.12): open it in the editor and use **Delete** for a news item, or the photo row's remove control in the Gallery list, then Save.
+
+### 0.3 Photos through the editor
+
+Upload photos straight from your phone or camera roll: click any photo box, choose the file, done. You do not need to rename or shrink anything first. The editor automatically shrinks each new photo to a sensible size, converts it to an efficient format (.webp), and cleans up the filename before it is saved. The photo-naming rules in the Part 5 recipes (like starting gallery files with `gallery-`) only matter on the manual route.
+
+### 0.4 Practice run: your first editor change
+
+1. Sign in (section 0.1).
+2. Click **Homepage** in the left list, then click the **Homepage** entry that appears.
+3. Find the box labeled **Currently** and change its text, for example add "still" somewhere sensible. Keep it one short line.
+4. Click **Save** (top right).
+   Expected result: a brief saving indicator, then the editor returns to normal. Nothing else visibly happens. That is correct: the rebuild runs at GitHub for 3 to 7 minutes.
+5. Wait about 10 minutes, then open https://madisonrittinger.org in a new tab and refresh. Expected result: the Currently line under your bio shows your new text. If it does not, wait 10 more minutes and refresh again; Part 6 covers the waiting story, Part 7.3 covers a stubborn cache.
+6. Change it back (or leave it, if the new wording is better) the same way.
+
+### 0.5 When to use the manual route instead
+
+- The editor page will not load or misbehaves: everything it does can be done manually with Parts 3 to 5, always.
+- A change the editor has no form for: rare page-layout or settings work, which is Trevor territory anyway.
+- Publications, if BibTeX feels risky today: recipe 5.3 walks the manual way step by step.
+
+---
+
 ## Part 1: How the site works (read once)
 
 The website is not edited "live." It works like this:
@@ -70,12 +133,13 @@ That's the whole system. There is no server to manage, no "publish" button to pr
 
 One more player: **Cloudflare** manages the domain name madisonrittinger.org, which is just a signpost pointing at GitHub. You will almost never log into it. Part 8 covers the one thing about it that matters.
 
-### The two ways to edit
+### The three ways to edit
 
-- **Route A: the web browser (Part 3).** Sign in to github.com and edit files right on the website. Nothing to install. Best for text changes and uploading a photo or PDF. **When in doubt, use Route A.**
+- **The site editor (Part 0).** Forms at madisonrittinger.org/admin. Easiest by far; covers almost every routine change. **When in doubt, start here.**
+- **Route A: the web browser (Part 3).** Sign in to github.com and edit files right on the website. Nothing to install. The manual fallback that always works.
 - **Route B: VS Code (Part 4).** A free editor app on your computer with a synced copy of the repo. Better for editing several files at once or fiddly changes. Requires one-time setup.
 
-Every recipe in Part 5 works with either route.
+Every recipe in Part 5 works with Route A or Route B, and section 0.2 maps each recipe to its editor equivalent.
 
 ---
 
@@ -264,6 +328,8 @@ If you also used GitHub Desktop during the site's early setup: it does the same 
 ---
 
 ## Part 5: Task recipes
+
+**Check the editor first:** nearly every recipe below has an easier forms version at madisonrittinger.org/admin; the table in section 0.2 maps each recipe to its sidebar item. The recipes here are the manual route, kept complete so they always work even without the editor.
 
 Every recipe: which file, what to put in it, and anything to watch out for. The recipes tell you WHAT to change. For the clicking mechanics, they point you back to section 3.2 (edit a text file), 3.3 (upload a photo or PDF), or 3.4 (create a new file). If you are using VS Code instead, the mechanics are section 4.4 and everything else in the recipe is identical.
 

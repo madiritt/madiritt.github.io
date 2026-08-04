@@ -90,37 +90,39 @@ Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex 
 
 ---
 
-## IN PROGRESS: /admin web editor (branch `admin-cms`, NOT merged, NOT live)
+## LIVE: /admin web editor
 
-A form-based editor at madisonrittinger.org/admin (Sveltia CMS + our own
-Cloudflare Worker OAuth broker in `admin-auth/`) so Madi can edit through
-forms. Everything is on the `admin-cms` branch; the site only builds from
-`main`, so nothing is live until the merge in `SETUP-ADMIN.md` Part 5.
+The form-based editor at https://madisonrittinger.org/admin is LIVE and Madi
+is actively using it (her first solo edits landed 2026-08-04). Sveltia CMS
+(pinned `@sveltia/cms@^0.175.0` in `admin/index.html`) + our own Cloudflare
+Worker OAuth broker (`admin-auth/`, deployed at
+https://madiritt-admin-auth.abysul.workers.dev, GitHub App route, ALLOWED_USERS
+allowlist). Sign-in proven end to end from localhost and production.
 
-- **Read first:** `SETUP-ADMIN.md` (the full deploy runbook, Parts 0-6 + Plan
-  B) and the 2026-07-30 CHANGELOG entries (five, newest first: squeaky-clean
-  pass, error-hunting pass, teaching refactor + GitHub App route, verification
-  pass, original build). They carry every decision, bug found, and open risk.
-- **State (2026-07-30 night):** all code/config/runbook work that can be done
-  without logins is DONE and verified (handshake contract checked against
-  Sveltia source, config audited against every editable file, teaching page
-  refactored to front-matter sections and byte-identical, wrangler installed
-  and `wrangler deploy --dry-run` green, Worker carries an ALLOWED_USERS
-  allowlist). What remains needs humans: Part 0 (Trevor's 21-step no-account
-  local test with three embedded experiments: portrait preview, news filename
-  + date format, BibTeX round-trip), Part 1-ALT (GitHub App experiment,
-  madiritt login; OAuth App is the fallback), Parts 3-5 (Cloudflare login,
-  deploy, merge), Part 6 (optional Cloudflare Access gate, do with Madi).
-- **Honest unknowns:** GitHub's half of the OAuth flow (consent + code swap)
-  is contract-verified but never run; the GitHub App route and collaborator
-  sign-in are try-and-see; Part 6's UI labels are from docs, not exercised.
-- Publications ARE in the editor (raw-BibTeX box, experimental, lives or dies
-  by Part 0's git-diff gate). Teaching IS editable (its layout machinery moved
-  to `_includes/teaching-sections.liquid`; the page's words live in
-  `_pages/teaching.md` front matter as a `sections` list).
-- After go-live: update MAINTENANCE-GUIDE.md to mention the editor as the
-  primary route with the manual recipes as fallback (NOT done yet, on
-  purpose; the guide must not describe an editor that is not live).
+- **Read first:** `SETUP-ADMIN.md` (deploy runbook and design decisions) and
+  the 2026-07-30/31 and 2026-08-04 CHANGELOG entries. They carry every
+  decision, bug found and fixed, and remaining risk.
+- **Mossy skin (2026-08-04):** the editor UI is restyled to Mossy Modernist
+  via a CSS-only block in `admin/index.html` overriding Sveltia's `--sui-*`
+  custom properties (no shadow DOM, page CSS reaches it). Not a documented
+  theming API: re-check after any deliberate Sveltia version bump; worst case
+  is stock look, nothing functional.
+- **Photo uploads auto-shrink (2026-08-04):** `media_libraries` block in
+  `admin/config.yml` resizes new uploads to fit 2048px, converts to WebP q85
+  (Sveltia always converts when a raster transformation is on; keeping JPEG is
+  not an option), and slugifies filenames. Pairs with two build-side changes:
+  `.webp` added to imagemagick `input_formats` in `_config.yml`, and a local
+  `_includes/figure.liquid` override (gem copy + one condition) so WebP
+  sources get responsive srcset variants. First real upload through the
+  editor should be spot-checked live (try-and-see).
+- Publications are editable as a raw-BibTeX box (survived the Part 0
+  round-trip gate). Teaching is editable via front-matter `sections`
+  (layout machinery in `_includes/teaching-sections.liquid`).
+- MAINTENANCE-GUIDE.md Part 0 (added 2026-08-04) documents the editor as the
+  primary route; the manual recipes in Parts 3-5 remain the fallback.
+- Remaining nice-to-haves: an "is my change live yet" status page under
+  /admin, a DOI-to-BibTeX helper page, research pages refactor to sections
+  (like teaching), optional Cloudflare Access gate (Part 6, do with Madi).
 
 ---
 

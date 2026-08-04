@@ -52,6 +52,26 @@ media_folder: assets/img
 # must keep matching what is already in gallery.md.
 public_folder: assets/img
 
+# Photo uploads are shrunk in the browser before they ever reach the repo:
+# resized to fit 2048px, re-encoded as WebP at quality 85, and the filename
+# cleaned up (spaces and parentheses become hyphens). Madi can upload phone
+# photos straight from the camera roll and the repo stays light. Existing
+# images are untouched; this only applies to new uploads. The site build
+# handles .webp sources via the ".webp" input_formats entry in _config.yml
+# plus the local _includes/figure.liquid override. NOTE: with a raster_image
+# transformation configured, Sveltia ALWAYS converts to WebP (verified in the
+# 0.175 bundle); "resize but keep JPEG" is not an option it offers.
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+
 site_url: https://madisonrittinger.org
 logo_url: https://madisonrittinger.org/assets/img/favicon.png
 
@@ -162,8 +182,8 @@ collections:
     slug: "{{fields.date | date('YYYY-MM-DD')}}-{{uuid_short}}"
     summary: "{{date | date('MMM D, YYYY')}} - {{body | truncate(70)}}"
     sortable_fields: [date]
-    view_filters:
-      - { label: This year, field: date, pattern: "2026" }
+    # No view_filters here on purpose: a "This year" filter needs a hardcoded
+    # year that silently goes stale every January. Sorting by date covers it.
     description: >-
       Short dated updates. The newest few show on your homepage; every one of
       them shows at /news/.

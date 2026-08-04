@@ -441,6 +441,10 @@ imagemagick:
     - ".png"
     - ".tiff"
     - ".gif"
+    # The /admin editor saves photo uploads as WebP; this makes those sources
+    # get the same responsive variants. Pairs with the local _includes/figure.liquid
+    # override, which adds webp to the srcset extension list.
+    - ".webp"
   output_formats:
     webp: "-auto-orient -quality 85"
 

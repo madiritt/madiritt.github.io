@@ -1,0 +1,252 @@
+<!--
+  DOI to BibTeX helper, served at /admin/doi.html.
+
+  DELIBERATELY HAS NO JEKYLL FRONT MATTER: Jekyll copies it through untouched
+  and keeps it out of the sitemap, same as admin/index.html.
+
+  Turns a paper's DOI into the ready-made BibTeX block for the Publications
+  box in the editor. Uses Crossref's public API (browser-callable, no key,
+  covers essentially every journal article). Everything runs in this one
+  file; there is no backend.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>DOI to BibTeX</title>
+    <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --moss: #1e2a18;
+        --card: #2a3624;
+        --cream: #f4f0d8;
+        --muted: #b8b5a3;
+        --citrine: #d4c878;
+        --citrine-border: rgba(212, 200, 120, 0.18);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--moss);
+        color: var(--cream);
+        font-family: "Lexend", system-ui, sans-serif;
+        font-weight: 300;
+        padding: 2rem 1rem 3rem;
+      }
+      main { max-width: 620px; margin: 0 auto; }
+      h1 { font-weight: 500; font-size: 1.4rem; margin: 0 0 0.4rem; }
+      .sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; line-height: 1.5; }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--citrine-border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 1.2rem;
+      }
+      label { display: block; font-weight: 500; font-size: 0.95rem; margin-bottom: 0.5rem; }
+      .row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+      input[type="text"] {
+        flex: 1;
+        min-width: 240px;
+        background: var(--moss);
+        border: 1px solid var(--citrine-border);
+        border-radius: 6px;
+        color: var(--cream);
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: 0.55rem 0.7rem;
+      }
+      input[type="text"]:focus { outline: 2px solid var(--citrine); border-color: var(--citrine); }
+      button {
+        background: var(--citrine);
+        color: var(--moss);
+        border: none;
+        border-radius: 6px;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.55rem 1.1rem;
+        cursor: pointer;
+      }
+      button:hover { filter: brightness(1.08); }
+      button:disabled { opacity: 0.5; cursor: default; }
+      .hint { color: var(--muted); font-size: 0.82rem; margin: 0.6rem 0 0; line-height: 1.5; }
+      .msg { font-size: 0.9rem; margin: 0.8rem 0 0; line-height: 1.5; }
+      .msg.error { color: #d98c8c; }
+      textarea {
+        width: 100%;
+        min-height: 260px;
+        background: var(--moss);
+        border: 1px solid var(--citrine-border);
+        border-radius: 6px;
+        color: var(--cream);
+        font-family: Consolas, Menlo, monospace;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        padding: 0.8rem;
+        margin-top: 0.8rem;
+        resize: vertical;
+      }
+      ol { padding-left: 1.3rem; font-size: 0.92rem; line-height: 1.7; margin: 0.4rem 0 0; }
+      ol li { margin-bottom: 0.3rem; }
+      h2 { font-weight: 500; font-size: 0.95rem; color: var(--citrine); letter-spacing: 0.06em; text-transform: uppercase; margin: 1.8rem 0 0.6rem; }
+      a { color: var(--citrine); }
+      .links { margin-top: 1.6rem; font-size: 0.88rem; line-height: 2; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>DOI to BibTeX</h1>
+      <p class="sub">Nearly every published paper has a DOI: a code like <strong style="color: var(--cream); font-weight: 500;">10.1093/beheco/araa090</strong>, printed on the article page and in the journal's citation box. Paste it here and this page writes the BibTeX block for you.</p>
+
+      <div class="card">
+        <label for="doi">The paper's DOI</label>
+        <div class="row">
+          <input type="text" id="doi" placeholder="10.1093/beheco/araa090" autocomplete="off" spellcheck="false" />
+          <button id="fetchBtn" type="button">Fetch BibTeX</button>
+        </div>
+        <p class="hint">Pasting the whole link is fine too, like https://doi.org/10.1093/beheco/araa090; the page trims it for you.</p>
+        <p class="msg" id="msg"></p>
+        <textarea id="result" readonly hidden spellcheck="false" aria-label="The BibTeX result"></textarea>
+        <div class="row" style="margin-top: 0.8rem">
+          <button id="copyBtn" type="button" hidden>Copy it</button>
+        </div>
+      </div>
+
+      <h2>Then, to put it on the site</h2>
+      <div class="card">
+        <ol>
+          <li>Click <strong>Copy it</strong> above.</li>
+          <li>Open <a href="/admin/">the editor</a> and click <strong>Publications (advanced)</strong> in the left list, then the entry inside it.</li>
+          <li>Click into the big BibTeX box, scroll to the very end, and press Enter twice so there is one blank line after the last block.</li>
+          <li>Paste.</li>
+          <li>Check the pasted block: your name should read <strong>Rittinger, Madison</strong> somewhere in the author line (that spelling is what makes it bold on the site). Fix the spelling if the journal abbreviated it.</li>
+          <li>Click <strong>Save</strong> (top right). The site rebuilds in 3 to 7 minutes; <a href="/admin/status.html">the status page</a> watches it for you.</li>
+        </ol>
+      </div>
+
+      <p class="links">
+        <a href="/admin/">&larr; Back to the editor</a><br />
+        <a href="/admin/status.html">Is my change live yet?</a>
+      </p>
+    </main>
+
+    <script>
+      "use strict";
+
+      // Crossref covers virtually all journal articles. Rare misses (like a
+      // dataset DOI from DataCite) get a plain-words error instead.
+      function apiUrl(doi) {
+        return "https://api.crossref.org/works/" + encodeURIComponent(doi) + "/transform/application/x-bibtex";
+      }
+
+      // Accepts "10.1093/x", "doi:10.1093/x", "https://doi.org/10.1093/x",
+      // or "http://dx.doi.org/10.1093/x" and returns the bare DOI.
+      function cleanDoi(text) {
+        var t = text.trim();
+        t = t.replace(/^https?:\/\/(dx\.)?doi\.org\//i, "");
+        t = t.replace(/^doi:\s*/i, "");
+        return t.trim();
+      }
+
+      // Crossref returns the whole block on one line. Split it into one field
+      // per line by walking the text and only honoring commas at brace depth 1
+      // (commas inside {curly braces} belong to the field and stay put).
+      function prettyBibtex(raw) {
+        var text = raw.trim();
+        var open = text.indexOf("{");
+        var head = text.slice(0, open + 1);           // e.g. "@article{"
+        var inner = text.slice(open + 1);
+        var depth = 1;
+        var fields = [];
+        var current = "";
+        for (var i = 0; i < inner.length; i++) {
+          var ch = inner[i];
+          if (ch === "{") { depth++; }
+          if (ch === "}") { depth--; }
+          if (depth === 0) { break; }                 // the block's closing brace
+          if (ch === "," && depth === 1) {
+            fields.push(current.trim());
+            current = "";
+          } else {
+            current += ch;
+          }
+        }
+        if (current.trim()) { fields.push(current.trim()); }
+        var key = fields.shift();                     // citation key, first item
+        var lines = fields.map(function (f) { return "  " + f + ","; });
+        return head + key + ",\n" + lines.join("\n") + "\n}";
+      }
+
+      function setMsg(text, isError) {
+        var el = document.getElementById("msg");
+        el.textContent = text;
+        el.className = isError ? "msg error" : "msg";
+      }
+
+      function fetchBibtex() {
+        var doi = cleanDoi(document.getElementById("doi").value);
+        var btn = document.getElementById("fetchBtn");
+        var result = document.getElementById("result");
+        var copyBtn = document.getElementById("copyBtn");
+        result.hidden = true;
+        copyBtn.hidden = true;
+        if (!doi || doi.indexOf("10.") !== 0) {
+          setMsg("That does not look like a DOI yet. It should start with 10. followed by numbers, like 10.1093/beheco/araa090.", true);
+          return;
+        }
+        btn.disabled = true;
+        setMsg("Looking it up...", false);
+        fetch(apiUrl(doi))
+          .then(function (resp) {
+            if (resp.status === 404) {
+              throw new Error("Crossref does not know that DOI. Double-check it for typos. If it is right, this paper is not in Crossref (rare); add it the manual way, recipe 5.3 in the maintenance guide.");
+            }
+            if (!resp.ok) { throw new Error("The lookup service answered " + resp.status + ". Try again in a minute."); }
+            return resp.text();
+          })
+          .then(function (raw) {
+            result.value = prettyBibtex(raw);
+            result.hidden = false;
+            copyBtn.hidden = false;
+            setMsg("Found it. Read it over, then follow the steps below.", false);
+          })
+          .catch(function (err) {
+            setMsg(err.message, true);
+          })
+          .finally(function () {
+            btn.disabled = false;
+          });
+      }
+
+      function copyResult() {
+        var result = document.getElementById("result");
+        var copyBtn = document.getElementById("copyBtn");
+        navigator.clipboard.writeText(result.value).then(
+          function () {
+            copyBtn.textContent = "Copied";
+            setTimeout(function () { copyBtn.textContent = "Copy it"; }, 2000);
+          },
+          function () {
+            // Clipboard permission denied: select the text so Ctrl+C works.
+            result.focus();
+            result.select();
+            setMsg("Automatic copy was blocked by the browser. The text is selected; press Ctrl+C (Cmd+C on Mac).", true);
+          }
+        );
+      }
+
+      document.getElementById("fetchBtn").addEventListener("click", fetchBibtex);
+      document.getElementById("copyBtn").addEventListener("click", copyResult);
+      document.getElementById("doi").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { fetchBibtex(); }
+      });
+    </script>
+  </body>
+</html>

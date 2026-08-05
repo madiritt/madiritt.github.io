@@ -1,0 +1,228 @@
+<!--
+  "Is my change live yet?" page, served at /admin/status.html.
+
+  DELIBERATELY HAS NO JEKYLL FRONT MATTER: Jekyll copies it through untouched
+  and keeps it out of the sitemap, same as admin/index.html.
+
+  Reads the site's build history from the public GitHub Actions API (the repo
+  is public, so no token is needed; the API allows browser calls from any
+  origin and 60 requests per hour per visitor, far more than the polling here
+  uses). Everything runs in this one file; there is no backend.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Is my change live yet?</title>
+    <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --moss: #1e2a18;
+        --card: #2a3624;
+        --cream: #f4f0d8;
+        --muted: #b8b5a3;
+        --citrine: #d4c878;
+        --citrine-border: rgba(212, 200, 120, 0.18);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--moss);
+        color: var(--cream);
+        font-family: "Lexend", system-ui, sans-serif;
+        font-weight: 300;
+        padding: 2rem 1rem 3rem;
+      }
+      main { max-width: 620px; margin: 0 auto; }
+      h1 { font-weight: 500; font-size: 1.4rem; margin: 0 0 0.4rem; }
+      .sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--citrine-border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 1.2rem;
+      }
+      .status-line { display: flex; align-items: center; gap: 0.7rem; }
+      .dot {
+        width: 14px; height: 14px; border-radius: 50%;
+        flex-shrink: 0;
+        background: var(--muted);
+      }
+      .dot.building { background: #feac74; box-shadow: 0 0 10px rgba(254, 172, 116, 0.6); animation: pulse 1.4s ease-in-out infinite; }
+      .dot.live { background: #9ec87a; box-shadow: 0 0 8px rgba(158, 200, 122, 0.5); }
+      .dot.failed { background: #d98c8c; }
+      @keyframes pulse { 50% { opacity: 0.45; } }
+      .headline { font-weight: 500; font-size: 1.05rem; }
+      .detail { color: var(--muted); font-size: 0.9rem; margin: 0.7rem 0 0; line-height: 1.5; }
+      .detail strong { color: var(--cream); font-weight: 500; }
+      .commit {
+        color: var(--citrine);
+        font-size: 0.85rem;
+        margin: 0.5rem 0 0;
+        overflow-wrap: anywhere;
+      }
+      h2 { font-weight: 500; font-size: 0.95rem; color: var(--citrine); letter-spacing: 0.06em; text-transform: uppercase; margin: 1.8rem 0 0.6rem; }
+      .run { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.45rem 0; border-bottom: 1px solid rgba(212, 200, 120, 0.1); font-size: 0.88rem; }
+      .run:last-child { border-bottom: none; }
+      .run .dot { width: 9px; height: 9px; align-self: center; }
+      .run .msg { flex: 1; overflow-wrap: anywhere; }
+      .run .when { color: var(--muted); white-space: nowrap; font-size: 0.8rem; }
+      .checked { color: var(--muted); font-size: 0.78rem; margin-top: 1rem; }
+      a { color: var(--citrine); }
+      .links { margin-top: 1.6rem; font-size: 0.88rem; line-height: 2; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Is my change live yet?</h1>
+      <p class="sub">Leave this page open after you press Save in the editor. It checks the site's build robot for you and updates itself; you never need to refresh it.</p>
+
+      <div class="card">
+        <div class="status-line">
+          <span class="dot" id="dot"></span>
+          <span class="headline" id="headline">Checking&hellip;</span>
+        </div>
+        <p class="detail" id="detail">Asking GitHub how the site is doing.</p>
+        <p class="commit" id="commit"></p>
+      </div>
+
+      <h2>Recent changes</h2>
+      <div class="card" id="runs"><p class="detail">Loading&hellip;</p></div>
+
+      <p class="checked" id="checked"></p>
+
+      <p class="links">
+        <a href="/admin/">&larr; Back to the editor</a><br />
+        <a href="https://github.com/madiritt/madiritt.github.io/actions" target="_blank" rel="noopener">The build robot's own page on GitHub</a><br />
+        <a href="https://github.com/madiritt/madiritt.github.io/blob/main/MAINTENANCE-GUIDE.md" target="_blank" rel="noopener">Maintenance guide</a> (Part 7.1 covers a failed build)
+      </p>
+    </main>
+
+    <script>
+      "use strict";
+      var API = "https://api.github.com/repos/madiritt/madiritt.github.io/actions/runs?branch=main&per_page=6";
+      var pollTimer = null;
+
+      function timeOfDay(iso) {
+        return new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      }
+
+      function minutesAgo(iso) {
+        return Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+      }
+
+      function agoWords(iso) {
+        var m = minutesAgo(iso);
+        if (m < 1) { return "moments ago"; }
+        if (m === 1) { return "1 minute ago"; }
+        if (m < 60) { return m + " minutes ago"; }
+        var h = Math.round(m / 60);
+        if (h < 24) { return h + (h === 1 ? " hour ago" : " hours ago"); }
+        var d = Math.round(h / 24);
+        return d + (d === 1 ? " day ago" : " days ago");
+      }
+
+      function runState(run) {
+        if (run.status !== "completed") { return "building"; }
+        return run.conclusion === "success" ? "live" : "failed";
+      }
+
+      function show(state, headline, detailHtml, commitMsg) {
+        document.getElementById("dot").className = "dot " + state;
+        document.getElementById("headline").textContent = headline;
+        document.getElementById("detail").innerHTML = detailHtml;
+        document.getElementById("commit").textContent = commitMsg ? "Change: “" + commitMsg + "”" : "";
+      }
+
+      function renderRuns(runs) {
+        var box = document.getElementById("runs");
+        box.innerHTML = "";
+        runs.forEach(function (run) {
+          var row = document.createElement("div");
+          row.className = "run";
+          var dot = document.createElement("span");
+          dot.className = "dot " + runState(run);
+          var msg = document.createElement("span");
+          msg.className = "msg";
+          msg.textContent = run.display_title;
+          var when = document.createElement("span");
+          when.className = "when";
+          when.textContent = agoWords(run.run_started_at);
+          row.appendChild(dot);
+          row.appendChild(msg);
+          row.appendChild(when);
+          box.appendChild(row);
+        });
+      }
+
+      function check() {
+        fetch(API)
+          .then(function (resp) {
+            if (!resp.ok) { throw new Error("GitHub answered " + resp.status); }
+            return resp.json();
+          })
+          .then(function (data) {
+            var runs = data.workflow_runs || [];
+            if (runs.length === 0) {
+              show("", "No builds found", "GitHub reports no builds yet. Try the build robot's own page below.", "");
+              schedule(60);
+              return;
+            }
+            var latest = runs[0];
+            var state = runState(latest);
+            if (state === "building") {
+              show("building", "Building your change now",
+                "Started " + agoWords(latest.run_started_at) + ". A build usually takes <strong>3 to 7 minutes</strong>. This page will say when it is done.",
+                latest.display_title);
+              schedule(20);
+            } else if (state === "live") {
+              var doneAgo = minutesAgo(latest.updated_at);
+              var cacheNote = doneAgo < 10
+                ? " If the site does not show it yet, that is normal: allow up to <strong>10 more minutes</strong> for the cache, then refresh the site."
+                : " If the site still does not show it, refresh with Ctrl+F5 (hold Ctrl, press F5); Part 7.3 of the guide covers a stubborn cache.";
+              show("live", "The site is up to date",
+                "The last build finished at <strong>" + timeOfDay(latest.updated_at) + "</strong> (" + agoWords(latest.updated_at) + ") and went fine." + cacheNote,
+                latest.display_title);
+              schedule(60);
+            } else {
+              show("failed", "The last build failed",
+                "Your change is saved and nothing is lost; the site simply kept its previous version. This is fixable. Open <a href=\"https://github.com/madiritt/madiritt.github.io/blob/main/MAINTENANCE-GUIDE.md\" target=\"_blank\" rel=\"noopener\">Part 7.1 of the maintenance guide</a> and follow it, or tell Trevor.",
+                latest.display_title);
+              schedule(60);
+            }
+            renderRuns(runs);
+            document.getElementById("checked").textContent = "Last checked at " + timeOfDay(new Date().toISOString()) + ". This page checks again by itself.";
+          })
+          .catch(function (err) {
+            show("", "Could not check right now",
+              "GitHub did not answer (" + err.message + "). Your internet or GitHub may be having a moment; this page keeps trying by itself.", "");
+            schedule(30);
+          });
+      }
+
+      function schedule(seconds) {
+        if (pollTimer) { clearTimeout(pollTimer); }
+        pollTimer = setTimeout(check, seconds * 1000);
+      }
+
+      // Pause polling while the tab is hidden, check immediately when it
+      // becomes visible again: keeps well inside GitHub's rate limit.
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+        } else {
+          check();
+        }
+      });
+
+      check();
+    </script>
+  </body>
+</html>

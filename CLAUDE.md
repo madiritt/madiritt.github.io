@@ -120,9 +120,16 @@ allowlist). Sign-in proven end to end from localhost and production.
   (layout machinery in `_includes/teaching-sections.liquid`).
 - MAINTENANCE-GUIDE.md Part 0 (added 2026-08-04) documents the editor as the
   primary route; the manual recipes in Parts 3-5 remain the fallback.
-- Remaining nice-to-haves: an "is my change live yet" status page under
-  /admin, a DOI-to-BibTeX helper page, research pages refactor to sections
-  (like teaching), optional Cloudflare Access gate (Part 6, do with Madi).
+- **Helper pages (2026-08-04):** two static, backend-free, Mossy-styled pages
+  linked from the maintenance guide. `/admin/status.html` ("Is my change live
+  yet?") polls the public GitHub Actions API (CORS-open, 60 req/hr, polling
+  pauses on hidden tabs) and narrates build state in plain words.
+  `/admin/doi.html` (DOI to BibTeX) fetches a ready BibTeX block from
+  Crossref's public API and pretty-prints it with paste-in steps. Both
+  deliberately have no Jekyll front matter (copied through, out of sitemap).
+- Remaining nice-to-haves: research pages refactor to sections (like
+  teaching), per-type media subfolders for new uploads, optional Cloudflare
+  Access gate (Part 6, do with Madi), Cloudflare Web Analytics (ask Madi).
 
 ---
 

@@ -11,6 +11,19 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-04 - Two helper pages: build status and DOI to BibTeX
+
+Both from the admin-console mockup's ideas, rebuilt as small static pages. No backend, no Jekyll front matter (copied through untouched, out of the sitemap), Mossy-styled, noindex.
+
+#### Added
+- **`/admin/status.html` - "Is my change live yet?"** Polls the public GitHub Actions API (repo is public: no token, CORS-open, 60 requests/hour/visitor) and narrates the latest build in plain words: building (with elapsed time), live (with finish time and cache advice), or failed (calm words plus a link to guide Part 7.1). Shows the last six builds with commit messages so Madi can spot her own change. Polls every 20s while building, 60s otherwise, pauses when the tab is hidden. Verified live against the real API during development.
+- **`/admin/doi.html` - DOI to BibTeX.** Paste a DOI (bare or full doi.org link), it fetches the BibTeX from Crossref's public API (CORS verified), pretty-prints the one-line response into one-field-per-line (brace-depth-aware splitter, tested against real Crossref output), and gives a Copy button plus six literal paste-in steps, including the "author must read Rittinger, Madison for the bolding" check. Clear plain-words errors for typos, non-Crossref DOIs, and network trouble.
+- Maintenance guide: Part 0.2 and Part 6 now point to the status page as the easy way to watch a build; the Publications row in 0.2 points to the DOI helper; one sentence added about the editor's automatic draft backups.
+
+#### Notes
+- Crossref covers essentially all journal articles; rare non-Crossref DOIs (e.g. DataCite datasets) get a plain-words error pointing to manual recipe 5.3.
+- Rollback: delete the two files and the three guide references.
+
 ### 2026-08-04 - Editor: photo uploads auto-shrink; maintenance guide leads with the editor
 
 Two smoothing items from the editing-experience review, approved by Trevor.

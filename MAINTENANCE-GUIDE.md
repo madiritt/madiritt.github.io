@@ -82,7 +82,7 @@ The editor is a page on your own site that turns most edits into filling in a fo
 
 ### 0.2 What each sidebar item edits (map to the Part 5 recipes)
 
-Click an item on the left, change what you want, then click **Save** (top right). Save is the commit: the 3-to-7-minute rebuild starts on its own, then allow up to 10 more minutes of cache time (Part 6 shows how to check). Grey hint text under each box tells you what the box wants.
+Click an item on the left, change what you want, then click **Save** (top right). Save is the commit: the 3-to-7-minute rebuild starts on its own, then allow up to 10 more minutes of cache time. The easiest way to watch it: open https://madisonrittinger.org/admin/status.html and leave it open; it checks the build for you and says in plain words when your change is live (Part 6 is the manual version of the same check). Grey hint text under each box tells you what the box wants. And if you ever close the tab mid-edit, the editor keeps a local backup and offers to bring your half-finished words back next time you open that entry.
 
 | Sidebar item | What it changes | Manual recipe it replaces |
 |---|---|---|
@@ -90,7 +90,7 @@ Click an item on the left, change what you want, then click **Save** (top right)
 | News | Dated updates (newest few show on the homepage) | 5.2 |
 | Gallery | The photo grid: add, recaption, or remove photos | 5.4 |
 | Research | The three research-question cards and their pages | 5.8 |
-| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. If unsure, use recipe 5.3 instead | 5.3 |
+| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. The helper at https://madisonrittinger.org/admin/doi.html writes the BibTeX block for you from a paper's DOI, with paste-in steps on the page. If unsure, use recipe 5.3 instead | 5.3 |
 | Outreach | The /outreach/ page text | 5.13 |
 | Teaching / Mentoring | Every section of that page: headings, text, photos, captions, which side the photo sits on | 5.9 |
 | CV | Hand over a new CV PDF | 5.5 |
@@ -816,6 +816,8 @@ It is the easiest page in the site to edit: 33 lines, no `<style>` block, no pho
 ---
 
 ## Part 6: After every change - how to know it worked
+
+**The easy way:** open https://madisonrittinger.org/admin/status.html and leave it open. It watches the build for you, updates itself, and says in plain words when your change is live or if the build failed. The steps below are the manual version of the same check, done at GitHub itself.
 
 Same four steps after every single change. Total wait is usually 15 to 20 minutes, most of it doing nothing.
 

@@ -229,6 +229,11 @@ collections:
             label: Photos
             label_singular: photo
             widget: list
+            # Puts the "Add photo" button in the list's header bar at the top
+            # of the page (instead of below the last photo) and inserts new
+            # entries at the top of the list. Order in this list never matters:
+            # the grid sorts itself by year.
+            add_to_top: true
             summary: "{{fields.caption}} ({{fields.year}})"
             fields:
               - name: image

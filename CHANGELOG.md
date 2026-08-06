@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-06 - Editor: gallery "Add photo" button moved to the top
+
+#### Changed
+- `add_to_top: true` on the Gallery photos list in `admin/config.yml`. Sveltia now shows the "Add photo" button in the list's header bar at the top of the page (next to the photo count) instead of below the last photo, so Madi no longer scrolls the whole gallery to add one. New entries insert at the top of the YAML list, which is harmless: the gallery grid sorts itself by year. Verified against the pinned Sveltia 0.175 source (top-toolbar button renders and the bottom one is suppressed when the option is on) and the 0.175.0 config schema.
+- Rollback: delete the `add_to_top: true` line.
+
 ### 2026-08-04 - Two helper pages: build status and DOI to BibTeX
 
 Both from the admin-console mockup's ideas, rebuilt as small static pages. No backend, no Jekyll front matter (copied through untouched, out of the sitemap), Mossy-styled, noindex.

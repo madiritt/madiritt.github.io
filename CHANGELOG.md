@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-08-06 - Editor: hover tooltips on icon-only buttons
+
+#### Added
+- Small script in `admin/index.html` that mirrors each button's aria-label into its title attribute, kept in sync via MutationObserver as Sveltia redraws. Hovering any icon-only button in the editor (the right-side panel tabs Validation / History / Backlinks, the toolbar icons, everything) now shows a native browser tooltip naming it. Sveltia ships the aria-labels but no titles, so sighted users previously got no hint. Buttons that ever carry their own title are left untouched.
+- Rollback: delete that script block.
+
 ### 2026-08-06 - Editor: gallery "Add photo" button moved to the top
 
 #### Changed

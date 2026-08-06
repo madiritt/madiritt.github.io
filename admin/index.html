@@ -127,5 +127,47 @@
         https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js
     -->
     <script src="https://unpkg.com/@sveltia/cms@^0.175.0/dist/sveltia-cms.js"></script>
+
+    <!--
+      Hover hints for icon-only buttons. Sveltia gives every icon button an
+      aria-label (for screen readers) but no title, so hovering shows nothing.
+      This mirrors aria-label into title on every button, which the browser
+      renders as a native tooltip after about a second of hovering. A
+      MutationObserver keeps it working as Sveltia redraws its UI, and keeps a
+      mirrored title in sync if Sveltia changes a label (e.g. expand/collapse).
+      Buttons that ever ship their own title are left alone.
+      Rollback: delete this script block.
+    -->
+    <script>
+      (() => {
+        let sweepQueued = false;
+
+        const sweep = () => {
+          sweepQueued = false;
+          for (const btn of document.querySelectorAll("button[aria-label]")) {
+            const label = btn.getAttribute("aria-label");
+            if (!label) continue;
+            if (!btn.title || btn.dataset.mirroredTitle === "1") {
+              if (btn.title !== label) btn.title = label;
+              btn.dataset.mirroredTitle = "1";
+            }
+          }
+        };
+
+        const queueSweep = () => {
+          if (sweepQueued) return;
+          sweepQueued = true;
+          requestAnimationFrame(sweep);
+        };
+
+        new MutationObserver(queueSweep).observe(document.body, {
+          subtree: true,
+          childList: true,
+          attributes: true,
+          attributeFilter: ["aria-label"],
+        });
+        queueSweep();
+      })();
+    </script>
   </body>
 </html>

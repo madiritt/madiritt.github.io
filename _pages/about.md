@@ -3,7 +3,7 @@ layout: about
 title: About
 permalink: /
 subtitle: PhD Candidate · Department of Biological Sciences · University of Wisconsin-Milwaukee
-current: Analyzing data and writing manuscripts
+current: Teaching Patterns in Nature and Ecology Lab
 profile:
   image: assets/img/prof_pic.jpg
   align: right

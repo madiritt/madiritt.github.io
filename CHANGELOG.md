@@ -11,6 +11,24 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-09-08 - Fix Madi's new publication entry (cellar spider paper, BES 2026)
+
+Madi added `rittinger2026insight` through the /admin BibTeX box in ten saves today. Every save committed and every build passed, so the editor worked; the problems were inside the pasted BibTeX. Diagnosed from the commit progression and the rendered gh-pages HTML; corrected values verified against Crossref for DOI 10.1007/s00265-026-03797-3 and a local build.
+
+#### Fixed
+- Thumbnail 404: `preview={gallery-p-phalangioides-2022.jpg}` pointed at a Gallery upload in `assets/img/`, but the bib layout only reads `assets/img/publication_preview/`. Copied the photo into that folder under the same name so her line works unchanged. The editor has no way to upload there (its media folder is `assets/img/`), so this is a Trevor-side step for now.
+- Author list printed "Ava Mueller." with a stray period (an earlier attempt printed "A. Mueller. Rittinger" because commas split surname/first name). Line is now `Rittinger, Madison A. and Mueller, Ava and Rodr{\'\i}guez, Rafael Lucas`.
+- Italic genus name: `\textit{}` was stripped by the latex filter and `\emph{}` printed literally as "\emphPholcus", so she gave up and left it plain. Title now uses `<i>Pholcus phalangioides</i>`, which passes through Jekyll Scholar untouched (confirmed in a local build).
+
+#### Changed
+- MAINTENANCE-GUIDE.md recipe 5.3: two rules after the sample entry (authors joined by `and`, italics via `<i>`), Part 2 step 3 says the editor cannot upload thumbnails, and the Part 0 table row says the same.
+- `admin/config.yml`: the BibTeX box hint carries the same three rules.
+
+#### Notes
+- Left her `number={120}` alone (Crossref says issue 10, article number 120); the site renders only journal and year, so it is invisible.
+- Her other two edits today (news item for the paper, homepage Currently text) are untouched.
+- Rollback: `git revert` this commit.
+
 ### 2026-08-06 - Editor: hover tooltips on icon-only buttons
 
 #### Added

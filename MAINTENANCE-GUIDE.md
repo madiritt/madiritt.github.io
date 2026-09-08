@@ -90,7 +90,7 @@ Click an item on the left, change what you want, then click **Save** (top right)
 | News | Dated updates (newest few show on the homepage) | 5.2 |
 | Gallery | The photo grid: add, recaption, or remove photos | 5.4 |
 | Research | The three research-question cards and their pages | 5.8 |
-| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. The helper at https://madisonrittinger.org/admin/doi.html writes the BibTeX block for you from a paper's DOI, with paste-in steps on the page. If unsure, use recipe 5.3 instead | 5.3 |
+| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. The helper at https://madisonrittinger.org/admin/doi.html writes the BibTeX block for you from a paper's DOI, with paste-in steps on the page. Thumbnail images cannot be uploaded from the editor (see recipe 5.3 Part 2). If unsure, use recipe 5.3 instead | 5.3 |
 | Outreach | The /outreach/ page text | 5.13 |
 | Teaching / Mentoring | Every section of that page: headings, text, photos, captions, which side the photo sits on | 5.9 |
 | CV | Hand over a new CV PDF | 5.5 |
@@ -490,6 +490,9 @@ This recipe has three parts. **Part 1 is required. Parts 2 and 3 are optional** 
      preview={instinct-insight.jpg}
    }
    ```
+   Two rules that Scholar and the DOI helper get right on their own, but that go wrong when an entry is typed or edited by hand:
+   - **Authors are separated by the word `and`, never by commas.** Inside one author, the only comma sits between surname and first name: `Mueller, Ava`. Writing `Rittinger, Madison A., A. Mueller` makes the site print "A. Mueller. Rittinger", because it reads everything after the second comma as more of the first person's name.
+   - **Italic species names in a title** use `<i>` and `</i>` around the name, like `title={<i>Pholcus phalangioides</i> cellar spiders solve a prey capture problem...}`. Do NOT use `\textit{...}` (the italics silently vanish) or `\emph{...}` (the word "emph" prints on the page).
 11. Check there is a `doi={...}` line. If Scholar omitted it, add one, using just the number part of the DOI with no `https://doi.org/` in front, like `doi={10.1098/rsbl.2025.0293},`. That line is what creates the DOI button on the site.
 12. Decide about the homepage. To feature this paper on the HOMEPAGE under Selected Publications, add the line `selected={true},`. To have it appear only on the Publications page, leave that line out. Keep the homepage list to the best 2 or 3 papers.
 13. Leave out the `preview={...}` line for now. Part 2 below adds it if you want a thumbnail.
@@ -504,7 +507,7 @@ Rare snag: the text between `{` and the first comma on the `@article{` line is t
 
 1. Get a square-ish image, roughly 400 to 800 pixels on its short side. Bigger is fine; the build makes small web copies automatically.
 2. Rename it on your computer to a lowercase, hyphenated name ending in `.jpg`, for example `new-paper.jpg`.
-3. Upload it into the folder `assets/img/publication_preview/` (section 3.3). Note this is a DIFFERENT folder from the gallery images; it is inside `assets/img/`.
+3. Upload it into the folder `assets/img/publication_preview/` (section 3.3). Note this is a DIFFERENT folder from the gallery images; it is inside `assets/img/`. The site editor at /admin cannot do this step: its Gallery photo uploader always saves into `assets/img/` one folder up, and a `preview={...}` line pointing at a photo there shows a broken image. Either upload through GitHub as section 3.3 describes, or send the photo to Trevor to place.
 4. Open `_bibliography/papers.bib` for editing again and add this line inside the paper's block, just before the closing `}`, using your file name: `preview={new-paper.jpg}`
 5. Make sure the line above it ends with a comma, and that the `preview={new-paper.jpg}` line itself has NO comma after it if it is the last line before the `}`.
 6. Commit and check the site (Part 6). Expected result: the thumbnail appears next to that paper.

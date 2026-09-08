@@ -134,12 +134,15 @@ allowlist). Sign-in proven end to end from localhost and production.
   linked from the maintenance guide. `/admin/status.html` ("Is my change live
   yet?") polls the public GitHub Actions API (CORS-open, 60 req/hr, polling
   pauses on hidden tabs) and narrates build state in plain words.
-  `/admin/doi.html` (DOI to BibTeX) fetches a ready BibTeX block from
-  Crossref's public API and pretty-prints it with paste-in steps. Both
-  deliberately have no Jekyll front matter (copied through, out of sitemap).
+  `/admin/doi.html` ("DOI lookup", rewritten 2026-09-08) fetches the paper's
+  Crossref JSON record and shows Title, each author as Surname / First
+  name(s), Journal, Year, DOI, each with a Copy button, plus steps for
+  pasting them into the Publications form. Both deliberately have no Jekyll
+  front matter (copied through, out of sitemap).
 - Remaining nice-to-haves: research pages refactor to sections (like
-  teaching), per-type media subfolders for new uploads, optional Cloudflare
-  Access gate (Part 6, do with Madi), Cloudflare Web Analytics (ask Madi).
+  teaching), per-type media subfolders for the remaining upload fields
+  (publications thumbnails already have one), optional Cloudflare Access
+  gate (Part 6, do with Madi), Cloudflare Web Analytics (ask Madi).
 
 ---
 

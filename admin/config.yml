@@ -349,7 +349,13 @@ collections:
             hint: >-
               Each paper is one block starting with @article{ and ending with a
               closing curly brace. Copy an existing block as your template. Keep
-              one blank line between blocks.
+              one blank line between blocks. Separate authors with the word
+              "and"; the only comma in a name goes between surname and first
+              name, like Mueller, Ava. For an italic species name in a title
+              write <i>Pholcus phalangioides</i> (not \textit or \emph). A
+              preview={...} thumbnail must already sit in
+              assets/img/publication_preview/, which the Gallery uploader
+              cannot reach: send the photo to Trevor to place.
 
   # ---------------------------------------------------------------------------
   # Outreach

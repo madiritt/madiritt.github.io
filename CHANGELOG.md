@@ -11,6 +11,17 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-09-08 - Publications form: year shown as "2,026" and list order
+
+First look at the live form (Trevor's screenshot) showed two cosmetic misses in the entry list.
+
+#### Fixed
+- Year rendered as "2,026" in each row: Sveltia formats number fields with a locale thousands separator in summaries. The `year` field is now a string widget with a "Four digits, like 2026" hint. The plugin already reads it as text, and the existing files' unquoted `year: 2026` values load into a string field without change. Schema re-validated with ajv (valid).
+- List opened oldest first. `sortable_fields` now uses the object form with `default: { field: year, direction: descending }`, which the pinned 0.175 schema supports.
+
+#### Notes
+- The screenshot also confirmed one try-and-see item: the italic species name saved from the rich-text Title box and rendered italic in the list, so the markdown widget round-trips as designed.
+
 ### 2026-09-08 - Publications become a form in the editor (no more BibTeX)
 
 Follow-up to the morning's fix: the raw-BibTeX box was the root cause of all three problems (folder in a filename, comma rules in author names, LaTeX italics). Publications are now one YAML-front-matter file per paper in `_publications/`, edited through a normal Sveltia form; a small Jekyll plugin turns them into the BibTeX that Jekyll Scholar renders, so what visitors see is unchanged. Verified with a full-site local build diff against the previous commit: the publications page and homepage differ only in citation-key anchors, the accent encoding of Rodríguez (now plain UTF-8), and the credits comment.

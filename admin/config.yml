@@ -334,7 +334,9 @@ collections:
     identifier_field: title
     slug: "{{fields.year}}-{{slug}}"
     summary: "{{fields.year}} · {{fields.title}}"
-    sortable_fields: [year, title]
+    sortable_fields:
+      fields: [year, title]
+      default: { field: year, direction: descending }
     description: >-
       One entry per paper. Fill in the boxes and click Save; the site builds
       the citation list itself (newest year first, your name in bold, DOI
@@ -391,12 +393,13 @@ collections:
         label: Journal
         widget: string
         required: false
+      # A string on purpose: Sveltia formats number fields with a thousands
+      # separator in the entry list ("2,026"). The build reads it as text
+      # either way, and existing files with an unquoted year still load.
       - name: year
         label: Year
-        widget: number
-        value_type: int
-        min: 1990
-        max: 2100
+        widget: string
+        hint: Four digits, like 2026.
       - name: doi
         label: DOI
         widget: string

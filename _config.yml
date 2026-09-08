@@ -182,6 +182,11 @@ collections:
     output: true
   teachings:
     output: true
+  # NOTE: _publications/ (one file per paper, written by the /admin editor) is
+  # deliberately NOT a collection. _plugins/publications_bib.rb reads those
+  # files itself and writes _bibliography/papers.bib (gitignored) for Jekyll
+  # Scholar. Declaring it here would make al_search index every paper as a
+  # page that does not exist.
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

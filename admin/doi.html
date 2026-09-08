@@ -1,12 +1,13 @@
 <!--
-  DOI to BibTeX helper, served at /admin/doi.html.
+  DOI lookup helper, served at /admin/doi.html.
 
   DELIBERATELY HAS NO JEKYLL FRONT MATTER: Jekyll copies it through untouched
   and keeps it out of the sitemap, same as admin/index.html.
 
-  Turns a paper's DOI into the ready-made BibTeX block for the Publications
-  box in the editor. Uses Crossref's public API (browser-callable, no key,
-  covers essentially every journal article). Everything runs in this one
+  Turns a paper's DOI into the values for the Publications form in the editor
+  (title, each author as surname + first names, journal, year, DOI), each with
+  its own Copy button. Uses Crossref's public JSON API (browser-callable, no
+  key, covers essentially every journal article). Everything runs in this one
   file; there is no backend.
 -->
 <!doctype html>
@@ -15,7 +16,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>DOI to BibTeX</title>
+    <title>DOI lookup</title>
     <link rel="icon" href="/assets/img/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -79,19 +80,24 @@
       .hint { color: var(--muted); font-size: 0.82rem; margin: 0.6rem 0 0; line-height: 1.5; }
       .msg { font-size: 0.9rem; margin: 0.8rem 0 0; line-height: 1.5; }
       .msg.error { color: #d98c8c; }
-      textarea {
-        width: 100%;
-        min-height: 260px;
+      /* One row per value: label, the value, a Copy button. */
+      .fields { margin-top: 1rem; display: grid; gap: 0.5rem; }
+      .field {
+        display: grid;
+        grid-template-columns: 9.5rem 1fr auto;
+        gap: 0.6rem;
+        align-items: center;
         background: var(--moss);
         border: 1px solid var(--citrine-border);
         border-radius: 6px;
-        color: var(--cream);
-        font-family: Consolas, Menlo, monospace;
-        font-size: 0.85rem;
-        line-height: 1.5;
-        padding: 0.8rem;
-        margin-top: 0.8rem;
-        resize: vertical;
+        padding: 0.5rem 0.7rem;
+      }
+      .field .k { color: var(--citrine); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
+      .field .v { font-size: 0.92rem; line-height: 1.4; overflow-wrap: anywhere; }
+      .field button { font-size: 0.82rem; padding: 0.35rem 0.8rem; }
+      @media (max-width: 520px) {
+        .field { grid-template-columns: 1fr auto; }
+        .field .k { grid-column: 1 / -1; }
       }
       ol { padding-left: 1.3rem; font-size: 0.92rem; line-height: 1.7; margin: 0.4rem 0 0; }
       ol li { margin-bottom: 0.3rem; }
@@ -102,31 +108,28 @@
   </head>
   <body>
     <main>
-      <h1>DOI to BibTeX</h1>
-      <p class="sub">Nearly every published paper has a DOI: a code like <strong style="color: var(--cream); font-weight: 500;">10.1093/beheco/araa090</strong>, printed on the article page and in the journal's citation box. Paste it here and this page writes the BibTeX block for you.</p>
+      <h1>DOI lookup</h1>
+      <p class="sub">Nearly every published paper has a DOI: a code like <strong style="color: var(--cream); font-weight: 500;">10.1093/beheco/araa090</strong>, printed on the article page and in the journal's citation box. Paste it here and this page finds the paper's details so you can copy them into the Publications form.</p>
 
       <div class="card">
         <label for="doi">The paper's DOI</label>
         <div class="row">
           <input type="text" id="doi" placeholder="10.1093/beheco/araa090" autocomplete="off" spellcheck="false" />
-          <button id="fetchBtn" type="button">Fetch BibTeX</button>
+          <button id="fetchBtn" type="button">Look it up</button>
         </div>
         <p class="hint">Pasting the whole link is fine too, like https://doi.org/10.1093/beheco/araa090; the page trims it for you.</p>
         <p class="msg" id="msg"></p>
-        <textarea id="result" readonly hidden spellcheck="false" aria-label="The BibTeX result"></textarea>
-        <div class="row" style="margin-top: 0.8rem">
-          <button id="copyBtn" type="button" hidden>Copy it</button>
-        </div>
+        <div class="fields" id="fields" hidden></div>
       </div>
 
       <h2>Then, to put it on the site</h2>
       <div class="card">
         <ol>
-          <li>Click <strong>Copy it</strong> above.</li>
-          <li>Open <a href="/admin/">the editor</a> and click <strong>Publications (advanced)</strong> in the left list, then the entry inside it.</li>
-          <li>Click into the big BibTeX box, scroll to the very end, and press Enter twice so there is one blank line after the last block.</li>
-          <li>Paste.</li>
-          <li>Check the pasted block: your name should read <strong>Rittinger, Madison</strong> somewhere in the author line (that spelling is what makes it bold on the site). Fix the spelling if the journal abbreviated it.</li>
+          <li>Open <a href="/admin/" target="_blank" rel="noopener">the editor</a> in a new tab and click <strong>Publications</strong> in the left list, then the <strong>New Publication</strong> button at the top right.</li>
+          <li>Come back to this tab. Click <strong>Copy</strong> next to <strong>Title</strong>, go to the editor tab, click into the <strong>Title</strong> box, and paste. If the title has a species name, select it there and click the <strong>I</strong> button to italicize it.</li>
+          <li>For each author here, click <strong>Add author</strong> in the editor, then copy the surname into <strong>Surname</strong> and the first names into <strong>First name(s)</strong>. Keep the order shown here.</li>
+          <li>Copy <strong>Journal</strong>, <strong>Year</strong>, and <strong>DOI</strong> into their boxes the same way.</li>
+          <li>Check your own name: it should read Rittinger as the surname (that spelling is what makes it bold on the site). Fix it if the journal abbreviated it.</li>
           <li>Click <strong>Save</strong> (top right). The site rebuilds in 3 to 7 minutes; <a href="/admin/status.html">the status page</a> watches it for you.</li>
         </ol>
       </div>
@@ -143,7 +146,7 @@
       // Crossref covers virtually all journal articles. Rare misses (like a
       // dataset DOI from DataCite) get a plain-words error instead.
       function apiUrl(doi) {
-        return "https://api.crossref.org/works/" + encodeURIComponent(doi) + "/transform/application/x-bibtex";
+        return "https://api.crossref.org/works/" + encodeURIComponent(doi);
       }
 
       // Accepts "10.1093/x", "doi:10.1093/x", "https://doi.org/10.1093/x",
@@ -155,67 +158,98 @@
         return t.trim();
       }
 
-      // Crossref returns the whole block on one line. Split it into one field
-      // per line by walking the text and only honoring commas at brace depth 1
-      // (commas inside {curly braces} belong to the field and stay put).
-      function prettyBibtex(raw) {
-        var text = raw.trim();
-        var open = text.indexOf("{");
-        var head = text.slice(0, open + 1);           // e.g. "@article{"
-        var inner = text.slice(open + 1);
-        var depth = 1;
-        var fields = [];
-        var current = "";
-        for (var i = 0; i < inner.length; i++) {
-          var ch = inner[i];
-          if (ch === "{") { depth++; }
-          if (ch === "}") { depth--; }
-          if (depth === 0) { break; }                 // the block's closing brace
-          if (ch === "," && depth === 1) {
-            fields.push(current.trim());
-            current = "";
-          } else {
-            current += ch;
-          }
-        }
-        if (current.trim()) { fields.push(current.trim()); }
-        var key = fields.shift();                     // citation key, first item
-        var lines = fields.map(function (f) { return "  " + f + ","; });
-        return head + key + ",\n" + lines.join("\n") + "\n}";
-      }
-
       function setMsg(text, isError) {
         var el = document.getElementById("msg");
         el.textContent = text;
         el.className = isError ? "msg error" : "msg";
       }
 
-      function fetchBibtex() {
+      // Crossref titles sometimes carry <i> tags for species names; keep the
+      // words, drop the tags (the editor's italic button handles styling).
+      function plainText(s) {
+        return String(s || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+      }
+
+      // Pulls the form values out of a Crossref work record.
+      function extract(work) {
+        var year = "";
+        var dateFields = ["published-print", "published-online", "issued", "created"];
+        for (var i = 0; i < dateFields.length; i++) {
+          var d = work[dateFields[i]];
+          if (d && d["date-parts"] && d["date-parts"][0] && d["date-parts"][0][0]) {
+            year = String(d["date-parts"][0][0]);
+            break;
+          }
+        }
+        var authors = (work.author || []).map(function (a) {
+          return { family: plainText(a.family), given: plainText(a.given) };
+        });
+        return {
+          title: plainText((work.title || [])[0]),
+          authors: authors,
+          journal: plainText((work["container-title"] || [])[0]),
+          year: year,
+          doi: work.DOI || ""
+        };
+      }
+
+      function fieldRow(label, value) {
+        var row = document.createElement("div");
+        row.className = "field";
+        var k = document.createElement("div");
+        k.className = "k";
+        k.textContent = label;
+        var v = document.createElement("div");
+        v.className = "v";
+        v.textContent = value || "(not provided)";
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = "Copy";
+        b.disabled = !value;
+        b.addEventListener("click", function () { copyText(value, b); });
+        row.appendChild(k);
+        row.appendChild(v);
+        row.appendChild(b);
+        return row;
+      }
+
+      function render(info) {
+        var box = document.getElementById("fields");
+        box.innerHTML = "";
+        box.appendChild(fieldRow("Title", info.title));
+        info.authors.forEach(function (a, i) {
+          box.appendChild(fieldRow("Author " + (i + 1) + " surname", a.family));
+          box.appendChild(fieldRow("Author " + (i + 1) + " first name(s)", a.given));
+        });
+        box.appendChild(fieldRow("Journal", info.journal));
+        box.appendChild(fieldRow("Year", info.year));
+        box.appendChild(fieldRow("DOI", info.doi));
+        box.hidden = false;
+      }
+
+      function lookup() {
         var doi = cleanDoi(document.getElementById("doi").value);
         var btn = document.getElementById("fetchBtn");
-        var result = document.getElementById("result");
-        var copyBtn = document.getElementById("copyBtn");
-        result.hidden = true;
-        copyBtn.hidden = true;
+        var box = document.getElementById("fields");
+        box.hidden = true;
         if (!doi || doi.indexOf("10.") !== 0) {
           setMsg("That does not look like a DOI yet. It should start with 10. followed by numbers, like 10.1093/beheco/araa090.", true);
           return;
         }
         btn.disabled = true;
         setMsg("Looking it up...", false);
-        fetch(apiUrl(doi))
+        fetch(apiUrl(doi), { headers: { Accept: "application/json" } })
           .then(function (resp) {
             if (resp.status === 404) {
-              throw new Error("Crossref does not know that DOI. Double-check it for typos. If it is right, this paper is not in Crossref (rare); add it the manual way, recipe 5.3 in the maintenance guide.");
+              throw new Error("Crossref does not know that DOI. Double-check it for typos. If it is right, this paper is not in Crossref (rare); type the details into the form by hand.");
             }
             if (!resp.ok) { throw new Error("The lookup service answered " + resp.status + ". Try again in a minute."); }
-            return resp.text();
+            return resp.json();
           })
-          .then(function (raw) {
-            result.value = prettyBibtex(raw);
-            result.hidden = false;
-            copyBtn.hidden = false;
-            setMsg("Found it. Read it over, then follow the steps below.", false);
+          .then(function (json) {
+            if (!json || !json.message) { throw new Error("The lookup service sent back something unexpected. Try again in a minute."); }
+            render(extract(json.message));
+            setMsg("Found it. Read the values over, then follow the steps below.", false);
           })
           .catch(function (err) {
             setMsg(err.message, true);
@@ -225,27 +259,23 @@
           });
       }
 
-      function copyResult() {
-        var result = document.getElementById("result");
-        var copyBtn = document.getElementById("copyBtn");
-        navigator.clipboard.writeText(result.value).then(
+      function copyText(text, btn) {
+        navigator.clipboard.writeText(text).then(
           function () {
-            copyBtn.textContent = "Copied";
-            setTimeout(function () { copyBtn.textContent = "Copy it"; }, 2000);
+            btn.textContent = "Copied";
+            setTimeout(function () { btn.textContent = "Copy"; }, 2000);
           },
           function () {
-            // Clipboard permission denied: select the text so Ctrl+C works.
-            result.focus();
-            result.select();
-            setMsg("Automatic copy was blocked by the browser. The text is selected; press Ctrl+C (Cmd+C on Mac).", true);
+            // Clipboard permission denied: fall back to a prompt the user can
+            // copy from with Ctrl+C.
+            window.prompt("Automatic copy was blocked by the browser. Press Ctrl+C (Cmd+C on Mac) to copy:", text);
           }
         );
       }
 
-      document.getElementById("fetchBtn").addEventListener("click", fetchBibtex);
-      document.getElementById("copyBtn").addEventListener("click", copyResult);
+      document.getElementById("fetchBtn").addEventListener("click", lookup);
       document.getElementById("doi").addEventListener("keydown", function (e) {
-        if (e.key === "Enter") { fetchBibtex(); }
+        if (e.key === "Enter") { lookup(); }
       });
     </script>
   </body>

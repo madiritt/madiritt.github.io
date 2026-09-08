@@ -8,9 +8,10 @@
      overlay on the photo. Degrades gracefully (no JS -> no overlay, thumbnail
      unaffected).
 
-     To update a credit: edit the `credits` map below, keyed by the preview
-     filename from the .bib `preview={...}` field. Omit an entry for no credit
-     (e.g. instinct-insight.jpg is a composite manuscript figure). -->
+     Credits come from the `credit` field of each _publications/*.md file (set
+     in the /admin editor's Publications form); the map below is generated
+     from those at build time, keyed by the thumbnail's filename. A paper with
+     no credit (e.g. a composite manuscript figure) simply has no entry. -->
 <style>
   /* Credit set ON the photo, bottom-left, as a soft gradient-scrim overlay (the
      same treatment as the gallery lightbox caption). The overlay is inset by the
@@ -52,10 +53,12 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var credits = {
-      'treefrog.jpg': 'Photo: Höbel Lab',
-      'web-spider.jpg': 'Photo: Mark Yokoyama',
-      'songbird-nestling.jpg': 'Photo: Dr. Rachael DiSciullo'
-      // instinct-insight.jpg: composite manuscript figure, no single credit.
+      {%- for pub in site.data.publications -%}
+        {%- if pub.credit and pub.preview -%}
+          {%- assign credit_file = pub.preview | split: '/' | last %}
+      {{ credit_file | jsonify }}: {{ pub.credit | jsonify }},
+        {%- endif -%}
+      {%- endfor %}
     };
     document.querySelectorAll('img.preview').forEach(function (img) {
       if (img.closest('.pub-thumb')) return; // already decorated

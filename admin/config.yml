@@ -314,48 +314,138 @@ collections:
           brackets or curly braces untouched.
 
   # ---------------------------------------------------------------------------
-  # Publications (EXPERIMENTAL, see note)
+  # Publications
   #
-  # papers.bib is BibTeX, which no form widget can model. But the file carries
-  # an empty Jekyll front-matter fence, so it parses as "front matter + body"
-  # like any page, and the whole BibTeX text can be exposed as one plain text
-  # box. That is all this is: the same file recipe 5.3 edits, in a bigger
-  # window, with the same commit-on-save as every other collection.
+  # One file per paper in _publications/. The site build turns these into the
+  # BibTeX that Jekyll Scholar renders (_plugins/publications_bib.rb), so
+  # Madi never sees BibTeX. Field names here are the contract documented at
+  # the top of that plugin; add a new field there and here together.
   #
-  # Kept ONLY if it survives the round-trip test in SETUP-ADMIN.md Part 0
-  # (save with no changes, then `git diff` must be clean or trivially
-  # whitespace). If it mangles the file, delete this whole block; recipe 5.3
-  # remains the documented route either way.
+  # NOT a Jekyll collection on purpose (see the note in _config.yml).
   # ---------------------------------------------------------------------------
   - name: publications
-    label: Publications (advanced)
-    # format sits here at collection level (not on the file entry): that is
-    # where the config schema defines it, and it is what tells the editor to
-    # read the .bib file as front matter + body despite the odd extension.
+    label: Publications
+    label_singular: Publication
+    folder: _publications
+    create: true
+    delete: true
+    extension: md
     format: yaml-frontmatter
+    identifier_field: title
+    slug: "{{fields.year}}-{{slug}}"
+    summary: "{{fields.year}} · {{fields.title}}"
+    sortable_fields: [year, title]
     description: >-
-      The publication list as raw BibTeX, exactly as recipe 5.3 in the
-      maintenance guide describes. This is a power-user box, not a form:
-      one missing curly brace hides a paper from the site. Paste carefully,
-      and prefer recipe 5.3 if you are unsure.
-    files:
-      - name: papers
-        label: Publication list (raw BibTeX)
-        file: _bibliography/papers.bib
+      One entry per paper. Fill in the boxes and click Save; the site builds
+      the citation list itself (newest year first, your name in bold, DOI
+      button). Optional shortcut: the helper at
+      https://madisonrittinger.org/admin/doi.html looks the details up from a
+      paper's DOI so you can copy them into the boxes.
+    fields:
+      - name: title
+        label: Title
+        widget: markdown
+        minimal: true
+        buttons: [bold, italic]
+        editor_components: []
+        modes: [rich_text]
+        hint: >-
+          For a species name, select it and click the I (italic) button.
+      - name: preview
+        label: Thumbnail
+        widget: image
+        required: false
+        media_folder: /assets/img/publication_preview
+        public_folder: /assets/img/publication_preview
+        hint: >-
+          Any shape works; the site shows it about 200 pixels wide, so
+          square-ish crops look best. Pick an existing site photo or upload a
+          new one. Optional.
+      - name: credit
+        label: Photo credit
+        widget: string
+        required: false
+        hint: >-
+          Shown as a small caption on the thumbnail, for example
+          "Photo: Mark Yokoyama". Leave empty for your own photos or figures.
+      - name: authors
+        label: Authors
+        label_singular: Author
+        widget: list
+        min: 1
+        summary: "{{fields.family}}, {{fields.given}}"
+        hint: >-
+          In the order they appear on the paper. Use the arrows to reorder.
+          Spell your own surname Rittinger; that is what makes it bold on the
+          site.
         fields:
-          - name: body
-            label: BibTeX
-            widget: text
-            hint: >-
-              Each paper is one block starting with @article{ and ending with a
-              closing curly brace. Copy an existing block as your template. Keep
-              one blank line between blocks. Separate authors with the word
-              "and"; the only comma in a name goes between surname and first
-              name, like Mueller, Ava. For an italic species name in a title
-              write <i>Pholcus phalangioides</i> (not \textit or \emph). A
-              preview={...} thumbnail must already sit in
-              assets/img/publication_preview/, which the Gallery uploader
-              cannot reach: send the photo to Trevor to place.
+          - name: family
+            label: Surname
+            widget: string
+          - name: given
+            label: First name(s)
+            widget: string
+            required: false
+            hint: As printed on the paper, for example "Madison A." or "Rafael L."
+      - name: journal
+        label: Journal
+        widget: string
+        required: false
+      - name: year
+        label: Year
+        widget: number
+        value_type: int
+        min: 1990
+        max: 2100
+      - name: doi
+        label: DOI
+        widget: string
+        required: false
+        hint: >-
+          Like 10.1098/rsbl.2025.0293. Pasting the whole https://doi.org/...
+          link is fine too. This makes the DOI button.
+      - name: selected
+        label: Show on homepage
+        widget: boolean
+        default: false
+        hint: >-
+          On = also listed under Selected Publications on the homepage. Keep
+          that list to the best two or three papers.
+      - name: abstract
+        label: Abstract
+        widget: markdown
+        minimal: true
+        buttons: [bold, italic]
+        editor_components: []
+        modes: [rich_text]
+        required: false
+        hint: Optional. Adds an ABS button that shows the abstract on the site.
+      # Not shown on the site; kept so the citation record is complete.
+      - name: volume
+        label: Volume (optional, not shown on the site)
+        widget: string
+        required: false
+      - name: number
+        label: Issue or article number (optional, not shown on the site)
+        widget: string
+        required: false
+      - name: pages
+        label: Pages (optional, not shown on the site)
+        widget: string
+        required: false
+      - name: extra
+        label: "Advanced: extra citation fields (rarely needed)"
+        label_singular: field
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{fields.key}}"
+        hint: >-
+          Only for special cases, for example a link to code (key "code") or
+          an award note (key "award"). Ask Trevor if unsure.
+        fields:
+          - { name: key, label: Field name, widget: string }
+          - { name: value, label: Value, widget: string }
 
   # ---------------------------------------------------------------------------
   # Outreach

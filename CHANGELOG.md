@@ -11,6 +11,30 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-09-08 - Publications become a form in the editor (no more BibTeX)
+
+Follow-up to the morning's fix: the raw-BibTeX box was the root cause of all three problems (folder in a filename, comma rules in author names, LaTeX italics). Publications are now one YAML-front-matter file per paper in `_publications/`, edited through a normal Sveltia form; a small Jekyll plugin turns them into the BibTeX that Jekyll Scholar renders, so what visitors see is unchanged. Verified with a full-site local build diff against the previous commit: the publications page and homepage differ only in citation-key anchors, the accent encoding of Rodríguez (now plain UTF-8), and the credits comment.
+
+#### Added
+- `_plugins/publications_bib.rb`: reads `_publications/*.md` at `:highest` priority (before Scholar's `:high` generator), writes `_bibliography/papers.bib` only when content changed (no `--watch` loop; verified by two consecutive builds leaving the mtime untouched), and exposes `site.data.publications`. Converts editor markdown emphasis (`*x*`, `**x**`, `_x_`) and raw `<em>/<strong>` to `<i>/<b>`, escapes BibTeX specials, strips doi.org prefixes, builds Scholar-style keys (surname + year + first title word, ASCII, b/c/d suffix on clash), sorts newest year first then title. A file missing title, authors or year is skipped with a named warning; the build never fails on one bad entry. CONFIG block at the top; field contract in the header comment. Passes `extra` key/value pairs through verbatim (escape hatch for any al-folio bib field: award, arxiv, code, slides, video, month) except the seven keys the form owns.
+- `_publications/`: the five existing papers migrated by hand from papers.bib, including today's corrected cellar spider entry and the three photo credits (which used to be hardcoded in the credits include).
+- Editor collection `publications` in `admin/config.yml` (folder collection, create/delete, sortable by year and title, summary "year · title"). Fields in order: Title (rich text, Bold/Italic only, minimal), Thumbnail (image, per-field `media_folder`/`public_folder` = `/assets/img/publication_preview`, the pattern the CV PDF field already used), Photo credit, Authors (list of Surname + First name(s), rows collapse to "Surname, Given"), Journal, Year, DOI, Show on homepage, Abstract (rich text), Volume / Issue / Pages (optional, labelled "not shown on the site"), Advanced extra fields (collapsed list). Validated against the pinned 0.175 Sveltia JSON schema with ajv (valid). Replaces the "Publications (advanced)" raw box entirely.
+- `_bibliography/papers.bib` is now gitignored and untracked (build artifact). Removing it from git is deliberate: two sources of truth would silently diverge.
+
+#### Changed
+- `_includes/publication-credits.html`: the credits map is generated from `site.data.publications` (`credit` field keyed by thumbnail filename) instead of a hand-edited JS object.
+- `admin/doi.html`: "DOI to BibTeX" became "DOI lookup". Fetches Crossref's JSON record and shows Title, each author as Surname / First name(s), Journal, Year, DOI, each with a Copy button, plus paste-into-the-form steps. Strips HTML tags Crossref sometimes puts in titles.
+- `_config.yml`: comment only. `_publications/` is deliberately NOT declared as a collection: `al_search` (gem, template not overridable) indexes every collection's docs as pages, which produced dead search results pointing at `/publications/<slug>/` in the first build attempt. The plugin reads the folder itself instead.
+- MAINTENANCE-GUIDE.md: recipe 5.3 rewritten editor-first (17 numbered steps, DOI-helper shortcut, typo fixes, manual one-file fallback in Part 2); Part 0 table row and sidebar list; "remove a publication" in 5.12 (Delete button in the editor); the "what lives where" table rows for publications, thumbnails and credits.
+- SETUP-ADMIN.md: sidebar lists, and the round-trip test (step 10 and step 18) now exercise the Publications form instead of the BibTeX box.
+- CLAUDE.md: admin section describes the form and plugin; `_plugins/publications_bib.rb` added to the deploy.yml do-not-delete list.
+
+#### Notes
+- Citation keys changed for two papers (`rittinger2026insight` -> `rittinger2026pholcus`, `feagles2026did` -> `feagles2026where`). They are only HTML anchors; grep found nothing linking to them.
+- Try-and-see on Madi's first real use (the Sveltia UI cannot be driven from here): the rich-text Title box behaving as a one-line field, and whether the thumbnail picker lets her browse the gallery folder. Fallbacks: a plain string field with an `<i>` hint; re-uploading the photo. Neither can break a build.
+- Trevor declined two optional extras: a prefilled Rittinger author row and a DOI format check in the form.
+- Rollback: `git revert` this commit (restores the hand-written papers.bib and the raw box).
+
 ### 2026-09-08 - Fix Madi's new publication entry (cellar spider paper, BES 2026)
 
 Madi added `rittinger2026insight` through the /admin BibTeX box in ten saves today. Every save committed and every build passed, so the editor worked; the problems were inside the pasted BibTeX. Diagnosed from the commit progression and the rendered gh-pages HTML; corrected values verified against Crossref for DOI 10.1007/s00265-026-03797-3 and a local build.

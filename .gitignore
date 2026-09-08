@@ -12,6 +12,8 @@ _config.dev.yml
 assets/libs/
 assets/rendercv/rendercv_output/*.typ
 al-folio-upgrade-report.md
+# Build artifact: generated from _publications/ by _plugins/publications_bib.rb
+_bibliography/papers.bib
 node_modules/
 output/playwright/
 test-results/

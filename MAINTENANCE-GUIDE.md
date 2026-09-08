@@ -77,7 +77,7 @@ The editor is a page on your own site that turns most edits into filling in a fo
    Expected result: a small popup window opens. If nothing opens, your browser blocked the popup: look for a popup-blocked icon at the right end of the address bar, click it, and choose Allow, then click the button again.
 3. If the popup asks you to sign in to GitHub, sign in as `madiritt` the same way as in section 3.1, including the 2FA code.
 4. The first time only, GitHub shows a green **Authorize** button naming the site's sign-in app. Click it.
-   Expected result: the popup closes by itself and the editor loads, showing a list on the left: Homepage, News, Gallery, Research, Publications (advanced), Outreach, Teaching / Mentoring, CV, Links and contact.
+   Expected result: the popup closes by itself and the editor loads, showing a list on the left: Homepage, News, Gallery, Research, Publications, Outreach, Teaching / Mentoring, CV, Links and contact.
 5. You stay signed in on that browser for a long time. Next visit usually skips straight to the editor.
 
 ### 0.2 What each sidebar item edits (map to the Part 5 recipes)
@@ -90,7 +90,7 @@ Click an item on the left, change what you want, then click **Save** (top right)
 | News | Dated updates (newest few show on the homepage) | 5.2 |
 | Gallery | The photo grid: add, recaption, or remove photos | 5.4 |
 | Research | The three research-question cards and their pages | 5.8 |
-| Publications (advanced) | The publication list as raw BibTeX. Power-user box: one missing curly brace hides a paper. The helper at https://madisonrittinger.org/admin/doi.html writes the BibTeX block for you from a paper's DOI, with paste-in steps on the page. Thumbnail images cannot be uploaded from the editor (see recipe 5.3 Part 2). If unsure, use recipe 5.3 instead | 5.3 |
+| Publications | One entry per paper: title (with an italic button for species names), thumbnail, photo credit, authors as a list, journal, year, DOI, homepage switch, abstract. Click **New Publication** to add one. The helper at https://madisonrittinger.org/admin/doi.html looks the details up from a paper's DOI with a Copy button beside each value | 5.3 |
 | Outreach | The /outreach/ page text | 5.13 |
 | Teaching / Mentoring | Every section of that page: headings, text, photos, captions, which side the photo sits on | 5.9 |
 | CV | Hand over a new CV PDF | 5.5 |
@@ -116,7 +116,7 @@ Upload photos straight from your phone or camera roll: click any photo box, choo
 
 - The editor page will not load or misbehaves: everything it does can be done manually with Parts 3 to 5, always.
 - A change the editor has no form for: rare page-layout or settings work, which is Trevor territory anyway.
-- Publications, if BibTeX feels risky today: recipe 5.3 walks the manual way step by step.
+- Publications only if the editor itself is down: recipe 5.3 Part 2 shows the one-file-per-paper manual way.
 
 ---
 
@@ -459,86 +459,60 @@ News items are the dated one-line updates on the homepage. Each item is its own 
 
 ### 5.3 Add a publication (with thumbnail and photo credit)
 
-This recipe has three parts. **Part 1 is required. Parts 2 and 3 are optional** and each says so. Do them as three separate commits, checking the site between each one, rather than all at once.
+**Use the site editor for this.** Publications are a form at https://madisonrittinger.org/admin: one entry per paper, with boxes for the title, authors, journal, and so on. There is no BibTeX to type any more. The build turns your entries into the citation list on its own: newest year first, your name in bold, a DOI button on each paper.
 
-**Part 1 - add the paper's entry (required).**
+**Part 1 - add the paper (the editor route).**
 
-- **File to edit:** `_bibliography/papers.bib`
-- Do NOT type the entry by hand. Google Scholar will write most of it for you, including the fiddly accented names.
+Optional shortcut first: open https://madisonrittinger.org/admin/doi.html, paste the paper's DOI, and click **Look it up**. It shows the title, each author, the journal, the year, and the DOI, each with a **Copy** button, so steps 4 to 8 below become copy-and-paste instead of typing. Skip it if you would rather type.
 
-1. Go to https://scholar.google.com and search for the paper by title.
-2. Underneath the search result, click **Cite**. A small window opens showing formatted citations.
-3. At the bottom of that window, click **BibTeX**. Expected result: a plain-text page appears showing a block that starts with `@article{`.
-4. Select all of that text (`Ctrl+A`, Mac `Cmd+A`) and copy it (`Ctrl+C`, Mac `Cmd+C`).
-5. Open `_bibliography/papers.bib` for editing (section 3.2; use the **Go to file** button and type `papers` to find it fast).
-6. Look at the top of the file. Lines 1 and 2 are two `---` lines with nothing between them, then a blank line, then the first paper's `@article{` line. **Leave those two `---` lines alone.** They look pointless and they are not; deleting them stops the Publications page from building.
-7. Click at the very start of the first `@article{` line, which is line 4, so the cursor is blinking immediately before the `@` symbol.
-8. Paste the copied block (`Ctrl+V`, Mac `Cmd+V`). Expected result: the two `---` lines are still at the top, your new paper comes next, and the old entries follow below it. New papers go at the top so the newest work reads first.
-9. Look at where your pasted block ends. If its closing `}` is touching the next `@article{` line with no gap, click at the end of that `}` and press Enter once so there is one blank line between them. This is cosmetic, not structural, but it keeps the file readable.
-10. Compare your pasted block against this real entry from the file. Yours should have the same shape, though Scholar may not include all the same lines:
-   ```bibtex
-   @article{rittinger2025instinct,
-     title={Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems},
-     author={Rittinger, Madison A and Rodr{\'\i}guez, Rafael Lucas},
-     journal={Biology Letters},
-     volume={21},
-     number={10},
-     year={2025},
-     publisher={The Royal Society},
-     doi={10.1098/rsbl.2025.0293},
-     selected={true},
-     preview={instinct-insight.jpg}
-   }
+1. Open https://madisonrittinger.org/admin and sign in (Part 0, section 0.1).
+2. In the left list, click **Publications**. Expected result: a list of your papers, one row each, showing the year and title, newest first.
+3. Click the **New Publication** button at the top right. Expected result: an empty form.
+4. In the **Title** box, type or paste the title. To italicize a species name: drag across the name to select it, then click the **I** button just above the box. Expected result: the name turns italic in the box. That is exactly how it will look on the site.
+5. **Thumbnail** is optional. Skip to step 6 if you do not want one. To add one: click the **Thumbnail** box. A chooser opens showing the site's photos and an upload button. Either click an existing photo, or upload one from your computer. Expected result: the photo appears in the Thumbnail box. Any shape works; the site shows it about 200 pixels wide, so square-ish crops look best. Uploads are shrunk automatically, so phone photos are fine.
+6. **Photo credit** is optional. Only fill it in if the thumbnail is someone else's photograph, for example `Photo: Mark Yokoyama`. It shows as a small caption across the bottom of the thumbnail. Leave it empty for your own photos or for figures from the paper.
+7. Under **Authors**, click **Add author**. Expected result: a row with a **Surname** box and a **First name(s)** box appears. Fill in the first author exactly as printed on the paper, for example Surname `Rittinger`, First name(s) `Madison A.`
+8. Repeat step 7 for every author, in the order they appear on the paper. If you get the order wrong, use the up and down arrows on a row to move it. Your own surname must be spelled `Rittinger`; that spelling is what makes your name bold on the site.
+9. Fill in **Journal** and **Year**.
+10. In the **DOI** box, paste the DOI, for example `10.1098/rsbl.2025.0293`. Pasting the whole `https://doi.org/...` link is fine too. This is what creates the DOI button.
+11. Decide about the homepage. Switch **Show on homepage** on to feature this paper under Selected Publications on the homepage. Leave it off to list the paper only on the Publications page. Keep the homepage list to the best two or three papers.
+12. **Abstract** is optional. If you fill it in, the site adds an ABS button that shows it. The same **B** and **I** buttons work there.
+13. **Volume**, **Issue or article number**, and **Pages** are optional and are not shown on the site. Fill them in if you have them so the citation record is complete; skip them if not.
+14. Ignore **Advanced: extra citation fields** unless Trevor has asked you to use it.
+15. Click **Save** (top right). Expected result: the form closes and the new paper appears in the Publications list.
+16. Check that it went live (Part 6, or the status page at https://madisonrittinger.org/admin/status.html). Expected result: the paper is on the Publications page under its year, with the thumbnail if you added one.
+17. Good habit: add a News item about the paper too (Part 0, News), so the homepage announces it.
+
+Two things you never have to do here: your own name is bolded automatically wherever it appears, and the papers sort themselves by year on the page, so the order in the editor's list does not matter.
+
+**To fix a typo later:** click **Publications**, click the paper's row, change the box, click **Save**. Adding a thumbnail or credit to an old paper works the same way.
+
+**Part 2 - the manual route (only if the editor is unavailable).**
+
+Each paper is one small text file in the `_publications/` folder. There is no BibTeX; it is a plain list of labelled values.
+
+1. On the repo page, click the `_publications` folder and open any existing file to see the shape. It looks like this:
+   ```yaml
+   ---
+   title: "Instinct to insight: a variation-based framework to test hypotheses about how animals solve problems"
+   preview: /assets/img/publication_preview/instinct-insight.jpg
+   authors:
+     - family: Rittinger
+       given: Madison A
+     - family: Rodríguez
+       given: Rafael Lucas
+   journal: Biology Letters
+   year: 2025
+   doi: 10.1098/rsbl.2025.0293
+   selected: true
+   ---
    ```
-   Two rules that Scholar and the DOI helper get right on their own, but that go wrong when an entry is typed or edited by hand:
-   - **Authors are separated by the word `and`, never by commas.** Inside one author, the only comma sits between surname and first name: `Mueller, Ava`. Writing `Rittinger, Madison A., A. Mueller` makes the site print "A. Mueller. Rittinger", because it reads everything after the second comma as more of the first person's name.
-   - **Italic species names in a title** use `<i>` and `</i>` around the name, like `title={<i>Pholcus phalangioides</i> cellar spiders solve a prey capture problem...}`. Do NOT use `\textit{...}` (the italics silently vanish) or `\emph{...}` (the word "emph" prints on the page).
-11. Check there is a `doi={...}` line. If Scholar omitted it, add one, using just the number part of the DOI with no `https://doi.org/` in front, like `doi={10.1098/rsbl.2025.0293},`. That line is what creates the DOI button on the site.
-12. Decide about the homepage. To feature this paper on the HOMEPAGE under Selected Publications, add the line `selected={true},`. To have it appear only on the Publications page, leave that line out. Keep the homepage list to the best 2 or 3 papers.
-13. Leave out the `preview={...}` line for now. Part 2 below adds it if you want a thumbnail.
-14. Last check before saving: the block ends with a `}` on its own line, and every line inside the block ends with a comma EXCEPT the last one before that `}`.
-15. Commit (section 3.2, steps 4 to 7), then check the Publications page went live (Part 6).
+2. Create a new file in that folder (section 3.4) named with the year and a few words of the title, lowercase and hyphenated, ending in `.md`, for example `2027-orb-weaver-learning.md`.
+3. Paste the block above into it and change every value to the new paper's. Rules: keep the two `---` lines; put the title in double quotes if it contains a colon; each author is two lines (`- family:` then `given:`) indented exactly like the example; to italicize a species name in the title, wrap it in single asterisks, like `*Pholcus phalangioides* cellar spiders...`; leave out the `preview:` line for no thumbnail and the `selected: true` line for no homepage listing. An optional `credit: "Photo: Jane Photographer"` line adds the thumbnail caption.
+4. For a thumbnail, upload the image into `assets/img/publication_preview/` (section 3.3) and make the `preview:` line match its name exactly.
+5. Commit (section 3.2, steps 4 to 7) and check the Publications page (Part 6).
 
-Two things you never have to do here: your own name is bolded automatically wherever it appears in the list, and the papers sort themselves by year on the page, so the order inside the file is only for your own convenience.
-
-Rare snag: the text between `{` and the first comma on the `@article{` line is the entry's internal ID, and no two entries may share one. Scholar builds it from surname, year, and first title word, so a clash only happens with two same-year papers whose titles start with the same word. If the build fails and the error mentions a duplicate key, change one character in the newer ID (`rittinger2027webs` to `rittinger2027websb`) and commit again.
-
-**Part 2 - add a thumbnail image (optional; skip it and the entry just shows no picture).**
-
-1. Get a square-ish image, roughly 400 to 800 pixels on its short side. Bigger is fine; the build makes small web copies automatically.
-2. Rename it on your computer to a lowercase, hyphenated name ending in `.jpg`, for example `new-paper.jpg`.
-3. Upload it into the folder `assets/img/publication_preview/` (section 3.3). Note this is a DIFFERENT folder from the gallery images; it is inside `assets/img/`. The site editor at /admin cannot do this step: its Gallery photo uploader always saves into `assets/img/` one folder up, and a `preview={...}` line pointing at a photo there shows a broken image. Either upload through GitHub as section 3.3 describes, or send the photo to Trevor to place.
-4. Open `_bibliography/papers.bib` for editing again and add this line inside the paper's block, just before the closing `}`, using your file name: `preview={new-paper.jpg}`
-5. Make sure the line above it ends with a comma, and that the `preview={new-paper.jpg}` line itself has NO comma after it if it is the last line before the `}`.
-6. Commit and check the site (Part 6). Expected result: the thumbnail appears next to that paper.
-
-**Part 3 - add a photo credit on the thumbnail (optional; only if the thumbnail is someone else's photograph).**
-
-Figures from Madi's own papers need no credit, so skip this part for those.
-
-- **File to edit:** `_includes/publication-credits.html`
-
-1. Open `_includes/publication-credits.html` for editing (section 3.2; use **Go to file** and type `credits`).
-2. Press `Ctrl+F` and search for `var credits` to jump to the right spot. You are looking for this block, about two-thirds of the way down the file:
-   ```js
-   var credits = {
-     'treefrog.jpg': 'Photo: Höbel Lab',
-     'web-spider.jpg': 'Photo: Mark Yokoyama',
-     'songbird-nestling.jpg': 'Photo: Dr. Rachael DiSciullo'
-     // instinct-insight.jpg: composite manuscript figure, no single credit.
-   };
-   ```
-3. Click at the end of the LAST line that has a quote mark on it (in the example, the `'songbird-nestling.jpg': ...` line) and type a comma there.
-4. Press Enter and type your new line in the same shape, with no comma at the end of it:
-   ```js
-     'new-paper.jpg': 'Photo: Jane Photographer'
-   ```
-   Expected result: every credit line now ends with a comma except the last one, which is yours.
-5. Double-check the file name on the left is character-for-character identical to the `preview={...}` file name from Part 2. If they differ at all, no credit appears.
-6. Ignore the line that starts with `//`. That is a note to humans, not a setting.
-7. Commit and check the site (Part 6). Expected result: the photographer's name shows in small text across the bottom of that thumbnail.
-
-This file is the one and only exception to house rule 4 ("don't edit machinery"), so change nothing else in it. If the thumbnails look wrong afterwards, restore the previous version (Part 7.2).
+Rare snag, either route: a paper missing a title, an author, or a year is left out of the site rather than breaking the build. If a paper does not appear after the build finishes, open it in the editor, check those three, and save again.
 
 ### 5.4 Add a gallery photo
 
@@ -790,12 +764,13 @@ In VS Code instead: right-click the file in the Explorer panel, choose **Delete*
 
 **To remove a publication:**
 
-1. Open `_bibliography/papers.bib` for editing (section 3.2).
-2. Find the paper's block. It starts with a line beginning `@article{` and ends with a `}` on its own line, usually 8 to 12 lines later.
-3. Delete the whole block, from the `@article{` line down to and including that closing `}`. Expected result: the blocks above and below still each start with `@article{` and end with `}`.
-   - If the paper you are deleting is the FIRST one in the file, be careful not to also delete the two `---` lines at the very top. Those must stay or the Publications page will not build.
-4. Commit (section 3.2, steps 4 to 7) and check the Publications page (Part 6).
-5. Optional, only if that paper had a thumbnail: delete its image from `assets/img/publication_preview/`, and remove its line from the credits list in `_includes/publication-credits.html` (recipe 5.3, Part 3). If you remove a credit line that was the last one in the list, make sure the line now last has NO comma at the end of it.
+1. Open https://madisonrittinger.org/admin, sign in, and click **Publications** in the left list.
+2. Click the paper's row. Expected result: its form opens.
+3. Click the **Delete** button at the top of the form, then confirm. Expected result: the paper is gone from the list and the site rebuilds.
+4. Check the Publications page (Part 6). The paper, its thumbnail, and its photo credit are all gone together; nothing else needs editing.
+5. Optional: delete the thumbnail image file from `assets/img/publication_preview/` using the **...** > **Delete file** steps above, just to keep the folder tidy. Skipping this changes nothing a visitor sees.
+
+Without the editor: on the repo page, open the `_publications` folder, click the paper's file, and delete it with the **...** > **Delete file** steps above.
 
 As always: one change at a time, then check the result (Part 6). If a removal ever looks wrong, restoring the previous version (Part 7.2) brings it straight back.
 
@@ -967,9 +942,9 @@ Section 5.0 is the version of this keyed by what you see on a page. This one is 
 | Bio paragraph | Homepage | `_pages/about.md` (text below the second `---`) | 5.6 |
 | Subtitle under the name | Homepage | `_pages/about.md` (`subtitle:`) | 5.11 |
 | News | Homepage (newest 5) and /news/ (all) | new file in `_news/` | 5.2 |
-| Publications | /publications/, plus homepage if `selected` | `_bibliography/papers.bib` | 5.3 |
-| Publication thumbnails | Same as above | image in `assets/img/publication_preview/` + `preview={...}` in the entry | 5.3 |
-| Photo credits on thumbnails | Same as above | `_includes/publication-credits.html` (the credits list) | 5.3 |
+| Publications | /publications/, plus homepage if "Show on homepage" is on | editor form; one file per paper in `_publications/` | 5.3 |
+| Publication thumbnails | Same as above | Thumbnail box in the same form (image lands in `assets/img/publication_preview/`) | 5.3 |
+| Photo credits on thumbnails | Same as above | Photo credit box in the same form | 5.3 |
 | Gallery | /gallery/ | `_pages/gallery.md` (photos list) + image in `assets/img/` | 5.4 |
 | CV | /cv/ | PDF in `assets/pdf/` (+ `cv_pdf:` in `_pages/cv.md` if renamed) | 5.5 |
 | Research cards and pages | /research/ | files in `_projects/`, NOT `_pages/research.md` | 5.8 |

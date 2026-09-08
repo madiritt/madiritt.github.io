@@ -50,7 +50,7 @@ Inside internal maintenance documentation (this `CLAUDE.md`, `MAINTENANCE-GUIDE.
 Push source to `main` -> deploy.yml runs Jekyll build (with imagemagick for responsive WebP, purgecss for CSS minification) -> finished site written to `gh-pages` -> GitHub Pages serves it. Build takes 3-7 min.
 
 ### deploy.yml dependencies (do NOT delete these files)
-`package.json`, `package-lock.json` (npm ci), `Gemfile`, `Gemfile.lock` (Jekyll), `requirements.txt` (pip), `purgecss.config.js` (CSS purge step), and the `giscus` key block in `_config.yml`. A prior cleanup pass deleted `purgecss.config.js` by mistake and broke the build; it has been restored. Audit deploy.yml before removing any root-level config file.
+`package.json`, `package-lock.json` (npm ci), `Gemfile`, `Gemfile.lock` (Jekyll), `requirements.txt` (pip), `purgecss.config.js` (CSS purge step), the `giscus` key block in `_config.yml`, and `_plugins/publications_bib.rb` (generates `_bibliography/papers.bib` from `_publications/` at build time; without it the Publications page is empty and the homepage Selected Publications vanish). A prior cleanup pass deleted `purgecss.config.js` by mistake and broke the build; it has been restored. Audit deploy.yml before removing any root-level config file.
 
 ### Local development (preview server)
 A working local build exists (set up 2026-06-22). Toolchain installed via winget: **Ruby 3.3.11 + DevKit** (`C:\Ruby33-x64`), **Node 26** (`C:\Program Files\nodejs`). Python and imagemagick are intentionally NOT installed locally.
@@ -115,8 +115,18 @@ allowlist). Sign-in proven end to end from localhost and production.
   `_includes/figure.liquid` override (gem copy + one condition) so WebP
   sources get responsive srcset variants. First real upload through the
   editor should be spot-checked live (try-and-see).
-- Publications are editable as a raw-BibTeX box (survived the Part 0
-  round-trip gate). Teaching is editable via front-matter `sections`
+- **Publications are a form (2026-09-08):** one YAML-front-matter file per
+  paper in `_publications/` (NOT a Jekyll collection, on purpose: al_search
+  would index each as a nonexistent page). `_plugins/publications_bib.rb`
+  reads them at build time, writes the gitignored `_bibliography/papers.bib`
+  for Jekyll Scholar, and exposes `site.data.publications` (used by the
+  credits overlay). Field contract is documented at the top of the plugin;
+  editor field labels/hints live in `admin/config.yml`. Title and abstract use
+  Sveltia's rich-text widget limited to Bold/Italic; the plugin converts the
+  markdown emphasis to `<i>`/`<b>`. Thumbnail is an image field whose uploads
+  land in `assets/img/publication_preview/`; a photo picked from another
+  folder is passed through as an absolute URL (renders, not responsive). The
+  raw-BibTeX box is gone. Teaching is editable via front-matter `sections`
   (layout machinery in `_includes/teaching-sections.liquid`).
 - MAINTENANCE-GUIDE.md Part 0 (added 2026-08-04) documents the editor as the
   primary route; the manual recipes in Parts 3-5 remain the fallback.

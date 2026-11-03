@@ -1,60 +1,36 @@
 name: Deploy site
 
+# Builds the site and publishes it to the gh-pages branch, which GitHub Pages
+# serves. A failed build publishes nothing: the live site keeps its last good
+# version.
+#
+# HARDENED FOR LOW UPKEEP (2026-11-02). Everything that used to float is pinned,
+# so the build only changes when someone edits this file:
+#   - the runner image is a fixed Ubuntu release, not ubuntu-latest (which moved
+#     to 26.04 in Oct 2026 and broke the old exact Ruby pin);
+#   - PurgeCSS is a fixed version; Node is a fixed major;
+#   - gems come from Gemfile.lock, all from rubygems.org.
+# Removed as unneeded: Python + nbconvert (no notebooks), `npm ci` (installs
+# only test/format tools; the theme ships tailwind.css prebuilt), and a
+# third-party step pulled from a moving @main branch that only filled in the
+# unused giscus comments setting.
+#
+# THE ONE FORESEEABLE CHORE: GitHub retires each runner image roughly five
+# years after release, so ubuntu-26.04 should last until about 2031. When it
+# is retired, builds fail at the very first step ("runner image not found" or a
+# brownout notice). Fix: change runs-on to the newest ubuntu-XX.04 listed at
+# https://github.com/actions/runner-images#available-images, then fix whatever
+# the Setup Ruby step reports (usually: set ruby-version to a series that image
+# offers, then run `bundle update --ruby` locally). The live site is unaffected
+# while this waits.
+
 on:
   push:
     branches:
-      - master
       - main
-    paths:
-      - "assets/**"
-      - "**.bib"
-      - "**.html"
-      - "**.js"
-      - "**.liquid"
-      - "**/*.md"
-      - "**.yml"
-      - "Gemfile"
-      - "Gemfile.lock"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!docs/CONTRIBUTING.md"
-      - "!docs/CUSTOMIZE.md"
-      - "!docs/FAQ.md"
-      - "!docs/INSTALL.md"
-      - "!README.md"
   pull_request:
     branches:
-      - master
       - main
-    paths:
-      - "assets/**"
-      - "**.bib"
-      - "**.html"
-      - "**.js"
-      - "**.liquid"
-      - "**/*.md"
-      - "**.yml"
-      - "Gemfile"
-      - "Gemfile.lock"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!docs/CONTRIBUTING.md"
-      - "!docs/CUSTOMIZE.md"
-      - "!docs/FAQ.md"
-      - "!docs/INSTALL.md"
-      - "!README.md"
   workflow_dispatch:
 
 permissions:
@@ -62,46 +38,29 @@ permissions:
 
 jobs:
   deploy:
-    # available images: https://github.com/actions/runner-images#available-images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
-          # Series, not an exact patch: ubuntu-latest (26.04 since late Oct 2026)
-          # only ships the newest 3.3.x, so an exact pin like 3.3.5 fails setup.
+          # A series, not an exact patch: newer runner images only ship the
+          # newest patch of each series, so an exact pin like 3.3.5 fails.
           ruby-version: "3.3"
           bundler-cache: true
-      - name: Setup Python 🐍
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-          cache: "pip" # caching pip dependencies
       - name: Setup Node 🧰
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
-          cache: "npm"
-      - name: Install JS deps 📦
-        run: npm ci
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          commitChange: false
-          valueFile: "_config.yml"
-          propertyPath: "giscus.repo"
-          value: ${{ github.repository }}
+          node-version: "24" # only used to run PurgeCSS below
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
         run: |
-          npm install -g purgecss
+          npm install -g purgecss@8.0.0
           purgecss -c purgecss.config.js
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'

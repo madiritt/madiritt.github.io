@@ -273,7 +273,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-socials
   - jekyll-tabs
-  - jekyll-terser
   - jekyll-toc
   - jekyll-twitter-plugin
   - jemoji
@@ -319,22 +318,16 @@ sass:
 # -----------------------------------------------------------------------------
 
 jekyll-minifier:
-  compress_javascript: false # set to false since we are using terser as the js minifier
+  # JS is not minified (2026-11-02): jekyll-terser was removed because it came
+  # from a personal GitHub repo, and the minifier's own JS compressor is left off.
+  # The local scripts are small; the large libraries load pre-minified from CDNs.
+  compress_javascript: false
   # CSS is already minified upstream (Tailwind build ships tailwind.css; main.scss is compiled
   # with sass `style: compressed`). Re-minifying via cssminify2 mangles Tailwind v4 spacing
   # tokens inside calc(), turning `var(--spacing)` into the invalid `var( -  - spacing)` and
   # breaking every spacing/positioning utility (e.g. .fixed-top -> broken navbar). Disable it.
   compress_css: false
-  # JS minification is delegated to jekyll-terser (compress_javascript above is false).
   exclude: ["robots.txt"]
-
-# -----------------------------------------------------------------------------
-# Terser
-# -----------------------------------------------------------------------------
-
-terser:
-  compress:
-    drop_console: true
 
 # -----------------------------------------------------------------------------
 # Jekyll Archives
@@ -482,7 +475,7 @@ enable_google_verification: false # enables google site verification
 enable_bing_verification: false # enables bing site verification
 enable_cookie_consent: false # enables GDPR-compliant cookie consent dialog (https://github.com/orestbida/cookieconsent)
 enable_masonry: true # enables automatic project cards arrangement
-enable_math: true # enables math typesetting (uses MathJax)
+enable_math: false # MathJax off (2026-11-02): the site has no math, and it loaded MathJax plus a polyfill-service script on every page
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
 enable_darkmode: true # enables switching between light/dark modes
 enable_navbar_social: false # enables displaying social links in the navbar on the about page

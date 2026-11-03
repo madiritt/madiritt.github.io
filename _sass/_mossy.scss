@@ -589,3 +589,22 @@ code {
     padding-right: 1rem;
   }
 }
+
+// -----------------------------------------------------------------------------
+// Site search jump-to-word highlight (2026-11-02). Choosing a "Found on <page>"
+// search row opens the page with a text fragment (assets/js/search-text.js);
+// the browser scrolls to the word and paints it with ::target-text. Citrine
+// with moss text reads clearly on both the cream and the deep-moss theme.
+// -----------------------------------------------------------------------------
+::target-text {
+  background-color: $d-citrine;
+  color: #1e2a18;
+}
+
+// A row wider than the dropdown (a long research title, or a text snippet on a
+// phone) gave the result list a sideways scrollbar: the rows' own shadow styles
+// barely let the title shrink. Clip at the edge instead. actions-list is a
+// public CSS part of <ninja-keys>, the only piece reachable from page CSS.
+ninja-keys::part(actions-list) {
+  overflow-x: hidden;
+}

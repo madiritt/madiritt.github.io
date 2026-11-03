@@ -44,6 +44,17 @@
 <!-- Mossy silhouette field (grasses, dragonflies, spiders) -->
 <script defer src="{{ '/assets/js/mossy-field.js' | relative_url | bust_file_cache }}"></script>
 
+{% if site.search_enabled %}
+  <!-- Site search: "Found on <page>" rows for words in page text. The index is
+       written by _plugins/search_text.rb; ?v= is the build time so a new deploy
+       never serves a stale index from the browser cache. -->
+  <script
+    defer
+    src="{{ '/assets/js/search-text.js' | relative_url | bust_file_cache }}"
+    data-index="{{ '/assets/search-text.json' | relative_url }}?v={{ site.time | date: '%s' }}"
+  ></script>
+{% endif %}
+
 <!-- Copyright year: overwrite the build-time year with the viewer's current year, so it
      stays correct into new years with no rebuild. Falls back to the build-time year if JS is off. -->
 <script>

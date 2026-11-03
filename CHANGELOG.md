@@ -11,6 +11,23 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-11-02 - Site search finds words in page text and jumps to them
+
+The search box (menu "Search" or Ctrl+K) only matched page titles and their one-line summaries; a word that appears only in a paragraph found nothing.
+
+#### Added
+- `_plugins/search_text.rb`: after every build, writes `assets/search-text.json` (about 12 KB) with the visible text of each published page: main content minus scripts, styles, SVG and raw BibTeX, plus photo captions (which exist only as lightbox `data-title` attributes). Skips the redirect stubs, the 404 page, `sitemap: false` pages, /admin and output-false collections. Duplicate listings are left out so one word does not produce two or three rows: the /research/ card page entirely, and the homepage's News and Selected Publications blocks. Any error is logged as a warning and never fails the build.
+- `assets/js/search-text.js` (loaded from `_includes/footer.liquid` when `search_enabled`): fetches the index on the first keystroke, not on page load. From 3 typed characters it adds one "Found on <page>" row per matching page (max 8) with a short snippet around the first match. Choosing a row opens the page at `?q=<word>#:~:text=<word>`: Chrome, Edge, Safari 16.1+ and Firefox 131+ scroll to the word and highlight it. A partial query is widened to the whole word because text fragments match whole words only. `?q=` forces a full load so a match on the current page still jumps. Uses the ninja-keys public API only (`data`, the `change` event, `open()`); if the index fails to load, search keeps working on titles as before.
+- `_sass/_mossy.scss`: `::target-text` highlight in citrine with moss text (readable in both themes), and `ninja-keys::part(actions-list) { overflow-x: hidden }`, which removes a sideways scrollbar the dropdown showed for rows wider than the box.
+
+#### Changed
+- The search dropdown's research group is labelled "Research" (was "Projects", the collection's internal name).
+
+#### Notes
+- Verified in headless Edge against a local build: body-text matches for words in no title ("Illinois", "Kenzie", "survivorship"); real mouse click and keyboard Enter both navigate; the landed page scrolls to the word and paints the highlight in dark and light themes, including a match on the current page; reopening the box clears the previous search's rows; 1-2 character queries add none; desktop rows fit with no scrollbar; on a 390px phone long rows clip at the edge (as the long research titles already did) with the match still visible.
+- PurgeCSS 8.0.0 (what deploy.yml installs) keeps both new CSS rules; checked by running it against the built CSS.
+- Limits: one highlight per page (the first occurrence); words not visible on load (lightbox-only captions, collapsed abstracts) open the page at the top; CV PDF text is not indexed.
+
 ### 2026-11-02 - Deploy fixed: Ruby pin broke on the new GitHub runner image
 
 #### Fixed

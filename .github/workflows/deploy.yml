@@ -70,7 +70,9 @@ jobs:
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.5"
+          # Series, not an exact patch: ubuntu-latest (26.04 since late Oct 2026)
+          # only ships the newest 3.3.x, so an exact pin like 3.3.5 fails setup.
+          ruby-version: "3.3"
           bundler-cache: true
       - name: Setup Python 🐍
         uses: actions/setup-python@v5

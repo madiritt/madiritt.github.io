@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-11-02 - Deploy fixed: Ruby pin broke on the new GitHub runner image
+
+#### Fixed
+- Every deploy since at least 2026-10-29 failed at "Setup Ruby" with `Unavailable version 3.3.5 for ruby on ubuntu-26.04`. `ubuntu-latest` moved to Ubuntu 26.04, where setup-ruby builds only the newest patch of each series (3.3.13). `deploy.yml` now asks for `ruby-version: "3.3"` (newest 3.3.x) instead of the exact `3.3.5`. `Gemfile.lock` records no Ruby version, so nothing else pins it.
+- Side effect of the outage: Madi's 2026-10-30 news item ("Presenting at UWM's Biological Sciences Colloquium Series", committed from the editor 2026-10-29) never went live. It publishes with this fix.
+
 ### 2026-11-02 - Page addresses match their pages
 
 Audit of every URL in the live sitemap. The top-level pages were fine; the research question pages and one news item were not.

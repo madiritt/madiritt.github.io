@@ -255,7 +255,7 @@ collections:
                 widget: number
                 value_type: int
                 min: 1990
-                max: 2040
+                max: 2100
 
   # ---------------------------------------------------------------------------
   # Research

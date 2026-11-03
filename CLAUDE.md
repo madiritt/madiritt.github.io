@@ -43,14 +43,16 @@ Inside internal maintenance documentation (this `CLAUDE.md`, `MAINTENANCE-GUIDE.
 | Build | GitHub Actions (`.github/workflows/deploy.yml`) | The ONLY workflow kept; all others were removed |
 | Hosting | GitHub Pages | Serves from the `gh-pages` branch (output) |
 | Source branch | `main` | deploy.yml triggers on push to `main`, builds, writes to `gh-pages` |
-| Registrar/DNS | Cloudflare | Primary domain madisonrittinger.org; redirect domain madirittinger.org |
+| Registrar/DNS | Cloudflare | Domain madisonrittinger.org (Madi's Cloudflare account), prepaid through 2036-05-12 (Trevor's PayPal is the primary payment method; renewals charge only the primary). madirittinger.org was a mistaken purchase, deliberately left to expire 2027-05-12 (decided 2026-11-02); do not renew or wire it up |
 | TLS | Let's Encrypt via GitHub Pages | |
 
 ### Build pipeline (how publishing works)
 Push source to `main` -> deploy.yml runs Jekyll build (with imagemagick for responsive WebP, purgecss for CSS minification) -> finished site written to `gh-pages` -> GitHub Pages serves it. Build takes 3-7 min.
 
 ### deploy.yml dependencies (do NOT delete these files)
-`package.json`, `package-lock.json` (npm ci), `Gemfile`, `Gemfile.lock` (Jekyll), `requirements.txt` (pip), `purgecss.config.js` (CSS purge step), the `giscus` key block in `_config.yml`, and `_plugins/publications_bib.rb` (generates `_bibliography/papers.bib` from `_publications/` at build time; without it the Publications page is empty and the homepage Selected Publications vanish). A prior cleanup pass deleted `purgecss.config.js` by mistake and broke the build; it has been restored. Audit deploy.yml before removing any root-level config file.
+Hardened for low upkeep 2026-11-02 (see the header comment in deploy.yml and the CHANGELOG): runner pinned to `ubuntu-26.04` (expected retirement ~2031 is the one foreseeable chore; fix steps are in the workflow header), Ruby series `3.3`, Node `24` only for `purgecss@8.0.0`, current majors of the official actions, builds on every push to main (the old paths filter skipped `_sass`/`_plugins`-only changes). Removed as unneeded: Python/nbconvert, `npm ci`, the `fjogeleit/yaml-update-action@main` giscus step, and the `jekyll-terser` gem (it was git-sourced from a personal repo; every gem must now come from rubygems.org). `enable_math` is false (no math on the site; it loaded MathJax + a polyfill-service script everywhere).
+
+Still required by the build: `Gemfile`, `Gemfile.lock` (Jekyll), `purgecss.config.js` (CSS purge step), and `_plugins/publications_bib.rb` (generates `_bibliography/papers.bib` from `_publications/` at build time; without it the Publications page is empty and the homepage Selected Publications vanish). A prior cleanup pass deleted `purgecss.config.js` by mistake and broke the build; it has been restored. Audit deploy.yml before removing any root-level config file.
 
 ### Local development (preview server)
 A working local build exists (set up 2026-06-22). Toolchain installed via winget: **Ruby 3.3.11 + DevKit** (`C:\Ruby33-x64`), **Node 26** (`C:\Program Files\nodejs`). Python and imagemagick are intentionally NOT installed locally.
@@ -73,7 +75,7 @@ Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
 
 ## Current status (as of 2026-07-13)
 
-**The site is LIVE at https://madisonrittinger.org** - design ported, content filled, custom domain active with enforced HTTPS. madiritt.github.io 301-redirects to the new domain. Day-to-day work is now polish, content updates from Madi, and the remaining nice-to-haves (madirittinger.org redirect domain, runbook refresh for the new URL).
+**The site is LIVE at https://madisonrittinger.org** - design ported, content filled, custom domain active with enforced HTTPS. madiritt.github.io 301-redirects to the new domain. Day-to-day work is now polish, content updates from Madi, and the remaining nice-to-haves (runbook refresh for the new URL).
 
 Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex A records to GitHub Pages IPs + `www` CNAME to madiritt.github.io; repo-root `CNAME` file carries the custom domain through every deploy (the deploy action rebuilds gh-pages from scratch, so the UI-only setting would be wiped without it); Let's Encrypt certificate covers apex + www; `Enforce HTTPS` ticked. Pages settings are owner-only on a personal repo - changing them requires the madiritt login, not a collaborator.
 
@@ -84,7 +86,7 @@ Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex 
 | 2 | Configure al-folio | COMPLETE (2026-06-12, builds green) |
 | 3 | Content fill | COMPLETE (real bio, CV v7, publications, teaching, gallery, socials all live) |
 | 4 | Visual design port | COMPLETE (Mossy Modernist live in both themes; light cooled to cream 2026-07-13) |
-| 5 | Domain + DNS + security | COMPLETE (2026-07-13: madisonrittinger.org live, HTTPS enforced, old URL 301s). Remaining nice-to-haves: madirittinger.org redirect, GitHub verified-domain |
+| 5 | Domain + DNS + security | COMPLETE (2026-07-13: madisonrittinger.org live, HTTPS enforced, old URL 301s). Remaining nice-to-have: GitHub verified-domain. (madirittinger.org redirect dropped 2026-11-02: that domain is being left to expire.) |
 | 6 | Documentation (runbooks) | COMPLETE (2026-07-13: MAINTENANCE-GUIDE.md at repo root supersedes the out-of-repo runbooks 00-05; beginner-level, covers browser + VS Code routes, every content type, recovery, Cloudflare) |
 | 7 | Launch | LIVE at madisonrittinger.org |
 
@@ -94,7 +96,7 @@ Domain setup (2026-07-13): Cloudflare DNS-only (grey cloud) records - four apex 
 
 The form-based editor at https://madisonrittinger.org/admin is LIVE and Madi
 is actively using it (her first solo edits landed 2026-08-04). Sveltia CMS
-(pinned `@sveltia/cms@^0.175.0` in `admin/index.html`) + our own Cloudflare
+(self-hosted since 2026-11-02 as `admin/sveltia-cms-0.175.1.js`, the unmodified npm dist file, so it no longer depends on unpkg; upgrade steps in the comment above its script tag in `admin/index.html`) + our own Cloudflare
 Worker OAuth broker (`admin-auth/`, deployed at
 https://madiritt-admin-auth.abysul.workers.dev, GitHub App route, ALLOWED_USERS
 allowlist). Sign-in proven end to end from localhost and production.

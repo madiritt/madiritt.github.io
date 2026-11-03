@@ -11,6 +11,41 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-11-02 - Low-upkeep hardening: pinned build, self-hosted editor, guide Part 10
+
+Goal: the site should need nothing technical from anyone for years, with Madi working only in the editor. Follows the Oct 29 outage, when `ubuntu-latest` moved to 26.04 and silently stopped every deploy for four days.
+
+#### Changed
+- `.github/workflows/deploy.yml` rewritten with nothing left floating: `runs-on: ubuntu-26.04` (was `ubuntu-latest`), `actions/checkout@v7` and `actions/setup-node@v7` (were v4 on the deprecated Node 20 runtime), Node `24` (Node 20 was past end of life), `purgecss@8.0.0` (was unpinned latest). Builds now run on every push to main; the old paths filter skipped pushes that only touched `_sass/` or `_plugins/`. A header comment documents the one foreseeable chore (runner image retirement, expected around 2031) and its fix.
+- `admin/index.html` loads the editor from `admin/sveltia-cms-0.175.1.js`, the unmodified npm dist file (sha256 504506ad...9355), instead of `unpkg.com/@sveltia/cms@^0.175.0`. The editor now loads even if unpkg is down, and never changes until someone swaps the file on purpose. With a self-hosted script, Sveltia's update check only logs to the console (it shows an in-app notice only for the unpinned unpkg URL), so Madi never sees an "update available" prompt. Remaining optional runtime fetches: interface fonts and icons from jsDelivr, and from unpkg the WebP encoder (Safari only; Chrome, Edge and Firefox encode WebP natively) and PDF.js (PDF thumbnails in the file browser).
+- `enable_math: false`. The site has no math; MathJax plus a `cdnjs.cloudflare.com/polyfill` script were loading on every page.
+- Gallery "Year taken" field accepts up to 2100 (was capped at 2040).
+
+#### Removed
+- `jekyll-terser` (Gemfile, Gemfile.lock, plugin list, `terser:` settings). It was fetched from a personal GitHub repository rather than rubygems.org, so the build would fail permanently if that repository disappeared. It only minified a few small local scripts. Lockfile change is exactly its 10 lines.
+- From the build: Python + `pip install nbconvert` (no notebooks exist), `npm ci` (installs only test and formatting tools; the theme ships `tailwind.css` prebuilt), and the `fjogeleit/yaml-update-action@main` step (pulled from a moving branch on every build, only to fill in the unused giscus setting).
+
+#### Added
+- MAINTENANCE-GUIDE Part 10, "If Trevor isn't available": what keeps running unattended, Madi's only recurring jobs (account access, renew the domain in 2035, expect one developer chore around 2031), what must never change (username, repo name, DNS records, gh-pages branch, bot pull requests), how to get help with a copy-paste briefing message and literal steps to add and remove a collaborator, what to do if the editor sign-in breaks, how to remove Trevor's access, and the last resort (the gh-pages branch is the whole site as plain files).
+- MAINTENANCE-GUIDE 7.1 now starts by telling an edit problem from a machinery problem: a red X on any step other than "Install and Build" is GitHub's side, gets one re-run, then Part 10.4. Quick-diagnosis table (7.6) gained that row, and its stale "comma missing in papers.bib" row now describes the publications form (an entry missing title, year or authors is skipped, not fatal).
+
+#### Notes
+- Verified locally: clean build; no MathJax or polyfill requests on any page; no script errors on home, research, publications, gallery, teaching; site search still adds text rows; /admin boots from the self-hosted file with the Mossy skin intact. The only browser error seen, a blocked PDF.js worker on /cv/ (the site's Content-Security-Policy has no `worker-src blob:`), predates this change; PDF.js falls back to the main thread and the preview still renders.
+- Local Windows builds write the editor file with CRLF line endings (a plugin rewrites static JS in text mode); content is otherwise byte-identical, and the Linux CI build is unaffected.
+- Checked: no open pull requests, Dependabot alerts disabled, no `dependabot.yml`, so Madi gets no automated bot mail.
+
+### 2026-11-02 - madisonrittinger.org prepaid to 2036; madirittinger.org dropped
+
+#### Changed
+- madisonrittinger.org renewed for the 10-year maximum by Trevor (his PayPal as the account's primary payment method). Verified via the Cloudflare API: expiry moved from 2027-05-12 to 2036-05-12. Auto-renew was found OFF on both domains during the upkeep review; turning it on for madisonrittinger.org is a dashboard step for Trevor (the API change was blocked by Claude Code's auto-mode safety filter for domain settings).
+- MAINTENANCE-GUIDE Part 8 rewritten for the new state: paid through 2036, renewals charge only the primary payment method, the auto-renew retry and grace timeline, and literal 2035 steps (check the primary payment method, renew).
+
+#### Decided
+- madirittinger.org was registered by mistake and will not be kept (Trevor). Its Cloudflare auto-renew is already off (checked via the API), so it expires on its own on 2027-05-12 at no cost. Nothing in the site, the editor or the sign-in Worker refers to it. The planned "protective redirect" is dropped.
+
+#### Changed
+- MAINTENANCE-GUIDE Part 8: tells Madi not to renew madirittinger.org and to ignore its renewal reminders, and points out how to tell the two names apart. CLAUDE.md tech-stack table, status line and phase tracker no longer list the redirect as a to-do.
+
 ### 2026-11-02 - Site search finds words in page text and jumps to them
 
 The search box (menu "Search" or Ctrl+K) only matched page titles and their one-line summaries; a word that appears only in a paragraph found nothing.

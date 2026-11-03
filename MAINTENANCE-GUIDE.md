@@ -61,6 +61,7 @@ This guide assumes you have never edited a website before. It explains everythin
   - **7.6 Quick diagnosis: what the symptom usually means (start here when something is wrong)**
 - Part 8: Cloudflare and the domain (rarely touched, never ignored)
 - Part 9: House rules
+- **Part 10: If Trevor isn't available (what keeps running, your only chores, getting help)**
 - Appendix: file map cheat sheet
 
 ---
@@ -817,7 +818,19 @@ Stay calm: every version of every file is saved forever. Nothing is ever lost.
 
 ### 7.1 The build failed (red X in Actions)
 
-**First, the reassurance: the live site is still up and still showing the previous version.** A failed build publishes nothing. There is no rush and no visitor sees a problem. Nine times out of ten the cause is a formatting slip in the settings zone: a missing quote mark, a missing comma, a deleted colon, or indentation done with Tab instead of spaces.
+**First, the reassurance: the live site is still up and still showing the previous version.** A failed build publishes nothing. There is no rush and no visitor sees a problem.
+
+**Step one: is it your edit, or GitHub's machinery?** Find out before fixing anything.
+
+1. Go to https://github.com/madiritt/madiritt.github.io/actions
+2. Click the top row (the one with the red X). On the left side of the page that opens, click the job name, **deploy**. Expected result: a list of steps, most with green checks, one with a red X.
+3. Read the name of the step with the red X.
+   - **"Install and Build"**: the build choked on the site's content, so it is very likely your edit. Continue with the rest of 7.1 below.
+   - **Any other step** ("Set up job", "Checkout", "Setup Ruby", "Setup Node", "Purge unused CSS", "Deploy"), **or the run never started at all**: this is GitHub's build machinery, NOT your edit. Nothing you change in your content will fix it. Go to step 4.
+4. Near the top right of the run's page, click **Re-run all jobs**, then the green **Re-run jobs** button in the box that appears. Expected result: the run starts again. Temporary GitHub hiccups are common and a re-run clears them.
+5. If it fails again on the same non-"Install and Build" step, stop. This needs technical help: go to Part 10.4. Your edits are saved and will publish by themselves once the build is fixed; you do not need to make them again.
+
+**When the red X is on "Install and Build":** nine times out of ten the cause is a formatting slip in the settings zone: a missing quote mark, a missing comma, a deleted colon, or indentation done with Tab instead of spaces.
 
 You have two choices. If you can guess the typo, do the quick fix. If you cannot, skip straight to restoring (7.2), which always works.
 
@@ -888,12 +901,13 @@ Find your symptom on the left before reading anything else.
 |---|---|---|
 | Change isn't on the site, Actions shows a green check | You didn't wait 10 minutes, or you did a normal refresh instead of a hard refresh | Part 6, steps 2 and 3 |
 | Change isn't on the site, Actions shows NO new run at all | Nothing was ever saved: in VS Code you committed but never pushed, or in the browser you never clicked the final **Commit changes** | Part 4.4 step 4, or Part 3.2 step 7 |
-| Red X in Actions | A typo in the settings zone: missing quote, missing comma, deleted colon, or a Tab used for indenting | Part 7.1 |
+| Red X in Actions, and the failed step is **Install and Build** | A typo in the settings zone: missing quote, missing comma, deleted colon, or a Tab used for indenting | Part 7.1 |
+| Red X in Actions, and the failed step is anything else | GitHub's build machinery changed. Not your edit. | Part 7.1, step one, then Part 10.4 |
 | A page looks scrambled or half-empty | Indentation broken in that page's settings zone | Part 7.2, restore the file |
 | A photo shows as a broken-image icon | The file name in the entry doesn't match the uploaded file exactly, including capital letters and `.jpg` vs `.jpeg` | The relevant recipe in Part 5 |
 | A photo you uploaded doesn't appear anywhere | You uploaded the image but never added its entry | 5.4 (gallery) or 5.3 Part 2 (publication) |
 | Two versions of the same photo in the folder | The replacement file name differed from the original | Part 3.3, "To replace an existing file" |
-| Publications page is missing papers after an edit | A comma or a closing `}` is missing in `papers.bib` | Part 7.2, restore the file |
+| Publications page is missing a paper after an edit | That paper's entry is missing its Title, its Year, or every Author. The build skips the paper instead of failing. | Open it under **Publications** in the editor, fill the empty box, Save |
 | Whole site is unreachable | GitHub outage, or a domain/DNS problem | Part 7.4 |
 | Site is fine but not appearing in Google | Normal indexing delay, nothing is broken | Part 7.5 |
 
@@ -903,9 +917,20 @@ Find your symptom on the left before reading anything else.
 
 Cloudflare is where the name madisonrittinger.org is registered and pointed at GitHub. Log in at https://dash.cloudflare.com.
 
-**The one thing that must never lapse: the domain registration.** If it expires, the site vanishes from madisonrittinger.org and the name can eventually be bought by someone else. Once a year, make sure:
-1. **Auto-renew is ON**: dash.cloudflare.com > Domain Registration > Manage Domains > madisonrittinger.org > check renewal is set to auto.
-2. **The payment card on file is valid**: Billing > Payment info. When a card expires, update it here. Cloudflare emails renewal reminders to the account email; don't ignore them.
+**The one thing that must never lapse: the domain registration.** If it expires, the site vanishes from madisonrittinger.org (the old madiritt.github.io address forwards there, so it goes too) and the name can eventually be bought by someone else.
+
+**Current state: paid up until May 12, 2036.** In November 2026 Trevor prepaid 10 years, the maximum a registration can run, using his PayPal. Auto-renew is switched on as a backup. **Nothing needs doing until 2035.**
+
+How renewal works, so the 2035 step makes sense:
+- Renewals charge only the account's **primary** payment method. A backup card added alongside it is never used for the domain. The primary is currently Trevor's PayPal.
+- Auto-renew tries to charge about 30 days before expiry, then retries three more times. If all of those fail, the site keeps working for 30 more days, then shows a suspension page. Renewing during that window still rescues it.
+
+**In early 2035 (or any time a Cloudflare email says a renewal failed):**
+1. Sign in at https://dash.cloudflare.com/login with this account's login.
+2. Paste this exact address into the address bar, typing `:account` literally as shown: https://dash.cloudflare.com/?to=/:account/billing
+3. Click the **Payment** tab (or **Subscriptions**, if there is no Payment tab). If the payment method marked **Primary** is not one you can pay with, add yours and set it as **Primary**.
+4. Paste this exact address into the address bar: https://dash.cloudflare.com/?to=/:account/domains/registrations
+5. On the **madisonrittinger.org** row (with "son" in the middle), click **Manage**, then **Renew**, pick the number of years (up to 10 in total), and confirm. Expected result: the expiry date moves forward.
 
 **The DNS records (the signpost pointing at GitHub).** Under the madisonrittinger.org site > DNS > Records there are exactly five records that matter, all with the cloud icon set to grey "DNS only":
 
@@ -919,7 +944,7 @@ Cloudflare is where the name madisonrittinger.org is registered and pointed at G
 
 Don't edit or delete these, and don't switch the grey clouds to orange (orange breaks the site's HTTPS certificate). If they're ever lost, re-create them exactly as above and the site comes back.
 
-There is also a second domain, **madirittinger.org** (common misspelling), owned as a protective redirect. Same rule: keep it renewed, or let it lapse deliberately if it's ever not worth the fee.
+The same Cloudflare account also lists a second domain, **madirittinger.org**. It was bought by mistake and is deliberately being left to expire on May 12, 2027. Do NOT renew it, and ignore any Cloudflare renewal reminders that name **madirittinger.org**. Renewal reminders for **madisonrittinger.org** (with "son" in the middle) are the ones that matter. The site never used the mistaken domain, so its expiry changes nothing.
 
 ---
 
@@ -931,6 +956,61 @@ There is also a second domain, **madirittinger.org** (common misspelling), owned
 4. **Don't edit machinery.** Folders `_layouts`, `_sass`, `_includes`, `.github`, and the file `purgecss.config.js` are the site's engine room. The ONLY exception you'll ever need is the credits list in `_includes/publication-credits.html` (recipe 5.3). Root files `CNAME`, `Gemfile`, `Gemfile.lock`, `package.json`, `package-lock.json`, `requirements.txt` must not be deleted or renamed.
 5. **One change at a time.** Make an edit, commit it, watch it go green, look at the site. Small steps make mistakes easy to find and undo.
 6. **Log what you change.** The file `CHANGELOG.md` at the repo root is the site's diary. Adding a dated line about what you changed is good practice, not mandatory for small content edits.
+
+---
+
+## Part 10: If Trevor isn't available
+
+**The short version: the site runs by itself.** You can keep editing it with the editor at /admin for years without anyone technical. This part lists what keeps working on its own, the few things that are yours to keep up, and what to do if something ever needs a developer.
+
+### 10.1 What keeps working with nobody looking after it
+
+- **The site stays online, free.** GitHub Pages hosts it at no cost and needs no upkeep.
+- **The domain is paid until May 12, 2036** (Part 8).
+- **The editor keeps working.** Its program is stored on the site itself, so it does not depend on outside download services.
+- **A broken build never breaks the site.** If publishing ever fails, the live site simply keeps showing the last good version. Visitors see nothing wrong; only your newest edits wait.
+
+### 10.2 Your only recurring jobs
+
+1. **Keep access to your accounts**: GitHub, Cloudflare, Google, and the email address they all use. Keep the two-factor recovery codes somewhere safe and offline (Part 2).
+2. **In early 2035, renew the domain.** Part 8 has the steps. Cloudflare also emails reminders to the account's email address.
+3. **Expect one technical chore, around 2031.** GitHub periodically retires the type of computer that builds the site. When that happens, your edits stop appearing and the failed step in Actions is one that is not "Install and Build" (Part 7.1, step one). The live site is fine while it waits. For a developer it is a short job (the exact fix is written at the top of the file `.github/workflows/deploy.yml`). Other outside changes can cause the same symptom at other times; the answer is the same: 10.4.
+
+### 10.3 Things that must never be changed
+
+- **Your GitHub username, `madiritt`, and the repository name, `madiritt.github.io`.** The site's GitHub address, the `www` signpost in Cloudflare and the editor's sign-in are all built on these names. Renaming either one breaks the site.
+- **The five DNS records** in Cloudflare (Part 8).
+- **The `gh-pages` branch** in the repository. It holds the finished, published site. Never delete it.
+- **Automated change requests ("pull requests") from bots.** None are switched on today. If one ever appears (for example from "dependabot"), do not merge it; close it. They change build tools, and a merged one can stop the site from publishing.
+
+### 10.4 Getting help
+
+**Who can help:** any freelance web developer who lists "Jekyll" or "GitHub Pages" experience, a technically minded friend, or an AI coding assistant such as Claude Code opened on the repository. The repository's `CLAUDE.md` file is written so a newcomer (human or AI) can pick up everything quickly.
+
+**What to send them.** Copy this message, then add one or two sentences of your own saying what you are seeing, for example "My edits since March are not appearing on the site."
+
+> My academic website, https://madisonrittinger.org, is a Jekyll site (al-folio theme) hosted free on GitHub Pages from the repository https://github.com/madiritt/madiritt.github.io. It is built by the GitHub Actions workflow `.github/workflows/deploy.yml`, which publishes to the `gh-pages` branch. The domain is registered at Cloudflare, which also runs its DNS. The files `CLAUDE.md`, `CHANGELOG.md` and `SETUP-ADMIN.md` in the repository explain how everything fits together, and the build history is at https://github.com/madiritt/madiritt.github.io/actions
+
+**Giving a helper access to the repository** (so they can fix the build; they do not need your password):
+
+1. Ask the helper for their GitHub username.
+2. Go to https://github.com/madiritt/madiritt.github.io/settings/access (sign in as `madiritt` if asked). Expected result: a page titled **Collaborators** (or "Manage access").
+3. Click the green **Add people** button.
+4. Type the helper's GitHub username, click their name in the list that appears, then click the green button that adds them to the repository. Expected result: GitHub emails them an invitation; once they accept, their name appears on this page.
+5. When the job is done, come back to the same page and click **Remove** next to their name, then confirm. Expected result: their name disappears from the list.
+
+### 10.5 The editor's sign-in
+
+The editor's **Sign In with GitHub** button relies on a small sign-in service that, as of November 2026, runs in Trevor's Cloudflare account (moving it into your own Cloudflare account is planned). If that button ever stops working and Trevor cannot be reached:
+
+1. Keep editing the manual way in the meantime (Part 3). Everything in Part 5 works without the editor.
+2. Ask a helper (10.4) to set the sign-in service up again in your own Cloudflare account. The complete instructions are in the repository file `SETUP-ADMIN.md`.
+
+**Removing Trevor's access**, if you ever want to: follow 10.4 step 2, then click **Remove** next to `AbysulGaming` and confirm. He can then no longer change the site.
+
+### 10.6 The last resort
+
+Even if every tool around the site stopped working, nothing is lost. The finished website is stored as plain web pages in the repository's `gh-pages` branch, and any developer can download those and host them anywhere, or edit them directly. Every version of every file you have ever saved is also kept in GitHub's history (Part 7.2).
 
 ---
 

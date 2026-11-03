@@ -47,8 +47,8 @@
         cream #f4f0d8 = 51 56% 90%, citrine #d4c878 = 52 52% 65%.
 
         This variable surface is NOT a documented Sveltia theming API. It is
-        stable within our pinned minor (0.175.x); re-check this skin after any
-        deliberate version bump. Worst case if variables are ever renamed: the
+        stable for the self-hosted version (0.175.1, script tag below);
+        re-check this skin after any deliberate version bump. Worst case if variables are ever renamed: the
         editor falls back to its stock look, nothing functional breaks.
 
         Rollback: delete this block (and the Lexend font links in <head>).
@@ -118,15 +118,28 @@
 
     <!--
       Sveltia CMS: a drop-in replacement for Decap CMS that reads the same
-      config.yml. Sveltia versions as 0.MINOR.PATCH, so the caret below pins to
-      one minor (0.175.x): patch fixes arrive, breaking releases do not. To
-      upgrade deliberately, bump the minor here and re-test /admin locally.
+      config.yml.
+
+      SELF-HOSTED, EXACT VERSION (2026-11-02). The file sits next to this page
+      (admin/sveltia-cms-0.175.1.js, the unmodified dist/sveltia-cms.js from
+      npm), so the editor no longer depends on unpkg being up, and nothing
+      about it changes until someone swaps the file on purpose. Previously
+      loaded from unpkg as @^0.175.0. It still fetches a few extras at run
+      time, all optional: interface fonts/icons from jsDelivr, and from unpkg
+      a WebP encoder (only in browsers that cannot make WebP themselves, i.e.
+      Safari) and PDF.js (thumbnails of PDFs in the file browser).
+
+      To upgrade deliberately: download
+        https://unpkg.com/@sveltia/cms@NEW.VERSION/dist/sveltia-cms.js
+      save it here as sveltia-cms-NEW.VERSION.js, point the tag below at it,
+      re-test /admin locally (and the Mossy skin above), then delete the old file.
+
       No type="module" attribute: the Sveltia docs say the plain script tag is
       correct and styling is bundled in. If Sveltia ever misbehaves, swapping
       this one script tag for Decap's build works against the identical config:
         https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js
     -->
-    <script src="https://unpkg.com/@sveltia/cms@^0.175.0/dist/sveltia-cms.js"></script>
+    <script src="sveltia-cms-0.175.1.js"></script>
 
     <!--
       Hover hints for icon-only buttons. Sveltia gives every icon button an

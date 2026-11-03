@@ -22,6 +22,25 @@ Inside internal maintenance documentation (this `CLAUDE.md`, `MAINTENANCE-GUIDE.
 
 ---
 
+## START HERE: open action items (recorded 2026-11-02)
+
+Goal behind all of these: the site needs nothing technical from anyone for years, with Madi working only in the /admin editor (see MAINTENANCE-GUIDE Part 10 and the 2026-11-02 CHANGELOG entries for what is already done). At the start of the next working session, walk Trevor through this list and ask which to tackle. Items marked **Madi** need her answer first; Trevor said he would take them to her in one conversation.
+
+1. **Auto-renew switch (Trevor, 2 min).** madisonrittinger.org is prepaid to 2036-05-12 but `auto_renew` is still false (checked via API 2026-11-02). Claude Code's auto-mode filter blocks the API change, so Trevor flips it: dash.cloudflare.com/?to=/:account/domains/registrations > madisonrittinger.org > Manage > Configuration > Auto-renew on. Then confirm read-only via the Cloudflare API connection (`GET /accounts/{id}/registrar/domains`). Leave madirittinger.org off (being left to expire 2027-05-12).
+2. **Google summary wording (Madi).** `_config.yml` `description` says "...PhD candidate, UW Milwaukee." and goes stale at graduation; the editor cannot reach it. Proposal: drop the position ("Madison Rittinger - behavioral ecologist studying decision-making and cognition in animals."). One-line change.
+3. **Research pages rebuild (Madi OKs the result; biggest job).** Each `_projects/*.md` body is ~168 lines of CSS/HTML/Liquid in the editor's plain text box: a slip in a `{% include %}` fails the build, editor-created questions get no photo layout, photo swaps are fiddly. Do what was done for Teaching: front-matter fields (question, card blurb, section, position, markdown text, photos list with captions, optional photo credit), one shared include for the layout, shared CSS moved into `_sass/_mossy.scss`, content migrated verbatim, `admin/config.yml` research fields + MAINTENANCE-GUIDE 5.8 updated. Prove visual parity with before/after screenshots at desktop and true phone width, check the GLightbox viewer and site search.
+4. **News that ages gracefully (Madi: yes/no + cutoff months, suggest 24).** Homepage News shows the 5 newest regardless of age, so a quiet stretch makes the site look abandoned. Filter must run client-side (a build-time filter never re-runs if nobody edits): rows older than the cutoff hide, the whole section hides when empty, no-JS shows everything, /news/ keeps all.
+5. **Move the editor sign-in Worker into Madi's Cloudflare account (Madi OK + ~10 min of Trevor).** Today `madiritt-admin-auth.abysul.workers.dev` runs in Trevor's account. Plan: deploy the same `admin-auth/worker.js` (routes `/auth`, `/callback`; secrets `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`; var `ALLOWED_USERS`) to her account at custom domain `auth.madisonrittinger.org` (attaching the domain may hit the auto-mode DNS filter: then give Trevor dashboard steps). Trevor, signed into GitHub as madiritt: new client secret on the GitHub App + add callback `https://auth.madisonrittinger.org/callback` (keep the old one while testing). Then switch `base_url` in `admin/config.yml`, push, Trevor or Madi does a real sign-in test, then remove the old callback/secret/Worker. Rollback = revert `base_url`. Update SETUP-ADMIN.md and MAINTENANCE-GUIDE 10.5 after.
+6. **Publications Google summary (Madi).** The visible line "Happy to forward pdf's upon request" doubles as the page's Google summary. Options: leave, reword, or separate the Google text from the visible line (small template change).
+7. **Cloudflare Web Analytics (Madi yes/no).** Free, cookieless, would live in her Cloudflare account; the theme has no built-in hook, so it is one script tag in `_includes/footer.liquid` plus the site token in `_config.yml`. Creating the analytics site is one API call (`POST /accounts/{id}/rum/site_info`).
+8. **Stray folder on Trevor's machine (Trevor yes/no).** `C:\Repos\madiritt.github.io\bellerive-media-game-dev\` is an empty, never-committed git init (origin AbysulGaming/bellerive-media-game-dev); the real clone is `C:\Repos\bellerive-media-game-dev`. Harmless clutter; delete only with Trevor's OK. Never commit it.
+
+Known and deliberately left alone: the /cv/ page logs a blocked PDF.js worker (the site CSP has no `worker-src blob:`); PDF.js falls back to the main thread and the preview renders. Pre-existing since July.
+
+When an item is finished, delete it from this list and record it in CHANGELOG.md.
+
+---
+
 ## Hard rules for working in this repo
 
 - **NEVER use em-dashes** in any file, commit message, or output. Use a hyphen with spaces, a colon, or restructure. This is a strict, non-negotiable preference.
@@ -69,7 +88,7 @@ Serves at http://localhost:4000 with auto-reload. Full rebuild is ~2.5s.
 - WINDOWS/HARNESS GOTCHA: the automation shell does not auto-pick-up PATH after winget installs. Prefix shell calls with:
   `$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")`
   A normal user terminal (opened fresh) sees Ruby/Node on PATH without this.
-- The demo notebook `assets/jupyter/blog.ipynb` was removed: `jekyll-jupyter-notebook` hard-crashes the build when `jupyter` is not on PATH, and nothing referenced it (no `_posts`). Restore from git history if notebook content is ever needed (live CI has nbconvert and can convert it).
+- The demo notebook `assets/jupyter/blog.ipynb` was removed: `jekyll-jupyter-notebook` hard-crashes the build when `jupyter` is not on PATH, and nothing referenced it (no `_posts`). Restore from git history if notebook content is ever needed; note the live build no longer installs Python/nbconvert (removed 2026-11-02), so that step would have to be added back to deploy.yml first.
 
 ---
 
@@ -148,9 +167,9 @@ allowlist). Sign-in proven end to end from localhost and production.
 
 ---
 
-## THE NEXT BIG TASK: Mossy Modernist design port
+## Mossy Modernist design (PORTED and live since mid-2026; kept here as the design reference)
 
-The visual design is locked as a standalone HTML mockup but has NOT been ported into the site's Tailwind v4 styling yet. This is the next major work item. The mockup lives outside the repo (in Trevor's Claude outputs as `visual_directions_for_madi.html`); the full spec is below so it can be reproduced.
+The port is complete (Phase 4 in the tracker above). This section is the design spec and the history of how it was ported; use it as the reference for any new styling. The original standalone mockup lives outside the repo (in Trevor's Claude outputs as `visual_directions_for_madi.html`).
 
 ### Mossy Modernist - full design spec
 

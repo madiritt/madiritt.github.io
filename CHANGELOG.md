@@ -11,6 +11,12 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-11-02 - Open action items recorded for the next session
+
+#### Notes
+- CLAUDE.md gained a "START HERE: open action items" section near the top: auto-renew switch (Trevor), Google summary wording, research pages rebuild, news aging, moving the sign-in Worker into Madi's Cloudflare account, the Publications summary line, Cloudflare Web Analytics (all Madi's call), and the stray empty folder on Trevor's machine. Each item carries enough detail to resume cold.
+- CLAUDE.md cleanup: the Mossy Modernist section no longer calls the (long finished) port "THE NEXT BIG TASK", and the notebook note no longer claims the live build has nbconvert.
+
 ### 2026-11-02 - Low-upkeep hardening: pinned build, self-hosted editor, guide Part 10
 
 Goal: the site should need nothing technical from anyone for years, with Madi working only in the editor. Follows the Oct 29 outage, when `ubuntu-latest` moved to 26.04 and silently stopped every deploy for four days.

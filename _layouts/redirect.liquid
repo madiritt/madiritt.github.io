@@ -1,0 +1,25 @@
+<!doctype html>
+{% comment %}
+  Instant redirect for a moved page. Used by the _pages/old-url-*.html stubs:
+  each stub sets `permalink:` to the OLD address and `redirect_to:` to the new
+  one. Same shape jekyll-redirect-from generates (canonical, noindex, zero-delay
+  refresh, script fallback, visible link), without adding that gem. The theme's
+  own `redirect:` key is not used here because it waits 3 seconds and renders
+  the full page chrome first.
+{% endcomment %}
+{% assign target = page.redirect_to | relative_url %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Page moved</title>
+    <link rel="canonical" href="{{ page.redirect_to | absolute_url }}">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="0; url={{ target }}">
+    <script>
+      location.replace("{{ target }}");
+    </script>
+  </head>
+  <body>
+    <p>This page has moved to <a href="{{ target }}">{{ page.redirect_to | absolute_url }}</a>.</p>
+  </body>
+</html>

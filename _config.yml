@@ -177,9 +177,20 @@ collections:
   news:
     defaults:
       layout: post
-    output: true
+    # No standalone page per news item. Every item is `inline: true` (the
+    # editor forces it), so the homepage and /news/ print the text directly and
+    # never link to an item page. Outputting them only produced orphan
+    # one-sentence pages in the sitemap with editor-generated addresses like
+    # /news/2026-09-08-af092bb36195/. Items are still read and rendered for the
+    # lists. If a non-inline news item is ever wanted, set this back to true.
+    output: false
   projects:
     output: true
+    # Research questions live under /research/ to match the menu. The address
+    # is the filename, so renaming a file in _projects/ changes its URL: add a
+    # stub in _pages/ (layout: redirect, see the existing old-url-*.html files)
+    # so the old address still works.
+    permalink: /research/:name/
   teachings:
     output: true
   # NOTE: _publications/ (one file per paper, written by the /admin editor) is
@@ -209,6 +220,8 @@ kramdown:
 include: ["_pages"]
 exclude:
   - admin-auth/ # Cloudflare Worker source for the /admin sign-in; not part of the site
+  - TECH-STACK.md # internal doc; was being published at /TECH-STACK.md
+  - requirements.txt # deploy.yml's pip cache reads it from the repo checkout; never needed on the site
   - CLAUDE.md
   - CHANGELOG.md
   - MAINTENANCE-GUIDE.md

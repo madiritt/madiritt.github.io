@@ -11,6 +11,31 @@ Claude project outputs and is summarized in CLAUDE.md.
 
 ## [Unreleased]
 
+### 2026-11-02 - Page addresses match their pages
+
+Audit of every URL in the live sitemap. The top-level pages were fine; the research question pages and one news item were not.
+
+#### Changed
+- Research question pages moved from `/projects/<file>/` to `/research/<file>/` (`permalink: /research/:name/` on the `projects` collection), so they sit under the menu item visitors used to reach them.
+- Renamed the three research files so the address describes the page (two were leftovers from the placeholder drafts):
+  - `decision-making-under-uncertainty.md` -> `prey-capture-decisions.md` ("How do spiders make decisions involved in prey capture?")
+  - `comparative-cognition.md` -> `web-spider-navigation.md` ("How do web spiders navigate?")
+  - `individual-personality.md` -> `hatching-patterns.md` ("How do hatching patterns impact nestling development?")
+- News items are no longer built as standalone pages (`output: false` on the `news` collection). Every item is `inline: true`, so the homepage and /news/ already print the text and never linked to item pages; those pages were orphan one-liners in the sitemap, and the editor's filename recipe gave them addresses like `/news/2026-09-08-af092bb36195/`. Homepage and /news/ output is unchanged.
+
+#### Added
+- `_layouts/redirect.liquid`: zero-delay redirect page (canonical, noindex, meta refresh, script fallback, visible link). Same shape jekyll-redirect-from produces, without adding the gem. The theme's own `redirect:` key was not used because it waits 3 seconds behind the full page chrome.
+- `_pages/old-url-*.html`: one stub per old research address, so links saved since launch (2026-07-13) land on the right page. `sitemap: false`; not picked up by site search.
+
+#### Fixed
+- `TECH-STACK.md` and `requirements.txt` were being published (both returned 200 on the live site). Added to `exclude:`. deploy.yml's pip cache reads `requirements.txt` from the repo checkout, not the built site, so the build is unaffected.
+
+#### Notes
+- Verified with a local build: sitemap lists 11 pages (the 3 news item pages and the old `/projects/` addresses are gone), Research cards and the search box point at `/research/...`, each old `/projects/...` address serves the redirect, and the homepage and /news/ show all three news items as before.
+- Removed news item pages will show the site's 404 page, which forwards to the homepage after 3 seconds. Nothing linked to them.
+- New research questions created in the /admin editor get their filename (and so their address) from the full question title, for example `/research/how-do-web-spiders-navigate/`. Relevant, just longer than the three hand-picked names. Left as is.
+- MAINTENANCE-GUIDE 5.8 lists the new filenames, states that the filename is the web address, and says not to rename an existing research file without a forwarding page.
+
 ### 2026-09-08 - Publications form: year shown as "2,026" and list order
 
 First look at the live form (Trevor's screenshot) showed two cosmetic misses in the entry list.

@@ -602,9 +602,11 @@ Two traps in this file, both also flagged in the file's own comment lines:
 ### 5.8 Edit the research pages
 
 The Research page shows one card per research question. Each card is its own file in the `_projects/` folder. The three that exist today are:
-- `decision-making-under-uncertainty.md`
-- `comparative-cognition.md`
-- `individual-personality.md`
+- `prey-capture-decisions.md` (published at madisonrittinger.org/research/prey-capture-decisions/)
+- `web-spider-navigation.md` (published at madisonrittinger.org/research/web-spider-navigation/)
+- `hatching-patterns.md` (published at madisonrittinger.org/research/hatching-patterns/)
+
+The file name IS the page's web address. Do not rename an existing research file: that changes its address and breaks any link someone saved. If a name really needs to change, ask Trevor, because the old address needs a forwarding page.
 
 **To change an existing research question:**
 
@@ -639,7 +641,7 @@ The Research page shows one card per research question. Each card is its own fil
 
 1. Pick the existing file in `_projects/` whose page looks most like what you want, and open it by clicking its name so you are VIEWING it. Do not click the pencil icon.
 2. Near the top right of the file box, click the small icon labeled **Copy raw file** (hover over the icons to find it). Expected result: nothing visible happens. The whole file is now on your clipboard. If you cannot find that icon, click **Raw**, then press `Ctrl+A` and `Ctrl+C`.
-3. Create a new file in the `_projects/` folder (section 3.4). Name it after the question, lowercase with hyphens, ending in `.md`, for example `web-building-decisions.md`.
+3. Create a new file in the `_projects/` folder (section 3.4). Name it after the question, lowercase with hyphens, ending in `.md`, for example `web-building-decisions.md`. Pick the name carefully: it becomes the page's web address, so `web-building-decisions.md` is published at madisonrittinger.org/research/web-building-decisions/. Two to four topic words read best.
 4. Paste the copied contents into the large text area (`Ctrl+V`).
 5. Change the `title:` and `description:` lines, and give `importance:` a number no other file is using. The three existing files use 1, 2, and 3, so use 4. Also set `category:` to `current` or `past`.
 6. Rewrite the paragraphs inside the `research-body` block (find it the same way as above). Leave everything outside that block exactly as copied; that machinery is what makes the new page look like the others.

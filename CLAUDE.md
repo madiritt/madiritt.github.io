@@ -223,12 +223,12 @@ About (homepage `/`) - Research (1) - Publications (2) - CV (3) - Teaching / Men
 - `_config.yml` - site config; identity (first_name Madison, last_name Rittinger), Jekyll Scholar set to bold Rittinger, imagemagick responsive images enabled
 - `_pages/about.md` - homepage, layout `about`, REQUIRES `assets/img/prof_pic.jpg` to exist or the build fails
 - `_pages/research.md` - lists `_projects/` entries (organized by research QUESTION, not organism, so it survives taxon switches)
-- `_projects/*.md` - one file per research question (3 placeholders exist)
+- `_projects/*.md` - one file per research question. Published at `/research/<filename>/` (collection permalink, 2026-11-02; was `/projects/...`). Files: `prey-capture-decisions.md`, `web-spider-navigation.md`, `hatching-patterns.md`. Renaming one changes its URL: add a `_pages/old-url-*.html` stub (`layout: redirect`, `_layouts/redirect.liquid`) for the old address, like the three existing ones.
+- `_news/*.md` - news items are NOT output as standalone pages (`output: false`, 2026-11-02); the homepage and /news/ print them inline. The editor's random-id filenames are therefore never a public URL.
 - `_pages/publications.md` - driven by `_bibliography/papers.bib`
 - `_pages/cv.md` - simple CV page (2026-07-06): a download button + embedded PDF preview of `cv_pdf` (assets/pdf/Rittinger_2026_CV.pdf); the structured `layout: cv` / `_data/cv.yml` rendering was retired (data file kept, unrendered)
 - `_pages/teaching.md` - title "Teaching / Mentoring". Article-style layout (2026-07-09, Madi-approved): each of the 3 mentoring photos floats inside its section with text wrapping around it (right/left/right); the Courses photo precedes its h2 so the title sits beside the photo over its own text; every paragraph reserves the photo column (margin = photo width + gutter) so text edges stay uniform at all widths; NO section dividers on this page (Madi removed them here; homepage + /outreach keep theirs). All styles inline in the page.
 - `_pages/gallery.md`, `_pages/outreach.md`, `_pages/news.md`
-- `_news/*.md` - news items (1 starter exists)
 - `_data/socials.yml` - email live; ORCID/Scholar/ResearchGate/LinkedIn are commented PLACEHOLDERs
 - `assets/img/prof_pic.jpg` - Madi's headshot (REQUIRED by about layout)
 
